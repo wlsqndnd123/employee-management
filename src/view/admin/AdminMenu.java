@@ -69,6 +69,7 @@ public class AdminMenu extends JFrame {
 
         add(workNotiPad);
     }
+
     public static void main(String[] args) {
         new AdminMenu();
     }
