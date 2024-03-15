@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import controller.event.CreateEmployeeInformationEvent;
+
 public class CreateEmployeeInformation extends JFrame{
 	private JTextField tfEmpno, tfName,tfPosition, tfJob, tfTel,tfDep;
 	private JButton jbtnAdd,jbtnCancel;
@@ -57,6 +59,10 @@ public class CreateEmployeeInformation extends JFrame{
 
         // 프레임에 패널 추가
         add(panel);
+        CreateEmployeeInformationEvent cei = new CreateEmployeeInformationEvent(this);
+        jbtnAdd.addActionListener(cei);
+        jbtnCancel.addActionListener(cei);
+        
 
         setSize(400, 300); // 프레임 크기 설정
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 종료 버튼 동작 설정
