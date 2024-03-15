@@ -1,15 +1,20 @@
 package view.user;
 
 
-import com.toedter.calendar.JDateChooser;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
-import javax.swing.*;
+import com.toedter.calendar.JDateChooser;
 
 /**
  * Desc : 사원의 휴가 신청서 입력을 위한 view
  * 작성자 : 고한별
  * 작성일 : 2024.03.15
  */
+@SuppressWarnings("serial")
 public class RequestVacation extends JFrame {
     private JLabel startDateTag;
     private JLabel endDateTag;
