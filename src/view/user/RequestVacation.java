@@ -1,6 +1,5 @@
 package view.user;
 
-
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -24,6 +23,16 @@ public class RequestVacation extends JFrame {
         setTitle("휴가 신청");
         setLayout(null);
 
+        createVacDate();
+        createContentsArea();
+        createConfirmButton();
+
+        setBounds(300, 100, 650, 550);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void createVacDate(){
         startDateTag = new JLabel("휴가 시작 일자");
         endDateTag = new JLabel("휴가 종료 일자");
 
@@ -36,35 +45,34 @@ public class RequestVacation extends JFrame {
         vacStartDate.setBounds(150,10,150,30);
         vacEndDate.setBounds(150,60,150,30);
 
+        add(startDateTag);
+        add(endDateTag);
+
+        add(vacStartDate);
+        add(vacEndDate);
+    }
+
+    public void createContentsArea(){
         vacContents = new JTextArea();
         contentsPad = new JScrollPane(vacContents);
 
         contentsPad.setBounds(30, 100, 580,300);
 
+        add(contentsPad);
+    }
+
+    public void createConfirmButton(){
         request = new JButton("신청");
         cancel = new JButton("취소");
 
         request.setBounds(50,430,100,50);
         cancel.setBounds(500,430,100,50);
 
-        add(startDateTag);
-        add(endDateTag);
-
-        add(vacStartDate);
-        add(vacEndDate);
-
-        add(contentsPad);
-
         add(request);
         add(cancel);
-
-        setBounds(300, 100, 650, 550);
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {
         new RequestVacation();
     }
-
 }
