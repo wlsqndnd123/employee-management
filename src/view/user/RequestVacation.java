@@ -16,8 +16,8 @@ public class RequestVacation extends JFrame {
     private JDateChooser vacEndDate;
     private JTextArea vacContents;
     private JScrollPane contentsPad;
-    private JButton request;
-    private JButton cancel;
+    private JButton requestJbtn;
+    private JButton cancelJbtn;
 
     /**
      * Desc : 휴가 신청 main frame 구현
@@ -74,14 +74,14 @@ public class RequestVacation extends JFrame {
      * Desc : 휴가 신청 및 취소버튼 생성
      */
     public void createConfirmButton(){
-        request = new JButton("신청");
-        cancel = new JButton("취소");
+        requestJbtn = new JButton("신청");
+        cancelJbtn = new JButton("취소");
 
-        request.setBounds(50,430,100,50);
-        cancel.setBounds(500,430,100,50);
+        requestJbtn.setBounds(50,430,100,50);
+        cancelJbtn.setBounds(500,430,100,50);
 
-        add(request);
-        add(cancel);
+        add(requestJbtn);
+        add(cancelJbtn);
     }
 
     public static void main(String[] args) {
