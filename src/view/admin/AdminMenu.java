@@ -8,12 +8,11 @@ import javax.swing.*;
  * 작성일 : 2024.03.15
  */
 public class AdminMenu extends JFrame {
-    private JButton employeeInformation;
-    private JButton workAttendance;
-    private JButton documents;
-    private JButton workLog;
-    private JButton login;
-    private JButton password;
+    private JButton employeeInformationJbtn;
+    private JButton workAttendanceJbtn;
+    private JButton documentsJbtn;
+    private JButton closeJbtn;
+    private JButton passwordJbtn;
     private JTextArea workNotifications;
     private JScrollPane workNotiPad;
 
@@ -36,26 +35,23 @@ public class AdminMenu extends JFrame {
      * Desc : 다른 view로 연결되는 버튼 생성
      */
     public void createGoToButton(){
-        employeeInformation = new JButton("사원 정보");
-        workAttendance = new JButton("근태 관리");
-        documents = new JButton("문서 관리");
-        workLog = new JButton("업무 일지");
-        login = new JButton("로그인으로");
-        password = new JButton("비밀번호 변경");
+        employeeInformationJbtn = new JButton("사원 정보");
+        workAttendanceJbtn = new JButton("근태 관리");
+        documentsJbtn = new JButton("문서 관리");
+        closeJbtn = new JButton("종료");
+        passwordJbtn = new JButton("비밀번호 변경");
 
-        employeeInformation.setBounds(80,80,100,40);
-        workAttendance.setBounds(80,180,100,40);
-        documents.setBounds(80,280,100,40);
-        workLog.setBounds(80,380,100,40);
-        login.setBounds(520,20,100,40);
-        password.setBounds(500,460,120,40);
+        employeeInformationJbtn.setBounds(80,110,100,40);
+        workAttendanceJbtn.setBounds(80,230,100,40);
+        documentsJbtn.setBounds(80,350,100,40);
+        closeJbtn.setBounds(520,20,100,40);
+        passwordJbtn.setBounds(500,460,120,40);
 
-        add(employeeInformation);
-        add(workAttendance);
-        add(documents);
-        add(workLog);
-        add(login);
-        add(password);
+        add(employeeInformationJbtn);
+        add(workAttendanceJbtn);
+        add(documentsJbtn);
+        add(closeJbtn);
+        add(passwordJbtn);
     }
 
     /**
