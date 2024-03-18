@@ -11,11 +11,10 @@ import javax.swing.border.TitledBorder;
  * 작성일 : 2024.03.15
  */
 public class UserMenu extends JFrame {
-    private JButton login;
-    private JButton docsList;
-    private JButton vacation;
-    private JButton information;
-    private JButton workLog;
+    private JButton closeJbtn;
+    private JButton docsListJbtn;
+    private JButton vacationJbtn;
+    private JButton informationJbtn;
     private JCalendar workCalendar;
     private DefaultListModel<String> workStatusModel;
     private JList<String> workStatusList;
@@ -53,23 +52,20 @@ public class UserMenu extends JFrame {
      * Desc : 다른 view로 연결되는 버튼들 생성
      */
     public void createGoToButton(){
-        login = new JButton("로그인으로");
-        docsList = new JButton("문서 리스트");
-        vacation = new JButton("휴가 신청");
-        information = new JButton("정보 변경");
-        workLog = new JButton("업무 일지");
+        closeJbtn = new JButton("종료");
+        docsListJbtn = new JButton("문서 리스트");
+        vacationJbtn = new JButton("휴가 신청");
+        informationJbtn = new JButton("정보 변경");
 
-        login.setBounds(500,10,100,40);
-        docsList.setBounds(50,70,100,40);
-        vacation.setBounds(200,70,100,40);
-        information.setBounds(350,70,100,40);
-        workLog.setBounds(500,70,100,40);
+        closeJbtn.setBounds(500,10,100,40);
+        docsListJbtn.setBounds(100,70,100,40);
+        vacationJbtn.setBounds(270,70,100,40);
+        informationJbtn.setBounds(440,70,100,40);
 
-        add(login);
-        add(docsList);
-        add(vacation);
-        add(information);
-        add(workLog);
+        add(closeJbtn);
+        add(docsListJbtn);
+        add(vacationJbtn);
+        add(informationJbtn);
     }
 
     /**
