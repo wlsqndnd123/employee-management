@@ -1,5 +1,7 @@
 package kr.co.sist.view.admin;
 
+import kr.co.sist.controller.event.AdminMenuEvent;
+
 import javax.swing.*;
 
 /**
@@ -25,6 +27,7 @@ public class AdminMenu extends JFrame {
 
         createGoToButton();
         createWorkNotifications();
+        createEvent();
 
         setBounds(300,100,650,550);
         setVisible(true);
@@ -64,6 +67,35 @@ public class AdminMenu extends JFrame {
         workNotiPad.setBounds(250,80,320,350);
 
         add(workNotiPad);
+    }
+
+    public void createEvent(){
+        AdminMenuEvent adminMenuEvent = new AdminMenuEvent(this);
+        employeeInformationJbtn.addActionListener(adminMenuEvent);
+        workAttendanceJbtn.addActionListener(adminMenuEvent);
+        documentsJbtn.addActionListener(adminMenuEvent);
+        closeJbtn.addActionListener(adminMenuEvent);
+        passwordJbtn.addActionListener(adminMenuEvent);
+    }
+
+    public JButton getEmployeeInformationJbtn() {
+        return employeeInformationJbtn;
+    }
+
+    public JButton getWorkAttendanceJbtn() {
+        return workAttendanceJbtn;
+    }
+
+    public JButton getDocumentsJbtn() {
+        return documentsJbtn;
+    }
+
+    public JButton getCloseJbtn() {
+        return closeJbtn;
+    }
+
+    public JButton getPasswordJbtn() {
+        return passwordJbtn;
     }
 
     public static void main(String[] args) {
