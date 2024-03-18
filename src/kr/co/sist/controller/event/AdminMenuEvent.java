@@ -31,7 +31,6 @@ public class AdminMenuEvent extends WindowAdapter implements ActionListener {
         if (e.getSource() == adminMenu.getPasswordJbtn()){
             System.out.println("비밀번호 변경 연결");
         }
-
     }
 
     @Override
