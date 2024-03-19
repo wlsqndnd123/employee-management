@@ -1,6 +1,7 @@
 package kr.co.sist.view.user;
 
 import com.toedter.calendar.JDateChooser;
+import kr.co.sist.controller.event.RequestVacationEvent;
 
 import javax.swing.*;
 
@@ -82,6 +83,18 @@ public class RequestVacation extends JFrame {
 
         add(requestJbtn);
         add(cancelJbtn);
+    }
+
+    public void createEvent(){
+        RequestVacationEvent requestVacationEvent = new RequestVacationEvent(this);
+    }
+
+    public JButton getRequestJbtn() {
+        return requestJbtn;
+    }
+
+    public JButton getCancelJbtn() {
+        return cancelJbtn;
     }
 
     public static void main(String[] args) {
