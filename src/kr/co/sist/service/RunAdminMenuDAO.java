@@ -11,13 +11,19 @@ import java.sql.SQLException;
  * 작성일 : 2024.03.15
  */
 public class RunAdminMenuDAO {
-    public void loadWorkAlert(){
+    public void loadWorkAlert(boolean isVacation) {
         try {
             AdminMenuDAO adminMenuDAO = AdminMenuDAO.getInstance();
-            int cnt = adminMenuDAO.alertWork();
-            String msg = cnt + "건 조회";
+            int cnt = adminMenuDAO.alertWork(isVacation);
+            String msg;
+            if (isVacation) {
+                msg = "대기중인 휴가신청 ";
+            } else {
+                msg = "승인 대기 중인 업무 ";
+            }
+            msg += cnt + " 건 조회";
             JOptionPane.showMessageDialog(null, msg);
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -26,6 +32,7 @@ public class RunAdminMenuDAO {
 
     public static void main(String[] args) {
         RunAdminMenuDAO runAdminMenuDAO = new RunAdminMenuDAO();
-        runAdminMenuDAO.loadWorkAlert();
+//        runAdminMenuDAO.loadWorkAlert(true);
+        runAdminMenuDAO.loadWorkAlert(false);
     }
 }
