@@ -69,8 +69,12 @@ public class AdminMenu extends JFrame {
         add(workNotiPad);
     }
 
+    /**
+     * Desc : 이벤트 등록
+     */
     public void createEvent(){
         AdminMenuEvent adminMenuEvent = new AdminMenuEvent(this);
+
         employeeInformationJbtn.addActionListener(adminMenuEvent);
         workAttendanceJbtn.addActionListener(adminMenuEvent);
         documentsJbtn.addActionListener(adminMenuEvent);

@@ -1,6 +1,7 @@
 package kr.co.sist.view.user;
 
 import com.toedter.calendar.JCalendar;
+import kr.co.sist.controller.event.UserMenuEvent;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -30,6 +31,7 @@ public class UserMenu extends JFrame {
         createWorkCalendar();
         createGoToButton();
         createWorkStatusList();
+        createEvent();
 
         setBounds(300, 100, 650, 550);
         setVisible(true);
@@ -80,6 +82,35 @@ public class UserMenu extends JFrame {
         workStatusPad.setBounds(330,150,290,350);
 
         add(workStatusPad);
+    }
+
+    /**
+     * Desc : 이벤트 등록
+     */
+    public void createEvent(){
+        UserMenuEvent userMenuEvent = new UserMenuEvent(this);
+
+        docsListJbtn.addActionListener(userMenuEvent);
+        vacationJbtn.addActionListener(userMenuEvent);
+        informationJbtn.addActionListener(userMenuEvent);
+        closeJbtn.addActionListener(userMenuEvent);
+
+    }
+
+    public JButton getCloseJbtn() {
+        return closeJbtn;
+    }
+
+    public JButton getDocsListJbtn() {
+        return docsListJbtn;
+    }
+
+    public JButton getVacationJbtn() {
+        return vacationJbtn;
+    }
+
+    public JButton getInformationJbtn() {
+        return informationJbtn;
     }
 
     public static void main(String[] args) {
