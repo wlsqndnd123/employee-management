@@ -1,13 +1,12 @@
-package main.kr.co.sist.controller.event;
+package kr.co.sist.controller.event;
+
+import kr.co.sist.view.admin.CreateEmployeeInformation;
+import kr.co.sist.vo.EmpInfoVO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import main.kr.co.sist.view.admin.CreateEmployeeInformation;
-import main.kr.co.sist.vo.EmpInfoVO;
-
 
 public class CreateEmployeeInformationEvent extends WindowAdapter implements ActionListener {
 	private CreateEmployeeInformation ceiv;

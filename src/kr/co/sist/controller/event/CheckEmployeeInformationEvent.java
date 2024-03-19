@@ -78,7 +78,7 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 	 */
 	public void searchEmpInfo(EmpInfoVO eVO) throws SQLException {
 		String dept = checkEmp.getCbDept().getSelectedItem().toString();
-		String position = (String)checkEmp.getCbPosition().getSelectedItem().toString();
+		String position = checkEmp.getCbPosition().getSelectedItem().toString();
 		int year = checkEmp.getJycHiredateYear().getYear();
 		Object[] content = new Object[8];
 		//3가지를 모두 선택하게 함
@@ -91,7 +91,6 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 		if(eVO==null) {
 			JOptionPane.showMessageDialog(null, "선택한 사원의 정보가 존재하지 않습니다.");
 		}else {
-			
 			content[0] =eVO.getEmpno();
 			content[1] =eVO.getName();
 			content[2] =eVO.getJob();
@@ -100,7 +99,9 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 			content[5] =eVO.getHiredate();
 			content[6] =eVO.getTel();
 			content[7] =eVO.getModifiedDate();
-			System.out.println(content[0].toString());
+			System.out.println(content[0]);
+
+			checkEmp.getDtmEmpTable().addRow(content);
 		}
 	}
 }
