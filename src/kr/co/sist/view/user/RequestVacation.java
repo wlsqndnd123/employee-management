@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/view/user/RequestVacation.java
-package view.user;
-=======
 package kr.co.sist.view.user;
->>>>>>> fc4e82a44a7e27f2fb123255c90dd64c12875117:src/kr/co/sist/view/user/RequestVacation.java
 
 import com.toedter.calendar.JDateChooser;
 
