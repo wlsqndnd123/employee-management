@@ -40,21 +40,6 @@ public class AdminMenuDAO {
     public List<EmpInfoVO> alertWork() throws SQLException{
         List<EmpInfoVO> list = new ArrayList<>();
 
-        DbConnection dbConnection = DbConnection.getInstance();
-
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try{
-            String id = "super";
-            String pass = "1111";
-
-            connection = dbConnection.getConnection(id,pass);
-
-        }finally {
-            dbConnection.dbClose(resultSet, preparedStatement, connection);
-        }
         return list;
     }
 }

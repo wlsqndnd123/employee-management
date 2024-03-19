@@ -73,8 +73,7 @@ public class CheckEmployeeInformationDAO {
 	 */
 	public EmpInfoVO selectEmpInfo(String dept, String position, int year) throws SQLException {
 		eVO = null;
-		DbConnection dbCon = DbConnection.getInstance();
-		Connection con = null;
+		Connection con = DbConnection.getCon();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -82,28 +81,25 @@ public class CheckEmployeeInformationDAO {
 //		dept = (String)checkEmp.getCbDept().getSelectedItem();
 //		position = (String)checkEmp.getCbPosition().getSelectedItem();
 //		year = checkEmp.getJycHiredateYear().getYear();
-			String id = "super";
-			String pass = "1111";
-			con = dbCon.getConnection(id, pass);
-			String SelectEmp = "	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE\r\n"
-					+ "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
-					+ "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS')	and ( ei.LOGIC ='N')	"
-					+ "		and    (d.DEPT_NAME =	?	) and (c.DESCRIPTION =  ?	) and   (	to_char(ei.CREATE_DATE, 'yyyy') = ?	) 	";
 
-			pstmt = con.prepareStatement(SelectEmp);
-			pstmt.setString(1, dept);
-			pstmt.setString(2, position);
-			pstmt.setInt(3, year);
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				eVO = new EmpInfoVO(rs.getInt("EMP_NO"), rs.getString("name"), rs.getString("JOB"),
-						rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),
-						rs.getString("TEL"), rs.getDate("EDIT_DATE"));
-			}
-		} finally {
-			dbCon.dbClose(rs, pstmt, con);
-
+		String SelectEmp =
+		"	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE\r\n"
+	+ "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
+	+ "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS')	"
+	+ "		and    (d.DEPT_NAME =	?	) and (c.DESCRIPTION =  ?	) and   (	to_char(ei.CREATE_DATE, 'yyyy') = ?	) 	";
+		
+		pstmt = con.prepareStatement(SelectEmp);
+		pstmt.setString(1, dept);
+		pstmt.setString(2, position);
+		pstmt.setInt(3, year);
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			eVO = new EmpInfoVO(rs.getInt("EMP_NO"),rs.getString("name"), rs.getString("JOB"), 
+		rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),rs.getString("TEL") , rs.getDate("EDIT_DATE"));
+		}
+		}finally {
+			DbConnection.dbClose(rs, pstmt, con);
 		}
 		return eVO;
 	}// selectEmpInfo
@@ -115,13 +111,37 @@ public class CheckEmployeeInformationDAO {
 	 * @throws SQLException
 	 */
 	public List<EmpInfoVO> selectAllEmpInfo() throws SQLException {
-
-		List<EmpInfoVO> list = new ArrayList<EmpInfoVO>();
-		EmpInfoVO eVO = null;
-		DbConnection dbCon = DbConnection.getInstance();
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	List<EmpInfoVO> list = new ArrayList<EmpInfoVO>();
+	EmpInfoVO eVO = null;
+	Connection con = DbConnection.getCon();
+	PreparedStatement pstmt = null;
+	ResultSet rs =null;
+	try {
+	String selectAllEnpInfo
+	=" 	select	 ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE	 "
+	+ "	from EMP_INFO ei, DEPT d  ,	COMMON c	"
+	+ "	where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and c.GRP_CODE = 'POS'	";
+	pstmt = con.prepareStatement(selectAllEnpInfo);
+	rs = pstmt.executeQuery();
+	while(rs.next()) {//int empno, String name, String job,String position ,String dept,Date hiredate, String tel ,Date modifiedDate
+		eVO = new EmpInfoVO(rs.getInt("EMP_NO"),
+				rs.getString("name"), rs.getString("JOB"), 
+				rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),rs.getString("TEL") , rs.getDate("EDIT_DATE"));
+		list.add(eVO);
+		
+	}
+	System.out.println(list);
+	}finally {
+		DbConnection.dbClose(rs, pstmt, con);
+	}
+	
+	
+	
+		return list;
+		
+	}//selectAllEmpInfo
+	public static void main(String[] args) {
+		CheckEmployeeInformationDAO ci = new CheckEmployeeInformationDAO();
 		try {
 
 			String id = "super";
