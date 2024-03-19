@@ -5,6 +5,7 @@ import kr.co.sist.controller.event.UserMenuEvent;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * Desc : 사원으로 로그인 하는 경우 처음 보이는 view<br>
@@ -17,8 +18,8 @@ public class UserMenu extends JFrame {
     private JButton vacationJbtn;
     private JButton informationJbtn;
     private JCalendar workCalendar;
-    private DefaultListModel<String> workStatusModel;
-    private JList<String> workStatusList;
+    private DefaultTableModel workStatusModel;
+    private JTable workStatusTable;
     private JScrollPane workStatusPad;
 
     /**
@@ -30,7 +31,7 @@ public class UserMenu extends JFrame {
 
         createWorkCalendar();
         createGoToButton();
-        createWorkStatusList();
+        createWorkStatusTable();
         createEvent();
 
         setBounds(300, 100, 650, 550);
@@ -71,12 +72,12 @@ public class UserMenu extends JFrame {
     }
 
     /**
-     * Desc : 이 달의 근무 일정을 표시하는 리스트 생성
+     * Desc : 이 달의 근무 일정을 표시하는 테이블 생성
      */
-    public void createWorkStatusList(){
-        workStatusModel = new DefaultListModel<>();
-        workStatusList = new JList<>(workStatusModel);
-        workStatusPad = new JScrollPane(workStatusList);
+    public void createWorkStatusTable(){
+        workStatusModel = new DefaultTableModel();
+        workStatusTable = new JTable(workStatusModel);
+        workStatusPad = new JScrollPane(workStatusTable);
 
         workStatusPad.setBorder(new TitledBorder("이달의 근무"));
         workStatusPad.setBounds(330,150,290,350);
