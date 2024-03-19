@@ -11,7 +11,6 @@ import kr.co.sist.util.DbConnection;
 import kr.co.sist.view.admin.CheckEmployeeInformation;
 import kr.co.sist.vo.EmpInfoVO;
 
-
 public class CheckEmployeeInformationDAO {
 	private static CheckEmployeeInformationDAO checkEmpDAO;
 	private CheckEmployeeInformation checkEmp;
@@ -36,9 +35,32 @@ public class CheckEmployeeInformationDAO {
 	 * @param enpno : textFiled로 입력받은 값
 	 * @return 작성자: 김일신 24.03.18
 	 */
-	public EmpInfoVO selectEmpInfo(int empno) {
-		//
-		return null;
+	public EmpInfoVO selectEmpInfo(int empno) throws SQLException {
+		eVO = null;
+		DbConnection dbCon = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String id = "super";
+			String pass = "1111";
+			con = dbCon.getConnection(id, pass);
+			String SelectEmp = "	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE\r\n"
+					+ "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
+					+ "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS') and ( ei.LOGIC ='N')	"
+					+ "		and    (ei.emp_no = ?) 	";
+			pstmt = con.prepareStatement(SelectEmp);
+			pstmt.setInt(1, empno);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				eVO = new EmpInfoVO(rs.getInt("EMP_NO"), rs.getString("name"), rs.getString("JOB"),
+						rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),
+						rs.getString("TEL"), rs.getDate("EDIT_DATE"));
+			}
+		} finally {
+			dbCon.dbClose(rs, pstmt, con);
+		}
+		return eVO;
 
 	}// selectEmpInfo
 
@@ -47,19 +69,19 @@ public class CheckEmployeeInformationDAO {
 	 * 
 	 * @param eVO
 	 * @return 작성자 :김일신 24.03.18
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
-	public EmpInfoVO selectEmpInfo(String dept,String position,int year) throws SQLException {
-		List<EmpInfoVO> list= new ArrayList<EmpInfoVO>();
+	public EmpInfoVO selectEmpInfo(String dept, String position, int year) throws SQLException {
 		eVO = null;
 		Connection con = DbConnection.getCon();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		try{
-			
+		try {
+
 //		dept = (String)checkEmp.getCbDept().getSelectedItem();
 //		position = (String)checkEmp.getCbPosition().getSelectedItem();
 //		year = checkEmp.getJycHiredateYear().getYear();
+
 		String SelectEmp =
 		"	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE\r\n"
 	+ "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
@@ -78,20 +100,17 @@ public class CheckEmployeeInformationDAO {
 		}
 		}finally {
 			DbConnection.dbClose(rs, pstmt, con);
-			
 		}
 		return eVO;
 	}// selectEmpInfo
-	
-	
+
 	/**
-	 * 모든 검색조건이 선택되지 않은 상태에서 검색을 눌렀을 때, 모든 사원의 정보를
-	 * JTable에 출력하는 method.
+	 * 모든 검색조건이 선택되지 않은 상태에서 검색을 눌렀을 때, 모든 사원의 정보를 JTable에 출력하는 method.
+	 * 
 	 * @return
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public List<EmpInfoVO> selectAllEmpInfo() throws SQLException {
-		
 	List<EmpInfoVO> list = new ArrayList<EmpInfoVO>();
 	EmpInfoVO eVO = null;
 	Connection con = DbConnection.getCon();
@@ -124,12 +143,30 @@ public class CheckEmployeeInformationDAO {
 	public static void main(String[] args) {
 		CheckEmployeeInformationDAO ci = new CheckEmployeeInformationDAO();
 		try {
-//			ci.selectAllEmpInfo();
-			System.out.println();
-			ci.selectEmpInfo("안전정비부문","부장",2024);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			String id = "super";
+			String pass = "1111";
+
+			con = dbCon.getConnection(id, pass);
+			String selectAllEnpInfo = " 	select	 ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE	 "+
+			"	from EMP_INFO ei, DEPT d  ,	COMMON c	"
+					+ "	where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and c.GRP_CODE = 'POS' and ( ei.LOGIC ='N')	";
+			pstmt = con.prepareStatement(selectAllEnpInfo);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {// int empno, String name, String job,String position ,String dept,Date
+								// hiredate, String tel ,Date modifiedDate
+				eVO = new EmpInfoVO(rs.getInt("EMP_NO"), rs.getString("name"), rs.getString("JOB"),
+						rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),
+						rs.getString("TEL"), rs.getDate("EDIT_DATE"));
+				list.add(eVO);
+
+			}
+			System.out.println(list);
+		} finally {
+			dbCon.dbClose(rs, pstmt, con);
 		}
-	}
+
+		return list;
+
+	}// selectAllEmpInfo
 }
