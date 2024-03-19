@@ -38,17 +38,22 @@ public class AdminMenuDAO {
      * @return : 관련 데이터 list
      * @throws SQLException
      */
-    public int alertWork() throws SQLException{
+    public int alertWork(boolean isCodeFive) throws SQLException {
         int count = 0;
         Connection connection = DbConnection.getCon();
         PreparedStatement preparedStatement = null;
 
         try {
             String countDocs = "select * from bussiness_log where CODE2 = 1";
+            if (isCodeFive) {
+                countDocs += " and CODE = 5";
+            } else {
+                countDocs += " and CODE <> 5";
+            }
             preparedStatement = connection.prepareStatement(countDocs);
             count = preparedStatement.executeUpdate();
-        }finally {
-            DbConnection.dbClose(null,preparedStatement,connection);
+        } finally {
+            DbConnection.dbClose(null, preparedStatement, connection);
         }
 
         return count;
