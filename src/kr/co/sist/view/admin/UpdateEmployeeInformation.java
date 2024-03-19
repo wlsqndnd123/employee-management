@@ -6,16 +6,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.SwingUtilities;
 
 import kr.co.sist.controller.event.UpdateEmployeeInformationEvent;
 import kr.co.sist.vo.EmpInfoVO;
+
 
 public class UpdateEmployeeInformation extends JFrame {
 	private TextField jtPosition,jtJob,jtDept;
 	private JButton jbtnChange,jbtnDelete,jbtnCancel;
 	private JList<EmpInfoVO> jlSelectedEmpInfo;
-	
+	private EmpInfoVO eVO;
 	public UpdateEmployeeInformation() {
 		 super("사원 변경 및 삭제");
 
@@ -98,6 +98,6 @@ public class UpdateEmployeeInformation extends JFrame {
 	}
 
 		public static void main(String[] args) {
-	        SwingUtilities.invokeLater(UpdateEmployeeInformation::new);
+			new UpdateEmployeeInformation();
 	    }
 }

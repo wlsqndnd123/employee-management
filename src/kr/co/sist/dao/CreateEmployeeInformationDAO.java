@@ -20,7 +20,7 @@ public class CreateEmployeeInformationDAO {
 	 * @return
 	 * 작성자: 김일신
 	 */
-	public int addEmpInfo(EmpInfoVO eVO) {
+	public int insertEmpInfo(EmpInfoVO eVO) {
 		
 		
 		return 0;
