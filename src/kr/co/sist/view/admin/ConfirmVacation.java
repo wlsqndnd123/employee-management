@@ -11,6 +11,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import kr.co.sist.controller.event.ConfirmVacationEvent;
+
 public class ConfirmVacation extends JFrame {
 	private JLabel jlDocNum, jlEmpNum, jlEmpName, jlLeftVaction, jlApplyDate;
 	private JTextField jtfDocNum, jtfEmpNum, jtfEmpName, jtfLeftVaction, jtfApplyDate;
@@ -107,8 +109,10 @@ public class ConfirmVacation extends JFrame {
 		
 		
 		
-		
-		
+		ConfirmVacationEvent cve = new ConfirmVacationEvent(this);
+		jbReturn.addActionListener(cve);
+		jbApprove.addActionListener(cve);
+
 		
 		
 		
@@ -122,6 +126,71 @@ public class ConfirmVacation extends JFrame {
 	}
 	
 	
+	public JLabel getJlDocNum() {
+		return jlDocNum;
+	}
+
+
+	public JLabel getJlEmpNum() {
+		return jlEmpNum;
+	}
+
+
+	public JLabel getJlEmpName() {
+		return jlEmpName;
+	}
+
+
+	public JLabel getJlLeftVaction() {
+		return jlLeftVaction;
+	}
+
+
+	public JLabel getJlApplyDate() {
+		return jlApplyDate;
+	}
+
+
+	public JTextField getJtfDocNum() {
+		return jtfDocNum;
+	}
+
+
+	public JTextField getJtfEmpNum() {
+		return jtfEmpNum;
+	}
+
+
+	public JTextField getJtfEmpName() {
+		return jtfEmpName;
+	}
+
+
+	public JTextField getJtfLeftVaction() {
+		return jtfLeftVaction;
+	}
+
+
+	public JTextField getJtfApplyDate() {
+		return jtfApplyDate;
+	}
+
+
+	public JTextArea getJtaContent() {
+		return jtaContent;
+	}
+
+
+	public JButton getJbApprove() {
+		return jbApprove;
+	}
+
+
+	public JButton getJbReturn() {
+		return jbReturn;
+	}
+
+
 	public static void main(String[] args) {
         new ConfirmVacation();
     }
