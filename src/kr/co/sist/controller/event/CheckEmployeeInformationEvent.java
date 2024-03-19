@@ -39,11 +39,9 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == checkEmp.getJbtnAddEmp()) {
-			System.out.println("사원추가");
 			new CreateEmployeeInformation();
 		} // end if
 		if (ae.getSource() == checkEmp.getJbtnMain()) {
-			System.out.println("메인으로");
 			new AdminMenu();
 			checkEmp.dispose();
 
@@ -51,7 +49,6 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 		if (ae.getSource() == checkEmp.getJbtnSearch()) {
 			// empno 텍스트필드가 비어있을 때
 			if (checkEmp.getJtInputEmpno().getText().isEmpty()) {
-				checkEmp.getDtmEmpTable().removeRow(checkEmp.getJtEmpInfo().getRowCount());
 				try {
 					// 검색 전 테이블 초기화
 					model = (DefaultTableModel) checkEmp.getJtEmpInfo().getModel();
