@@ -32,19 +32,15 @@ public class CheckEmployeeInformationDAO {
 	/**
 	 * 선택 창(TextFiled)에서 입력받은 사원번호로 DB 내의 사원정보를 찾아 list에 출력하는 method.
 	 * 
-	 * @param enpno : textFiled로 입력받은 값
+	 * @param empno : textFiled로 입력받은 값
 	 * @return 작성자: 김일신 24.03.18
 	 */
 	public EmpInfoVO selectEmpInfo(int empno) throws SQLException {
 		eVO = null;
-		DbConnection dbCon = DbConnection.getInstance();
-		Connection con = null;
+		Connection con = DbConnection.getCon();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			String id = "super";
-			String pass = "1111";
-			con = dbCon.getConnection(id, pass);
 			String SelectEmp = "	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE\r\n"
 					+ "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
 					+ "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS') and ( ei.LOGIC ='N')	"
@@ -58,7 +54,7 @@ public class CheckEmployeeInformationDAO {
 						rs.getString("TEL"), rs.getDate("EDIT_DATE"));
 			}
 		} finally {
-			dbCon.dbClose(rs, pstmt, con);
+			DbConnection.dbClose(rs, pstmt, con);
 		}
 		return eVO;
 
@@ -66,8 +62,7 @@ public class CheckEmployeeInformationDAO {
 
 	/**
 	 * 콤보박스/데이트추져로 설정한 값으로 EmpInfoVo를 검색해 List로 출력하는 method
-	 * 
-	 * @param eVO
+	 *
 	 * @return 작성자 :김일신 24.03.18
 	 * @throws SQLException
 	 */
@@ -134,39 +129,6 @@ public class CheckEmployeeInformationDAO {
 	}finally {
 		DbConnection.dbClose(rs, pstmt, con);
 	}
-	
-	
-	
 		return list;
-		
 	}//selectAllEmpInfo
-	public static void main(String[] args) {
-		CheckEmployeeInformationDAO ci = new CheckEmployeeInformationDAO();
-		try {
-
-			String id = "super";
-			String pass = "1111";
-
-			con = dbCon.getConnection(id, pass);
-			String selectAllEnpInfo = " 	select	 ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE	 "+
-			"	from EMP_INFO ei, DEPT d  ,	COMMON c	"
-					+ "	where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and c.GRP_CODE = 'POS' and ( ei.LOGIC ='N')	";
-			pstmt = con.prepareStatement(selectAllEnpInfo);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {// int empno, String name, String job,String position ,String dept,Date
-								// hiredate, String tel ,Date modifiedDate
-				eVO = new EmpInfoVO(rs.getInt("EMP_NO"), rs.getString("name"), rs.getString("JOB"),
-						rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),
-						rs.getString("TEL"), rs.getDate("EDIT_DATE"));
-				list.add(eVO);
-
-			}
-			System.out.println(list);
-		} finally {
-			dbCon.dbClose(rs, pstmt, con);
-		}
-
-		return list;
-
-	}// selectAllEmpInfo
 }
