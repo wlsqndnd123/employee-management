@@ -37,6 +37,8 @@ public class UpdateEmployeeInformationDAO {
 	 * @return 작성자: 김일신
 	 */
 	public void deleteEmpInfo(int empno) {
-
+//		update EMP_INFO
+//		set    logic ='Y'
+//		where emp_no = ? 
 	}
 }
