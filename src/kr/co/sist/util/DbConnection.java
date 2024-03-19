@@ -1,4 +1,5 @@
 package kr.co.sist.util;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,11 +10,9 @@ import java.sql.Statement;
  * Singleton pattern을 사용한 DBMS connection 관리 클래스
  */
 public class DbConnection {
-	//
 	private static DbConnection dbCon;
 	
 	private DbConnection() {
-		
 	}//Dbconnection
 	
 	public static DbConnection getInstance() {
@@ -38,13 +37,10 @@ public class DbConnection {
 			e.printStackTrace();
 		}//end catch
 		String url= "jdbc:oracle:thin:@192.168.10.221:1521:orcl";
-//		String pass= "";
-//		String id= "";
 		
 		//2.커넥션 얻기
 		con = DriverManager.getConnection(url,id,pass);
-		
-		
+
 		return con;
 	}//getConnection
 	
@@ -65,14 +61,10 @@ public class DbConnection {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}//end catch
-//		String url= "jdbc:oracle:thin:@localhost:1521:orcl";
-//		String pass= "";
-//		String id= "";
-		
+
 		//2.커넥션 얻기
 		con = DriverManager.getConnection(url,id,pass);
-		
-		
+
 		return con;
 	}
 	
@@ -91,6 +83,4 @@ public class DbConnection {
 			if(con != null) {con.close();}
 		}//end finally
 	}//dbClose
-
-	
 }//class

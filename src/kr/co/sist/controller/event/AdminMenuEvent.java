@@ -1,6 +1,7 @@
 package kr.co.sist.controller.event;
 
 import kr.co.sist.view.admin.AdminMenu;
+import kr.co.sist.view.admin.CheckEmployeeInformation;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +27,8 @@ public class AdminMenuEvent extends WindowAdapter implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == adminMenu.getEmployeeInformationJbtn()){
-            System.out.println("사원정보 연결");
+            new CheckEmployeeInformation();
+            closeFrame();
         }
         if (e.getSource() == adminMenu.getWorkAttendanceJbtn()){
             System.out.println("근태관리 연결");
