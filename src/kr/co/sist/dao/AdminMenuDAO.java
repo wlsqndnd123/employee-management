@@ -1,6 +1,7 @@
 package kr.co.sist.dao;
 
 import kr.co.sist.util.DbConnection;
+import kr.co.sist.vo.DocumentVO;
 import kr.co.sist.vo.EmpInfoVO;
 
 import java.sql.Connection;
@@ -37,9 +38,19 @@ public class AdminMenuDAO {
      * @return : 관련 데이터 list
      * @throws SQLException
      */
-    public List<EmpInfoVO> alertWork() throws SQLException{
-        List<EmpInfoVO> list = new ArrayList<>();
+    public int alertWork() throws SQLException{
+        int count = 0;
+        Connection connection = DbConnection.getCon();
+        PreparedStatement preparedStatement = null;
 
-        return list;
+        try {
+            String countDocs = "select * from bussiness_log where CODE2 = 1";
+            preparedStatement = connection.prepareStatement(countDocs);
+            count = preparedStatement.executeUpdate();
+        }finally {
+            DbConnection.dbClose(null,preparedStatement,connection);
+        }
+
+        return count;
     }
 }
