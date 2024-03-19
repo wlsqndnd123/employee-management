@@ -76,7 +76,7 @@ public class CheckEmployeeInformation extends JFrame {
 			e.printStackTrace();
 		}
 		//////////////////////////////////////////////////////////////
-		jtEmpInfo.setEnabled(false);
+//		jtEmpInfo.setEnabled(false);
         // 제이리스트 위에 콤보박스 일렬로 배치
         cbDept = new JComboBox<String>(depts);
         cbDept.setSelectedIndex(0);
