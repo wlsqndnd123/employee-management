@@ -6,6 +6,7 @@ import kr.co.sist.controller.event.RequestVacationEvent;
 import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -90,25 +91,27 @@ public class RequestVacation extends JFrame {
     }
 
     /**
-     * Desc : JDateChooser의 이벤트 처리 ************************* 수정필요
+     * Desc : JDateChooser의 이벤트 처리
       */
     public void createDateEvent(){
-        vacStartDate.getDateEditor().addPropertyChangeListener(evt -> {
-            if ("date".equals(evt.getPropertyName())) {
-                System.out.println(evt.getNewValue());
-            }
-        });
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
-        vacEndDate.getDateEditor().addPropertyChangeListener(evt -> {
+        PropertyChangeListener dateChangeListener = evt -> {
             if ("date".equals(evt.getPropertyName())) {
-                System.out.println(evt.getNewValue());
+                System.out.println(simpleDateFormat.format(evt.getNewValue()));
             }
-        });
+        };
+
+        vacStartDate.getDateEditor().addPropertyChangeListener(dateChangeListener);
+        vacEndDate.getDateEditor().addPropertyChangeListener(dateChangeListener);
 
         this.add(vacStartDate);
         this.add(vacEndDate);
     }
 
+    /**
+     * Desc : Event 추가
+     */
     public void createEvent() {
         RequestVacationEvent requestVacationEvent = new RequestVacationEvent(this);
         requestJbtn.addActionListener(requestVacationEvent);
