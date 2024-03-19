@@ -11,7 +11,6 @@ public class VacationVO {
     int empNo,assignCount,useCount;
     String docNo, workLog, docName, empName, deptDesc, apprDesc, rejectReason;
     Date startDate, endDate, createdDate;
-    char logic;
 
     public VacationVO() {
     }
@@ -118,13 +117,5 @@ public class VacationVO {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public char getLogic() {
-        return logic;
-    }
-
-    public void setLogic(char logic) {
-        this.logic = logic;
     }
 }
