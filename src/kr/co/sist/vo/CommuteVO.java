@@ -9,6 +9,7 @@ import java.sql.Date;
  */
 public class CommuteVO {
     int empNo;
+    String empName;
     Date commuteDate, attendTime, quitTime;
 
     String workStatus;
@@ -54,5 +55,13 @@ public class CommuteVO {
 
     public void setWorkStatus(String workStatus) {
         this.workStatus = workStatus;
+    }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
     }
 }
