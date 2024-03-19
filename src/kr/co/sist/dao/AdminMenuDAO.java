@@ -47,8 +47,8 @@ public class AdminMenuDAO {
         ResultSet resultSet = null;
 
         try{
-            String id = "scott";
-            String pass = "tiger";
+            String id = "super";
+            String pass = "1111";
 
             connection = dbConnection.getConnection(id,pass);
 
