@@ -37,7 +37,7 @@ public class DbConnection {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}//end catch
-		String url= "jdbc:oracle:thin:@localhost:1521:orcl";
+		String url= "jdbc:oracle:thin:@192.168.10.221:1521:orcl";
 //		String pass= "";
 //		String id= "";
 		
