@@ -43,9 +43,9 @@ public class CheckEmployeeInformation extends JFrame {
         add(jbtnMain); // 프레임에 버튼 추가
         
         // 중하단에 제이테이블 크게 배치
-        
-        DefaultTableModel model = new DefaultTableModel(header,0);
-        jtEmpInfo = new JTable(model);
+
+        dtmEmpTable = new DefaultTableModel(header,0);
+        jtEmpInfo = new JTable(dtmEmpTable);
         JScrollPane scrollPane = new JScrollPane(jtEmpInfo);
         scrollPane.setBounds(50, 175, 600, 250); // 위치와 크기 설정
         add(scrollPane); // 프레임에 스크롤 가능한 리스트 추가
