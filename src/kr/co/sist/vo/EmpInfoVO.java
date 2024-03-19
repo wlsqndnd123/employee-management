@@ -8,9 +8,10 @@ public class EmpInfoVO {
  Date hiredate,modifiedDate;
  
 public EmpInfoVO() {
+	
 }
 
-public EmpInfoVO(int empno, String name, String position, String job, String tel, String dept, Date hiredate,
+public EmpInfoVO(int empno, String name, String job,String position ,String dept,Date hiredate, String tel ,
 		Date modifiedDate) {
 	super();
 	this.empno = empno;
@@ -31,6 +32,38 @@ public EmpInfoVO(int empno, String name, String position, String job, String tel
 public String toString() {
 	return "EmpInfoVO [empno=" + empno + ", name=" + name + ", position=" + position + ", job=" + job + ", tel=" + tel
 			+ ", dept=" + dept + "]";
+}
+
+public int getEmpno() {
+	return empno;
+}
+
+public String getName() {
+	return name;
+}
+
+public String getPosition() {
+	return position;
+}
+
+public String getJob() {
+	return job;
+}
+
+public String getTel() {
+	return tel;
+}
+
+public String getDept() {
+	return dept;
+}
+
+public Date getHiredate() {
+	return hiredate;
+}
+
+public Date getModifiedDate() {
+	return modifiedDate;
 }
 
  
