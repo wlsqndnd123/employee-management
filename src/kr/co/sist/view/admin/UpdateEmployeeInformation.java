@@ -17,7 +17,10 @@ public class UpdateEmployeeInformation extends JFrame {
 	private JTextField tfEmpno, tfName,tfPosition, tfJob, tfTel,tfDep;
 	private JButton jbtnChange,jbtnDelete,jbtnCancel;
 	private EmpInfoVO eVO;
-	public UpdateEmployeeInformation() {
+	public  UpdateEmployeeInformation() {
+		
+	}
+	public UpdateEmployeeInformation(EmpInfoVO eVO) {
 		 super("사원 변경 및 삭제");
 		 //입력받는 사원정보
 		 JLabel InputJlPosition = new JLabel("직급");
@@ -35,11 +38,23 @@ public class UpdateEmployeeInformation extends JFrame {
 		 JLabel jlTel = new JLabel("내선번호");
 		 JLabel jlDept = new JLabel("부서");
 	        tfEmpno = new JTextField(10);
+	        tfEmpno.setText(String.valueOf(eVO.getEmpno()));
 	        tfName= new JTextField(10);
+	        tfName.setText(eVO.getName());
 	        tfPosition= new JTextField(10);
+	        tfPosition.setText(eVO.getPosition());
 	        tfJob = new JTextField(10);
+	        tfJob.setText(eVO.getJob());
 	        tfTel= new JTextField(10);
+	        tfTel.setText(eVO.getTel());
 	        tfDep= new JTextField(10);
+	        tfDep.setText(eVO.getDept());
+	        tfEmpno.setEditable(false);
+	        tfName.setEditable(false);
+	        tfPosition.setEditable(false);
+	        tfJob.setEditable(false);
+	        tfTel.setEditable(false);
+	        tfDep.setEditable(false);
 
 
 	        jbtnChange = new JButton("변경");
@@ -126,6 +141,18 @@ public class UpdateEmployeeInformation extends JFrame {
 	}
 
 
+		public JTextField getTfEmpno() {
+		return tfEmpno;
+	}
+		public JTextField getInputJtPosition() {
+		return InputJtPosition;
+	}
+	public JTextField getInputJtJob() {
+		return InputJtJob;
+	}
+	public JTextField getInputJtDept() {
+		return InputJtDept;
+	}
 		public static void main(String[] args) {
 			new UpdateEmployeeInformation();
 	    }

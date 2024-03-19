@@ -9,6 +9,7 @@ import java.util.Properties;
 public class DbConnection {
 
     private static Connection con;
+    private static DbConnection dbCon;
 
     static {
         Properties properties = new Properties();
@@ -32,6 +33,7 @@ public class DbConnection {
             e.printStackTrace();
         }
     }
+    
 
     public static Connection getCon() {
         return con;

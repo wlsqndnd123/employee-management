@@ -150,7 +150,15 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 //		}
 		if(me.getButton()==1) {
 			switch(JOptionPane.showConfirmDialog(checkEmp,"해당 사원의 정보를 수정하시겠습니까?",null, JOptionPane.OK_CANCEL_OPTION)) {
-			case 0: new UpdateEmployeeInformation();
+			case 0: 
+				int empno =(int) checkEmp.getJtEmpInfo().getValueAt(row, 0);
+				try {
+					CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
+					new UpdateEmployeeInformation(ciDAO.selectEmpInfo(empno));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			break;
 			case 2:
 			break;
