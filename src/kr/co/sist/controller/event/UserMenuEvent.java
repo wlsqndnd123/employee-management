@@ -1,6 +1,7 @@
 package kr.co.sist.controller.event;
 
 import kr.co.sist.dao.UserMenuDAO;
+import kr.co.sist.view.user.RequestVacation;
 import kr.co.sist.view.user.UserMenu;
 
 import java.awt.event.ActionEvent;
@@ -26,7 +27,8 @@ public class UserMenuEvent extends WindowAdapter implements ActionListener {
             System.out.println("문서리스트 연결");
         }
         if (e.getSource() == userMenu.getVacationJbtn()){
-            System.out.println("휴가신청 연결");
+            new RequestVacation();
+            closeFrame();
         }
         if (e.getSource() == userMenu.getInformationJbtn()){
             System.out.println("정보 변경 연결");
