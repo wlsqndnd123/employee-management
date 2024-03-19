@@ -1,6 +1,5 @@
 package view.user;
 
-
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
