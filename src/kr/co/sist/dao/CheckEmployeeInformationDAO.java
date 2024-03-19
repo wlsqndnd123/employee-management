@@ -52,8 +52,7 @@ public class CheckEmployeeInformationDAO {
 	public EmpInfoVO selectEmpInfo(String dept,String position,int year) throws SQLException {
 		List<EmpInfoVO> list= new ArrayList<EmpInfoVO>();
 		eVO = null;
-		DbConnection dbCon = DbConnection.getInstance();
-		Connection con = null;
+		Connection con = DbConnection.getCon();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try{
@@ -61,9 +60,6 @@ public class CheckEmployeeInformationDAO {
 //		dept = (String)checkEmp.getCbDept().getSelectedItem();
 //		position = (String)checkEmp.getCbPosition().getSelectedItem();
 //		year = checkEmp.getJycHiredateYear().getYear();
-		String id = "super";
-		String pass = "1111";
-		con = dbCon.getConnection(id, pass);
 		String SelectEmp =
 		"	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE\r\n"
 	+ "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
@@ -81,7 +77,7 @@ public class CheckEmployeeInformationDAO {
 		rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),rs.getString("TEL") , rs.getDate("EDIT_DATE"));
 		}
 		}finally {
-			dbCon.dbClose(rs, pstmt, con);
+			DbConnection.dbClose(rs, pstmt, con);
 			
 		}
 		return eVO;
@@ -98,16 +94,10 @@ public class CheckEmployeeInformationDAO {
 		
 	List<EmpInfoVO> list = new ArrayList<EmpInfoVO>();
 	EmpInfoVO eVO = null;
-	DbConnection dbCon = DbConnection.getInstance();
-	Connection con = null;
+	Connection con = DbConnection.getCon();
 	PreparedStatement pstmt = null;
 	ResultSet rs =null;
 	try {
-		
-	String id = "super";
-	String pass = "1111";
-	
-	con= dbCon.getConnection(id, pass);
 	String selectAllEnpInfo
 	=" 	select	 ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE	 "
 	+ "	from EMP_INFO ei, DEPT d  ,	COMMON c	"
@@ -123,7 +113,7 @@ public class CheckEmployeeInformationDAO {
 	}
 	System.out.println(list);
 	}finally {
-		dbCon.dbClose(rs, pstmt, con);
+		DbConnection.dbClose(rs, pstmt, con);
 	}
 	
 	
