@@ -27,8 +27,8 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource()==upEmpInfo.getJbtnCancel()) {
-			System.out.println("취소");
 			new CheckEmployeeInformation();
+			upEmpInfo.dispose();
 		}//end if
 		if(ae.getSource()==upEmpInfo.getJbtnChange()) {
 			System.out.println("변경");
