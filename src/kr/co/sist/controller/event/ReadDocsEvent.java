@@ -5,37 +5,26 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import kr.co.sist.view.user.ReadDocs;
+
 public class ReadDocsEvent extends WindowAdapter implements ActionListener {
 
-    private ReadDocsEvent rde;
+    private ReadDocs rd;
 
-
-    public ReadDocsEvent(ReadDocsEvent rde) {
-        rde= this.rde;
-    }
-
-    public void readDoc(int Empno) {
-
-    }
-
-    public void updateDoc() {
-
-    }
-
-    public void deleteDoc() {
-
+    public ReadDocsEvent(ReadDocs rd) {	
+    	this.rd= rd;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-
+    	if(e.getSource() == rd.getJbtn_verify()) {
+    		System.out.println("수정버튼");
+    	}
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
-        //rde.dispose();
+        rd.dispose();
     }
-
 }
 

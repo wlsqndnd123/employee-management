@@ -1,8 +1,5 @@
 package kr.co.sist.view.user;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,7 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class ReadDocs extends JFrame implements ActionListener{
+import kr.co.sist.controller.event.ReadDocsEvent;
+
+public class ReadDocs extends JFrame{
 
 
     private JButton jbtn_verify, jbtn_remove, jbtn_modify;
@@ -25,14 +24,14 @@ public class ReadDocs extends JFrame implements ActionListener{
 
         JPanel jpNorth= new JPanel();
 
-        JTextField jtf1=new JTextField();
-        JTextField jtf2=new JTextField();
-        JTextField jtf3=new JTextField();
-        JTextField jtf4=new JTextField();
+        jtf1=new JTextField();
+        jtf2=new JTextField();
+        jtf3=new JTextField();
+        jtf4=new JTextField();
 
-        JButton jbtn_verify=new JButton();
-        JButton jbtn_remove=new JButton();
-        JButton jbtn_modify=new JButton();
+        jbtn_verify=new JButton();
+        jbtn_remove=new JButton();
+        jbtn_modify=new JButton();
 
         jldocNo= new JLabel("문서번호:");
         jlempNo= new JLabel("사번:");
@@ -89,22 +88,61 @@ public class ReadDocs extends JFrame implements ActionListener{
         add(jtf3);
         add(jtf4);
 
+        ReadDocsEvent rde = new ReadDocsEvent(this);
+        jbtn_verify.addActionListener(rde);
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-
     }
 
+    /**
+	 * @return the jbtn_verify
+	 */
+	public JButton getJbtn_verify() {
+		return jbtn_verify;
+	}
 
+	/**
+	 * @return the jbtn_remove
+	 */
+	public JButton getJbtn_remove() {
+		return jbtn_remove;
+	}
 
+	/**
+	 * @return the jbtn_modify
+	 */
+	public JButton getJbtn_modify() {
+		return jbtn_modify;
+	}
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+	/**
+	 * @return the jtf1
+	 */
+	public JTextField getJtf1() {
+		return jtf1;
+	}
 
-    }
+	/**
+	 * @return the jtf2
+	 */
+	public JTextField getJtf2() {
+		return jtf2;
+	}
+
+	/**
+	 * @return the jtf3
+	 */
+	public JTextField getJtf3() {
+		return jtf3;
+	}
+
+	/**
+	 * @return the jtf4
+	 */
+	public JTextField getJtf4() {
+		return jtf4;
+	}
 
     public static void main(String[] args) {
         new ReadDocs();

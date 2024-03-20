@@ -169,7 +169,6 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 			case 2:
 			break;
 			}
-			System.out.println("이름선택");
 		}
 	}
 
@@ -195,4 +194,5 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 		// TODO Auto-generated method stub
 
 	}
+	
 }
