@@ -1,15 +1,15 @@
 package kr.co.sist.dao;
 
-import kr.co.sist.util.DbConnection;
-import kr.co.sist.view.admin.CheckEmployeeInformation;
-import kr.co.sist.vo.EmpInfoVO;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import kr.co.sist.util.DbConnection2;
+import kr.co.sist.view.admin.CheckEmployeeInformation;
+import kr.co.sist.vo.EmpInfoVO;
 
 public class CheckEmployeeInformationDAO {
     private static CheckEmployeeInformationDAO checkEmpDAO;
@@ -37,13 +37,15 @@ public class CheckEmployeeInformationDAO {
      */
     public EmpInfoVO selectEmpInfo(int empno) throws SQLException {
         eVO = null;
-
-        Connection con = null;
+        DbConnection2 dbCon = DbConnection2.getInstance();
+        Connection con =null;
 
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
-            con = DbConnection.getCon();
+            String id = "super";
+            String pass = "1111";
+            con = dbCon.getConnection(id, pass);
             String SelectEmp = "	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE\r\n"
                     + "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
                     + "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS') and ( ei.LOGIC ='N')	"
@@ -57,7 +59,7 @@ public class CheckEmployeeInformationDAO {
                         rs.getString("TEL"), rs.getDate("EDIT_DATE"));
             }
         } finally {
-            DbConnection.dbClose(con);
+            dbCon.dbClose(rs, pstmt, con);
         }
         return eVO;
 
@@ -71,11 +73,15 @@ public class CheckEmployeeInformationDAO {
      */
     public EmpInfoVO selectEmpInfo(String dept, String position, int year) throws SQLException {
         eVO = null;
-        Connection con = null;
+        DbConnection2 dbCon = DbConnection2.getInstance();
+        Connection con =null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
-con = DbConnection.getCon();
+            String id = "super";
+            String pass = "1111";
+            con = dbCon.getConnection(id, pass);
+
 //		dept = (String)checkEmp.getCbDept().getSelectedItem();
 //		position = (String)checkEmp.getCbPosition().getSelectedItem();
 //		year = checkEmp.getJycHiredateYear().getYear();
@@ -92,12 +98,12 @@ con = DbConnection.getCon();
             pstmt.setInt(3, year);
             rs = pstmt.executeQuery();
 
-            if (rs.next()) {
-                eVO = new EmpInfoVO(rs.getInt("EMP_NO"), rs.getString("name"), rs.getString("JOB"),
-                        rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"), rs.getString("TEL"), rs.getDate("EDIT_DATE"));
+            if(rs.next()) {
+                eVO = new EmpInfoVO(rs.getInt("EMP_NO"),rs.getString("name"), rs.getString("JOB"),
+                        rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),rs.getString("TEL") , rs.getDate("EDIT_DATE"));
             }
-        } finally {
-            DbConnection.dbClose(con);
+        }finally {
+            dbCon.dbClose(rs, pstmt, con);
         }
         return eVO;
     }// selectEmpInfo
@@ -111,28 +117,30 @@ con = DbConnection.getCon();
     public List<EmpInfoVO> selectAllEmpInfo() throws SQLException {
         List<EmpInfoVO> list = new ArrayList<EmpInfoVO>();
         EmpInfoVO eVO = null;
-
-        Connection con = null;
+        DbConnection2 dbCon = DbConnection2.getInstance();
+        Connection con =null;
         PreparedStatement pstmt = null;
-        ResultSet rs = null;
+        ResultSet rs =null;
         try {
-            con = DbConnection.getCon();
+            String id = "super";
+            String pass = "1111";
+            con = dbCon.getConnection(id, pass);
             String selectAllEnpInfo
-                    = " 	select	 ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE	 "
+                    =" 	select	 ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE	 "
                     + "	from EMP_INFO ei, DEPT d  ,	COMMON c	"
-                    + "	where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and c.GRP_CODE = 'POS' and  ( ei.LOGIC ='N') and (ei.emp_no > 240000)	";
+                    + "	where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and c.GRP_CODE = 'POS' and  ( ei.LOGIC ='N') and (ei.emp_no not like 240000)	";
             pstmt = con.prepareStatement(selectAllEnpInfo);
             rs = pstmt.executeQuery();
-            while (rs.next()) {//int empno, String name, String job,String position ,String dept,Date hiredate, String tel ,Date modifiedDate
+            while(rs.next()) {//int empno, String name, String job,String position ,String dept,Date hiredate, String tel ,Date modifiedDate
                 eVO = new EmpInfoVO(rs.getInt("EMP_NO"),
                         rs.getString("name"), rs.getString("JOB"),
-                        rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"), rs.getString("TEL"), rs.getDate("EDIT_DATE"));
+                        rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),rs.getString("TEL") , rs.getDate("EDIT_DATE"));
                 list.add(eVO);
 
             }
             System.out.println(list);
-        } finally {
-            DbConnection.dbClose(con);
+        }finally {
+            dbCon.dbClose(rs, pstmt, con);
         }
         return list;
     }//selectAllEmpInfo
