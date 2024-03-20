@@ -46,7 +46,7 @@ public class CreateEmployeeInformationDAO {
 		
 		pstmt.executeUpdate();
 		}finally {
-			DbConnection.dbClose(con);
+			DbConnection.dbClose(null, pstmt, con);
 		}//insertEmpInfo
 		
 		

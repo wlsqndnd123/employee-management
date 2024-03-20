@@ -3,9 +3,7 @@ package kr.co.sist.util;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class DbConnection {
@@ -42,7 +40,21 @@ public class DbConnection {
         return DriverManager.getConnection(url, user, pwd);
     }
 
-    public static void dbClose(Connection con) {
+    public static void dbClose(ResultSet rs, Statement stmt, Connection con) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         if (con != null) {
             try {
                 con.close();

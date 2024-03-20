@@ -40,6 +40,7 @@ public class AdminMenuDAO {
         int count = 0;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         try {
             connection = DbConnection.getCon();
@@ -50,12 +51,12 @@ public class AdminMenuDAO {
                 countDocs += " and CODE <> 5";
             }
             preparedStatement = connection.prepareStatement(countDocs);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 count = resultSet.getInt(1);
             }
         } finally {
-            DbConnection.dbClose(connection);
+            DbConnection.dbClose(resultSet, preparedStatement, connection);
         }
 
         return count;

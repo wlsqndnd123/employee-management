@@ -54,7 +54,7 @@ public class UpdateEmployeeInformationDAO {
 		
 		cnt = pstmt.executeUpdate();
 		}finally {
-			DbConnection.dbClose(con);
+			DbConnection.dbClose(null, pstmt, con);
 		}
 		
 		return cnt;
@@ -87,7 +87,7 @@ public class UpdateEmployeeInformationDAO {
 			
 			
 		}finally {
-			DbConnection.dbClose(con);
+			DbConnection.dbClose(null, pstmt, con);;
 		}
 			return cnt;
 	}
