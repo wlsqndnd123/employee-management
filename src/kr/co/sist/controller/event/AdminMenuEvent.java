@@ -32,7 +32,6 @@ public class AdminMenuEvent extends WindowAdapter implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == adminMenu.getEmployeeInformationJbtn()){
             new CheckEmployeeInformation();
-            closeFrame();
         }
         if (e.getSource() == adminMenu.getWorkAttendanceJbtn()){
             try {
@@ -40,18 +39,15 @@ public class AdminMenuEvent extends WindowAdapter implements ActionListener {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-            closeFrame();
         }
         if (e.getSource() == adminMenu.getDocumentsJbtn()){
             new DocsManagement();
-            closeFrame();
         }
         if (e.getSource() == adminMenu.getCloseJbtn()){
             closeFrame();
         }
         if (e.getSource() == adminMenu.getPasswordJbtn()){
             new UpdatePassword();
-            closeFrame();
         }
     }
 
