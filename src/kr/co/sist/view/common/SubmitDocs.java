@@ -91,7 +91,7 @@ public class SubmitDocs extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new view.common.SubmitDocs();
+        new SubmitDocs();
     }
 
 }
