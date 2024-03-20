@@ -1,25 +1,28 @@
-package kr.co.sist.controller.event;
+package controller.event;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class UpdateTelNumberEvent extends WindowAdapter implements ActionListener {
+public class ReadDocsEvent extends WindowAdapter implements ActionListener {
 
-	public UpdateTelNumberEvent() {
+	private ReadDocsEvent rde;
+	
+	
+	public ReadDocsEvent(ReadDocsEvent rde) {
+		rde= this.rde;
+	}
+
+	public void readDoc(int Empno) {
 		
 	}
 	
-	public void getEmpNo(int Empno) {
+	public void updateDoc() {
 		
 	}
 	
-	public void updateExtTel() {
-		
-	}
-
-	public void modifyPw() {
+	public void deleteDoc() {
 		
 	}
 	
@@ -31,9 +34,11 @@ public class UpdateTelNumberEvent extends WindowAdapter implements ActionListene
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
-		super.windowClosing(e);
+		//rde.dispose();
 	}
 	
 	
+	
 }
+
+
