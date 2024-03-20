@@ -2,10 +2,15 @@ package kr.co.sist.view.common;
 
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
+
+import kr.co.sist.controller.event.LoginEvent;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 public class Login extends JFrame implements ActionListener {
     private JLabel jlLogin;
@@ -14,7 +19,7 @@ public class Login extends JFrame implements ActionListener {
     private JButton jbLogin, jbExit, jbFindPassword;
     private JLabel jlResult;
  
-    public Login() {
+    public Login() throws SQLException {
         super("Login");
 
         setLayout(null); 
@@ -58,7 +63,10 @@ public class Login extends JFrame implements ActionListener {
         // 로그인 버튼 생성 및 설정
         jbLogin = new JButton("로그인");
         jbLogin.setBounds(320, 105, 80, 40);
-        jbLogin.addActionListener(this);
+        LoginEvent le = new LoginEvent(this);
+        
+        jbLogin.addActionListener(le);
+        
         add(jbLogin);
 
         // 종료 버튼 생성 및 설정
@@ -82,15 +90,40 @@ public class Login extends JFrame implements ActionListener {
         });
     }//Login
 
-
-    public static void main(String[] args) {
-        new Login();
-    }//main
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
 
     }
+
+    private void applyEvent() throws SQLException {
+    	LoginEvent le = new LoginEvent(this);
+    	jbLogin.addActionListener(le);
+    	jbExit.addActionListener(le);
+    	jbFindPassword.addActionListener(le);
+    	
+    }
+    
+    public JButton getJbLogin() {
+    	return jbLogin;
+    }
+
+	public JTextField getEmpNoField() {
+		return jtfEmp_no;
+	}
+
+
+	public JTextField getPasswordField() {
+		return jpwfPass;
+	}
+
+	
+	
+	
+	
+	
+	
+	public static void main(String[] args) throws SQLException{
+		new Login();
+	}//main
+
 }//class

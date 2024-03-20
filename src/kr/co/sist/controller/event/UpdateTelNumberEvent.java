@@ -5,35 +5,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class UpdateTelNumberEvent extends WindowAdapter implements ActionListener {
+import javax.swing.JFrame;
 
-	public UpdateTelNumberEvent() {
-		
-	}
+import kr.co.sist.view.user.UpdateTelNumber;
+
+public class UpdateTelNumberEvent extends JFrame implements ActionListener{
+
+	private UpdateTelNumber utn;
 	
-	public void getEmpNo(int Empno) {
-		
-	}
-	
-	public void updateExtTel() {
-		
+	public UpdateTelNumberEvent(UpdateTelNumber utn) {
+		this.utn = utn;
 	}
 
-	public void modifyPw() {
-		
-	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
-	@Override
-	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
-		super.windowClosing(e);
-	}
-	
-	
 }
