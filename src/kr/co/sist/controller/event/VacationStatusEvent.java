@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
+import java.sql.SQLException;
 
 import kr.co.sist.view.admin.ConfirmVacation;
 import kr.co.sist.view.admin.VacationStatus;
@@ -23,7 +24,12 @@ public class VacationStatusEvent extends WindowAdapter implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource() == vs.getJbBack()) {
-			new WorkStatus();
+			try {
+				new WorkStatus();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			vs.dispose();
 		}
 		
