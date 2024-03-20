@@ -128,7 +128,7 @@ public class CheckEmployeeInformationDAO {
 	String selectAllEnpInfo
 	=" 	select	 ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE	 "
 	+ "	from EMP_INFO ei, DEPT d  ,	COMMON c	"
-	+ "	where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and c.GRP_CODE = 'POS' and  ( ei.LOGIC ='N') and (ei.emp_no > 240000)	";
+	+ "	where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and c.GRP_CODE = 'POS' and  ( ei.LOGIC ='N') and (ei.emp_no not like 240000)	";
 	pstmt = con.prepareStatement(selectAllEnpInfo);
 	rs = pstmt.executeQuery();
 	while(rs.next()) {//int empno, String name, String job,String position ,String dept,Date hiredate, String tel ,Date modifiedDate
