@@ -87,7 +87,7 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 		Object[] content = new Object[8];
 		CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
 		eVO = ciDAO.selectEmpInfo(empno);
-		if (eVO == null) {
+		if (eVO == null) {  
 			JOptionPane.showMessageDialog(null, "해당 사번을 가진 사원의 정보가 존재하지 않습니다.");
 		} else {
 			content[0] = eVO.getEmpno();

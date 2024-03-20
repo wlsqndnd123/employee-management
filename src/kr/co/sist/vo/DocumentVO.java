@@ -1,9 +1,10 @@
+
 package kr.co.sist.vo;
 
 import java.sql.Date;
 
 public class DocumentVO {
-    String docNo, title, workDesc, workLog, apprDesc, fileName;
+    String docNo, title, workDesc, workLog, apprDesc, fileName,dept;
     int empNo;
     Date docDate;
 
@@ -73,4 +74,26 @@ public class DocumentVO {
     public void setDocDate(Date docDate) {
         this.docDate = docDate;
     }
+
+	public DocumentVO(String docNo, String title, String workDesc, String workLog, String apprDesc, String fileName,
+			String dept, int empNo, Date docDate) {
+		super();
+		this.docNo = docNo;
+		this.title = title;
+		this.workDesc = workDesc;
+		this.workLog = workLog;
+		this.apprDesc = apprDesc;
+		this.fileName = fileName;
+		this.dept = dept;
+		this.empNo = empNo;
+		this.docDate = docDate;
+	}
+
+	@Override
+	public String toString() {
+		return "DocumentVO [docNo=" + docNo + ", title=" + title + ", workDesc=" + workDesc + ", workLog=" + workLog
+				+ ", apprDesc=" + apprDesc + ", fileName=" + fileName + ", dept=" + dept + ", empNo=" + empNo
+				+ ", docDate=" + docDate + "]";
+	}
+    
 }
