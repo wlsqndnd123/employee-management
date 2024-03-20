@@ -12,6 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import kr.co.sist.controller.event.DocsManagementEvent;
+
 @SuppressWarnings("serial")
 public class DocsManagement extends JFrame {
 	
@@ -26,7 +28,6 @@ public class DocsManagement extends JFrame {
 	public DocsManagement() {
 		
 		super("관리자문서관리메뉴");
-		setLayout(null);
 		
 		 jcbSelectDep=new JComboBox<>();
 		 jcbSelectFileType=new JComboBox<>();
@@ -64,23 +65,61 @@ public class DocsManagement extends JFrame {
 		
 		 add(jbtnBackhome);
 		 add(jbtnSearch);
+		 
+		 DocsManagementEvent dme=new DocsManagementEvent(this);
+		 jbtnBackhome.addActionListener(dme);
+		 jbtnSearch.addActionListener(dme);
+		 
+		 
+		 setLayout(null);
 		
         setBounds(300,80,800,470);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
-	
 
 	
-	
-	
-	
-	
-	
-	
-	
-	 public static void main(String[] args) {
+	 public JComboBox<String> getJcbSelectDep() {
+		return jcbSelectDep;
+	}
+
+
+	public JComboBox<String> getJcbSelectFileType() {
+		return jcbSelectFileType;
+	}
+
+
+	public JComboBox<String> getJcbSelectApprovalState() {
+		return jcbSelectApprovalState;
+	}
+
+
+	public JButton getJbtnBackhome() {
+		return jbtnBackhome;
+	}
+
+
+	public JButton getJbtnSearch() {
+		return jbtnSearch;
+	}
+
+
+
+	public JTable getJtaDob() {
+		return jtaDob;
+	}
+
+
+
+	public DefaultTableModel getDtmjtabResult() {
+		return dtmjtabResult;
+	}
+
+
+
+
+	public static void main(String[] args) {
 		 new DocsManagement();
 	    }
 	

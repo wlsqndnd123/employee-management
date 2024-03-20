@@ -1,3 +1,4 @@
+
 package kr.co.sist.vo;
 
 import java.sql.Date;
@@ -77,6 +78,7 @@ public class DocumentVO {
     public void setDocDate(Date docDate) {
         this.docDate = docDate;
     }
+
     
 	public DocumentVO(String docNo, String title, String workDesc, String workLog, String apprDesc, String fileName,
 			String dept, int empNo, Date docDate) {
