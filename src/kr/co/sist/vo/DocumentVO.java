@@ -77,6 +77,20 @@ public class DocumentVO {
     public void setDocDate(Date docDate) {
         this.docDate = docDate;
     }
+    
+	public DocumentVO(String docNo, String title, String workDesc, String workLog, String apprDesc, String fileName,
+			String dept, int empNo, Date docDate) {
+		super();
+		this.docNo = docNo;
+		this.title = title;
+		this.workDesc = workDesc;
+		this.workLog = workLog;
+		this.apprDesc = apprDesc;
+		this.fileName = fileName;
+		this.dept = dept;
+		this.empNo = empNo;
+		this.docDate = docDate;
+	}
 
 	@Override
 	public String toString() {
