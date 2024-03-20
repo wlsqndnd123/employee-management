@@ -42,7 +42,7 @@ public class ReturnReason extends JDialog{
 		
 		
 		
-		ReturnReasonEvent rre = new ReturnReasonEvent(this);
+		ReturnReasonEvent rre = new ReturnReasonEvent(cv,this);
 		jbInput.addActionListener(rre);
 		jbCancel.addActionListener(rre);
 	

@@ -10,6 +10,8 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import kr.co.sist.controller.event.VacationStatusEvent;
+
 public class VacationStatus extends JFrame {
 	private JTable jtVacationStatus;
 	private DefaultTableModel dtmVacationStatus;
@@ -25,6 +27,15 @@ public class VacationStatus extends JFrame {
 	    JScrollPane jspJtaResult = new JScrollPane(jtVacationStatus);
 	    jspJtaResult.setBorder(new TitledBorder("휴가신청표"));
 	    
+	    //////////////////////////////////////////////////////////////////////////
+	    Object[] rowData = {"1111", "001", "히히", "18:00", "0", "반려"};
+	    Object[] rowData2 = {"2222", "002", "헤헤", "18:00", "1", "승인"};
+	    dtmVacationStatus.addRow(rowData);
+	    dtmVacationStatus.addRow(rowData2);
+	    
+	    ///////////////////////////////////////////////////
+	    jtVacationStatus.setEnabled(false);
+	    
 	    
 	    jbBack = new JButton("뒤로");
 		
@@ -39,6 +50,14 @@ public class VacationStatus extends JFrame {
 	    
         add(panel, BorderLayout.CENTER);
         
+        VacationStatusEvent vse = new VacationStatusEvent(this);
+        jbBack.addActionListener(vse);
+        jtVacationStatus.addMouseListener(vse);
+        
+        
+        
+        
+        
         setBounds(300, 100, 650, 550);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,14 +65,21 @@ public class VacationStatus extends JFrame {
 	}
 	
 	
-	 public static void main(String[] args) {
-	        new VacationStatus();
-	    }
-	    
-	
-	
-	
-	
+	 public JTable getJtVacationStatus() {
+		return jtVacationStatus;
+	}
+
+
+	public DefaultTableModel getDtmVacationStatus() {
+		return dtmVacationStatus;
+	}
+
+
+	public JButton getJbBack() {
+		return jbBack;
+	}
+
+
 	
 	
 }
