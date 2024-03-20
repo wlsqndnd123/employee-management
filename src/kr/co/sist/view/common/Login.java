@@ -1,5 +1,6 @@
 package kr.co.sist.view.common;
 
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +37,7 @@ public class Login extends JFrame implements ActionListener {
         // 사원 번호 입력 필드 생성 및 설정
         jtfEmp_no = new JTextField();
         jtfEmp_no.setBounds(100, 80, 200, 40);
+
         add(jtfEmp_no);
 
         // 비밀번호 입력 필드 생성 및 설정
@@ -53,7 +55,6 @@ public class Login extends JFrame implements ActionListener {
         });
         add(jbFindPassword);
 
-
         // 로그인 버튼 생성 및 설정
         jbLogin = new JButton("로그인");
         jbLogin.setBounds(320, 105, 80, 40);
@@ -63,13 +64,13 @@ public class Login extends JFrame implements ActionListener {
         // 종료 버튼 생성 및 설정
         jbExit = new JButton("종료");
         jbExit.setBounds(240, 200, 60, 30);
+
         jbExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
         add(jbExit);
-
         setBounds(300,120,500,400);
         setVisible(true); // 프레임을 표시합니다.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
