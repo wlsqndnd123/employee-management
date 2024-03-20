@@ -21,6 +21,7 @@ public class FindPassword extends JDialog implements ActionListener {
         add(findPassword);
 //        add(new JLabel()); // 빈 라벨
 
+
         // 사원번호 입력 라벨 및 필드
         idLabel = new JLabel("아이디");
         idLabel.setBounds(30, 80, 60, 40);
@@ -29,6 +30,7 @@ public class FindPassword extends JDialog implements ActionListener {
         jtfemp_no.setBounds(90, 80, 200, 40);
         add(jtfemp_no);
 
+
         // 전화번호 입력 라벨 및 필드
         phoneNumberLabel = new JLabel("전화번호");
         phoneNumberLabel.setBounds(30, 130, 60, 40);
@@ -36,7 +38,9 @@ public class FindPassword extends JDialog implements ActionListener {
         jtfPhoneNumber = new JTextField();
         jtfPhoneNumber.setBounds(90, 130, 200, 40);
 
+
         add(jtfPhoneNumber);
+
 
         // 비밀번호 확인 버튼
         jbCheckPw = new JButton("확인");
@@ -49,6 +53,7 @@ public class FindPassword extends JDialog implements ActionListener {
         });
         add(jbCheckPw);
 
+
         // 종료 버튼
         jbExit = new JButton("종료");
         jbExit.setBounds(180,190,60,30);
@@ -58,6 +63,7 @@ public class FindPassword extends JDialog implements ActionListener {
             }
         });
         add(jbExit);
+
 
 
         setBounds(300,120,450,300);
@@ -91,6 +97,7 @@ public class FindPassword extends JDialog implements ActionListener {
     public static void main(String[] args) {
         new FindPassword();
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
