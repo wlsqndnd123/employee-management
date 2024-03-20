@@ -10,6 +10,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
+import kr.co.sist.controller.event.UpdateTelNumberEvent;
+
 public class UpdateTelNumber extends JFrame implements ActionListener {
 
 	private JButton goHome, save, excPw;
@@ -51,11 +53,53 @@ public class UpdateTelNumber extends JFrame implements ActionListener {
 		save.setBounds(80, 260, 100, 30);
 		excPw.setBounds(240, 260, 150, 30);
 
+		UpdateTelNumberEvent utne= new UpdateTelNumberEvent(this);
+		goHome.addActionListener(utne);
+		
 		setSize(500, 600);
+		setBounds(300,100,650,550);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
+
+	
+	
+	/**
+	 * @return the jtbl
+	 */
+	public JTable getJtbl() {
+		return jtbl;
+	}
+
+
+
+	/**
+	 * @return the jlInfo
+	 */
+	public JLabel getJlInfo() {
+		return jlInfo;
+	}
+
+
+
+	/**
+	 * @return the jlExcNo
+	 */
+	public JLabel getJlExcNo() {
+		return jlExcNo;
+	}
+
+
+
+	/**
+	 * @return the goHome
+	 */
+	public JButton getGoHome() {
+		return goHome;
+	}
+
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
