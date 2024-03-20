@@ -40,12 +40,20 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == checkEmp.getJbtnAddEmp()) {
 			new CreateEmployeeInformation();
+			checkEmp.dispose();
+			
 		} // end if
 		if (ae.getSource() == checkEmp.getJbtnMain()) {
 			new AdminMenu();
 			checkEmp.dispose();
 
 		} // end if
+		
+		
+		//empno가 비어있을 때
+			//콤보박스/yearchooser가 선택 되었니?
+			// 모두 선택이 되어있지 않니?
+		//empno가 채워져있을 때
 		if (ae.getSource() == checkEmp.getJbtnSearch()) {
 			// empno 텍스트필드가 비어있을 때
 			if (checkEmp.getJtInputEmpno().getText().isEmpty()) {
@@ -152,6 +160,7 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 				try {
 					CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
 					new UpdateEmployeeInformation(ciDAO.selectEmpInfo(empno));
+					checkEmp.dispose();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
