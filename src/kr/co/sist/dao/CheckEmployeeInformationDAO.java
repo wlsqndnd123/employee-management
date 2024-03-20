@@ -103,7 +103,7 @@ public class CheckEmployeeInformationDAO {
     }// selectEmpInfo
 
     /**
-     * 모든 검색조건이 선택되지 않은 상태에서 검색을 눌렀을 때, 모든 사원의 정보를 JTable에 출력하는 method.
+     * 모든 검색조건이 선택되지 않은 상태에서 모든 사원의 정보를 JTable에 출력하는 method.
      *
      * @return
      * @throws SQLException
@@ -129,7 +129,6 @@ public class CheckEmployeeInformationDAO {
                 list.add(eVO);
 
             }
-            System.out.println(list);
         }finally {
             DbConnection.dbClose(rs, pstmt, con);
         }
