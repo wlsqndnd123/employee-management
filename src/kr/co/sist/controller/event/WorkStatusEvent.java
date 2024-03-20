@@ -49,7 +49,12 @@ public class WorkStatusEvent extends WindowAdapter implements ActionListener{
 		
 		
 		if(ae.getSource() == ws.getJbVacationStatus()) {
-			new VacationStatus();
+			try {
+				new VacationStatus();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			ws.dispose();
 			
 		}

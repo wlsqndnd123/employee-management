@@ -108,11 +108,7 @@ public class WorkStatusDAO {
                 		rs.getString("attend_time"), rs.getString("quit_time"), 
                 		rs.getDate("commute_date"),null);
         		 
-                		
-                		
-                		
-                		
-                		
+       
                 list.add(wsVO);
                 		
             }

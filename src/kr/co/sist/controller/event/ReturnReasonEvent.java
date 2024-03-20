@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import java.sql.SQLException;
 
 import kr.co.sist.view.admin.ConfirmVacation;
 import kr.co.sist.view.admin.ReturnReason;
@@ -26,7 +27,12 @@ public class ReturnReasonEvent extends WindowAdapter implements ActionListener{
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource() == rr.getJbInput()) {
 	
-			inputReason();
+			try {
+				inputReason();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 		
@@ -41,7 +47,7 @@ public class ReturnReasonEvent extends WindowAdapter implements ActionListener{
 	
 	
 	
-	public void inputReason() {
+	public void inputReason() throws SQLException {
 		cv.dispose();
 		rr.dispose();
 		
