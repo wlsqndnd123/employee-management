@@ -2,7 +2,6 @@ package kr.co.sist.service;
 
 import kr.co.sist.dao.AdminMenuDAO;
 
-import javax.swing.*;
 import java.sql.SQLException;
 
 /**
@@ -17,9 +16,9 @@ public class RunAdminMenuDAO {
             AdminMenuDAO adminMenuDAO = AdminMenuDAO.getInstance();
             int cnt = adminMenuDAO.alertWork(isVacation);
             if (isVacation) {
-                msg = "대기중인 휴가신청 ";
+                msg = "승인 대기 중인 휴가 신청 ";
             } else {
-                msg = "승인 대기 중인 업무 ";
+                msg = "승인 대기 중인 업무 일지 ";
             }
             msg += cnt + " 건 조회";
         } catch (NumberFormatException e) {
@@ -28,13 +27,5 @@ public class RunAdminMenuDAO {
             throw new RuntimeException(e);
         }
         return msg;
-    }
-
-    public static void main(String[] args) {
-        RunAdminMenuDAO runAdminMenuDAO = new RunAdminMenuDAO();
-        String msg = runAdminMenuDAO.loadWorkAlert(true);
-        System.out.println(msg);
-        msg = runAdminMenuDAO.loadWorkAlert(false);
-        System.out.println(msg);
     }
 }
