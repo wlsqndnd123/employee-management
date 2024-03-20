@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 /**
  * Desc : 관리자 로그인 메뉴 화면에 보이는 내용의 이벤트처리
@@ -34,7 +35,11 @@ public class AdminMenuEvent extends WindowAdapter implements ActionListener {
             closeFrame();
         }
         if (e.getSource() == adminMenu.getWorkAttendanceJbtn()){
-            new WorkStatus();
+            try {
+                new WorkStatus();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             closeFrame();
         }
         if (e.getSource() == adminMenu.getDocumentsJbtn()){
