@@ -8,16 +8,37 @@ import java.sql.Date;
  * 작성자 : 고한별
  */
 public class CommuteVO {
-    int empNo;
-    String empName;
-    Date commuteDate, attendTime, quitTime;
-
+    int empNo, use_count, assign_count;
+    String empName, attendTime, quitTime ;
+    Date commuteDate;
+    
     String workStatus;
 
     public CommuteVO() {
     }
+    
+ 
 
-    public int getEmpNo() {
+	public CommuteVO(int empNo, int use_count, int assign_count, String empName, String attendTime, String quitTime,
+			Date commuteDate, String workStatus) {
+		super();
+		this.empNo = empNo;
+		this.use_count = use_count;
+		this.assign_count = assign_count;
+		this.empName = empName;
+		this.attendTime = attendTime;
+		this.quitTime = quitTime;
+		this.commuteDate = commuteDate;
+		this.workStatus = workStatus;
+	}
+
+
+
+
+
+
+
+	public int getEmpNo() {
         return empNo;
     }
 
@@ -33,19 +54,19 @@ public class CommuteVO {
         this.commuteDate = commuteDate;
     }
 
-    public Date getAttendTime() {
+    public String getAttendTime() {
         return attendTime;
     }
 
-    public void setAttendTime(Date attendTime) {
+    public void setAttendTime(String attendTime) {
         this.attendTime = attendTime;
     }
 
-    public Date getQuitTime() {
+    public String getQuitTime() {
         return quitTime;
     }
 
-    public void setQuitTime(Date quitTime) {
+    public void setQuitTime(String quitTime) {
         this.quitTime = quitTime;
     }
 
@@ -61,7 +82,30 @@ public class CommuteVO {
         return empName;
     }
 
-    public void setEmpName(String empName) {
+    public int getUse_count() {
+		return use_count;
+	}
+
+	public void setUse_count(int use_count) {
+		this.use_count = use_count;
+	}
+
+	public int getAssign_count() {
+		return assign_count;
+	}
+
+	public void setAssign_count(int assign_count) {
+		this.assign_count = assign_count;
+	}
+
+	public void setEmpName(String empName) {
         this.empName = empName;
     }
+
+	@Override
+	public String toString() {
+		return "CommuteVO [empNo=" + empNo + ", empName=" + empName + ", attendTime=" + attendTime + ", quitTime=" + quitTime 
+				+ ", use_count=" + use_count + ", assign_count=" + assign_count
+				+ ", commuteDate=" + commuteDate + "]";
+	}
 }

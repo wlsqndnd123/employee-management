@@ -8,7 +8,11 @@ public class DocumentVO {
     int empNo;
     Date docDate;
 
-    public DocumentVO() {
+    public String getDept() {
+		return dept;
+	}
+
+	public DocumentVO() {
     }
 
     public String getDocNo() {
@@ -75,6 +79,7 @@ public class DocumentVO {
         this.docDate = docDate;
     }
 
+    
 	public DocumentVO(String docNo, String title, String workDesc, String workLog, String apprDesc, String fileName,
 			String dept, int empNo, Date docDate) {
 		super();

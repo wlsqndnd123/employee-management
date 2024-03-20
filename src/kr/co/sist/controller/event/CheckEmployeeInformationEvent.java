@@ -8,7 +8,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.dao.CheckEmployeeInformationDAO;
@@ -39,19 +39,24 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == checkEmp.getJbtnAddEmp()) {
-			System.out.println("사원추가");
 			new CreateEmployeeInformation();
+			checkEmp.dispose();
+			
 		} // end if
 		if (ae.getSource() == checkEmp.getJbtnMain()) {
-			System.out.println("메인으로");
 			new AdminMenu();
 			checkEmp.dispose();
 
 		} // end if
+		
+		
+		//empno가 비어있을 때
+			//콤보박스/yearchooser가 선택 되었니?
+			// 모두 선택이 되어있지 않니?
+		//empno가 채워져있을 때
 		if (ae.getSource() == checkEmp.getJbtnSearch()) {
 			// empno 텍스트필드가 비어있을 때
 			if (checkEmp.getJtInputEmpno().getText().isEmpty()) {
-				checkEmp.getDtmEmpTable().removeRow(checkEmp.getJtEmpInfo().getRowCount());
 				try {
 					// 검색 전 테이블 초기화
 					model = (DefaultTableModel) checkEmp.getJtEmpInfo().getModel();
@@ -150,12 +155,20 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 //		}
 		if(me.getButton()==1) {
 			switch(JOptionPane.showConfirmDialog(checkEmp,"해당 사원의 정보를 수정하시겠습니까?",null, JOptionPane.OK_CANCEL_OPTION)) {
-			case 0: new UpdateEmployeeInformation();
+			case 0: 
+				int empno =(int) checkEmp.getJtEmpInfo().getValueAt(row, 0);
+				try {
+					CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
+					new UpdateEmployeeInformation(ciDAO.selectEmpInfo(empno));
+					checkEmp.dispose();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			break;
 			case 2:
 			break;
 			}
-			System.out.println("이름선택");
 		}
 	}
 
@@ -181,4 +194,5 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 		// TODO Auto-generated method stub
 
 	}
+	
 }

@@ -1,10 +1,16 @@
 package kr.co.sist.view.common;
 
+
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
+
+import kr.co.sist.controller.event.LoginEvent;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 public class Login extends JFrame implements ActionListener {
     private JLabel jlLogin;
@@ -12,11 +18,11 @@ public class Login extends JFrame implements ActionListener {
     private JPasswordField jpwfPass;
     private JButton jbLogin, jbExit, jbFindPassword;
     private JLabel jlResult;
-
-    public Login() {
+ 
+    public Login() throws SQLException {
         super("Login");
 
-        setLayout(null); // LayoutManager를 null로 설정하여 수동으로 위치와 크기를 조절할 수 있도록 합니다.
+        setLayout(null); 
 
         // 로그인 라벨 생성 및 설정
         jlLogin = new JLabel("로그인");
@@ -36,6 +42,7 @@ public class Login extends JFrame implements ActionListener {
         // 사원 번호 입력 필드 생성 및 설정
         jtfEmp_no = new JTextField();
         jtfEmp_no.setBounds(100, 80, 200, 40);
+
         add(jtfEmp_no);
 
         // 비밀번호 입력 필드 생성 및 설정
@@ -53,25 +60,27 @@ public class Login extends JFrame implements ActionListener {
         });
         add(jbFindPassword);
 
-
         // 로그인 버튼 생성 및 설정
         jbLogin = new JButton("로그인");
         jbLogin.setBounds(320, 105, 80, 40);
-        jbLogin.addActionListener(this);
+        LoginEvent le = new LoginEvent(this);
+        
+        jbLogin.addActionListener(le);
+        
         add(jbLogin);
 
         // 종료 버튼 생성 및 설정
         jbExit = new JButton("종료");
         jbExit.setBounds(240, 200, 60, 30);
+
         jbExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
         add(jbExit);
-
         setBounds(300,120,500,400);
-        setVisible(true); // 프레임을 표시합니다.
+        setVisible(true); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         addWindowListener(new WindowAdapter() {
@@ -81,15 +90,40 @@ public class Login extends JFrame implements ActionListener {
         });
     }//Login
 
-
-    public static void main(String[] args) {
-        new Login();
-    }//main
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
 
     }
+
+    private void applyEvent() throws SQLException {
+    	LoginEvent le = new LoginEvent(this);
+    	jbLogin.addActionListener(le);
+    	jbExit.addActionListener(le);
+    	jbFindPassword.addActionListener(le);
+    	
+    }
+    
+    public JButton getJbLogin() {
+    	return jbLogin;
+    }
+
+	public JTextField getEmpNoField() {
+		return jtfEmp_no;
+	}
+
+
+	public JTextField getPasswordField() {
+		return jpwfPass;
+	}
+
+	
+	
+	
+	
+	
+	
+	public static void main(String[] args) throws SQLException{
+		new Login();
+	}//main
+
 }//class

@@ -1,6 +1,7 @@
 package kr.co.sist.view.admin;
 
 import java.awt.BorderLayout;
+import java.sql.SQLException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -12,6 +13,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import kr.co.sist.controller.event.WorkStatusEvent;
 
 public class WorkStatus extends JFrame{
     private JTable jtDailyStatus;
@@ -25,23 +28,31 @@ public class WorkStatus extends JFrame{
 
     
     
-    public WorkStatus() {
+    public WorkStatus() throws SQLException {
         setTitle("근태 관리");
         setLayout(new BorderLayout());
         
         String[] coloumnName = {"사번","이름","출근시간","퇴근시간","사용연차","연차"}; 
-        dtmDailyStatus = new DefaultTableModel(coloumnName,0);
+        dtmDailyStatus = new DefaultTableModel(coloumnName,0){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
         jtDailyStatus = new JTable(dtmDailyStatus);
         JScrollPane jspJtaResult = new JScrollPane(jtDailyStatus);
         jspJtaResult.setBorder(new TitledBorder("근태정보"));
         
         jbGoMain = new JButton("메뉴창으로");
-        jtfEmpNum = new JTextField("사번입력");
+        jtfEmpNum = new JTextField();
         jcbDateRange = new JComboBox<String>();
         jbCheck = new JButton("조회");
         jbVacationStatus = new JButton("휴가관리");
         
         jtDailyStatus.getColumnModel().getColumn(0).setPreferredWidth(80);
+        
+    
+        
         
         dcbmDateRange = new DefaultComboBoxModel<String>();
         jcbDateRange = new JComboBox<String>(dcbmDateRange);
@@ -50,8 +61,7 @@ public class WorkStatus extends JFrame{
         dcbmDateRange.addElement("1달");
         dcbmDateRange.addElement("1년");
 		
-      
-        
+ 
         JPanel panel = new JPanel();
         panel.setLayout(null);
         
@@ -62,6 +72,10 @@ public class WorkStatus extends JFrame{
         jbVacationStatus.setBounds(510,270, 100, 30);
         jspJtaResult.setBounds(10,10, 490, 480);
         
+        
+        
+        
+        
         panel.add(jbGoMain);
         panel.add(jtfEmpNum);
         panel.add(jcbDateRange);
@@ -71,14 +85,61 @@ public class WorkStatus extends JFrame{
         
         add(panel, BorderLayout.CENTER);
         
+        
+        
+        WorkStatusEvent wse = new WorkStatusEvent(this);
+        jbCheck.addActionListener(wse);
+        jbGoMain.addActionListener(wse);
+        jbVacationStatus.addActionListener(wse);
+
+        
+        
+        
+        
+        
+        
+        
         setBounds(300, 100, 650, 550);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        
+        wse.CheckWS(0, "오늘");
+       
     }
 
-    public static void main(String[] args) {
+    public JTable getJtDailyStatus() {
+		return jtDailyStatus;
+	}
+
+	public DefaultTableModel getDtmDailyStatus() {
+		return dtmDailyStatus;
+	}
+
+	public JTextField getJtfEmpNum() {
+		return jtfEmpNum;
+	}
+
+	public JComboBox<String> getJcbDateRange() {
+		return jcbDateRange;
+	}
+
+	public DefaultComboBoxModel<String> getDcbmDateRange() {
+		return dcbmDateRange;
+	}
+
+	public JButton getJbCheck() {
+		return jbCheck;
+	}
+
+	public JButton getJbVacationStatus() {
+		return jbVacationStatus;
+	}
+
+	public JButton getJbGoMain() {
+		return jbGoMain;
+	}
+
+	public static void main(String[] args) throws SQLException {
         new WorkStatus();
     }
     

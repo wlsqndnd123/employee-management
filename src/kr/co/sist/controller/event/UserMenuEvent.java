@@ -1,7 +1,8 @@
 package kr.co.sist.controller.event;
 
-import kr.co.sist.dao.UserMenuDAO;
+import kr.co.sist.view.user.DocsList;
 import kr.co.sist.view.user.RequestVacation;
+import kr.co.sist.view.user.UpdateTelNumber;
 import kr.co.sist.view.user.UserMenu;
 
 import java.awt.event.ActionEvent;
@@ -24,14 +25,13 @@ public class UserMenuEvent extends WindowAdapter implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == userMenu.getDocsListJbtn()){
-            System.out.println("문서리스트 연결");
+            new DocsList();
         }
         if (e.getSource() == userMenu.getVacationJbtn()){
             new RequestVacation();
-            closeFrame();
         }
         if (e.getSource() == userMenu.getInformationJbtn()){
-            System.out.println("정보 변경 연결");
+            new UpdateTelNumber();
         }
         if (e.getSource() == userMenu.getCloseJbtn()){
             closeFrame();

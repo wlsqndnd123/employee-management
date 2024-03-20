@@ -8,11 +8,33 @@ import java.sql.Date;
  * 작성자 : 고한별
  */
 public class VacationVO {
-    int empNo,assignCount,useCount;
-    String docNo, workLog, docName, empName, deptDesc, apprDesc, rejectReason;
+    int empNo,assignCount,useCount,code2;
+    String docNo, workLog, docName, empName, deptDesc, apprDesc, rejectReason, title, dept_name;
     Date startDate, endDate, createdDate;
 
-    public VacationVO() {
+    public VacationVO(int empNo, int assignCount, int useCount, int code2, String docNo, String workLog, String docName,
+			String empName, String deptDesc, String apprDesc, String rejectReason,String title,String dept_name, Date startDate, Date endDate,
+			Date createdDate) {
+		super();
+		this.empNo = empNo;
+		this.assignCount = assignCount;
+		this.useCount = useCount;
+		this.code2 = code2;
+		this.docNo = docNo;
+		this.workLog = workLog;
+		this.docName = docName;
+		this.empName = empName;
+		this.deptDesc = deptDesc;
+		this.apprDesc = apprDesc;
+		this.rejectReason = rejectReason;
+		this.title = title;
+		this.dept_name = dept_name;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.createdDate = createdDate;
+	}
+
+	public VacationVO() {
     }
 
     public int getEmpNo() {
@@ -27,7 +49,15 @@ public class VacationVO {
         return assignCount;
     }
 
-    public void setAssignCount(int assignCount) {
+    public int getCode2() {
+		return code2;
+	}
+
+	public void setCode2(int code2) {
+		this.code2 = code2;
+	}
+
+	public void setAssignCount(int assignCount) {
         this.assignCount = assignCount;
     }
 
@@ -115,7 +145,33 @@ public class VacationVO {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDetp_name() {
+		return dept_name;
+	}
+
+	public void setDetp_name(String dept_name) {
+		this.dept_name = dept_name;
+	}
+
+	public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
+
+	@Override
+	public String toString() {
+		return "VacationVO [empNo=" + empNo + ", assignCount=" + assignCount + ", useCount=" + useCount + ", code2="
+				+ code2 + ", docNo=" + docNo + ", workLog=" + workLog + ", docName=" + docName + ", empName=" + empName
+				+ ", deptDesc=" + deptDesc + ", apprDesc=" + apprDesc + ", rejectReason=" + rejectReason + ", title="
+				+ title + ", dept_name=" + dept_name + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", createdDate=" + createdDate + "]";
+	}
+	
 }

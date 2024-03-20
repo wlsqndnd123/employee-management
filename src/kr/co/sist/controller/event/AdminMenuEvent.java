@@ -2,12 +2,15 @@ package kr.co.sist.controller.event;
 
 import kr.co.sist.view.admin.AdminMenu;
 import kr.co.sist.view.admin.CheckEmployeeInformation;
+import kr.co.sist.view.admin.DocsManagement;
 import kr.co.sist.view.admin.WorkStatus;
+import kr.co.sist.view.common.UpdatePassword;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 /**
  * Desc : 관리자 로그인 메뉴 화면에 보이는 내용의 이벤트처리
@@ -29,20 +32,22 @@ public class AdminMenuEvent extends WindowAdapter implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == adminMenu.getEmployeeInformationJbtn()){
             new CheckEmployeeInformation();
-            closeFrame();
         }
         if (e.getSource() == adminMenu.getWorkAttendanceJbtn()){
-            new WorkStatus();
-            closeFrame();
+            try {
+                new WorkStatus();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         if (e.getSource() == adminMenu.getDocumentsJbtn()){
-            System.out.println("문서관리 연결");
+            new DocsManagement();
         }
         if (e.getSource() == adminMenu.getCloseJbtn()){
             closeFrame();
         }
         if (e.getSource() == adminMenu.getPasswordJbtn()){
-            System.out.println("비밀번호 변경 연결");
+            new UpdatePassword();
         }
     }
 
