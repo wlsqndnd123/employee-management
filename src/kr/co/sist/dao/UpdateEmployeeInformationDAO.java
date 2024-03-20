@@ -6,7 +6,6 @@ import java.sql.SQLException;
 
 import kr.co.sist.controller.event.CreateEmployeeInformationEvent;
 import kr.co.sist.util.DbConnection;
-import kr.co.sist.util.DbConnection2;
 import kr.co.sist.vo.EmpInfoVO;
 
 
@@ -55,7 +54,7 @@ public class UpdateEmployeeInformationDAO {
 		
 		cnt = pstmt.executeUpdate();
 		}finally {
-			DbConnection.dbClose(null, pstmt, con);
+			DbConnection.dbClose(con);
 		}
 		
 		return cnt;
@@ -74,14 +73,9 @@ public class UpdateEmployeeInformationDAO {
 //		set    logic ='Y'
 //		where emp_no = ? 
 		int cnt = 0;
-		DbConnection2 dbCon = DbConnection2.getInstance();
-		Connection con =null;
+		Connection con = DbConnection.getCon();
 		PreparedStatement pstmt = null;
 		try {
-			String id = "super";
-			String pass = "1111";
-			
-			con = dbCon.getConnection(id, pass);
 			String deleteEmp =
 			"update EMP_INFO"
 			+ "		set    logic =	'Y'	"
@@ -93,10 +87,8 @@ public class UpdateEmployeeInformationDAO {
 			
 			
 		}finally {
-			dbCon.dbClose(null, pstmt, con);
+			DbConnection.dbClose(con);
 		}
-		
-		
 			return cnt;
 	}
 }

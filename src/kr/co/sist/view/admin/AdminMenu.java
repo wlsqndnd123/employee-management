@@ -1,6 +1,7 @@
 package kr.co.sist.view.admin;
 
 import kr.co.sist.controller.event.AdminMenuEvent;
+import kr.co.sist.service.RunAdminMenuDAO;
 
 import javax.swing.*;
 
@@ -28,6 +29,7 @@ public class AdminMenu extends JFrame {
         createGoToButton();
         createWorkNotifications();
         createEvent();
+        initializedNotifications();
 
         setBounds(300,100,650,550);
         setVisible(true);
@@ -67,6 +69,11 @@ public class AdminMenu extends JFrame {
         workNotiPad.setBounds(250,80,320,350);
 
         add(workNotiPad);
+    }
+
+    public void initializedNotifications(){
+        workNotifications.setText("휴가");
+        workNotifications.append("업무");
     }
 
     /**
