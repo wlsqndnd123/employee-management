@@ -1,6 +1,7 @@
 package kr.co.sist.view.admin;
 
 import java.awt.BorderLayout;
+import java.sql.SQLException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -27,7 +28,7 @@ public class WorkStatus extends JFrame{
 
     
     
-    public WorkStatus() {
+    public WorkStatus() throws SQLException {
         setTitle("근태 관리");
         setLayout(new BorderLayout());
         
@@ -38,17 +39,13 @@ public class WorkStatus extends JFrame{
         jspJtaResult.setBorder(new TitledBorder("근태정보"));
         
         jbGoMain = new JButton("메뉴창으로");
-        jtfEmpNum = new JTextField("사번입력");
+        jtfEmpNum = new JTextField();
         jcbDateRange = new JComboBox<String>();
         jbCheck = new JButton("조회");
         jbVacationStatus = new JButton("휴가관리");
         
         jtDailyStatus.getColumnModel().getColumn(0).setPreferredWidth(80);
         
-       ////////////////////////////////////////////////////////////////////////
-        Object[] rowData = {"001", "John Doe", "09:00", "18:00", "0", "10"};
-        dtmDailyStatus.addRow(rowData);
-        ///////////////////////////////////////////////////////////////////////////
         jtDailyStatus.setEnabled(false);
         
         
@@ -101,7 +98,8 @@ public class WorkStatus extends JFrame{
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        
+        wse.CheckWS(0, "오늘");
+       
     }
 
     public JTable getJtDailyStatus() {
@@ -136,7 +134,7 @@ public class WorkStatus extends JFrame{
 		return jbGoMain;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
         new WorkStatus();
     }
     
