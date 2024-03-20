@@ -35,9 +35,13 @@ public class VacationStatusDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		String selectVOInfo = null;
 		try {
 			con = DbConnection.getCon();
-			String selectVOInfo = null;
+			
+			selectVOInfo = "select bl.doc_no, bl.emp_no, bl.title, bl.start_date,  d.dept_name,  bl.code2 "
+					+	"		from   BUSSINESS_LOG bl , EMP_INFO ei , DEPT d"
+					+	"		where  (ei.emp_no = bl.emp_no) and (bl.code = 5) and (d.dept_code = ei.dept_code) ";
 			
 			
 			
@@ -46,6 +50,12 @@ public class VacationStatusDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
+				vVO = new VacationVO(rs.getInt("emp_no"), 0, 0,rs.getInt("code2"), rs.getString("doc_no"), null,
+						selectVOInfo, selectVOInfo, selectVOInfo,
+						selectVOInfo, selectVOInfo,rs.getString("title"),rs.getString("dept_name") ,rs.getDate("start_date"), null, null);
+				
+				
+				list.add(vVO);
 			}
 		
 		}finally {
@@ -54,4 +64,29 @@ public class VacationStatusDAO {
 			}
 		return list;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
