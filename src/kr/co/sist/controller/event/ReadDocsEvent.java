@@ -7,10 +7,10 @@ import java.awt.event.WindowEvent;
 
 public class ReadDocsEvent extends WindowAdapter implements ActionListener {
 
-    private controller.event.ReadDocsEvent rde;
+    private ReadDocsEvent rde;
 
 
-    public ReadDocsEvent(controller.event.ReadDocsEvent rde) {
+    public ReadDocsEvent(ReadDocsEvent rde) {
         rde= this.rde;
     }
 
