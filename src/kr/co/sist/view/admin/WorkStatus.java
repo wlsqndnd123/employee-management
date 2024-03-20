@@ -33,7 +33,12 @@ public class WorkStatus extends JFrame{
         setLayout(new BorderLayout());
         
         String[] coloumnName = {"사번","이름","출근시간","퇴근시간","사용연차","연차"}; 
-        dtmDailyStatus = new DefaultTableModel(coloumnName,0);
+        dtmDailyStatus = new DefaultTableModel(coloumnName,0){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
         jtDailyStatus = new JTable(dtmDailyStatus);
         JScrollPane jspJtaResult = new JScrollPane(jtDailyStatus);
         jspJtaResult.setBorder(new TitledBorder("근태정보"));
@@ -46,7 +51,7 @@ public class WorkStatus extends JFrame{
         
         jtDailyStatus.getColumnModel().getColumn(0).setPreferredWidth(80);
         
-        jtDailyStatus.setEnabled(false);
+    
         
         
         dcbmDateRange = new DefaultComboBoxModel<String>();

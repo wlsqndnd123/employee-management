@@ -3,6 +3,7 @@ package kr.co.sist.controller.event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import java.sql.SQLException;
 
 import kr.co.sist.view.admin.ConfirmVacation;
 import kr.co.sist.view.admin.ReturnReason;
@@ -28,7 +29,12 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
 		}
 		
 		if(ae.getSource() == cv.getJbApprove()) {
-			new VacationStatus();
+			try {
+				new VacationStatus();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			cv.dispose();
 			
 		}
