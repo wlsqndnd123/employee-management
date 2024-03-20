@@ -22,16 +22,15 @@ public class AdminMenu extends JFrame {
     /**
      * Desc : 관리자 메뉴 main frame 구현
      */
-    public AdminMenu(){
+    public AdminMenu() {
         setTitle("관리자 메뉴");
         setLayout(null);
 
         createGoToButton();
-        createWorkNotifications();
+        initializeWorkNotifications();
         createEvent();
-        initializedNotifications();
 
-        setBounds(300,100,650,550);
+        setBounds(300, 100, 650, 550);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -39,18 +38,18 @@ public class AdminMenu extends JFrame {
     /**
      * Desc : 다른 view로 연결되는 버튼 생성
      */
-    public void createGoToButton(){
+    public void createGoToButton() {
         employeeInformationJbtn = new JButton("사원 정보");
         workAttendanceJbtn = new JButton("근태 관리");
         documentsJbtn = new JButton("문서 관리");
         closeJbtn = new JButton("종료");
         passwordJbtn = new JButton("비밀번호 변경");
 
-        employeeInformationJbtn.setBounds(80,110,100,40);
-        workAttendanceJbtn.setBounds(80,230,100,40);
-        documentsJbtn.setBounds(80,350,100,40);
-        closeJbtn.setBounds(520,20,100,40);
-        passwordJbtn.setBounds(500,460,120,40);
+        employeeInformationJbtn.setBounds(80, 110, 100, 40);
+        workAttendanceJbtn.setBounds(80, 230, 100, 40);
+        documentsJbtn.setBounds(80, 350, 100, 40);
+        closeJbtn.setBounds(520, 20, 100, 40);
+        passwordJbtn.setBounds(500, 460, 120, 40);
 
         add(employeeInformationJbtn);
         add(workAttendanceJbtn);
@@ -60,26 +59,47 @@ public class AdminMenu extends JFrame {
     }
 
     /**
-     * Desc : 업무 알람을 표시하는 영역 생성
+     * Desc: 업무 알람을 표시하는 영역 생성 및 초기화
      */
-    public void createWorkNotifications(){
+    public void initializeWorkNotifications() {
+        createWorkNotificationArea();
+        loadWorkAlerts();
+    }
+
+    /**
+     * Desc: 업무 알람 표시 영역 생성
+     */
+    private void createWorkNotificationArea() {
         workNotifications = new JTextArea();
         workNotiPad = new JScrollPane(workNotifications);
-
-        workNotiPad.setBounds(250,80,320,350);
-
+        workNotiPad.setBounds(250, 80, 320, 350);
         add(workNotiPad);
     }
 
-    public void initializedNotifications(){
-        workNotifications.setText("휴가");
-        workNotifications.append("업무");
+    /**
+     * Desc: 업무 알람 내용 로드
+     */
+    private void loadWorkAlerts() {
+        RunAdminMenuDAO runAdminMenuDAO = new RunAdminMenuDAO();
+        String vacationAlert = runAdminMenuDAO.loadWorkAlert(true);
+        String workAlert = runAdminMenuDAO.loadWorkAlert(false);
+        displayWorkAlerts(vacationAlert, workAlert);
+    }
+
+    /**
+     * Desc: 업무 알람 내용 표시
+     *
+     * @param vacationAlert  승인 대기 중인 휴가
+     * @param workAlert 승인 대기 중인 보고서
+     */
+    private void displayWorkAlerts(String vacationAlert, String workAlert) {
+        workNotifications.setText(vacationAlert + "\n" + workAlert);
     }
 
     /**
      * Desc : 이벤트 등록
      */
-    public void createEvent(){
+    public void createEvent() {
         AdminMenuEvent adminMenuEvent = new AdminMenuEvent(this);
 
         employeeInformationJbtn.addActionListener(adminMenuEvent);
