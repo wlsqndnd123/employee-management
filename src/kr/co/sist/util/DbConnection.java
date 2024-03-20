@@ -8,11 +8,10 @@ import java.util.Properties;
 
 public class DbConnection {
 
-    private static Connection con;
-    private static DbConnection dbCon;
+    private static Properties properties;
 
     static {
-        Properties properties = new Properties();
+        properties = new Properties();
         Reader reader;
         try {
             reader = new FileReader("src/kr/co/sist/util/jdbc.properties");
@@ -28,28 +27,39 @@ public class DbConnection {
 
         try {
             Class.forName(driverName);
-            con = DriverManager.getConnection(url, user, pwd);
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
-    
 
-    public static Connection getCon() {
-        return con;
+    public static Connection getCon() throws SQLException {
+        String url = properties.getProperty("url");
+        String user = properties.getProperty("user");
+        String pwd = properties.getProperty("password");
+
+        return DriverManager.getConnection(url, user, pwd);
     }
 
-    public static void dbClose(ResultSet rs, Statement stmt, Connection con) throws SQLException {
-        try {
-            if (rs != null) {
+    public static void dbClose(ResultSet rs, Statement stmt, Connection con) {
+        if (rs != null) {
+            try {
                 rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            if (stmt != null) {
+        }
+        if (stmt != null) {
+            try {
                 stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } finally {
-            if (con != null) {
+        }
+        if (con != null) {
+            try {
                 con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }

@@ -27,10 +27,10 @@ public class CreateEmployeeInformationDAO {
 	 * @throws SQLException 
 	 */
 	public void insertEmpInfo(EmpInfoVO eVO) throws SQLException {
-		Connection con = DbConnection.getCon();
+		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			
+			con=DbConnection.getCon();
 		String insertEmp =
 		"	insert 	into 	EMP_INFO (EMP_NO,NAME,JOB,DEPT_CODE, CODE, TEL,GRP_CODE) "
 		+ " 	values (?,?,?,?,?,?,'POS') 	";
