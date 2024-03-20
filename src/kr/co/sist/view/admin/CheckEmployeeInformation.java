@@ -1,7 +1,6 @@
 package kr.co.sist.view.admin;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -63,7 +62,7 @@ public class CheckEmployeeInformation extends JFrame {
         List<EmpInfoVO> list;
 		try {
 			list = ciDAO.selectAllEmpInfo();
-        eVO= new EmpInfoVO();
+            eVO = new EmpInfoVO();
         for(int i =0; i<list.size();i++) {
         	eVO = list.get(i);
         	content[0] =eVO.getEmpno();
