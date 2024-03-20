@@ -80,9 +80,9 @@ public class CheckEmployeeInformationDAO {
 //		position = (String)checkEmp.getCbPosition().getSelectedItem();
 //		year = checkEmp.getJycHiredateYear().getYear();
 
-			String SelectEmp = "	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE\r\n"
+			String SelectEmp = "	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE "
 					+ "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
-					+ "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS')	"
+					+ "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS') and  ( ei.LOGIC ='N')	"
 					+ "		and    (d.DEPT_NAME =	?	) and (c.DESCRIPTION =  ?	) and   (	to_char(ei.CREATE_DATE, 'yyyy') = ?	) 	";
 
 			pstmt = con.prepareStatement(SelectEmp);
