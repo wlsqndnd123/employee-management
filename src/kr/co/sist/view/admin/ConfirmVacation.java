@@ -12,12 +12,14 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import kr.co.sist.controller.event.ConfirmVacationEvent;
+import kr.co.sist.controller.event.ReturnReasonEvent;
 
 public class ConfirmVacation extends JFrame {
 	private JLabel jlDocNum, jlEmpNum, jlEmpName, jlLeftVaction, jlApplyDate;
 	private JTextField jtfDocNum, jtfEmpNum, jtfEmpName, jtfLeftVaction, jtfApplyDate;
 	private JTextArea jtaContent;
 	private JButton jbApprove, jbReturn;
+
 	
 	public ConfirmVacation() {
 		setTitle("휴가 결재창");
@@ -114,15 +116,15 @@ public class ConfirmVacation extends JFrame {
 		jbApprove.addActionListener(cve);
 
 		
-		
-		
-		
-		
+
 		
 		setBounds(300, 100, 650, 550);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+        
+   
+        
+        
 	}
 	
 	
@@ -189,11 +191,5 @@ public class ConfirmVacation extends JFrame {
 	public JButton getJbReturn() {
 		return jbReturn;
 	}
-
-
-	public static void main(String[] args) {
-        new ConfirmVacation();
-    }
-	
 	
 }

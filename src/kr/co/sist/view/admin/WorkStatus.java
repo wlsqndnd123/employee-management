@@ -13,6 +13,8 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import kr.co.sist.controller.event.WorkStatusEvent;
+
 public class WorkStatus extends JFrame{
     private JTable jtDailyStatus;
     private DefaultTableModel dtmDailyStatus;
@@ -43,6 +45,13 @@ public class WorkStatus extends JFrame{
         
         jtDailyStatus.getColumnModel().getColumn(0).setPreferredWidth(80);
         
+       ////////////////////////////////////////////////////////////////////////
+        Object[] rowData = {"001", "John Doe", "09:00", "18:00", "0", "10"};
+        dtmDailyStatus.addRow(rowData);
+        ///////////////////////////////////////////////////////////////////////////
+        jtDailyStatus.setEnabled(false);
+        
+        
         dcbmDateRange = new DefaultComboBoxModel<String>();
         jcbDateRange = new JComboBox<String>(dcbmDateRange);
         dcbmDateRange.addElement("오늘");
@@ -50,8 +59,7 @@ public class WorkStatus extends JFrame{
         dcbmDateRange.addElement("1달");
         dcbmDateRange.addElement("1년");
 		
-      
-        
+ 
         JPanel panel = new JPanel();
         panel.setLayout(null);
         
@@ -62,6 +70,10 @@ public class WorkStatus extends JFrame{
         jbVacationStatus.setBounds(510,270, 100, 30);
         jspJtaResult.setBounds(10,10, 490, 480);
         
+        
+        
+        
+        
         panel.add(jbGoMain);
         panel.add(jtfEmpNum);
         panel.add(jcbDateRange);
@@ -71,6 +83,20 @@ public class WorkStatus extends JFrame{
         
         add(panel, BorderLayout.CENTER);
         
+        
+        
+        WorkStatusEvent wse = new WorkStatusEvent(this);
+        jbCheck.addActionListener(wse);
+        jbGoMain.addActionListener(wse);
+        jbVacationStatus.addActionListener(wse);
+
+        
+        
+        
+        
+        
+        
+        
         setBounds(300, 100, 650, 550);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,7 +104,39 @@ public class WorkStatus extends JFrame{
         
     }
 
-    public static void main(String[] args) {
+    public JTable getJtDailyStatus() {
+		return jtDailyStatus;
+	}
+
+	public DefaultTableModel getDtmDailyStatus() {
+		return dtmDailyStatus;
+	}
+
+	public JTextField getJtfEmpNum() {
+		return jtfEmpNum;
+	}
+
+	public JComboBox<String> getJcbDateRange() {
+		return jcbDateRange;
+	}
+
+	public DefaultComboBoxModel<String> getDcbmDateRange() {
+		return dcbmDateRange;
+	}
+
+	public JButton getJbCheck() {
+		return jbCheck;
+	}
+
+	public JButton getJbVacationStatus() {
+		return jbVacationStatus;
+	}
+
+	public JButton getJbGoMain() {
+		return jbGoMain;
+	}
+
+	public static void main(String[] args) {
         new WorkStatus();
     }
     

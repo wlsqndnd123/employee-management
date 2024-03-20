@@ -1,31 +1,51 @@
 package kr.co.sist.controller.event;
 
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 
+import kr.co.sist.view.admin.ConfirmVacation;
 import kr.co.sist.view.admin.ReturnReason;
+import kr.co.sist.view.admin.VacationStatus;
 
 public class ReturnReasonEvent extends WindowAdapter implements ActionListener{
 
 	private ReturnReason rr;
+	private ConfirmVacation cv;
 	
-	public ReturnReasonEvent(ReturnReason rr) {
+	
+	public ReturnReasonEvent(ConfirmVacation cv, ReturnReason rr) {
+		this.cv = cv;
 		this.rr=rr;
+	}
+	
+
+
+
+	public void actionPerformed(ActionEvent ae) {
+		if(ae.getSource() == rr.getJbInput()) {
+	
+			inputReason();
+			
+		}
+		
+		if(ae.getSource() == rr.getJbCancel()) {
+			
+			rr.dispose();
+		}
+		
+		
+		
 	}
 	
 	
 	
-	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource() == rr.getJbInput()) {
-			System.out.println(1.1);
-		}
+	public void inputReason() {
+		cv.dispose();
+		rr.dispose();
 		
-		if(ae.getSource() == rr.getJbCancel()) {
-			System.out.println(1.2);
-		}
-		
-		
+		new VacationStatus();
 		
 	}
 	
