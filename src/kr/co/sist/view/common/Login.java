@@ -13,11 +13,11 @@ public class Login extends JFrame implements ActionListener {
     private JPasswordField jpwfPass;
     private JButton jbLogin, jbExit, jbFindPassword;
     private JLabel jlResult;
-
+ 
     public Login() {
         super("Login");
 
-        setLayout(null); // LayoutManager를 null로 설정하여 수동으로 위치와 크기를 조절할 수 있도록 합니다.
+        setLayout(null); 
 
         // 로그인 라벨 생성 및 설정
         jlLogin = new JLabel("로그인");
@@ -72,7 +72,7 @@ public class Login extends JFrame implements ActionListener {
         });
         add(jbExit);
         setBounds(300,120,500,400);
-        setVisible(true); // 프레임을 표시합니다.
+        setVisible(true); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         addWindowListener(new WindowAdapter() {
