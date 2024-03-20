@@ -6,6 +6,8 @@ import java.awt.event.WindowAdapter;
 
 import kr.co.sist.view.admin.ConfirmVacation;
 import kr.co.sist.view.admin.ReturnReason;
+import kr.co.sist.view.admin.VacationStatus;
+
 
 public class ConfirmVacationEvent extends WindowAdapter implements ActionListener{
 	
@@ -15,21 +17,32 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
 		this.cv=cv;
 	}
 
+	
+
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource() == cv.getJbReturn()){
+	
 			new ReturnReason(cv);
+		
+			
 		}
 		
 		if(ae.getSource() == cv.getJbApprove()) {
-			System.out.println("1");
+			new VacationStatus();
+			cv.dispose();
+			
 		}
 
 		
 	}
 
 	
-
+	public void ApproveVacation(int a) {
+		
+	}
 	
-	
+	public void ReturnVacation(int a) {
+		
+	}
 	
 }

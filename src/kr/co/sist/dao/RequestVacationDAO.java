@@ -1,7 +1,7 @@
 package kr.co.sist.dao;
 
 import kr.co.sist.util.DbConnection;
-import kr.co.sist.vo.EmpInfoVO;
+import kr.co.sist.vo.VacationVO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,10 +23,11 @@ public class RequestVacationDAO {
 
     /**
      * Desc : 사원 휴가 신청 메뉴 view에 사용되는 DAO 객체화
+     *
      * @return DAO객체
      */
-    public static RequestVacationDAO getInstance(){
-        if (requestVacationDAO == null){
+    public static RequestVacationDAO getInstance() {
+        if (requestVacationDAO == null) {
             requestVacationDAO = new RequestVacationDAO();
         }
         return requestVacationDAO;
@@ -34,26 +35,24 @@ public class RequestVacationDAO {
 
     /**
      * Desc : view에 필요한 Data 호출
+     *
      * @return : 관련 데이터 list
      * @throws SQLException
      */
-    public List<EmpInfoVO> vacationData() throws SQLException{
-        List<EmpInfoVO> list = new ArrayList<>();
-
-        DbConnection dbConnection = DbConnection.getInstance();
-
+    public List<VacationVO> vacationData() throws SQLException {
+        List<VacationVO> list = new ArrayList<>();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
-        try{
-            String id = "scott";
-            String pass = "tiger";
+        try {
+            connection = DbConnection.getCon();
+            String insertVacationLog = "insert into bussiness_log";
 
-            connection = dbConnection.getConnection(id,pass);
-
-        }finally {
-            dbConnection.dbClose(resultSet, preparedStatement, connection);
+            preparedStatement = connection.prepareStatement(insertVacationLog);
+            resultSet = preparedStatement.executeQuery();
+        } finally {
+            DbConnection.dbClose(resultSet, preparedStatement, connection);
         }
         return list;
     }

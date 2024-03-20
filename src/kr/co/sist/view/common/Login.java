@@ -1,20 +1,11 @@
 package kr.co.sist.view.common;
 
-import java.awt.Color;
-import java.awt.Frame;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Map;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
-
 
 public class Login extends JFrame implements ActionListener {
     private JLabel jlLogin;
@@ -42,17 +33,18 @@ public class Login extends JFrame implements ActionListener {
         JLabel passwordLabel = new JLabel("비밀번호");
         passwordLabel.setBounds(40, 130, 60, 40); // 위치 설정
         add(passwordLabel);
-        
+
         // 사원 번호 입력 필드 생성 및 설정
         jtfEmp_no = new JTextField();
-        jtfEmp_no.setBounds(100, 80, 200, 40); 
+        jtfEmp_no.setBounds(100, 80, 200, 40);
+
         add(jtfEmp_no);
 
         // 비밀번호 입력 필드 생성 및 설정
         jpwfPass = new JPasswordField();
         jpwfPass.setBounds(100, 130, 200, 40);
         add(jpwfPass);
-        
+
         // 비밀번호 찾기 버튼 생성 및 설정
         jbFindPassword = new JButton("비밀번호 찾기");
         jbFindPassword.setBounds(100, 200, 120, 30);
@@ -62,58 +54,43 @@ public class Login extends JFrame implements ActionListener {
             }
         });
         add(jbFindPassword);
-        
-        
-        // 로그인 버튼 생성 및 설정  
+
+        // 로그인 버튼 생성 및 설정
         jbLogin = new JButton("로그인");
-        jbLogin.setBounds(320, 105, 80, 40); 
+        jbLogin.setBounds(320, 105, 80, 40);
         jbLogin.addActionListener(this);
         add(jbLogin);
 
-        // 종료 버튼 생성 및 설정 
+        // 종료 버튼 생성 및 설정
         jbExit = new JButton("종료");
-        jbExit.setBounds(240, 200, 60, 30); 
+        jbExit.setBounds(240, 200, 60, 30);
+
         jbExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
         add(jbExit);
-
-        setBounds(300,120,500,400); 
+        setBounds(300,120,500,400);
         setVisible(true); // 프레임을 표시합니다.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent we) {
                 dispose();
             }
         });
     }//Login
-    
-    private void applyEvent() {
-    	
-    }//applyEvent
-    
-    public JButton getLoginButton() {
-    	return jbLogin;
-    }
-    
-    public JButton getExitButton() {
-    	return jbExit;
-    }
-    
-    public JButton getFindPassword() {
-    	return jbFindPassword;
-    }
-    
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	public static void main(String[] args) {
-		new Login();
-	}//main
+
+    public static void main(String[] args) {
+        new Login();
+    }//main
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+
+    }
 }//class

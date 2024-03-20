@@ -1,86 +1,66 @@
 package kr.co.sist.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.sql.*;
+import java.util.Properties;
 
-/**
- * Singleton pattern을 사용한 DBMS connection 관리 클래스
- */
 public class DbConnection {
-	private static DbConnection dbCon;
-	
-	private DbConnection() {
-	}//Dbconnection
-	
-	public static DbConnection getInstance() {
-		if(dbCon == null) { // 최초 호출이거나, 사용중에 객체가 죽었다면 if를 탄다.
-			dbCon = new DbConnection();
-		}//end if
-		return dbCon;
-	}//getInstance
-	
-	/**
-	 * Connection을 반환하는 method
-	 * @return
-	 * @throws SQLException
-	 */
-	public Connection getConnection(String id,String pass) throws SQLException {
-		Connection con = null;
-		
-		//1.드라이버 로딩
-		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}//end catch
-		String url= "jdbc:oracle:thin:@192.168.10.221:1521:orcl";
-		
-		//2.커넥션 얻기
-		con = DriverManager.getConnection(url,id,pass);
 
-		return con;
-	}//getConnection
-	
-	/**
-	 * DB 서버 jdbc:oracle:thin:@localhost:1521:orcl
-	 * @param url
-	 * @param id
-	 * @param pass
-	 * @return
-	 * @throws SQLException
-	 */
-	public Connection getConnection(String url,String id,String pass) throws SQLException {
-		Connection con = null;
-		
-		//1.드라이버 로딩
-		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}//end catch
+    private static Properties properties;
 
-		//2.커넥션 얻기
-		con = DriverManager.getConnection(url,id,pass);
+    static {
+        properties = new Properties();
+        Reader reader;
+        try {
+            reader = new FileReader("src/kr/co/sist/util/jdbc.properties");
+            properties.load(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		return con;
-	}
-	
-	/**
-	 * 연결을 종료하는 일
-	 * @param rs
-	 * @param stmt
-	 * @param con
-	 * @throws SQLException
-	 */
-	public void dbClose(ResultSet rs, Statement stmt, Connection con) throws SQLException {
-		try {
-			if(rs != null) {rs.close();}
-			if(stmt != null) {stmt.close();}
-		}finally {
-			if(con != null) {con.close();}
-		}//end finally
-	}//dbClose
-}//class
+        String driverName = properties.getProperty("driver");
+        String url = properties.getProperty("url");
+        String user = properties.getProperty("user");
+        String pwd = properties.getProperty("password");
+
+        try {
+            Class.forName(driverName);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Connection getCon() throws SQLException {
+        String url = properties.getProperty("url");
+        String user = properties.getProperty("user");
+        String pwd = properties.getProperty("password");
+
+        return DriverManager.getConnection(url, user, pwd);
+    }
+
+    public static void dbClose(ResultSet rs, Statement stmt, Connection con) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (con != null) {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
