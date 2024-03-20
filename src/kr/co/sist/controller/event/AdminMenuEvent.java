@@ -1,6 +1,10 @@
 package kr.co.sist.controller.event;
 
 import kr.co.sist.view.admin.AdminMenu;
+import kr.co.sist.view.admin.CheckEmployeeInformation;
+import kr.co.sist.view.admin.DocsManagement;
+import kr.co.sist.view.admin.WorkStatus;
+import kr.co.sist.view.common.UpdatePassword;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,19 +30,23 @@ public class AdminMenuEvent extends WindowAdapter implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == adminMenu.getEmployeeInformationJbtn()){
-            System.out.println("사원정보 연결");
+            new CheckEmployeeInformation();
+            closeFrame();
         }
         if (e.getSource() == adminMenu.getWorkAttendanceJbtn()){
-            System.out.println("근태관리 연결");
+            new WorkStatus();
+            closeFrame();
         }
         if (e.getSource() == adminMenu.getDocumentsJbtn()){
-            System.out.println("문서관리 연결");
+            new DocsManagement();
+            closeFrame();
         }
         if (e.getSource() == adminMenu.getCloseJbtn()){
             closeFrame();
         }
         if (e.getSource() == adminMenu.getPasswordJbtn()){
-            System.out.println("비밀번호 변경 연결");
+            new UpdatePassword();
+            closeFrame();
         }
     }
 

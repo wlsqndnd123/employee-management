@@ -1,12 +1,8 @@
 package kr.co.sist.view.admin;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import kr.co.sist.controller.event.ReturnReasonEvent;
@@ -14,7 +10,6 @@ import kr.co.sist.controller.event.ReturnReasonEvent;
 
 
 public class ReturnReason extends JDialog{
-//public class ReturnReason extends JDialog{
 	private JTextArea jtaContent;
 	private JButton jbInput;
 	private JButton jbCancel;
