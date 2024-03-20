@@ -13,10 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import kr.co.sist.controller.event.SubmitDocsEvent;
+
 public class SubmitDocs extends JFrame implements ActionListener {
 
     private JButton btn_regist, btn_cancel, attAdd, attRemove;
-    private JTextField jtf1, jtf2;
+    private JTextField jtfTitle, jtfFileNm;
     private JComboBox<String> jcb;
 
     public SubmitDocs() {
@@ -31,8 +33,8 @@ public class SubmitDocs extends JFrame implements ActionListener {
         attRemove= new JButton("취소");
 
 
-        jtf1= new JTextField();
-        jtf2= new JTextField();
+        jtfTitle= new JTextField();
+        jtfFileNm= new JTextField();
 
         //파일다이얼로그 창 띄우기
         FileDialog fd= new FileDialog(this,"첨부파일 선택" , FileDialog.LOAD);
@@ -43,11 +45,11 @@ public class SubmitDocs extends JFrame implements ActionListener {
         JTextArea jta= new JTextArea();
 
         DefaultComboBoxModel<String> dcbm= new DefaultComboBoxModel<String>();
-        JComboBox<String> jcb= new JComboBox<String>(dcbm);
+        jcb= new JComboBox<String>(dcbm);
 
         jpNorth.add(jcb);
-        jpNorth.add(jtf1);
-        jpNorth.add(jtf2);
+        jpNorth.add(jtfTitle);
+        jpNorth.add(jtfFileNm);
         jpNorth.add(attAdd);
         jpNorth.add(attRemove);
 
@@ -56,8 +58,8 @@ public class SubmitDocs extends JFrame implements ActionListener {
         dcbm.addElement("보고서");
 
         jpNorth.setBounds(10, 30, 150, 35);
-        jtf1.setBounds(130, 30, 60, 30);
-        jtf2.setBounds(225,30,80,30);
+        jtfTitle.setBounds(130, 30, 60, 30);
+        jtfFileNm.setBounds(225,30,80,30);
         jta.setBounds(50, 100, 400, 300);
 
         btn_regist.setBounds(120, 480, 80, 30);	//등록버튼
@@ -66,10 +68,13 @@ public class SubmitDocs extends JFrame implements ActionListener {
         attAdd.setBounds(315, 30, 60, 30);		//추가버튼
         attRemove.setBounds(380, 30, 60, 30);	//취소버튼
 
-
-
+        SubmitDocsEvent smde= new SubmitDocsEvent(this);
+        
+        attAdd.addActionListener(smde);
+        jcb.addItemListener(smde);
 
         setSize(500,600);
+        setBounds(300,100,650,550);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -79,12 +84,77 @@ public class SubmitDocs extends JFrame implements ActionListener {
         add(attRemove);
         add("North", jpNorth);
         add("Center", jta);
-        add(jtf1);
-        add(jtf2);
+        add(jtfTitle);
+        add(jtfFileNm);
 
     }
 
-    @Override
+    
+    
+    /**
+	 * @return the btn_regist
+	 */
+	public JButton getBtn_regist() {
+		return btn_regist;
+	}
+
+
+
+	/**
+	 * @return the btn_cancel
+	 */
+	public JButton getBtn_cancel() {
+		return btn_cancel;
+	}
+
+
+
+	/**
+	 * @return the attAdd
+	 */
+	public JButton getAttAdd() {
+		return attAdd;
+	}
+
+
+
+	/**
+	 * @return the attRemove
+	 */
+	public JButton getAttRemove() {
+		return attRemove;
+	}
+
+
+
+	/**
+	 * @return the jtfTitle
+	 */
+	public JTextField getJtfTitle() {
+		return jtfTitle;
+	}
+
+
+
+	/**
+	 * @return the jtfFileNm
+	 */
+	public JTextField getJtfFileNm() {
+		return jtfFileNm;
+	}
+
+
+
+	/**
+	 * @return the jcb
+	 */
+	public JComboBox<String> getJcb() {
+		return jcb;
+	}
+
+
+
+	@Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
 
