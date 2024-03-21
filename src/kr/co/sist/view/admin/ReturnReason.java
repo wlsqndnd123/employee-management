@@ -57,6 +57,51 @@ public class ReturnReason extends JDialog{
 		
 		
 	}
+	
+	
+	
+	public ReturnReason(ConfirmDocs cd) {
+		super(cd,"반려사유작성",true);
+		
+		setLayout(new BorderLayout());
+		
+		jtaContent = new JTextArea();
+		jbInput = new JButton("입력");
+		jbCancel = new JButton("취소");
+		JScrollPane jspJtaResult = new JScrollPane(jtaContent);
+        jspJtaResult.setBorder(new TitledBorder("반려사유"));
+		
+		JPanel jp = new JPanel();
+		jp.setLayout(null);
+		jspJtaResult.setBounds(10,20,445,250);
+		
+		jbInput.setBounds(80, 285, 100, 30);
+		jbCancel.setBounds(280, 285, 100, 30);
+		
+		jp.add(jbCancel);
+		jp.add(jbInput);
+
+		jp.add(jspJtaResult);
+		
+		add(jp, BorderLayout.CENTER);
+		
+		
+		
+		ReturnReasonEvent rre = new ReturnReasonEvent(cd,this);
+		jbInput.addActionListener(rre);
+		jbCancel.addActionListener(rre);
+	
+		
+
+
+		setBounds(cd.getX(),cd.getY()+50,480,400);
+		setVisible(true);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		
+		
+		
+		
+	}
 
 
 	public JTextArea getJtaContent() {
