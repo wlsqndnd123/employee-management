@@ -93,7 +93,7 @@ public class AdminMenu extends JFrame {
      * @param workAlert 승인 대기 중인 보고서
      */
     private void displayWorkAlerts(String vacationAlert, String workAlert) {
-        workNotifications.setText(vacationAlert + "\n" + workAlert);
+        workNotifications.setText(vacationAlert + "\n\n" + workAlert);
     }
 
     /**
