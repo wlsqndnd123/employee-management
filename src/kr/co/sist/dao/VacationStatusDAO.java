@@ -66,17 +66,33 @@ public class VacationStatusDAO {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public String selectRejetDetail(String doc_no) throws SQLException {
+		String rejetDetail = null;
+		vVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String selectrejetDetail = null;
+		try {
+			con = DbConnection.getCon();
+			selectrejetDetail = "select reason "
+					+	"		from REJECT"
+					+	"		where doc_no = ?" ;
+			
+			pstmt=con.prepareStatement(selectrejetDetail);
+			pstmt.setString(1, doc_no);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				rejetDetail = rs.getString("reason");
+			}
+
+		}finally {
+		DbConnection.dbClose(null, pstmt, con);
+		
+			}
+		return rejetDetail;
+	}
 	
 	
 	

@@ -82,8 +82,8 @@ public class WorkStatusEvent extends WindowAdapter implements ActionListener{
 			for(CommuteVO cVO : cVOList) {
 			content[0] = cVO.getEmpNo();
 			content[1] = cVO.getEmpName();
-			content[2] = cVO.getAttendTime().substring(11);
-			content[3] = cVO.getQuitTime().substring(11);
+			content[2] = cVO.getAttendTime();
+			content[3] = cVO.getQuitTime();
 			content[4] = cVO.getUse_count();
 			content[5] = cVO.getAssign_count();
 			content[6] = cVO.getCommuteDate();
