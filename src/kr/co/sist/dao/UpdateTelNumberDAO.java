@@ -54,7 +54,7 @@ public class UpdateTelNumberDAO {
 			
 			String str =
 			"	update    EMP_INFO	"
-			+ "		set     tel = 	?	"
+			+ "		set     tel = 	? , EDIT_DATE =sysdate	"
 			+ "		where emp_no = 	? 	";
 			
 			pstmt= con.prepareStatement(str);
