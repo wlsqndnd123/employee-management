@@ -2,10 +2,14 @@ package kr.co.sist.view.user;
 
 import com.toedter.calendar.JCalendar;
 import kr.co.sist.controller.event.UserMenuEvent;
+import kr.co.sist.service.RunUserMenuDAO;
+import kr.co.sist.vo.CommuteVO;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.util.List;
 
 /**
  * Desc : 사원으로 로그인 하는 경우 처음 보이는 view<br>
@@ -32,6 +36,7 @@ public class UserMenu extends JFrame {
         createWorkCalendar();
         createGoToButton();
         createWorkStatusTable();
+        loadWorkStatusTable();
         createEvent();
 
         setBounds(300, 100, 650, 550);
@@ -47,6 +52,8 @@ public class UserMenu extends JFrame {
 
         workCalendar.setBorder(new TitledBorder("근무일정"));
         workCalendar.setBounds(20,150,290,350);
+
+        workCalendar.setForeground(Color.red);
 
         add(workCalendar);
     }
@@ -91,6 +98,21 @@ public class UserMenu extends JFrame {
         workStatusPad.setBounds(330,150,290,350);
 
         add(workStatusPad);
+    }
+
+    /**
+     * Desc : 로그인 한 사번에 맞는 출퇴근 기록 정보를 불러오는 기능
+     */
+    public void loadWorkStatusTable() {
+        List<CommuteVO> commuteData = RunUserMenuDAO.loadStampTime();
+
+        DefaultTableModel model = (DefaultTableModel) workStatusTable.getModel();
+        model.setRowCount(0);
+
+        for (CommuteVO commute : commuteData) {
+            Object[] rowData = {commute.getCommuteDate(), commute.getAttendTime(), commute.getQuitTime(), commute.getWorkStatus()};
+            model.addRow(rowData);
+        }
     }
 
     /**

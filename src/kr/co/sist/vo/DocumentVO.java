@@ -6,7 +6,7 @@ import java.sql.Date;
 public class DocumentVO {
     String docNo, title, workDesc, workLog, apprDesc, fileName,dept;
     int empNo;
-    Date docDate;
+    Date docDate,modifiedDate;
 
     public String getDept() {
 		return dept;
@@ -80,8 +80,9 @@ public class DocumentVO {
     }
 
     
+
 	public DocumentVO(String docNo, String title, String workDesc, String workLog, String apprDesc, String fileName,
-			String dept, int empNo, Date docDate) {
+			String dept, int empNo, Date docDate, Date modifiedDate) {
 		super();
 		this.docNo = docNo;
 		this.title = title;
@@ -92,6 +93,7 @@ public class DocumentVO {
 		this.dept = dept;
 		this.empNo = empNo;
 		this.docDate = docDate;
+		this.modifiedDate = modifiedDate;
 	}
 
 	@Override
