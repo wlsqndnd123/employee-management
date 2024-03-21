@@ -20,7 +20,7 @@ import kr.co.sist.vo.LoginVO;
 
 public class LoginEvent extends WindowAdapter implements ActionListener{
 	private Login login;
-	public static String inputId, inputPassword; 
+	private static String empno; 
 	
 	
 	public LoginEvent(Login login) throws SQLException {
@@ -50,24 +50,13 @@ public class LoginEvent extends WindowAdapter implements ActionListener{
 	public void windowClosing(WindowEvent we) {
         login.dispose();
     }
-	
-	public String getInputId() {
-		return inputId;
-	}
-	
-	public String getInputPassword() {
-		return inputPassword;
-	}
-	
 	public void login() {
-		String emp_no=login.getEmpNoField().getText();
+		 empno=login.getEmpNoField().getText();
 		String Password =login.getPasswordField().getText();
-		System.out.println("--------1-----------");
 		LoginDAO lDAO= LoginDAO.getInstance();
-		String savedPw = lDAO.confirmUser(emp_no).getPassword();
-		String authcode=lDAO.confirmUser(emp_no).getAuthCode();
+		String savedPw = lDAO.confirmUser(empno).getPassword();
+		String authcode=lDAO.confirmUser(empno).getAuthCode();
 		System.out.println(authcode);
-		System.out.println("--------2-----------");
 		if(Password.equals(savedPw)) {
 			if(authcode.equals("SUPER")||authcode.equals("ADMIN")) {
 				new AdminMenu();
@@ -79,8 +68,14 @@ public class LoginEvent extends WindowAdapter implements ActionListener{
 			JOptionPane.showMessageDialog(null, "비번확인하쇼");
 		}
 		
-		System.out.println("-------3-----------");
 	}
+
+
+	public static String getEmpno() {
+		return empno;
+	}
+	
+	
 ////////////////////////////////////////////////////////////////
 //	
 //	

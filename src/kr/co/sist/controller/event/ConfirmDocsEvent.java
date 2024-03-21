@@ -44,6 +44,7 @@ public class ConfirmDocsEvent extends WindowAdapter implements ActionListener {
 
 	@Override
 	public void windowClosed(WindowEvent e) {
+		
 	}
 	
 
