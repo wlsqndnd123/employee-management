@@ -4,7 +4,6 @@ import kr.co.sist.dao.UserMenuDAO;
 import kr.co.sist.vo.CommuteVO;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +16,10 @@ public class RunUserMenuDAO {
 
     }
 
+    /**
+     * Desc : 출퇴근 기록시간 불러오기
+     * @return 날짜와 출퇴근시간이 기록된 VO list
+     */
     public static List<CommuteVO> loadStampTime(){
         List<CommuteVO> list;
         try {
