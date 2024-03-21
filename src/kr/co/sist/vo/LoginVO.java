@@ -2,7 +2,7 @@ package kr.co.sist.vo;
 
 public class LoginVO {
 
-	String emp_no, password;
+	String emp_no, password, auth_code;
 
 	public LoginVO() {
 		super();
@@ -33,6 +33,15 @@ public class LoginVO {
 	@Override
 	public String toString() {
 		return "LoginVO [emp_no=" + emp_no + ", password=" + password + "]";
+	}
+
+	public String getAuthCode() {
+		return auth_code;
+	}
+	public LoginVO(String emp_no, String password, String auth_code) {
+		this.emp_no = emp_no;
+		this.password = password;
+		this.auth_code = auth_code;
 	}
 	
 	
