@@ -10,6 +10,8 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -55,6 +57,8 @@ public class UserMenu extends JFrame {
     public void createWorkCalendar(){
         workCalendar = new JCalendar();
 
+        workCalendar.addPropertyChangeListener("calendar", e -> paintVacation());
+
         workCalendar.setBorder(new TitledBorder("근무일정"));
         workCalendar.setBounds(20,150,290,350);
 
@@ -63,7 +67,10 @@ public class UserMenu extends JFrame {
     }
 
     /**
-     * Desc : 휴가 날짜 색칠
+     * Desc : 휴가 날짜 색칠<br>
+     * ********************************<br>
+     * 휴가날이 아닌데도 색칠되는 이유는?<br>
+     * ********************************
      */
     public void paintVacation(){
         List<VacationVO> list = RunUserMenuDAO.loadMonthlyWorkSchedule();
