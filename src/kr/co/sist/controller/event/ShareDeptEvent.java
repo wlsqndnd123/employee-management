@@ -86,7 +86,7 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
 			ShareDeptDAO sdDAO = ShareDeptDAO.getInstance();
 			//
 			//(String docNo, String title, String workDesc, String workLog, String apprDesc, String fileName, String dept, int empNo, Date docDate)
-			DocumentVO dVO = new DocumentVO(docNum, null, null, null, null, null, depts, 0, null);
+			DocumentVO dVO = new DocumentVO(docNum, null, null, null, null, null, depts, 0, null, null);
 			sdDAO.shareDoc(dVO);
 			System.out.println(dVO.toString());
 		} catch (SQLException e) {
