@@ -14,6 +14,7 @@ import kr.co.sist.dao.VacationStatusDAO;
 import kr.co.sist.view.admin.ConfirmVacation;
 import kr.co.sist.view.admin.VacationStatus;
 import kr.co.sist.view.admin.WorkStatus;
+import kr.co.sist.view.admin.reject;
 import kr.co.sist.vo.CommuteVO;
 import kr.co.sist.vo.VacationVO;
 
@@ -62,8 +63,14 @@ public class VacationStatusEvent extends WindowAdapter implements ActionListener
 			}
 			
 			if(column == 5) {
+				String doc_no = vs.getJtVacationStatus().getValueAt(row, 0).toString().trim();
 				if(item.equals("반려"))
-				RejetView();
+					try {
+						Rejet(doc_no);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			}
 	
 		}
@@ -103,16 +110,13 @@ public class VacationStatusEvent extends WindowAdapter implements ActionListener
 	
 	
 	
-	public void RejetView() {
+	public void Rejet(String doc_no) throws SQLException {
+		VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
+		String regetDetail = vsDAO.selectRejetDetail(doc_no).toString();
+		new reject(vs,regetDetail);
+		
 		
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
