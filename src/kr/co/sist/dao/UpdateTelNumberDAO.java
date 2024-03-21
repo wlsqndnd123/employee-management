@@ -28,7 +28,7 @@ public class UpdateTelNumberDAO {
 		PreparedStatement pstmt = null;
 		try {
 		sb.append("	update    EMP_INFO	")
-		.append("	set      tel = ?	")
+		.append("	set      tel = ? , EDIT_DATE =sysdate	")
 		.append("	where emp_no = ?	");
 		
 		pstmt= con.prepareStatement(sb.toString());
@@ -44,7 +44,7 @@ public class UpdateTelNumberDAO {
 		 
 		return cnt;
 	}
-	public int updateTel (String  tel,int empno) throws SQLException {
+	public int updateTel (EmpInfoVO eVO) throws SQLException {
 		
 		int cnt =0;
 		Connection con =DbConnection.getCon();
@@ -58,8 +58,8 @@ public class UpdateTelNumberDAO {
 			+ "		where emp_no = 	? 	";
 			
 			pstmt= con.prepareStatement(str);
-			pstmt.setString(1, tel);
-			pstmt.setInt(2, empno);
+			pstmt.setString(1, eVO.getTel());
+			pstmt.setInt(2, eVO.getEmpno());
 			
 			cnt =pstmt.executeUpdate();
 			System.out.println("12131");
@@ -68,14 +68,5 @@ public class UpdateTelNumberDAO {
 		}
 		
 		return cnt;
-	}
-	public static void main(String[] args) {
-		try {
-			UpdateTelNumberDAO DAO = UpdateTelNumberDAO.getInstance();
-			DAO.updateTel("0001", 160002);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

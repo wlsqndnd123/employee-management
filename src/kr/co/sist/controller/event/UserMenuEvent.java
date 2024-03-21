@@ -31,7 +31,8 @@ public class UserMenuEvent extends WindowAdapter implements ActionListener {
             new RequestVacation();
         }
         if (e.getSource() == userMenu.getInformationJbtn()){
-            new UpdateTelNumber();
+        	
+            new UpdateTelNumber(new UpdateTelNumberEvent().setPersonalInfo());
         }
         if (e.getSource() == userMenu.getCloseJbtn()){
             closeFrame();

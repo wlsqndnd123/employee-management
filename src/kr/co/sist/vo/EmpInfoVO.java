@@ -10,6 +10,11 @@ public class EmpInfoVO {
 public EmpInfoVO() {
 	
 }
+public EmpInfoVO(int empno, String tel) {
+	this.empno = empno;
+	this.tel = tel;
+	
+}
 
 public EmpInfoVO(int empno, String name, String job,String position ,String dept,Date hiredate, String tel ,
 		Date modifiedDate) {

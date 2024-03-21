@@ -31,7 +31,7 @@ public class DocsListEvent implements ActionListener, ItemListener{
 	
 	public DocsListEvent(DocsList dclist) {
 		this.dclist = dclist;
-		
+		this.dtmjtabResult = dclist.getDtmjtabResult();
 
 	}
 
@@ -57,34 +57,28 @@ public class DocsListEvent implements ActionListener, ItemListener{
 		
 	}
 	
-	public void searchDocInfo()throws SQLException{
-
-		Object[] content =new Object[7];
-		DocsListDAO dlDAO=new DocsListDAO().getInstance();
-		 dVOList = dlDAO.selectAllDocument();
-		
-		if(dVO ==null) {
-			JOptionPane.showMessageDialog(null, "해당 문서가 없습니다");
-		} else {
-			for(DocumentVO dVO : dVOList) {
-				content[0] = dVO.getDocNo();
-				content[1] = dVO.getTitle();
-				content[2] = dVO.getDept();
-				content[3] = dVO.getWorkLog();
-				content[4] = dVO.getApprDesc();
-				content[5] = dVO.getWorkDesc();
-				content[6] = dVO.getDocDate();
-			
-			dtmjtabResult.addRow(content);
-			}
-		}
+	public void searchDocInfo() throws SQLException {
+	    Object[] content = new Object[7];
+	    DocsListDAO dlDAO = DocsListDAO.getInstance();
+	    dVOList = dlDAO.selectAllDocument();
+	    
+	    // 문서 목록이 비어 있는 경우
+	    if (dVOList.isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "해당 문서가 없습니다");
+	    } else {
+	        for (DocumentVO dVO : dVOList) {
+	            content[0] = dVO.getDocNo();
+	            content[1] = dVO.getTitle();
+	            content[2] = dVO.getDept();
+	            content[3] = dVO.getDocDate();
+	            content[4] = dVO.getApprDesc();
+	            content[5] = dVO.getWorkLog();
+	            content[6] = dVO.getDocDate();
+	            
+	            dtmjtabResult.addRow(content);
+	        }
+	    }
 	}
-		
-	
-
-	public void selectDocInfo() {
-		
 
 	
-}
 }

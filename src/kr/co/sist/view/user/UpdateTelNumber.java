@@ -24,7 +24,7 @@ public class UpdateTelNumber extends JFrame  {
 
 
 	private EmpInfoVO eVO;
-	public UpdateTelNumber() {
+	public UpdateTelNumber(EmpInfoVO eVO) {
 		super("사원창(정보변경)");
 		
 		setLayout(null);
@@ -38,17 +38,17 @@ public class UpdateTelNumber extends JFrame  {
 		 JLabel jlTel = new JLabel("내선번호");
 		 JLabel jlDept = new JLabel("부서");
 		 tfEmpno = new JTextField(10);
-	        tfEmpno.setText("");
+	        tfEmpno.setText(String.valueOf(eVO.getEmpno()));
 	        tfName= new JTextField(10);
-	        tfName.setText("");
+	        tfName.setText(eVO.getName());
 	        tfPosition= new JTextField(10);
-	        tfPosition.setText("");
+	        tfPosition.setText(eVO.getPosition());
 	        tfJob = new JTextField(10);
-	        tfJob.setText("");
+	        tfJob.setText(eVO.getJob());
 	        tfTel= new JTextField(10);
-	        tfTel.setText("");
+	        tfTel.setText(eVO.getTel());
 	        tfDep= new JTextField(10);
-	        tfDep.setText("");
+	        tfDep.setText(eVO.getDept());
 	        tfEmpno.setEditable(false);
 	        tfName.setEditable(false);
 	        tfPosition.setEditable(false);
