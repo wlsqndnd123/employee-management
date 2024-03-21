@@ -42,7 +42,7 @@ public class UpdateEmployeeInformationDAO {
 		
 		String updateEmpInfo =
 		"	update EMP_INFO	"
-		+ "	set    CODE = ? ,DEPT_CODE = ? , JOB = ? "
+		+ "	set    CODE = ? ,DEPT_CODE = ? , JOB = ? ,EDIT_DATE =sysdate	"
 		+ "	where emp_no =    ? ";
 		
 		pstmt = con.prepareStatement(updateEmpInfo);
@@ -78,7 +78,7 @@ public class UpdateEmployeeInformationDAO {
 		try {
 			String deleteEmp =
 			"update EMP_INFO"
-			+ "		set    logic =	'Y'	"
+			+ "		set    logic =	'Y'	, EDIT_DATE =sysdate"
 			+ "	where emp_no = ? ";
 			pstmt = con.prepareStatement(deleteEmp);
 			pstmt.setInt(1, empno);

@@ -1,5 +1,6 @@
 package kr.co.sist.view.user;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -84,7 +85,11 @@ public class DocsList extends JFrame{
         jbtnGoMain.addActionListener(dle);
         cbcheck.addItemListener(dle);
         
-//        dle.searchDocInfo(getName());
+        try {
+			dle.searchDocInfo();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         
         setLayout(null);
         
