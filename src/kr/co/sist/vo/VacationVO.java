@@ -34,7 +34,12 @@ public class VacationVO {
 		this.createdDate = createdDate;
 	}
 
-	public VacationVO() {
+    public VacationVO(Date startDate, Date endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public VacationVO() {
     }
 
     public int getEmpNo() {
