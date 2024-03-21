@@ -106,6 +106,11 @@ public class Login extends JFrame implements ActionListener {
     public JButton getJbLogin() {
     	return jbLogin;
     }
+    
+    
+    public JButton getJbExit() {
+    	return jbExit;
+    }
 
 	public JTextField getEmpNoField() {
 		return jtfEmp_no;
@@ -125,5 +130,6 @@ public class Login extends JFrame implements ActionListener {
 	public static void main(String[] args) throws SQLException{
 		new Login();
 	}//main
+
 
 }//class
