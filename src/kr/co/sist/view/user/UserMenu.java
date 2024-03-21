@@ -75,7 +75,15 @@ public class UserMenu extends JFrame {
      * Desc : 이 달의 근무 일정을 표시하는 테이블 생성
      */
     public void createWorkStatusTable(){
-        workStatusModel = new DefaultTableModel();
+        String[] columnName = {"날짜","출근시간","퇴근시간","연차"};
+
+        workStatusModel = new DefaultTableModel(columnName,0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
         workStatusTable = new JTable(workStatusModel);
         workStatusPad = new JScrollPane(workStatusTable);
 

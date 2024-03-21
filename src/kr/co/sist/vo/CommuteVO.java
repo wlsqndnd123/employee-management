@@ -11,16 +11,19 @@ public class CommuteVO {
     int empNo, use_count, assign_count;
     String empName, attendTime, quitTime ;
     Date commuteDate;
-    
     String workStatus;
 
     public CommuteVO() {
     }
-    
- 
 
-	public CommuteVO(int empNo, int use_count, int assign_count, String empName, String attendTime, String quitTime,
-			Date commuteDate, String workStatus) {
+    public CommuteVO(Date commuteDate, String attendTime, String quitTime) {
+        this.commuteDate = commuteDate;
+        this.attendTime = attendTime;
+        this.quitTime = quitTime;
+    }
+
+    public CommuteVO(int empNo, int use_count, int assign_count, String empName, String attendTime, String quitTime,
+                     Date commuteDate, String workStatus) {
 		super();
 		this.empNo = empNo;
 		this.use_count = use_count;
@@ -31,12 +34,6 @@ public class CommuteVO {
 		this.commuteDate = commuteDate;
 		this.workStatus = workStatus;
 	}
-
-
-
-
-
-
 
 	public int getEmpNo() {
         return empNo;
