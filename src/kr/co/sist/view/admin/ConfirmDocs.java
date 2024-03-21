@@ -6,7 +6,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import kr.co.sist.controller.event.ConfirmDocsEvent;
-import kr.co.sist.view.user.DocsList;
 
 public class ConfirmDocs extends JFrame {
 	
