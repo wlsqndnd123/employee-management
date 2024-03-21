@@ -1,6 +1,7 @@
 package kr.co.sist.controller.event;
 
 import kr.co.sist.view.user.RequestVacation;
+import kr.co.sist.view.user.UserMenu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +26,7 @@ public class RequestVacationEvent extends WindowAdapter implements ActionListene
             System.out.println("신청 이벤트 아마 문서리스트 연결?");
         }
         if(e.getSource() == requestVacation.getCancelJbtn()){
-            System.out.println("취소 이벤트 이것도 아마 문서리스트");
+            closeFrame();
         }
     }
 
