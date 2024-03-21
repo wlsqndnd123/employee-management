@@ -8,6 +8,7 @@ import kr.co.sist.vo.CommuteVO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -51,6 +52,8 @@ public class UserMenu extends JFrame {
 
         workCalendar.setBorder(new TitledBorder("근무일정"));
         workCalendar.setBounds(20,150,290,350);
+
+        workCalendar.setForeground(Color.red);
 
         add(workCalendar);
     }
@@ -97,6 +100,9 @@ public class UserMenu extends JFrame {
         add(workStatusPad);
     }
 
+    /**
+     * Desc : 로그인 한 사번에 맞는 출퇴근 기록 정보를 불러오는 기능
+     */
     public void loadWorkStatusTable() {
         List<CommuteVO> commuteData = RunUserMenuDAO.loadStampTime();
 
@@ -108,7 +114,6 @@ public class UserMenu extends JFrame {
             model.addRow(rowData);
         }
     }
-
 
     /**
      * Desc : 이벤트 등록
