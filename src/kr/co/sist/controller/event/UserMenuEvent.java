@@ -1,6 +1,6 @@
 package kr.co.sist.controller.event;
 
-import kr.co.sist.view.user.DocsList;
+//import kr.co.sist.view.user.DocsList;
 import kr.co.sist.view.user.RequestVacation;
 import kr.co.sist.view.user.UpdateTelNumber;
 import kr.co.sist.view.user.UserMenu;
@@ -25,7 +25,7 @@ public class UserMenuEvent extends WindowAdapter implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == userMenu.getDocsListJbtn()){
-            new DocsList();
+//            new DocsList();
         }
         if (e.getSource() == userMenu.getVacationJbtn()){
             new RequestVacation();
