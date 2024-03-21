@@ -2,6 +2,7 @@ package kr.co.sist.service;
 
 import kr.co.sist.dao.UserMenuDAO;
 import kr.co.sist.vo.CommuteVO;
+import kr.co.sist.vo.VacationVO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,8 +13,14 @@ import java.util.List;
  * 작성일 : 2024.03.15
  */
 public class RunUserMenuDAO {
-    public void loadMonthlyWorkSchedule(){
-
+    public static List<VacationVO> loadMonthlyWorkSchedule(){
+        List<VacationVO> list;
+        try {
+            list = UserMenuDAO.getInstance().selectVacationDate(240004);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
     }
 
     /**
