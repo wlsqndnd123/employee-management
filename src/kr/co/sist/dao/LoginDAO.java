@@ -32,10 +32,6 @@ public class LoginDAO {
 	/**
 	 * 사번과 비번을 입력받은 정보로 저장
 	 */
-	public void setInputInfo() {
-		this.emp_no = LoginEvent.inputId;
-		this.password = LoginEvent.inputPassword;
-	}
 	
 	public class Validation{
 		/**
@@ -105,8 +101,6 @@ public class LoginDAO {
 
     }//confirmUser
 	public static void main(String[] args) {
-		LoginDAO l = LoginDAO.getInstance();
-		l.confirmUser("240000");
 	}
 }
 //	
