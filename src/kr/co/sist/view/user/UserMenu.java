@@ -11,6 +11,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class UserMenu extends JFrame {
     /**
      * Desc : 사원 메뉴 main frame 구현
      */
-    public UserMenu() {
+    public UserMenu(){
         setTitle("사원 메뉴");
         setLayout(null);
 
@@ -40,6 +41,7 @@ public class UserMenu extends JFrame {
         createGoToButton();
         createWorkStatusTable();
         loadWorkStatusTable();
+
         createEvent();
 
         setBounds(300, 100, 650, 550);
@@ -50,11 +52,11 @@ public class UserMenu extends JFrame {
     /**
      * Desc : 근무일정을 표시하는 JCalendar 생성
      */
-    public void createWorkCalendar() {
+    public void createWorkCalendar(){
         workCalendar = new JCalendar();
 
         workCalendar.setBorder(new TitledBorder("근무일정"));
-        workCalendar.setBounds(20, 150, 290, 350);
+        workCalendar.setBounds(20,150,290,350);
 
         add(workCalendar);
         paintVacation();
@@ -63,34 +65,48 @@ public class UserMenu extends JFrame {
     /**
      * Desc : 휴가 날짜 색칠
      */
-    public void paintVacation() {
+    public void paintVacation(){
         List<VacationVO> list = RunUserMenuDAO.loadMonthlyWorkSchedule();
 
         for (VacationVO vacation : list) {
             Date startDate = vacation.getStartDate();
             Date endDate = vacation.getEndDate();
 
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(startDate);
+            Calendar startCalendar = Calendar.getInstance();
+            startCalendar.setTime(startDate);
 
-            int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-            workCalendar.getDayChooser().getDayPanel().getComponent(dayOfMonth + 11).setBackground(Color.RED);
+            Calendar endCalendar = Calendar.getInstance();
+            endCalendar.setTime(endDate);
+
+            while (!startCalendar.after(endCalendar)) {
+                int dayOfMonth = startCalendar.get(Calendar.DAY_OF_MONTH) + 11;
+                workCalendar.getDayChooser().getDayPanel().getComponent(dayOfMonth).setBackground(Color.PINK);
+                startCalendar.add(Calendar.DAY_OF_MONTH, 1);
+
+                if (startCalendar.get(Calendar.DAY_OF_MONTH) == 1) {
+                    if (startCalendar.get(Calendar.MONTH) != endCalendar.get(Calendar.MONTH)) {
+                        startCalendar.set(Calendar.DAY_OF_MONTH, 1);
+                        startCalendar.add(Calendar.MONTH, 1);
+                    }
+                    break;
+                }
+            }
         }
     }
 
     /**
      * Desc : 다른 view로 연결되는 버튼들 생성
      */
-    public void createGoToButton() {
+    public void createGoToButton(){
         closeJbtn = new JButton("종료");
         docsListJbtn = new JButton("문서 리스트");
         vacationJbtn = new JButton("휴가 신청");
         informationJbtn = new JButton("정보 변경");
 
-        closeJbtn.setBounds(500, 10, 100, 40);
-        docsListJbtn.setBounds(100, 70, 100, 40);
-        vacationJbtn.setBounds(270, 70, 100, 40);
-        informationJbtn.setBounds(440, 70, 100, 40);
+        closeJbtn.setBounds(500,10,100,40);
+        docsListJbtn.setBounds(100,70,100,40);
+        vacationJbtn.setBounds(270,70,100,40);
+        informationJbtn.setBounds(440,70,100,40);
 
         add(closeJbtn);
         add(docsListJbtn);
@@ -101,10 +117,10 @@ public class UserMenu extends JFrame {
     /**
      * Desc : 이 달의 근무 일정을 표시하는 테이블 생성
      */
-    public void createWorkStatusTable() {
-        String[] columnName = {"날짜", "출근시간", "퇴근시간", "연차"};
+    public void createWorkStatusTable(){
+        String[] columnName = {"날짜","출근시간","퇴근시간","연차"};
 
-        workStatusModel = new DefaultTableModel(columnName, 0) {
+        workStatusModel = new DefaultTableModel(columnName,0){
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -115,7 +131,7 @@ public class UserMenu extends JFrame {
         workStatusPad = new JScrollPane(workStatusTable);
 
         workStatusPad.setBorder(new TitledBorder("이달의 근무"));
-        workStatusPad.setBounds(330, 150, 290, 350);
+        workStatusPad.setBounds(330,150,290,350);
 
         add(workStatusPad);
     }
@@ -138,7 +154,7 @@ public class UserMenu extends JFrame {
     /**
      * Desc : 이벤트 등록
      */
-    public void createEvent() {
+    public void createEvent(){
         UserMenuEvent userMenuEvent = new UserMenuEvent(this);
 
         docsListJbtn.addActionListener(userMenuEvent);
