@@ -2,6 +2,7 @@ package kr.co.sist.dao;
 
 import kr.co.sist.util.DbConnection;
 import kr.co.sist.vo.CommuteVO;
+import kr.co.sist.vo.VacationVO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -78,6 +79,51 @@ public class UserMenuDAO {
         } finally {
             DbConnection.dbClose(null, preparedStatement, connection);
         }
+        return list;
+    }
+
+    /**
+     * Desc : JCalendar에 연차정보를 표기하기 위한 쿼리<br>
+     * **********************Login Data에서 empno 받으면 수정******************
+     *
+     * @return : 관련 데이터 list
+     * @throws SQLException
+     */
+    public List<VacationVO> selectVacationDate(int empNo) throws SQLException {
+        List<VacationVO> list = new ArrayList<>();
+        VacationVO vacationVO = null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DbConnection.getCon();
+
+            String selectInfo = "select START_DATE, END_DATE " +
+                    "from BUSSINESS_LOG " +
+                    "where EMP_NO = ? " +
+                    "and code = 5 " +
+                    "and CODE2 = 2 " +
+                    "and ((to_char(START_DATE, 'MM') = to_char(sysdate, 'mm')) or (to_char(END_DATE, 'MM') = to_char(sysdate, 'mm')))";
+
+            preparedStatement = connection.prepareStatement(selectInfo);
+
+            if (empNo != 0) {
+                preparedStatement.setInt(1, empNo);
+            }
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                vacationVO = new VacationVO(resultSet.getDate("start_date"),
+                        resultSet.getDate("end_date"));
+                list.add(vacationVO);
+            }
+
+        } finally {
+            DbConnection.dbClose(null, preparedStatement, connection);
+        }
+
         return list;
     }
 
