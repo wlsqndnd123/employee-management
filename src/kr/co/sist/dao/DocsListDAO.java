@@ -41,23 +41,25 @@ public class DocsListDAO {
 		try {
 			con = DbConnection.getCon();
 			
-			selectAllDocument = "SELECT DISTINCT bl.doc_no, bl.title, d.dept_name, bl.grp_code, bl.grp_code2"
-							+	"	FROM BUSSINESS_LOG bl, share_DOCS sd, dept d, common c"
-							+	"	WHERE (sd.doc_no = bl.doc_no) AND (c.grp_code = bl.grp_code) AND (emp_no = ?)	";
+			selectAllDocument = "select bl.doc_no,bl.title, de.dept_name,bl.doc_date,c.grp_code,grp_code2,bl.edit_date"
+							+	"	from bussiness_log bl, dept de, common c	"
+							+	"	where emp_no=?	";
 			
 			
 			pstmt=con.prepareStatement(selectAllDocument);
-			pstmt.setInt(1, 0);
+			pstmt.setInt(1, 240004);
 			rs =pstmt.executeQuery();
 			
 			
 			while(rs.next()) {//String docNo, String title, String workDesc, String workLog, String apprDesc, String fileName,String dept, int empNo, Date docDate, Date modifiedDate
-				
-				dVO = new DocumentVO(rs.getString("doc_no"), rs.getString("title"), selectAllDocument,
-						selectAllDocument, selectAllDocument, selectAllDocument, selectAllDocument,
-						rs.getInt("emp_no"), null, null);
-			
-		
+				DocumentVO dVO = new DocumentVO();
+				dVO.setDocNo(rs.getString("doc_no"));
+	            dVO.setTitle(rs.getString("title"));
+	            dVO.setWorkDesc(rs.getString("dept_name"));
+	            dVO.setDocDate(rs.getDate("doc_date"));
+	            dVO.setApprDesc(rs.getString("grp_code"));
+	            dVO.setWorkLog(rs.getString("grp_code2"));
+	            dVO.setDocDate(rs.getDate("edit_date"));
 				
 			list.add(dVO);
 			}

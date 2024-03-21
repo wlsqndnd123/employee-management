@@ -26,7 +26,7 @@ public class DocsList extends JFrame{
     private DefaultTableModel dtmjtabResult;
     private DocumentVO dVO;
     
-    public DocsList() {
+    public DocsList()throws Exception {
         setTitle("사원문서리스트");
         
         
@@ -35,34 +35,13 @@ public class DocsList extends JFrame{
         jbtnGoMain=new JButton("메인으로");
     
        
-        String[]columnName= {"문서번호","문서제목","신청부서","신청날짜","결제상태","공유상태","최종수정일"};
-        dtmjtabResult=new DefaultTableModel(columnName,0);
-        jtaDob=new JTable(dtmjtabResult);
+        String[] columnName = {"문서번호", "문서제목", "신청부서", "신청날짜", "결제상태", "공유상태", "최종수정일"};
+        dtmjtabResult = new DefaultTableModel(columnName, 0);
+        jtaDob = new JTable(dtmjtabResult);
         Object[] content = new Object[8];
         
         
-//        DocsListDAO dlDAO = DocsListDAO.getInstance();
-//        List<DocumentVO> list;
-//        try {
-//        	list=dlDAO.selectAllDocument();
-//        dVO= new DocumentVO();
-//        for(int i=0; i<list.size();i++) {
-//        	dVO =list.get(i);
-//        	content[0]=dVO.getDocNo();
-//        	content[1]=dVO.getTitle();
-//        	content[2]=dVO.getWorkDesc();
-//        	content[3]=dVO.getWorkLog();
-//        	content[4]=dVO.getApprDesc();
-//        	content[5]=dVO.getFileName();
-//        	content[6]=dVO.getEmpNo();
-//        	content[7]=dVO.getDocDate();
-//        	dtmjtabResult.addRow(content);
-//        	
-//        }
-//        }catch (Exception e) {
-//			// TODO: handle exception
-//        	e.printStackTrace();
-//		}
+
        
         jtaDob.setEnabled(false);
         
@@ -136,7 +115,14 @@ public class DocsList extends JFrame{
 	}
 	
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(DocsList::new);
+		SwingUtilities.invokeLater(() -> {
+			try {
+				new DocsList();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 	}
 	
     
