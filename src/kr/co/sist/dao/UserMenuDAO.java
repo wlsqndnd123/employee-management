@@ -35,11 +35,12 @@ public class UserMenuDAO {
 
     /**
      * Desc : view에 필요한 Data 호출
-     ***********************Login Data에서 empno 받으면 수정******************
+     * **********************Login Data에서 empno 받으면 수정******************
+     *
      * @return : 관련 데이터 list
      * @throws SQLException
      */
-    public List<CommuteVO> selectCommuteLog(int empNo, String date) throws SQLException {
+    public List<CommuteVO> selectCommuteLog(int empNo) throws SQLException {
         List<CommuteVO> list = new ArrayList<>();
         CommuteVO commuteVO = null;
         Connection connection = null;
@@ -49,15 +50,17 @@ public class UserMenuDAO {
         try {
             connection = DbConnection.getCon();
 
-            String selectINFO = "   select c.commute_date, to_char(c.attend_time,'HH24:MI:SS') as attend_time,  " +
-                        "   to_char(c.quit_time,'HH24:MI:SS') as quit_time  " +
-                    "   from EMP_INFO ei, COMMUTE c    " +
-                    "   where (ei.emp_no = c.emp_no)   " +
-                    "  and (ei.emp_no = ?)  " +
-                    "  and (( to_char(c.commute_date,'mm')) " +
-                    "           = ( to_char(sysdate,'mm'))) ";
+            StringBuilder tempSelectQuery = new StringBuilder();
+            tempSelectQuery.append("   select c.commute_date, to_char(c.attend_time,'HH24:MI:SS') as attend_time,  ")
+                    .append("   to_char(c.quit_time,'HH24:MI:SS') as quit_time  ")
+                    .append("   from EMP_INFO ei, COMMUTE c    ")
+                    .append("   where (ei.emp_no = c.emp_no)   ")
+                    .append("  and (ei.emp_no = ?)  ")
+                    .append("  and (( to_char(c.commute_date,'mm')) ")
+                    .append("  = ( to_char(sysdate,'mm'))) ");
+            String selectInfo = tempSelectQuery.toString();
 
-            preparedStatement = connection.prepareStatement(selectINFO);
+            preparedStatement = connection.prepareStatement(selectInfo);
 
             if (empNo != 0) {
                 preparedStatement.setInt(1, empNo);
@@ -67,8 +70,8 @@ public class UserMenuDAO {
 
             while (resultSet.next()) {
                 commuteVO = new CommuteVO(resultSet.getDate("commute_date"),
-                        resultSet.getString("attend_time"), resultSet.getString("quit_time"));
-
+                        resultSet.getString("attend_time"),
+                        resultSet.getString("quit_time"));
                 list.add(commuteVO);
             }
 

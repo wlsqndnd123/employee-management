@@ -2,10 +2,13 @@ package kr.co.sist.view.user;
 
 import com.toedter.calendar.JCalendar;
 import kr.co.sist.controller.event.UserMenuEvent;
+import kr.co.sist.service.RunUserMenuDAO;
+import kr.co.sist.vo.CommuteVO;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 /**
  * Desc : 사원으로 로그인 하는 경우 처음 보이는 view<br>
@@ -32,6 +35,7 @@ public class UserMenu extends JFrame {
         createWorkCalendar();
         createGoToButton();
         createWorkStatusTable();
+        loadWorkStatusTable();
         createEvent();
 
         setBounds(300, 100, 650, 550);
@@ -92,6 +96,19 @@ public class UserMenu extends JFrame {
 
         add(workStatusPad);
     }
+
+    public void loadWorkStatusTable() {
+        List<CommuteVO> commuteData = RunUserMenuDAO.loadStampTime();
+
+        DefaultTableModel model = (DefaultTableModel) workStatusTable.getModel();
+        model.setRowCount(0);
+
+        for (CommuteVO commute : commuteData) {
+            Object[] rowData = {commute.getCommuteDate(), commute.getAttendTime(), commute.getQuitTime(), commute.getWorkStatus()};
+            model.addRow(rowData);
+        }
+    }
+
 
     /**
      * Desc : 이벤트 등록
