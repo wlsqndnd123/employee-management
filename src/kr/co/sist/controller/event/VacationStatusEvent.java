@@ -52,12 +52,15 @@ public class VacationStatusEvent extends WindowAdapter implements ActionListener
 		
 		if(me.getSource() == vs.getJtVacationStatus()) {
 			if(column == 0) {
-				System.out.println("문서번호");
-				System.out.println(item);
 				
 				
 				
-				new ConfirmVacation();
+				try {
+					new ConfirmVacation(item);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				vs.dispose();
 				
 			}
@@ -90,7 +93,7 @@ public class VacationStatusEvent extends WindowAdapter implements ActionListener
 				content[0] = vVO.getDocNo();
 				content[1] = vVO.getEmpNo();
 				content[2] = vVO.getTitle();
-				content[3] = vVO.getStartDate();
+				content[3] = vVO.getCreatedDate();
 				content[4] = vVO.getDetp_name();
 				if(vVO.getCode2() == 1) {
 					content[5] = "대기";
@@ -102,6 +105,7 @@ public class VacationStatusEvent extends WindowAdapter implements ActionListener
 					content[5] = "반려";
 				}
 				vs.getDtmVacationStatus().addRow(content);
+				
 				
 			}
 		}
@@ -117,6 +121,13 @@ public class VacationStatusEvent extends WindowAdapter implements ActionListener
 		
 		
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
