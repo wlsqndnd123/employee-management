@@ -164,14 +164,5 @@ public class VacationVO {
 	public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
-
-	@Override
-	public String toString() {
-		return "VacationVO [empNo=" + empNo + ", assignCount=" + assignCount + ", useCount=" + useCount + ", code2="
-				+ code2 + ", docNo=" + docNo + ", workLog=" + workLog + ", docName=" + docName + ", empName=" + empName
-				+ ", deptDesc=" + deptDesc + ", apprDesc=" + apprDesc + ", rejectReason=" + rejectReason + ", title="
-				+ title + ", dept_name=" + dept_name + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", createdDate=" + createdDate + "]";
-	}
 	
 }

@@ -28,7 +28,8 @@ public class WorkStatus extends JFrame{
 
     
     
-    public WorkStatus() throws SQLException {
+    @SuppressWarnings("serial")
+	public WorkStatus() throws SQLException {
         setTitle("근태 관리");
         setLayout(new BorderLayout());
         
@@ -49,9 +50,12 @@ public class WorkStatus extends JFrame{
         jbCheck = new JButton("조회");
         jbVacationStatus = new JButton("휴가관리");
         
-        jtDailyStatus.getColumnModel().getColumn(0).setPreferredWidth(80);
-        
-    
+        jtDailyStatus.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jtDailyStatus.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jtDailyStatus.getColumnModel().getColumn(3).setPreferredWidth(120);
+        jtDailyStatus.getColumnModel().getColumn(2).setPreferredWidth(120);
+        jtDailyStatus.getColumnModel().getColumn(4).setPreferredWidth(50);
+        jtDailyStatus.getColumnModel().getColumn(5).setPreferredWidth(50);
         
         
         dcbmDateRange = new DefaultComboBoxModel<String>();
