@@ -2,6 +2,7 @@ package kr.co.sist.view.admin;
 
 
 import java.awt.Dialog;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -10,9 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.controller.event.DocsManagementEvent;
+import kr.co.sist.view.user.DocsList;
+import kr.co.sist.vo.DocumentVO;
 
 @SuppressWarnings("serial")
 public class DocsManagement extends JFrame {
@@ -24,6 +28,7 @@ public class DocsManagement extends JFrame {
 	private JButton jbtnSearch;
 	private JTable jtaDob;
     private DefaultTableModel dtmjtabResult;
+    private DocumentVO dVO;
 	
 	public DocsManagement() {
 		
@@ -38,7 +43,10 @@ public class DocsManagement extends JFrame {
 		 String[]columnName= {"문서번호","문서제목","종류","신청부서","신청날짜","공유상태","결제상태","최종수정일"};
 	        dtmjtabResult=new DefaultTableModel(columnName,0);
 	        jtaDob=new JTable(dtmjtabResult);
-		 
+	        Object[] content = new Object[8];
+	        
+	        
+	        
 	        jtaDob.getColumnModel().getColumn(0).setPreferredWidth(60);
 	        jtaDob.getColumnModel().getColumn(1).setPreferredWidth(60);
 	        jtaDob.getColumnModel().getColumn(2).setPreferredWidth(60);
@@ -67,8 +75,16 @@ public class DocsManagement extends JFrame {
 		 add(jbtnSearch);
 		 
 		 DocsManagementEvent dme=new DocsManagementEvent(this);
+		 
 		 jbtnBackhome.addActionListener(dme);
 		 jbtnSearch.addActionListener(dme);
+		 
+		 try {
+			dme.searchDocument();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		 
 		 
 		 setLayout(null);
@@ -120,7 +136,13 @@ public class DocsManagement extends JFrame {
 
 
 	public static void main(String[] args) {
-		 new DocsManagement();
-	    }
-	
+		SwingUtilities.invokeLater(() -> {
+			try {
+				new DocsManagement();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+	}
 }
