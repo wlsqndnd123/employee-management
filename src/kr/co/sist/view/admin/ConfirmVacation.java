@@ -20,6 +20,7 @@ public class ConfirmVacation extends JFrame {
 	private JTextField jtfDocNum, jtfEmpNum, jtfEmpName, jtfLeftVaction, jtfApplyDate;
 	private JTextArea jtaContent;
 	private JButton jbApprove, jbReturn, jbCancel;
+	private int check_code;
 
 	
 	public ConfirmVacation(String item) throws SQLException {
@@ -51,14 +52,15 @@ public class ConfirmVacation extends JFrame {
 		jtfEmpNum.setEditable(false);
 		jtfLeftVaction.setEditable(false);
 		jtfApplyDate.setEditable(false);
+		
 		jtaContent.setEditable(false);
-		
-		
+		jtaContent.setLineWrap(true);
+		jtaContent.setWrapStyleWord(true);
 		
 		
 		jbApprove = new JButton("승인");
 		jbReturn = new JButton("반려");
-		jbCancel = new JButton("취소");
+		jbCancel = new JButton("뒤로");
 		
 		
 		JPanel panel = new JPanel();
@@ -68,14 +70,14 @@ public class ConfirmVacation extends JFrame {
 		jlDocNum.setBounds(10, 20, 60, 20);
 		jtfDocNum.setBounds(60, 20, 80, 20);
 		
-		jlEmpName.setBounds(140, 20, 40, 20);
-		jtfEmpName.setBounds(180, 20, 60, 20);
+		jlEmpName.setBounds(145, 20, 40, 20);
+		jtfEmpName.setBounds(185, 20, 60, 20);
 		
 		jlEmpNum.setBounds(250, 20, 50, 20);
 		jtfEmpNum.setBounds(300, 20, 60, 20);
 		
-		jlLeftVaction.setBounds(370, 20, 80, 20);
-		jtfLeftVaction.setBounds(450, 20, 20, 20);
+		jlLeftVaction.setBounds(367, 20, 80, 20);
+		jtfLeftVaction.setBounds(447, 20, 20, 20);
 		
 		jlApplyDate.setBounds(470, 20, 50, 20);
 		jtfApplyDate.setBounds(520, 20, 100, 20);
@@ -106,20 +108,22 @@ public class ConfirmVacation extends JFrame {
 		panel.add(jlApplyDate);
 		panel.add(jtfApplyDate);
 		
+		ConfirmVacationEvent cve = new ConfirmVacationEvent(this);
+		jbReturn.addActionListener(cve);
+		jbApprove.addActionListener(cve);
+		jbCancel.addActionListener(cve);
 		
+		check_code = cve.VDocStatus(item);
+		if(check_code == 1) {
 		panel.add(jbApprove);
 		panel.add(jbReturn);
+		}
+	
 		panel.add(jbCancel);
 		
 		
 		add(panel, BorderLayout.CENTER);
 		
-		
-		
-		ConfirmVacationEvent cve = new ConfirmVacationEvent(this);
-		jbReturn.addActionListener(cve);
-		jbApprove.addActionListener(cve);
-		jbCancel.addActionListener(cve);
 		
 		
 
@@ -129,7 +133,7 @@ public class ConfirmVacation extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-       cve.VDocStatus(item);
+    
         
         
 	}

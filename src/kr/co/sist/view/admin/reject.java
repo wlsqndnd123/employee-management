@@ -32,6 +32,11 @@ public class reject extends JDialog implements ActionListener{
 		
 		JPanel jp = new JPanel();
 		jp.setLayout(null);
+		
+		jtaContent.setLineWrap(true);
+		jtaContent.setWrapStyleWord(true);
+		
+		
 		jspJtaResult.setBounds(10,20,445,250);
 		
 	
