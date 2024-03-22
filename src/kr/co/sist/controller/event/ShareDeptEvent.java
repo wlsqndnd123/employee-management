@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.sql.SQLException;
 
+import kr.co.sist.dao.CheckEmployeeInformationDAO;
 import kr.co.sist.dao.ShareDeptDAO;
 import kr.co.sist.view.admin.ConfirmDocs;
 import kr.co.sist.view.admin.ShareDept;
@@ -75,13 +76,22 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
 			new ConfirmDocs();
 		}
 		if(ae.getSource()==dept.getJbtncheck()) {
-			addSharedDoc();
+			try {
+				addSharedDoc();
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
-	public void addSharedDoc() {
+	public void addSharedDoc() throws NumberFormatException, SQLException {
 		String docNum =cd.getJtfdocnum().getText();
 		int index =dept.getJlSelectedDept().getSelectedIndex();
 		String depts = (String) dept.getDlmDept().getElementAt(index);
+		
 		try {
 			ShareDeptDAO sdDAO = ShareDeptDAO.getInstance();
 			//
