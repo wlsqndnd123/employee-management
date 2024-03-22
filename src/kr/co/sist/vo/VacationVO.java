@@ -8,8 +8,9 @@ import java.sql.Date;
  * 작성자 : 고한별
  */
 public class VacationVO {
-    int empNo,assignCount,useCount,code2;
-    String docNo, workLog, docName, empName, deptDesc, apprDesc, rejectReason, title, dept_name;
+    int empNo,assignCount,useCount,code2, code;
+    String docNo, workLog, docName, empName, deptDesc, apprDesc, rejectReason, title, dept_name, grpCode, grpCode2;
+    int startDateInt, endDateInt;
     Date startDate, endDate, createdDate;
 
     public VacationVO(int empNo, int assignCount, int useCount, int code2, String docNo, String workLog, String docName,
@@ -38,6 +39,21 @@ public class VacationVO {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+
+    public VacationVO(int empNo, int code2, int code, String docNo, String workLog, String title, String grpCode, String grpCode2,  Date startDate, Date endDate) {
+        this.empNo = empNo;
+        this.code2 = code2;
+        this.code = code;
+        this.docNo = docNo;
+        this.workLog = workLog;
+        this.title = title;
+        this.grpCode = grpCode;
+        this.grpCode2 = grpCode2;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+
 
     public VacationVO() {
     }
@@ -169,5 +185,12 @@ public class VacationVO {
 	public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
-	
+
+    public int getStartDateInt() {
+        return startDateInt;
+    }
+
+    public int getEndDateInt() {
+        return endDateInt;
+    }
 }

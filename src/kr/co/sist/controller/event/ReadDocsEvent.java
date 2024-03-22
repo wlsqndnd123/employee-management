@@ -5,12 +5,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 import org.w3c.dom.events.MouseEvent;
 
+import kr.co.sist.dao.ReadDocsDAO;
 import kr.co.sist.view.user.ReadDocs;
+import kr.co.sist.vo.DocumentVO;
 
-public class ReadDocsEvent extends WindowAdapter implements ActionListener, MouseListener {
+public class ReadDocsEvent extends WindowAdapter implements ActionListener {
 
     private ReadDocs rd;
 
@@ -21,18 +24,33 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener, Mous
     @Override
     public void actionPerformed(ActionEvent e) {
     	if(e.getSource() == rd.getjbtnOk()) {
-    		System.out.println("확인버튼");
     		rd.dispose();
     	}
     	if(e.getSource() == rd.getjbtnDel()) {
-    		System.out.println("삭제버튼");
-    		rd.remove(0);	//dao에서 논리삭제 코드 작성 후 처리
+    		//dao에서 논리삭제 코드 작성 후 처리
     	}
     	if(e.getSource() == rd.getjbtnChg()) {
-    		System.out.println("수정버튼");
-    		//rd.add();
+    		//수정된 내용이 db에 update
+    		try {
+				modifyDocs();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
     	}
     	
+    }
+    
+    public void modifyDocs() throws SQLException {
+    	String content=rd.getJta().getText();
+		//String docNo=rd.getjtfDocNo().getText();
+		
+    	String docNo="0000000009";
+		DocumentVO dVO= new DocumentVO(docNo, content);
+		
+		ReadDocsDAO rdDAO= ReadDocsDAO.getInstance();
+		rdDAO.updateDoc(dVO);
+		
     }
 
     @Override
@@ -40,36 +58,8 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener, Mous
         rd.dispose();
     }
 
-	@Override
-	public void mouseClicked(java.awt.event.MouseEvent e) {
+	
 
-		if(e.getSource() == rd.getCursor()) {
-						
-		}
-	}
-
-	@Override
-	public void mousePressed(java.awt.event.MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(java.awt.event.MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(java.awt.event.MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(java.awt.event.MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }
 

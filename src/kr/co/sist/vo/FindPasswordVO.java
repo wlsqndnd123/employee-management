@@ -2,7 +2,7 @@ package kr.co.sist.vo;
 
 public class FindPasswordVO {
 
-	String emp_no, password;
+	String emp_no, password, tel;
 
 	public FindPasswordVO() {
 		super();
@@ -12,6 +12,13 @@ public class FindPasswordVO {
 		super();
 		this.emp_no = emp_no;
 		this.password = password;
+	}
+	
+	public FindPasswordVO(String emp_no, String password, String tel) {
+		super();
+		this.emp_no = emp_no;
+		this.password = password;
+		this.tel =tel;
 	}
 
 	
@@ -25,6 +32,10 @@ public class FindPasswordVO {
 
 	public String getPassword() {
 		return password;
+	}
+	
+	public String getTel() {
+		return tel;
 	}
 
 	public void setPassword(String password) {
