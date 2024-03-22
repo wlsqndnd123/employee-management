@@ -22,7 +22,7 @@ public class VacationStatus extends JFrame {
 		setTitle("사원 휴가신청 관리");
 		setLayout(new BorderLayout());
 		
-		String[] coloumnName = {"신청번호","사원번호","제목","신청날짜","부서","결재상태"};
+		String[] coloumnName = {"신청문서번호","사원번호","제목","신청날짜","부서","결재상태"};
 		dtmVacationStatus = new DefaultTableModel(coloumnName,0){
 			@Override
 			public boolean isCellEditable(int row, int column) {
