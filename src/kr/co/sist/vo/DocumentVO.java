@@ -3,6 +3,7 @@ package kr.co.sist.vo;
 import java.sql.Date;
 
 public class DocumentVO {
+
     String docNo, title, workDesc, workLog, apprDesc, fileName,dept;
     int empNo, code2;
     Date docDate,modifiedDate;
@@ -14,6 +15,18 @@ public class DocumentVO {
 	public String getDept() {
 		return dept;
 	}
+
+    
+	public DocumentVO(String docNo, String title, String workLog, String dept, String fileNm ,int empNo) {
+		super();
+		this.docNo = docNo;
+		this.title = title;
+		this.workLog = workLog;
+		this.dept = dept;
+		this.fileName= fileNm;
+		this.empNo = empNo;
+	}
+
 
 	public DocumentVO() {
     }
