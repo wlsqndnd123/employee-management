@@ -52,9 +52,10 @@ public class ConfirmVacation extends JFrame {
 		jtfEmpNum.setEditable(false);
 		jtfLeftVaction.setEditable(false);
 		jtfApplyDate.setEditable(false);
+		
 		jtaContent.setEditable(false);
-		
-		
+		jtaContent.setLineWrap(true);
+		jtaContent.setWrapStyleWord(true);
 		
 		
 		jbApprove = new JButton("승인");
