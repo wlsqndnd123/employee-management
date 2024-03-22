@@ -13,10 +13,11 @@ public class ReturnReason extends JDialog{
 	private JTextArea jtaContent;
 	private JButton jbInput;
 	private JButton jbCancel;
-	
+	private String dNum;
 
-	public ReturnReason(ConfirmVacation cv) {
+	public ReturnReason(ConfirmVacation cv, String docNum) {
 		super(cv,"반려사유작성",true);
+		dNum = docNum;
 		
 		setLayout(new BorderLayout());
 		
@@ -42,7 +43,7 @@ public class ReturnReason extends JDialog{
 		
 		
 		
-		ReturnReasonEvent rre = new ReturnReasonEvent(cv,this);
+		ReturnReasonEvent rre = new ReturnReasonEvent(cv,this,dNum);
 		jbInput.addActionListener(rre);
 		jbCancel.addActionListener(rre);
 	
@@ -87,7 +88,7 @@ public class ReturnReason extends JDialog{
 		
 		
 		
-		ReturnReasonEvent rre = new ReturnReasonEvent(cd,this);
+		ReturnReasonEvent rre = new ReturnReasonEvent(cd,this,dNum);
 		jbInput.addActionListener(rre);
 		jbCancel.addActionListener(rre);
 	

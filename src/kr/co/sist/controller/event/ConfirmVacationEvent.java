@@ -29,17 +29,21 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
 
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource() == cv.getJbReturn()){
-	
-			new ReturnReason(cv);
+			String docNum = cv.getJtfDocNum().getText();
+			new ReturnReason(cv, docNum);
 		
 			
 		}
 		
 		if(ae.getSource() == cv.getJbApprove()) {
 			
+			
+			int result = JOptionPane.showConfirmDialog(null, "승인하시겠습니까?.","확인",JOptionPane.YES_NO_OPTION);
+			if(result == JOptionPane.YES_OPTION) {
 			ApproveVacation(Integer.parseInt(cv.getJtfDocNum().getText()));
-			
-			
+			}else {
+			return;
+			}
 			cv.dispose();
 			try {
 				new VacationStatus();
@@ -70,6 +74,7 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
 
 
 	public void ApproveVacation(int docNum) {
+		
 		VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
 		try {
 			vsDAO.approveVS(docNum);
@@ -79,23 +84,19 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
 		}
 	}
 	
-	public void ReturnVacation(int a) {
-		
-	}
 	
 	
-	
-	public void VDocStatus(String item) throws SQLException {
+	public int VDocStatus(String item) throws SQLException {
 		VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
 		vVOList = vsDAO.selectedDoc_numInfo(item);
-		
+		int check_code = 0;
 		
 		
 		if(vVOList.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "내용이 없습니다.");
 		}else {
 				for(VacationVO vVO : vVOList) {
-					
+					cv.getJtaContent().setText(vVO.getWorkLog());
 					
 					
 					cv.getJtfEmpName().setText(vVO.getEmpName());
@@ -103,18 +104,14 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
 					cv.getJtfLeftVaction().setText(""+(vVO.getAssignCount() - vVO.getUseCount()));
 					cv.getJtfApplyDate().setText(vVO.getCreatedDate().toString());
 					
-					
-					
+					check_code = vVO.getCode2();
 				}
-				
-				
-							
-//				(vVO.getAssignCount() - vVO.getUseCount());
+
 			
 			}			
 		
+		return check_code;
 		
-		;
 		
 	}
 

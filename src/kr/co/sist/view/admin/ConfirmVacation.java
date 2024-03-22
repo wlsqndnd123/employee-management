@@ -20,6 +20,7 @@ public class ConfirmVacation extends JFrame {
 	private JTextField jtfDocNum, jtfEmpNum, jtfEmpName, jtfLeftVaction, jtfApplyDate;
 	private JTextArea jtaContent;
 	private JButton jbApprove, jbReturn, jbCancel;
+	private int check_code;
 
 	
 	public ConfirmVacation(String item) throws SQLException {
@@ -106,20 +107,22 @@ public class ConfirmVacation extends JFrame {
 		panel.add(jlApplyDate);
 		panel.add(jtfApplyDate);
 		
+		ConfirmVacationEvent cve = new ConfirmVacationEvent(this);
+		jbReturn.addActionListener(cve);
+		jbApprove.addActionListener(cve);
+		jbCancel.addActionListener(cve);
 		
+		check_code = cve.VDocStatus(item);
+		if(check_code == 1) {
 		panel.add(jbApprove);
 		panel.add(jbReturn);
+		}
+	
 		panel.add(jbCancel);
 		
 		
 		add(panel, BorderLayout.CENTER);
 		
-		
-		
-		ConfirmVacationEvent cve = new ConfirmVacationEvent(this);
-		jbReturn.addActionListener(cve);
-		jbApprove.addActionListener(cve);
-		jbCancel.addActionListener(cve);
 		
 		
 
@@ -129,7 +132,7 @@ public class ConfirmVacation extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-       cve.VDocStatus(item);
+    
         
         
 	}

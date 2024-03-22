@@ -1,6 +1,4 @@
 package kr.co.sist.view.common;
-
-
 import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,11 +34,6 @@ public class SubmitDocs extends JFrame implements ActionListener {
         jtfTitle= new JTextField();
         jtfFileNm= new JTextField();
 
-        //파일다이얼로그 창 띄우기
-        FileDialog fd= new FileDialog(this,"첨부파일 선택" , FileDialog.LOAD);
-        fd.setVisible(false);
-        String path= fd.getDirectory();
-        String name=fd.getFile();
 
         JTextArea jta= new JTextArea();
 
@@ -58,12 +51,12 @@ public class SubmitDocs extends JFrame implements ActionListener {
         dcbm.addElement("보고서");
 
         jpNorth.setBounds(10, 30, 150, 35);
-        jtfTitle.setBounds(130, 30, 60, 30);
+        jtfTitle.setBounds(140, 30, 60, 30);
         jtfFileNm.setBounds(225,30,80,30);
         jta.setBounds(50, 100, 400, 300);
 
-        btn_regist.setBounds(120, 480, 80, 30);	//등록버튼
-        btn_cancel.setBounds(280, 480, 80, 30);	//취소버튼
+        btn_regist.setBounds(120, 450, 80, 30);	//등록버튼
+        btn_cancel.setBounds(280, 450, 80, 30);	//취소버튼
 
         attAdd.setBounds(315, 30, 60, 30);		//추가버튼
         attRemove.setBounds(380, 30, 60, 30);	//취소버튼
@@ -71,8 +64,20 @@ public class SubmitDocs extends JFrame implements ActionListener {
         SubmitDocsEvent smde= new SubmitDocsEvent(this);
         
         attAdd.addActionListener(smde);
+        attRemove.addActionListener(smde);
+        
         jcb.addItemListener(smde);
-
+        btn_regist.addActionListener(smde);
+        btn_cancel.addActionListener(smde);
+        
+        jtfTitle.addActionListener(smde);
+        
+        //파일다이얼로그 창 띄우기
+        FileDialog fd= new FileDialog(this,"첨부파일 선택" , FileDialog.LOAD);
+        fd.setVisible(false);
+        String path= fd.getDirectory();
+        String name=fd.getFile();
+        
         setSize(500,600);
         setBounds(300,100,650,550);
         setVisible(true);
@@ -156,7 +161,6 @@ public class SubmitDocs extends JFrame implements ActionListener {
 
 	@Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
 
     }
 
