@@ -182,9 +182,7 @@ public class VacationStatusDAO {
 			}
 	
 		return cnt;
-		
-		
-		
+	
 	}
 	
 	public int InsertReturnReason (String docNum, String reason) throws SQLException {
@@ -204,19 +202,13 @@ public class VacationStatusDAO {
 			pstmt.setString(2, reason);
 			
 			pstmt.executeUpdate();
-			
-			
 
 		}finally {
 		DbConnection.dbClose(null, pstmt, con);
 
 			}
-	   
-		
 		return cnt;
-		
-		
-		
+	
 	}
 	
 	

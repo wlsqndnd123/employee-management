@@ -19,7 +19,6 @@ import kr.co.sist.vo.EmpInfoVO;
 import kr.co.sist.vo.LoginVO;
 
 public class UpdateTelNumberEvent extends JFrame implements ActionListener{
-	private Login l;
 	private UpdateTelNumber utn;
 	
 	public UpdateTelNumberEvent() {
