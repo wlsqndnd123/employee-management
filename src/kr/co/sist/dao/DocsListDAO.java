@@ -41,9 +41,9 @@ public class DocsListDAO {
 		try {
 			con = DbConnection.getCon();
 			
-			selectAllDocument = "select bl.doc_no,bl.title, de.dept_name,bl.doc_date,c.grp_code,code2,bl.edit_date"
-							+	"	from bussiness_log bl, dept de, common c	"
-							+	"	where emp_no=?	";
+			selectAllDocument = "	select   doc_no,bl.title, d.dept_name, bl.doc_date,bl.grp_code ,bl.code2,bl.edit_date"
+							+	"	from   dept d,emp_info ei, bussiness_log bl	"
+							+	"	where (d.dept_code = ei.dept_code)and (ei.emp_no = bl.emp_no) and (ei.emp_no = ?)	";
 			
 			
 			pstmt=con.prepareStatement(selectAllDocument);
@@ -58,7 +58,7 @@ public class DocsListDAO {
 	            dVO.setWorkDesc(rs.getString("dept_name"));
 	            dVO.setDocDate(rs.getDate("doc_date"));
 	            dVO.setApprDesc(rs.getString("grp_code"));
-	            dVO.setCode2(rs.getInt("code2"));
+	            dVO.setEmpNo(rs.getInt("code2"));
 	            dVO.setDocDate(rs.getDate("edit_date"));
 				
 			list.add(dVO);
@@ -80,9 +80,10 @@ public class DocsListDAO {
 	    try {
 	        con = DbConnection.getCon();
 	        
-	        selectAllDocument = "select bl.doc_no,bl.title, de.dept_name,bl.doc_date,c.grp_code,code2,bl.edit_date"
-	                        + "	from bussiness_log bl, dept de, common c	"
-	                        + "	where emp_no=?	";
+	        selectAllDocument = "	SELECT bl.doc_no, bl.title, d.dept_name, bl.doc_date, bl.grp_code, bl.code2, bl.edit_date"
+	        		+ "	FROM 	dept d, emp_info ei, bussiness_log bl	"
+	        		+ "	LEFT JOIN share_docs sd ON bl.doc_no = sd.doc_no	"
+	        		+ "	WHERE (d.dept_code = ei.dept_code) AND (ei.emp_no = bl.emp_no) AND (ei.emp_no = ?)	";
 	        
 	        
 	        pstmt = con.prepareStatement(selectAllDocument);
