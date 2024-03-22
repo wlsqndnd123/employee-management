@@ -4,6 +4,7 @@ import kr.co.sist.dao.RequestVacationDAO;
 import kr.co.sist.service.RunRequestVacationDAO;
 import kr.co.sist.view.user.DocsList;
 import kr.co.sist.view.user.RequestVacation;
+import kr.co.sist.vo.VacationVO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 /**
  * Desc : 사원의 휴가 신청 창의 Event 처리를 위한 클래스
@@ -32,7 +34,7 @@ public class RequestVacationEvent extends WindowAdapter implements ActionListene
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == requestVacation.getRequestJbtn()) {
             try {
-                RequestVacationDAO.getInstance().vacationData();
+            	addVacation();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
@@ -58,7 +60,14 @@ public class RequestVacationEvent extends WindowAdapter implements ActionListene
         }
 
 
-
+    }
+    public void addVacation() throws SQLException {
+//    	 Date startDate = new Date(requestVacation.getsDate());
+//    	Date sDate = ;
+    	 java.sql.Date sqlsDate = new Date(requestVacation.getVacStartDate().getDate().getTime());
+    	 java.sql.Date sqleDate = new Date(requestVacation.getVacEndDate().getDate().getTime());
+         VacationVO vVO = new VacationVO(sqlsDate, sqleDate);
+         RequestVacationDAO.getInstance().vacationData(vVO);
     }
 
     @Override
