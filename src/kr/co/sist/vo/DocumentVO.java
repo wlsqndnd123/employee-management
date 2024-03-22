@@ -104,6 +104,21 @@ public class DocumentVO {
 		this.modifiedDate = modifiedDate;
 	}
 
+    public DocumentVO(String docNo, String title, String workDesc, String workLog, String apprDesc, String fileName,
+                      String dept, int empNo, Date docDate, Date modifiedDate) {
+        super();
+        this.docNo = docNo;
+        this.title = title;
+        this.workDesc = workDesc;
+        this.workLog = workLog;
+        this.apprDesc = apprDesc;
+        this.fileName = fileName;
+        this.dept = dept;
+        this.empNo = empNo;
+        this.docDate = docDate;
+        this.modifiedDate = modifiedDate;
+    }
+
 	@Override
 	public String toString() {
 		return "DocumentVO [docNo=" + docNo + ", title=" + title + ", workDesc=" + workDesc + ", workLog=" + workLog
