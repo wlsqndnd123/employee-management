@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.sql.ResultSet;
 import kr.co.sist.util.DbConnection;
 import kr.co.sist.view.user.DocsList;
 import kr.co.sist.vo.DocumentVO;
@@ -41,7 +41,7 @@ public class DocsListDAO {
 		try {
 			con = DbConnection.getCon();
 			
-			selectAllDocument = "	select   doc_no,bl.title, d.dept_name, bl.doc_date,bl.grp_code ,bl.code2,bl.edit_date"
+			selectAllDocument = "	select   doc_no,bl.title, d.dept_name, bl.doc_date,bl.grp_code, bl.code2, bl.edit_date"
 							+	"	from   dept d,emp_info ei, bussiness_log bl	"
 							+	"	where (d.dept_code = ei.dept_code)and (ei.emp_no = bl.emp_no) and (ei.emp_no = ?)	";
 			
@@ -80,7 +80,7 @@ public class DocsListDAO {
 	    try {
 	        con = DbConnection.getCon();
 	        
-	        selectAllDocument = "	SELECT bl.doc_no, bl.title, d.dept_name, bl.doc_date, bl.grp_code, bl.code2, bl.edit_date"
+	        selectAllDocument = "	SELECT bl.doc_no, bl.title, d.dept_name, bl.doc_date,bl.grp_code,bl.code2, bl.edit_date"
 	        		+ "	FROM 	dept d, emp_info ei, bussiness_log bl	"
 	        		+ "	LEFT JOIN share_docs sd ON bl.doc_no = sd.doc_no	"
 	        		+ "	WHERE (d.dept_code = ei.dept_code) AND (ei.emp_no = bl.emp_no) AND (ei.emp_no = ?)	";
@@ -108,6 +108,35 @@ public class DocsListDAO {
 	    }
 	    return slList;
 	}
+	
+	
+	public String selectRejectDetail(String doc_no) throws SQLException{
+		String rejectDetail =null;
+		dVO =null;
+		Connection con = null;
+		PreparedStatement pstmt =null;
+		ResultSet rs = null;
+		
+		String selectrejectDetail = null;
+		try {
+			con =DbConnection.getCon();
+			selectrejectDetail = "select reason "
+					+	"		from REJECT"
+					+	"		where doc_no = ?" ;
+			
+			pstmt=con.prepareStatement(selectrejectDetail);
+			pstmt.setString(1, doc_no);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				rejectDetail = rs.getString("reason");
+			}
+		}finally {
+			DbConnection.dbClose(null, pstmt, con);
+		}
+		return rejectDetail;
+	}
+	
+	
 	
 	
 	
