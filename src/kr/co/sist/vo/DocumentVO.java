@@ -4,17 +4,25 @@ import java.sql.Date;
 
 public class DocumentVO {
     String docNo, title, workDesc, workLog, apprDesc, fileName,dept;
-    int empNo;
+    int empNo, code2;
     Date docDate,modifiedDate;
 
-    public String getDept() {
+    public int getCode2() {
+		return code2;
+	}
+
+	public String getDept() {
 		return dept;
 	}
 
 	public DocumentVO() {
     }
 
-    public String getDocNo() {
+    public void setCode2(int code2) {
+		this.code2 = code2;
+	}
+
+	public String getDocNo() {
         return docNo;
     }
 
@@ -81,7 +89,7 @@ public class DocumentVO {
     
 
 	public DocumentVO(String docNo, String title, String workDesc, String workLog, String apprDesc, String fileName,
-			String dept, int empNo, Date docDate, Date modifiedDate) {
+			String dept, int empNo,int code2, Date docDate, Date modifiedDate) {
 		super();
 		this.docNo = docNo;
 		this.title = title;
@@ -91,6 +99,7 @@ public class DocumentVO {
 		this.fileName = fileName;
 		this.dept = dept;
 		this.empNo = empNo;
+		this.code2 = code2;
 		this.docDate = docDate;
 		this.modifiedDate = modifiedDate;
 	}
@@ -99,7 +108,7 @@ public class DocumentVO {
 	public String toString() {
 		return "DocumentVO [docNo=" + docNo + ", title=" + title + ", workDesc=" + workDesc + ", workLog=" + workLog
 				+ ", apprDesc=" + apprDesc + ", fileName=" + fileName + ", dept=" + dept + ", empNo=" + empNo
-				+ ", docDate=" + docDate + "]";
+				+ ", code2=" + code2 + ", docDate=" + docDate + ", modifiedDate=" + modifiedDate + "]";
 	}
     
 }
