@@ -89,6 +89,9 @@ public class ReadDocs extends JFrame{
 
         ReadDocsEvent rde = new ReadDocsEvent(this);
         jbtnOk.addActionListener(rde);
+        jbtnChg.addActionListener(rde);
+        jbtnDel.addActionListener(rde);
+        jta.addMouseListener(rde);
 
         setVisible(true);
         setBounds(300,100,650,550);
