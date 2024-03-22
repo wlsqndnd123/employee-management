@@ -18,7 +18,8 @@ public class SubmitDocs extends JFrame implements ActionListener {
     private JButton btn_regist, btn_cancel, attAdd, attRemove;
     private JTextField jtfTitle, jtfFileNm;
     private JComboBox<String> jcb;
-
+    private  JTextArea jta;
+    
     public SubmitDocs() {
         super("문서등록");
         setLayout(null);
@@ -35,7 +36,7 @@ public class SubmitDocs extends JFrame implements ActionListener {
         jtfFileNm= new JTextField();
 
 
-        JTextArea jta= new JTextArea();
+        jta= new JTextArea();
 
         DefaultComboBoxModel<String> dcbm= new DefaultComboBoxModel<String>();
         jcb= new JComboBox<String>(dcbm);
@@ -146,6 +147,15 @@ public class SubmitDocs extends JFrame implements ActionListener {
 	 */
 	public JTextField getJtfFileNm() {
 		return jtfFileNm;
+	}
+
+
+
+	/**
+	 * @return the jta
+	 */
+	public JTextArea getJta() {
+		return jta;
 	}
 
 
