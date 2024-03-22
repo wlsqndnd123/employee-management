@@ -16,7 +16,8 @@ public class ReadDocs extends JFrame{
     private JButton jbtnChg, jbtnDel, jbtnOk;
     private JLabel jldocNo, jlempNo, jlempNm, jldate;
     private JTextField jtfDocNo, jtfEmpNo, jtfEmpNm, jtfDate;
-
+    private JTextArea jta;
+    
     public ReadDocs() {
 
         super("문서 확인");
@@ -49,7 +50,7 @@ public class ReadDocs extends JFrame{
         jbtnOk= new JButton("확인");
 
 
-        JTextArea jta= new JTextArea();
+        jta= new JTextArea();
 
         setSize(500,600);
 
@@ -91,7 +92,6 @@ public class ReadDocs extends JFrame{
         jbtnOk.addActionListener(rde);
         jbtnChg.addActionListener(rde);
         jbtnDel.addActionListener(rde);
-        jta.addMouseListener(rde);
 
         setVisible(true);
         setBounds(300,100,650,550);
@@ -115,7 +115,7 @@ public class ReadDocs extends JFrame{
 	/**
 	 * @return the jbtnOk
 	 */
-	public JButton getjbtnOk() {
+	public JButton getjbtnOk() { 
 		return jbtnOk;
 	}
 
@@ -146,8 +146,16 @@ public class ReadDocs extends JFrame{
 	public JTextField getjtfDate() {
 		return jtfDate;
 	}
+	
 
-    public static void main(String[] args) {
+    /**
+	 * @return the jta
+	 */
+	public JTextArea getJta() {
+		return jta;
+	}
+
+	public static void main(String[] args) {
         new ReadDocs();
     }
 

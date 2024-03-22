@@ -28,6 +28,12 @@ public class DocumentVO {
 	}
 
 
+	public DocumentVO(String docNo, String workLog) {
+		super();
+		this.docNo = docNo;
+		this.workLog = workLog;
+	}
+
 	public DocumentVO() {
     }
 
