@@ -59,7 +59,7 @@ public class ConfirmVacation extends JFrame {
 		
 		jbApprove = new JButton("승인");
 		jbReturn = new JButton("반려");
-		jbCancel = new JButton("취소");
+		jbCancel = new JButton("뒤로");
 		
 		
 		JPanel panel = new JPanel();
@@ -69,14 +69,14 @@ public class ConfirmVacation extends JFrame {
 		jlDocNum.setBounds(10, 20, 60, 20);
 		jtfDocNum.setBounds(60, 20, 80, 20);
 		
-		jlEmpName.setBounds(140, 20, 40, 20);
-		jtfEmpName.setBounds(180, 20, 60, 20);
+		jlEmpName.setBounds(145, 20, 40, 20);
+		jtfEmpName.setBounds(185, 20, 60, 20);
 		
 		jlEmpNum.setBounds(250, 20, 50, 20);
 		jtfEmpNum.setBounds(300, 20, 60, 20);
 		
-		jlLeftVaction.setBounds(370, 20, 80, 20);
-		jtfLeftVaction.setBounds(450, 20, 20, 20);
+		jlLeftVaction.setBounds(367, 20, 80, 20);
+		jtfLeftVaction.setBounds(447, 20, 20, 20);
 		
 		jlApplyDate.setBounds(470, 20, 50, 20);
 		jtfApplyDate.setBounds(520, 20, 100, 20);

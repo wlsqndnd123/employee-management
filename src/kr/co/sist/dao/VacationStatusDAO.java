@@ -162,7 +162,28 @@ public class VacationStatusDAO {
 	
 
 	
-	public void returnVS() {
+	public int returnVS(String docNum) throws SQLException {
+		int cnt=0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = DbConnection.getCon();
+			String approve = "update bussiness_log set code2 = 3 	where doc_no = ?" ;
+			
+			pstmt=con.prepareStatement(approve);
+			pstmt.setString(1, docNum);
+		
+			
+			pstmt.executeUpdate();
+		
+		}finally {
+		DbConnection.dbClose(null, pstmt, con);
+
+			}
+	
+		return cnt;
+		
+		
 		
 	}
 	
@@ -172,11 +193,15 @@ public class VacationStatusDAO {
 		PreparedStatement pstmt = null;
 		try {
 			con = DbConnection.getCon();
-			String approve = "update bussiness_log set code2 = 3, work_log = ?		 where doc_no = ?" ;
+			StringBuilder insert = new StringBuilder();
+			insert
+			.append(" 	insert into reject (doc_no,reason,reject_date)" )
+			.append(" 	values(?,?,sysdate)");
 			
-			pstmt=con.prepareStatement(approve);
-			pstmt.setString(1, reason);
-			pstmt.setString(2, docNum);
+			
+			pstmt=con.prepareStatement(insert.toString());
+			pstmt.setString(1, docNum);
+			pstmt.setString(2, reason);
 			
 			pstmt.executeUpdate();
 			

@@ -84,7 +84,7 @@ public class ReturnReasonEvent extends WindowAdapter implements ActionListener{
 	
 	public void inputReason() throws SQLException {
 		VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
-
+		vsDAO.returnVS(docNum);
 		vsDAO.InsertReturnReason(docNum, rr.getJtaContent().getText());
 		
 		
