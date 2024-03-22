@@ -66,9 +66,9 @@ public class ReturnReason extends JDialog{
 	
 	
 	
-	public ReturnReason(ConfirmDocs cd) {
+	public ReturnReason(ConfirmDocs cd, String docNum) {
 		super(cd,"반려사유작성",true);
-		
+		dNum = docNum;
 		setLayout(new BorderLayout());
 		
 		jtaContent = new JTextArea();

@@ -33,7 +33,8 @@ public class ConfirmDocsEvent extends WindowAdapter implements ActionListener {
 			cfdocs.dispose();
 		}
 		if(ae.getSource()==cfdocs.getJbtncompanion()) {
-			new ReturnReason(cfdocs);
+			String docNum = cfdocs.getJtfdocnum().getText();
+			new ReturnReason(cfdocs, docNum);
 		}
 		if(ae.getSource()==cfdocs.getJbtncheck()) {
 			new DocsManagement();
