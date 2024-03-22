@@ -77,7 +77,7 @@ public class WorkStatusEvent extends WindowAdapter implements ActionListener{
 		
 		
 		if(cVOList.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "내용이 없습니다.");
+			
 		}else {
 			for(CommuteVO cVO : cVOList) {
 			content[0] = cVO.getEmpNo();
