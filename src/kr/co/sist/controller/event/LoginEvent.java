@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import kr.co.sist.dao.LoginDAO;
+import kr.co.sist.dao.LoginDAO.Validation;
 import kr.co.sist.view.admin.AdminMenu;
 import kr.co.sist.view.common.Login;
 import kr.co.sist.view.user.UserMenu;
@@ -20,12 +21,11 @@ import kr.co.sist.vo.LoginVO;
 
 public class LoginEvent extends WindowAdapter implements ActionListener{
 	private Login login;
-	private static String empno; 
+	private static String empno, password; 
 	
 	
 	public LoginEvent(Login login) throws SQLException {
 		this.login = login;
-		
 	}
 	
 
@@ -33,10 +33,9 @@ public class LoginEvent extends WindowAdapter implements ActionListener{
 	public void actionPerformed(ActionEvent ae) {
 		//로그인 버튼 클릭시 id와 pw를 변수에 저장
 		if(ae.getSource() == login.getJbLogin()) {
+			
 			login();
-//            if(login()!= null) {
-//            	login.dispose();
-//            }//end if
+            
 		}//end if
 		//종료버튼 클릭 시 창 닫기
 		if(ae.getSource() == login.getJbExit()) {
@@ -53,10 +52,12 @@ public class LoginEvent extends WindowAdapter implements ActionListener{
 	public void login() {
 		 empno=login.getEmpNoField().getText();
 		String Password =login.getPasswordField().getText();
+		
 		LoginDAO lDAO= LoginDAO.getInstance();
 		String savedPw = lDAO.confirmUser(empno).getPassword();
 		String authcode=lDAO.confirmUser(empno).getAuthCode();
 		System.out.println(authcode);
+		
 		if(Password.equals(savedPw)) {
 			if(authcode.equals("SUPER")||authcode.equals("ADMIN")) {
 				new AdminMenu();
@@ -76,14 +77,13 @@ public class LoginEvent extends WindowAdapter implements ActionListener{
 	}
 	
 	
+	
+	
+	
 ////////////////////////////////////////////////////////////////
 //	
 //	
-//	public void setInputInfo() {
-//		// 입력받은 아이디와 비밀번호를 변수에 저장
-//        emp_no = login.getEmpNoField().getText();
-//        password = login.getPasswordField().getText();
-//	}
+//	
 //	
 //	
 //	/**

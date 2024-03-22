@@ -91,9 +91,13 @@ public class LoginDAO {
                 lVO = new LoginVO(rs.getString("emp_no"), rs.getString("pass"), rs.getString("auth_code"));
                 // 다른 필드도 필요하다면 추가로 설정
             }
+//            if(lVO != null) {
+//            }
+//            JOptionPane.showMessageDialog(null, "아이디, 비밀번호를 모두 입력해 주세요.");
             System.out.println(lVO.getAuthCode());
         } catch (SQLException e) {
             e.printStackTrace();
+            
         } finally {
             DbConnection.dbClose(rs, pstmt, con);
         }
