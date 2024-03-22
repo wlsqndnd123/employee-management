@@ -41,7 +41,7 @@ public class DocsListDAO {
 		try {
 			con = DbConnection.getCon();
 			
-			selectAllDocument = "select bl.doc_no,bl.title, de.dept_name,bl.doc_date,c.grp_code,grp_code2,bl.edit_date"
+			selectAllDocument = "select bl.doc_no,bl.title, de.dept_name,bl.doc_date,c.grp_code,code2,bl.edit_date"
 							+	"	from bussiness_log bl, dept de, common c	"
 							+	"	where emp_no=?	";
 			
@@ -58,7 +58,7 @@ public class DocsListDAO {
 	            dVO.setWorkDesc(rs.getString("dept_name"));
 	            dVO.setDocDate(rs.getDate("doc_date"));
 	            dVO.setApprDesc(rs.getString("grp_code"));
-	            dVO.setWorkLog(rs.getString("grp_code2"));
+	            dVO.setCode2(rs.getInt("code2"));
 	            dVO.setDocDate(rs.getDate("edit_date"));
 				
 			list.add(dVO);
@@ -71,24 +71,42 @@ public class DocsListDAO {
 		return list;
 	}//selectAllDocument
 	
-	public DocumentVO selectDocinfo(int empno)throws SQLException{
-		dVO=null;
-//		Connection con = DbConnection.getCon();
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		try {
-//			String SelectDoc="     select sd.doc_no, bl.title, c.grp_code, sd.dept_code,bl.doc_date, c.code, grp_code2,sd.edit_date "
-//					+"     from bussiness_log bl, share_docs sd ,dept d, common c    "
-//					+("where (bl.doc_no=sd.doc_no)and(sd.dept_code=d.dept_code)and(bl.grp_code=c.grp_code) and(bl.code=c.code)");
-//			pstmt = con.prepareStatement(SelectDoc);
-//			pstmt.setString(1, SelectDoc);
-//			rs=pstmt.executeQuery();
-//
-//		}finally {
-//			DbConnection.dbClose(rs, pstmt, con);
-//		}
-		return dVO;
-	}//selectDocinfo
+	public List<DocumentVO> selectDocinfo() throws SQLException {
+	    List<DocumentVO> slList = new ArrayList<DocumentVO>();
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String selectAllDocument = null;
+	    try {
+	        con = DbConnection.getCon();
+	        
+	        selectAllDocument = "select bl.doc_no,bl.title, de.dept_name,bl.doc_date,c.grp_code,code2,bl.edit_date"
+	                        + "	from bussiness_log bl, dept de, common c	"
+	                        + "	where emp_no=?	";
+	        
+	        
+	        pstmt = con.prepareStatement(selectAllDocument);
+	        pstmt.setInt(1, 240004);
+	        rs = pstmt.executeQuery();
+	        
+	        
+	        while(rs.next()) {
+	            DocumentVO dVO = new DocumentVO();
+	            dVO.setDocNo(rs.getString("doc_no"));
+	            dVO.setTitle(rs.getString("title"));
+	            dVO.setWorkDesc(rs.getString("dept_name"));
+	            dVO.setDocDate(rs.getDate("doc_date"));
+	            dVO.setApprDesc(rs.getString("grp_code"));
+	            dVO.setCode2(rs.getInt("code2"));
+	            dVO.setDocDate(rs.getDate("edit_date"));
+	            
+	            slList.add(dVO);
+	        }
+	    } finally {
+	        DbConnection.dbClose(rs, pstmt, con);
+	    }
+	    return slList;
+	}
 	
 	
 	
