@@ -68,6 +68,8 @@ public class DocsListEvent implements ActionListener, ItemListener{
 	    DocsListDAO dlDAO = DocsListDAO.getInstance();
 	    dVOList = dlDAO.selectAllDocument();
 	    
+	    dtmjtabResult.setRowCount(0);
+	    
 	    // 문서 목록이 비어 있는 경우
 	    if (dVOList.isEmpty()) {
 	        JOptionPane.showMessageDialog(null, "해당 문서가 없습니다");
@@ -78,7 +80,7 @@ public class DocsListEvent implements ActionListener, ItemListener{
 	            content[2] = dVO.getDept();
 	            content[3] = dVO.getDocDate();
 	            content[4] = dVO.getApprDesc();
-	            content[5] = dVO.getCode2();
+	            content[5] = dVO.getEmpNo();
 	            content[6] = dVO.getDocDate();
 	            
 	            dtmjtabResult.addRow(content);
@@ -104,7 +106,7 @@ public class DocsListEvent implements ActionListener, ItemListener{
 		            content[2] = dVO.getDept();
 		            content[3] = dVO.getDocDate();
 		            content[4] = dVO.getApprDesc();
-		            content[5] = dVO.getCode2();
+		            content[5] = dVO.getEmpNo();
 		            content[6] = dVO.getDocDate();
 		            
 		            dtmjtabResult.addRow(content);
