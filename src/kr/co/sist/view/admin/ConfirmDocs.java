@@ -25,10 +25,10 @@ public class ConfirmDocs extends JFrame {
 			jlempno=new JLabel("사번:");
 			jlempname=new JLabel("사원명:");
 			jldate=new JLabel("신청날짜:");
-			jtfdocnum=new JTextField();
-			jtfempno=new JTextField();
-			jtfempname=new JTextField();
-			jtfdate=new JTextField();
+			jtfdocnum=new JTextField(10);
+			jtfempno=new JTextField(10);
+			jtfempname=new JTextField(10);
+			jtfdate=new JTextField(10);
 			
 			ConfirmDocsEvent cfdevt=new ConfirmDocsEvent(this);
 			jbtnShape.addActionListener(cfdevt);

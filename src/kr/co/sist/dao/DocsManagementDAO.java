@@ -9,11 +9,10 @@ import java.util.List;
 
 import kr.co.sist.util.DbConnection;
 import kr.co.sist.vo.DocumentVO;
+import kr.co.sist.vo.EmpInfoVO;
 
 public class DocsManagementDAO {
 	private static DocsManagementDAO dmmDAO;
-	private DocumentVO dVO;
-	
 	public DocsManagementDAO() {
 		
 	}
@@ -27,7 +26,6 @@ public class DocsManagementDAO {
 	
 	public List<DocumentVO> searchDocument()throws SQLException{
 		List<DocumentVO>list = new ArrayList<DocumentVO>();
-		dVO=null;
 		Connection con= null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -105,7 +103,53 @@ public class DocsManagementDAO {
 	    }
 	    return dlist;
 	}
-	
+	public List<DocumentVO> selectInfo(String col) throws SQLException {
+		List<DocumentVO> list = new ArrayList<DocumentVO>();
+		DocumentVO dVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DbConnection.getCon();
+			if (col.equals("CODE2")) {//승인상태
+
+				String selectCODE2 = "	select CODE2 from BUSSINESS_LOG ";
+				pstmt = con.prepareStatement(selectCODE2);
+			}else if (col.equals("CODE"))  {//문서종류
+
+				String selectCODE = "	select CODE from BUSSINESS_LOG ";
+				pstmt = con.prepareStatement(selectCODE);
+			} else {//신청부서
+
+				String selectdeptInfo = "	select DEPT_NAME from DEPT where DEPT_NAME not like '시스템관리자' ";
+				pstmt = con.prepareStatement(selectdeptInfo);
+			
+			}
+
+			rs = pstmt.executeQuery();
+
+			if (col.equals("CODE2")) {
+				while (rs.next()) {
+					dVO = new DocumentVO(col, null, 0);
+				} // end while
+			} else if (col.equals("CODE")) {
+				while (rs.next()) {
+					dVO = new DocumentVO(null, col, 0);
+
+				} // endwhile
+
+			}else {
+				dVO = new DocumentVO(null, null, Integer.parseInt(col));
+				
+			}
+		} finally {
+			DbConnection.dbClose(rs, pstmt, con);
+
+		} // end finally
+
+		return list;
+
+	}
 	
 	
 	
