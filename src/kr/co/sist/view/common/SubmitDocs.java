@@ -42,6 +42,7 @@ public class SubmitDocs extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+
     /**
      * Desc : textField를 생성
      *
