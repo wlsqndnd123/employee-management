@@ -17,7 +17,7 @@ public class ReadDocs extends JFrame {
 
     }
 
-    public ReadDocs(String docnum, DocumentVO dVO) {
+    public ReadDocs( DocumentVO dVO) {
 
         super("문서 확인");
 
@@ -26,22 +26,24 @@ public class ReadDocs extends JFrame {
         JPanel jpNorth = new JPanel();
 
         jtfDocNo = new JTextField(15);
-//        jtfDocNo.setText(dVO.getDocNo());
-        jtfDocNo.setText(docnum);
+        jtfDocNo.setText(dVO.getDocNo());
         jtfEmpNo = new JTextField(10);
-        jtfDocNo.setText(String.valueOf(dVO.getEmpNo()));
+        jtfEmpNo.setText(String.valueOf(dVO.getEmpNo()));
 
         jtfEmpNm = new JTextField(10);
-        jtfDocNo.setText(dVO.getName());
+        jtfEmpNm.setText(dVO.getName());
 
         jtfDate = new JTextField(10);
-        jtfDocNo.setText(String.valueOf(dVO.getDocDate()));
+        jtfDate.setText(String.valueOf(dVO.getDocDate()));
 
         jldocNo = new JLabel("문서번호:");
         jlempNo = new JLabel("사번:");
         jlempNm = new JLabel("사원명:");
         jldate = new JLabel("날짜");
-
+        jtfDocNo.setEditable(false);
+        jtfEmpNo.setEditable(false);
+        jtfEmpNm.setEditable(false);
+        jtfDate.setEditable(false);
         jpNorth.add(jldocNo);
         jpNorth.add(jtfDocNo);
         jpNorth.add(jlempNo);

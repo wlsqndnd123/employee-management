@@ -33,7 +33,7 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener, It
 	public void insertDoc() throws NumberFormatException, SQLException {
 //		String docNo, String title, String workLog, String dept, int empNo
 		String title=smd.getJtfTitle().getText();
-		String docNo="0000000012";
+		String docNo="0000000123";
 		String workLog=smd.getJta().getText();
 		CheckEmployeeInformationDAO ceiDAO= CheckEmployeeInformationDAO.getInstance();
 		
