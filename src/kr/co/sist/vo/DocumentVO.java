@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class DocumentVO {
 
-    String docNo, title, workDesc, workLog, apprDesc, fileName,dept,name;
+    String docNo, title, workDesc, workLog, apprDesc, fileName,dept,name,paperType;
     int empNo, code2;
     Date docDate,modifiedDate;
 
@@ -48,11 +48,11 @@ public class DocumentVO {
 	}
 
 
-	public DocumentVO(String apprDesc, String dept, int code2) {
+	public DocumentVO(String apprDesc, String dept, String paperType) {
 		super();
 		this.apprDesc = apprDesc;
 		this.dept = dept;
-		this.code2 = code2;
+		this.paperType = paperType;
 	}
 
 	public DocumentVO(String docNo, String title, int code2, String dept, Date docDate, Date modifiedDate) {
@@ -102,7 +102,15 @@ public class DocumentVO {
         this.workDesc = workDesc;
     }
 
-    public String getWorkLog() {
+    public String getPaperType() {
+		return paperType;
+	}
+
+	public void setPaperType(String paperType) {
+		this.paperType = paperType;
+	}
+
+	public String getWorkLog() {
         return workLog;
     }
 
