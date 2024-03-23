@@ -13,9 +13,11 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 /**
- * Desc : 관리자 로그인 메뉴 화면에 보이는 내용의 이벤트처리
- * 작성일 : 2024.03.18
- * 작성자 : 고한별
+ * Desc : 관리자 로그인 메뉴 화면에 보이는 내용의 이벤트처리<br>
+ * 작성일 : 2024.03.18<br>
+ * 작성자 : 고한별<br>
+ * 수정일 : 2024.03.24<br>
+ * 수정자 : 고한별<br>
  */
 public class AdminMenuEvent extends WindowAdapter implements ActionListener {
     private AdminMenu adminMenu;

@@ -1,15 +1,16 @@
 package kr.co.sist.view.common;
 
 import kr.co.sist.controller.event.SubmitDocsEvent;
+import kr.co.sist.view.util.JFrameComponent;
 
 import javax.swing.*;
 
 /**
- * Desc : 업무 관련 문서를 작성하기 위해 사용되는 view
- * 작성자 : 양수민
- * 작성일 : ?
- * 수정자 : 고한별
- * 수정일 : 2024.03.23
+ * Desc : 업무 관련 문서를 작성하기 위해 사용되는 view<br>
+ * 작성자 : 양수민<br>
+ * 작성일 : ?<br>
+ * 수정자 : 고한별<br>
+ * 수정일 : 2024.03.23<br>
  */
 public class SubmitDocs extends JFrame {
 
@@ -26,8 +27,8 @@ public class SubmitDocs extends JFrame {
         super("문서등록");
         setLayout(null);
 
-        btn_regist = createButton("등록", 120, 430, 80, 30);
-        btn_cancel = createButton("취소", 430, 430, 80, 30);
+        btn_regist = JFrameComponent.createButton(getContentPane(),"등록", 120, 430, 80, 30);
+        btn_cancel = JFrameComponent.createButton(getContentPane(),"취소", 430, 430, 80, 30);
 
         jta = new JTextArea();
         jta.setBounds(50, 100, 540, 300);
@@ -40,27 +41,6 @@ public class SubmitDocs extends JFrame {
         setBounds(300, 100, 650, 550);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-
-    /**
-     * Desc : textField를 생성
-     *
-     * @param text   textField 내부에 기록될 초기값
-     * @param x      x 좌표
-     * @param y      y 좌표
-     * @param width  가로 픽셀
-     * @param height 세로 픽셀
-     * @return 생성된 textField
-     */
-    private JTextField createTextField(String text, int x, int y, int width, int height) {
-        JTextField textField = new JTextField();
-
-        textField.setText(text);
-        textField.setBounds(x, y, width, height);
-        add(textField);
-
-        return textField;
     }
 
     /**
@@ -78,33 +58,14 @@ public class SubmitDocs extends JFrame {
     }
 
     /**
-     * Desc : 버튼을 생성하는 기능
-     *
-     * @param text   버튼에 표시될 내용
-     * @param x      버튼의 x 좌표
-     * @param y      버튼의 y 좌표
-     * @param width  버튼의 가로 픽셀
-     * @param height 버튼의 세로 픽셀
-     * @return 생성된 JButton
-     */
-    private JButton createButton(String text, int x, int y, int width, int height) {
-        JButton button = new JButton(text);
-
-        button.setBounds(x, y, width, height);
-        add(button);
-
-        return button;
-    }
-
-    /**
      * Desc : frame 상단에 표시할 내용 생성
      */
     private void createUpperComponents() {
-        jtfTitle = createTextField("제목을 입력하세요", 140, 35, 200, 30);
-        jtfFileNm = createTextField("첨부파일명", 350, 35, 100, 30);
+        jtfTitle = JFrameComponent.createTextField(getContentPane(),"제목을 입력하세요", 140, 35, 200, 30);
+        jtfFileNm = JFrameComponent.createTextField(getContentPane(),"첨부파일명", 350, 35, 100, 30);
 
-        attAdd = createButton("추가", 470, 35, 60, 30);
-        attRemove = createButton("취소", 540, 35, 60, 30);
+        attAdd = JFrameComponent.createButton(getContentPane(),"추가", 470, 35, 60, 30);
+        attRemove = JFrameComponent.createButton(getContentPane(),"취소", 540, 35, 60, 30);
     }
 
     /**
