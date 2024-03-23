@@ -1,85 +1,76 @@
 package kr.co.sist.controller.event;
 
+import kr.co.sist.dao.LoginDAO;
+import kr.co.sist.view.admin.AdminMenu;
+import kr.co.sist.view.common.Login;
+import kr.co.sist.view.user.UserMenu;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.ObjectInputValidation;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
-import kr.co.sist.dao.LoginDAO;
-import kr.co.sist.dao.LoginDAO.Validation;
-import kr.co.sist.view.admin.AdminMenu;
-import kr.co.sist.view.common.Login;
-import kr.co.sist.view.user.UserMenu;
-import kr.co.sist.vo.LoginVO;
+public class LoginEvent extends WindowAdapter implements ActionListener {
+    private Login login;
+    private static String empno, password;
 
 
+    public LoginEvent(Login login) throws SQLException {
+        this.login = login;
+    }
 
-public class LoginEvent extends WindowAdapter implements ActionListener{
-	private Login login;
-	private static String empno, password; 
-	
-	
-	public LoginEvent(Login login) throws SQLException {
-		this.login = login;
-	}
-	
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        //로그인 버튼 클릭시 id와 pw를 변수에 저장
+        if (ae.getSource() == login.getJbLogin()) {
 
-	@Override
-	public void actionPerformed(ActionEvent ae) {
-		//로그인 버튼 클릭시 id와 pw를 변수에 저장
-		if(ae.getSource() == login.getJbLogin()) {
-			
-			login();
-            
-		}//end if
-		//종료버튼 클릭 시 창 닫기
-		if(ae.getSource() == login.getJbExit()) {
-			login.dispose();
-		}
-		
-	}//actionPerformed
-	
-	
-	@Override
-	public void windowClosing(WindowEvent we) {
+            login();
+
+        }//end if
+        //종료버튼 클릭 시 창 닫기
+        if (ae.getSource() == login.getJbExit()) {
+            login.dispose();
+        }
+
+    }//actionPerformed
+
+
+    @Override
+    public void windowClosing(WindowEvent we) {
         login.dispose();
     }
-	public void login() {
-		 empno=login.getEmpNoField().getText();
-		String Password =login.getPasswordField().getText();
-		
-		LoginDAO lDAO= LoginDAO.getInstance();
-		String savedPw = lDAO.confirmUser(empno).getPassword();
-		String authcode=lDAO.confirmUser(empno).getAuthCode();
-		System.out.println(authcode);
-		
-		if(Password.equals(savedPw)) {
-			if(authcode.equals("SUPER")||authcode.equals("ADMIN")) {
-				new AdminMenu();
-			}else {
-				new UserMenu();
-			}
-			
-		}else {
-			JOptionPane.showMessageDialog(null, "비번확인하쇼");
-		}
-		
-	}
+
+    public void login() {
+        empno = login.getEmpNoField().getText();
+        String Password = login.getPasswordField().getText();
+
+        LoginDAO lDAO = LoginDAO.getInstance();
+        String savedPw = lDAO.confirmUser(empno).getPassword();
+        String authcode = lDAO.confirmUser(empno).getAuthCode();
+        System.out.println(authcode);
+
+        if (Password.equals(savedPw)) {
+            if (authcode.equals("SUPER") || authcode.equals("ADMIN")) {
+                new AdminMenu();
+            } else {
+                new UserMenu();
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "비번확인하쇼");
+        }
+
+    }
 
 
-	public static String getEmpno() {
-		return empno;
-	}
-	
-	
-	
-	
-	
+    public static String getEmpno() {
+        return empno;
+    }
+
+
 ////////////////////////////////////////////////////////////////
 //	
 //	
@@ -134,5 +125,5 @@ public class LoginEvent extends WindowAdapter implements ActionListener{
 //        }
 //	}//loginClik
 
-	
+
 }//LoginEvent

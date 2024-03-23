@@ -1,11 +1,9 @@
 package kr.co.sist.view.common;
 
 
-import javax.swing.*;
-import javax.swing.text.JTextComponent;
-
 import kr.co.sist.controller.event.LoginEvent;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -18,11 +16,11 @@ public class Login extends JFrame implements ActionListener {
     private JPasswordField jpwfPass;
     private JButton jbLogin, jbExit, jbFindPassword;
     private JLabel jlResult;
- 
+
     public Login() throws SQLException {
         super("Login");
 
-        setLayout(null); 
+        setLayout(null);
 
         // 로그인 라벨 생성 및 설정
         jlLogin = new JLabel("로그인");
@@ -64,9 +62,9 @@ public class Login extends JFrame implements ActionListener {
         jbLogin = new JButton("로그인");
         jbLogin.setBounds(320, 105, 80, 40);
         LoginEvent le = new LoginEvent(this);
-        
+
         jbLogin.addActionListener(le);
-        
+
         add(jbLogin);
 
         // 종료 버튼 생성 및 설정
@@ -79,8 +77,8 @@ public class Login extends JFrame implements ActionListener {
             }
         });
         add(jbExit);
-        setBounds(300,120,500,400);
-        setVisible(true); 
+        setBounds(300, 120, 500, 400);
+        setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         addWindowListener(new WindowAdapter() {
@@ -96,40 +94,35 @@ public class Login extends JFrame implements ActionListener {
     }
 
     private void applyEvent() throws SQLException {
-    	LoginEvent le = new LoginEvent(this);
-    	jbLogin.addActionListener(le);
-    	jbExit.addActionListener(le);
-    	jbFindPassword.addActionListener(le);
-    	
+        LoginEvent le = new LoginEvent(this);
+        jbLogin.addActionListener(le);
+        jbExit.addActionListener(le);
+        jbFindPassword.addActionListener(le);
+
     }
-    
+
     public JButton getJbLogin() {
-    	return jbLogin;
+        return jbLogin;
     }
-    
-    
+
+
     public JButton getJbExit() {
-    	return jbExit;
+        return jbExit;
     }
 
-	public JTextField getEmpNoField() {
-		return jtfEmp_no;
-	}
+    public JTextField getEmpNoField() {
+        return jtfEmp_no;
+    }
 
 
-	public JTextField getPasswordField() {
-		return jpwfPass;
-	}
+    public JTextField getPasswordField() {
+        return jpwfPass;
+    }
 
-	
-	
-	
-	
-	
-	
-	public static void main(String[] args) throws SQLException{
-		new Login();
-	}//main
+
+    public static void main(String[] args) throws SQLException {
+        new Login();
+    }//main
 
 
 }//class

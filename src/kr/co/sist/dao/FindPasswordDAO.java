@@ -1,15 +1,12 @@
 package kr.co.sist.dao;
 
+import kr.co.sist.util.DbConnection;
+import kr.co.sist.vo.FindPasswordVO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.swing.JOptionPane;
-
-import kr.co.sist.controller.event.FindPasswordEvent;
-import kr.co.sist.util.DbConnection;
-import kr.co.sist.vo.FindPasswordVO;
 
 public class FindPasswordDAO {
     private static FindPasswordDAO fpDAO;
@@ -22,8 +19,8 @@ public class FindPasswordDAO {
     }
 
     public FindPasswordVO getPassword(String emp_no) {
-    	FindPasswordVO fpVO = null;
-    	int emp_no1=Integer.parseInt(emp_no);
+        FindPasswordVO fpVO = null;
+        int emp_no1 = Integer.parseInt(emp_no);
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -44,7 +41,7 @@ public class FindPasswordDAO {
 
             // 결과 확인
             if (rs.next()) {
-            	fpVO = new FindPasswordVO (rs.getString("emp_no"), rs.getString("pass"), rs.getString("tel"));
+                fpVO = new FindPasswordVO(rs.getString("emp_no"), rs.getString("pass"), rs.getString("tel"));
             }
 //            if(fpVO != null) {
 //            }

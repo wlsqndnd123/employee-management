@@ -32,10 +32,10 @@ public class DocsListEvent implements ActionListener, ItemListener, MouseListene
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == dclist.getJbtnAddDoc()) {
-        	new SubmitDocs();
+            new SubmitDocs();
         }
         if (ae.getSource() == dclist.getJbtnGoMain()) {
-        	new UserMenu();
+            new UserMenu();
         }
     }
 
@@ -183,7 +183,7 @@ public class DocsListEvent implements ActionListener, ItemListener, MouseListene
         String DocNum = (String) dclist.getJtaDob().getValueAt(row, 0);
         if (column == 0) { // 2nd column
             try {
-                new ReadDocs( DocsListDAO.getInstance().selectDocinfo(DocNum));
+                new ReadDocs(DocsListDAO.getInstance().selectDocinfo(DocNum));
                 dclist.dispose();
             } catch (SQLException e) {
                 e.printStackTrace();

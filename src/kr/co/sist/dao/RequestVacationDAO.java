@@ -1,13 +1,11 @@
 package kr.co.sist.dao;
 
 import kr.co.sist.util.DbConnection;
-import kr.co.sist.view.user.RequestVacation;
 import kr.co.sist.vo.VacationVO;
 
-import java.sql.*;
-import java.text.SimpleDateFormat;
-
-import static java.sql.Date.valueOf;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  * Desc : 사원 휴가 신청 메뉴 view에 표시될 Data<br>
@@ -43,7 +41,6 @@ public class RequestVacationDAO {
         PreparedStatement preparedStatement = null;
 
 
-
         try {
             connection = DbConnection.getCon();
             String insertVacationLog = "insert into BUSSINESS_LOG(doc_no, title, emp_no, grp_code, code, work_log, grp_code2, code2, start_date, end_date) " +
@@ -62,7 +59,8 @@ public class RequestVacationDAO {
             DbConnection.dbClose(null, preparedStatement, connection);
         }
     }
+
     public static void main(String[] args) {
-    	
+
     }
 }

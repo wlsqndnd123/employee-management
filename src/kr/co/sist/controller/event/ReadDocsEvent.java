@@ -32,7 +32,6 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
 				disableDocs();
 				rd.dispose();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
     		
@@ -43,11 +42,9 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
 				modifyDocs();
 				rd.dispose();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
     	}
-    	
     }
     
     public void modifyDocs() throws SQLException {
@@ -73,8 +70,5 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
         rd.dispose();
     }
 
-	
-
-	
 }
 

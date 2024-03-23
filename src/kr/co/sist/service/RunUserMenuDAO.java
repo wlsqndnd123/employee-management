@@ -13,7 +13,7 @@ import java.util.List;
  * 작성일 : 2024.03.15
  */
 public class RunUserMenuDAO {
-    public static List<VacationVO> loadMonthlyWorkSchedule(){
+    public static List<VacationVO> loadMonthlyWorkSchedule() {
         List<VacationVO> list;
         try {
             list = UserMenuDAO.getInstance().selectVacationDate(240004);
@@ -25,9 +25,10 @@ public class RunUserMenuDAO {
 
     /**
      * Desc : 출퇴근 기록시간 불러오기
+     *
      * @return 날짜와 출퇴근시간이 기록된 VO list
      */
-    public static List<CommuteVO> loadStampTime(){
+    public static List<CommuteVO> loadStampTime() {
         List<CommuteVO> list;
         try {
             list = UserMenuDAO.getInstance().selectCommuteLog(240004);
