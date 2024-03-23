@@ -1,7 +1,6 @@
 package kr.co.sist.dao;
 
 import kr.co.sist.util.DbConnection;
-import kr.co.sist.view.user.DocsList;
 import kr.co.sist.vo.DocumentVO;
 
 import java.sql.Connection;
@@ -100,7 +99,7 @@ public class DocsListDAO {
     }
 
     public DocumentVO selectDocinfo(String doc_no) throws SQLException {
-    	DocumentVO dVO =null;
+        DocumentVO dVO = null;
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -119,7 +118,7 @@ public class DocsListDAO {
 
             while (rs.next()) {
 //String docNo, String title, String workLog, String dept, Date docDate, Date modifiedDate
-             dVO = new DocumentVO(rs.getString("doc_no"), rs.getString("name"), rs.getString("title"),
+                dVO = new DocumentVO(rs.getString("doc_no"), rs.getString("name"), rs.getString("title"),
                         rs.getString("WORK_LOG"), rs.getString("dept_name"), rs.getDate("doc_date"),
                         rs.getDate("edit_date"), rs.getInt("emp_no"));
 

@@ -4,7 +4,6 @@ import com.toedter.calendar.JDateChooser;
 import kr.co.sist.controller.event.RequestVacationEvent;
 
 import javax.swing.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -98,8 +97,8 @@ public class RequestVacation extends JFrame {
 
     /**
      * Desc : JDateChooser의 이벤트 처리
-      */
-    public void createDateEvent(){
+     */
+    public void createDateEvent() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         PropertyChangeListener dateChangeListener = evt -> {
@@ -169,14 +168,14 @@ public class RequestVacation extends JFrame {
     }
 
     public JDateChooser getVacStartDate() {
-		return vacStartDate;
-	}
+        return vacStartDate;
+    }
 
-	public JDateChooser getVacEndDate() {
-		return vacEndDate;
-	}
+    public JDateChooser getVacEndDate() {
+        return vacEndDate;
+    }
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         new RequestVacation();
     }
 }

@@ -13,11 +13,11 @@ public class JFrameComponent extends JFrame {
      * Desc : textField를 생성
      *
      * @param container 컴포넌트 추가...
-     * @param text   textField 내부에 기록될 초기값
-     * @param x      x 좌표
-     * @param y      y 좌표
-     * @param width  가로 픽셀
-     * @param height 세로 픽셀
+     * @param text      textField 내부에 기록될 초기값
+     * @param x         x 좌표
+     * @param y         y 좌표
+     * @param width     가로 픽셀
+     * @param height    세로 픽셀
      * @return 생성된 textField
      */
     public static JTextField createTextField(Container container, String text, int x, int y, int width, int height) {
@@ -34,11 +34,11 @@ public class JFrameComponent extends JFrame {
      * Desc : 버튼을 생성하는 기능
      *
      * @param container add 하려고...
-     * @param text   버튼에 표시될 내용
-     * @param x      버튼의 x 좌표
-     * @param y      버튼의 y 좌표
-     * @param width  버튼의 가로 픽셀
-     * @param height 버튼의 세로 픽셀
+     * @param text      버튼에 표시될 내용
+     * @param x         버튼의 x 좌표
+     * @param y         버튼의 y 좌표
+     * @param width     버튼의 가로 픽셀
+     * @param height    버튼의 세로 픽셀
      * @return 생성된 JButton
      */
     public static JButton createButton(Container container, String text, int x, int y, int width, int height) {
@@ -54,11 +54,11 @@ public class JFrameComponent extends JFrame {
      * Desc : 라벨을 생성하는 기능
      *
      * @param container add 하려고...
-     * @param text   라벨에 표시될 내용
-     * @param x      라벨의 x 좌표
-     * @param y      라벨의 y 좌표
-     * @param width  라벨의 가로 픽셀
-     * @param height 라벨의 세로 픽셀
+     * @param text      라벨에 표시될 내용
+     * @param x         라벨의 x 좌표
+     * @param y         라벨의 y 좌표
+     * @param width     라벨의 가로 픽셀
+     * @param height    라벨의 세로 픽셀
      * @return 생성된 JLabel
      */
     public static JLabel createLabel(Container container, String text, int x, int y, int width, int height) {
@@ -75,10 +75,10 @@ public class JFrameComponent extends JFrame {
      *
      * @param container 컨테이너
      * @param jTextArea jsp에 붙일 jta
-     * @param x      jsp의 x 좌표
-     * @param y      jsp의 y 좌표
-     * @param width  jsp의 가로 픽셀
-     * @param height jsp의 세로 픽셀
+     * @param x         jsp의 x 좌표
+     * @param y         jsp의 y 좌표
+     * @param width     jsp의 가로 픽셀
+     * @param height    jsp의 세로 픽셀
      * @return 생성된 JScrollPane
      */
     public static JScrollPane createPane(Container container, JTextArea jTextArea, int x, int y, int width, int height) {

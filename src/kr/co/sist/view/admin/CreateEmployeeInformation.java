@@ -1,21 +1,16 @@
 package kr.co.sist.view.admin;
 
-import java.awt.GridLayout;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-
 import kr.co.sist.controller.event.CreateEmployeeInformationEvent;
 
-public class CreateEmployeeInformation extends JFrame{
-	private JTextField tfEmpno, tfName,tfPosition, tfJob, tfTel,tfDep;
-	private JButton jbtnAdd,jbtnCancel;
-	public CreateEmployeeInformation(){
-		super("사원등록");
+import javax.swing.*;
+import java.awt.*;
+
+public class CreateEmployeeInformation extends JFrame {
+    private JTextField tfEmpno, tfName, tfPosition, tfJob, tfTel, tfDep;
+    private JButton jbtnAdd, jbtnCancel;
+
+    public CreateEmployeeInformation() {
+        super("사원등록");
 
         // 레이블 생성
         JLabel jlEmpno = new JLabel("사원번호");
@@ -62,46 +57,46 @@ public class CreateEmployeeInformation extends JFrame{
         CreateEmployeeInformationEvent cei = new CreateEmployeeInformationEvent(this);
         jbtnAdd.addActionListener(cei);
         jbtnCancel.addActionListener(cei);
-        
+
 
         setSize(400, 300); // 프레임 크기 설정
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 종료 버튼 동작 설정
         setVisible(true); // 프레임을 화면에 보이게 함
     }
-	
+
     public JTextField getTfEmpno() {
-		return tfEmpno;
-	}
+        return tfEmpno;
+    }
 
-	public JTextField getTfName() {
-		return tfName;
-	}
+    public JTextField getTfName() {
+        return tfName;
+    }
 
-	public JTextField getTfPosition() {
-		return tfPosition;
-	}
+    public JTextField getTfPosition() {
+        return tfPosition;
+    }
 
-	public JTextField getTfJob() {
-		return tfJob;
-	}
+    public JTextField getTfJob() {
+        return tfJob;
+    }
 
-	public JTextField getTfTel() {
-		return tfTel;
-	}
+    public JTextField getTfTel() {
+        return tfTel;
+    }
 
-	public JTextField getTfDep() {
-		return tfDep;
-	}
+    public JTextField getTfDep() {
+        return tfDep;
+    }
 
-	public JButton getJbtnAdd() {
-		return jbtnAdd;
-	}
+    public JButton getJbtnAdd() {
+        return jbtnAdd;
+    }
 
-	public JButton getJbtnCancel() {
-		return jbtnCancel;
-	}
+    public JButton getJbtnCancel() {
+        return jbtnCancel;
+    }
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(CreateEmployeeInformation::new);
     }
 }
