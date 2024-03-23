@@ -2,13 +2,16 @@ package kr.co.sist.view.admin;
 
 import kr.co.sist.controller.event.AdminMenuEvent;
 import kr.co.sist.service.RunAdminMenuDAO;
+import kr.co.sist.view.util.JFrameComponent;
 
 import javax.swing.*;
 
 /**
  * Desc : 관리자로 로그인 하면 보이는 메뉴 view<br>
  * 작성자 : 고한별<br>
- * 작성일 : 2024.03.15
+ * 작성일 : 2024.03.15<br>
+ *  수정일 : 2024.03.24<br>
+ *  수정자 : 고한별<br>
  */
 public class AdminMenu extends JFrame {
     private JButton employeeInformationJbtn;
@@ -17,7 +20,6 @@ public class AdminMenu extends JFrame {
     private JButton closeJbtn;
     private JButton passwordJbtn;
     private JTextArea workNotifications;
-    private JScrollPane workNotiPad;
 
     /**
      * Desc : 관리자 메뉴 main frame 구현
@@ -27,7 +29,8 @@ public class AdminMenu extends JFrame {
         setLayout(null);
 
         createGoToButton();
-        initializeWorkNotifications();
+        JFrameComponent.createPane(getContentPane(),workNotifications,250, 80, 320, 350);
+        loadWorkAlerts();
         createEvent();
 
         setBounds(300, 100, 650, 550);
@@ -39,41 +42,11 @@ public class AdminMenu extends JFrame {
      * Desc : 다른 view로 연결되는 버튼 생성
      */
     public void createGoToButton() {
-        employeeInformationJbtn = new JButton("사원 정보");
-        workAttendanceJbtn = new JButton("근태 관리");
-        documentsJbtn = new JButton("문서 관리");
-        closeJbtn = new JButton("종료");
-        passwordJbtn = new JButton("비밀번호 변경");
-
-        employeeInformationJbtn.setBounds(80, 110, 100, 40);
-        workAttendanceJbtn.setBounds(80, 230, 100, 40);
-        documentsJbtn.setBounds(80, 350, 100, 40);
-        closeJbtn.setBounds(520, 20, 100, 40);
-        passwordJbtn.setBounds(500, 460, 120, 40);
-
-        add(employeeInformationJbtn);
-        add(workAttendanceJbtn);
-        add(documentsJbtn);
-        add(closeJbtn);
-        add(passwordJbtn);
-    }
-
-    /**
-     * Desc: 업무 알람을 표시하는 영역 생성 및 초기화
-     */
-    public void initializeWorkNotifications() {
-        createWorkNotificationArea();
-        loadWorkAlerts();
-    }
-
-    /**
-     * Desc: 업무 알람 표시 영역 생성
-     */
-    private void createWorkNotificationArea() {
-        workNotifications = new JTextArea();
-        workNotiPad = new JScrollPane(workNotifications);
-        workNotiPad.setBounds(250, 80, 320, 350);
-        add(workNotiPad);
+        employeeInformationJbtn = JFrameComponent.createButton(getContentPane(),"사원정보",80, 110, 100, 40);
+        workAttendanceJbtn = JFrameComponent.createButton(getContentPane(),"근태 관리",80, 230, 100, 40);
+        documentsJbtn = JFrameComponent.createButton(getContentPane(),"문서 관리",80, 350, 100, 40);
+        closeJbtn = JFrameComponent.createButton(getContentPane(),"종료",520, 20, 100, 40);
+        passwordJbtn = JFrameComponent.createButton(getContentPane(),"비밀번호 변경",500, 460, 120, 40);
     }
 
     /**
