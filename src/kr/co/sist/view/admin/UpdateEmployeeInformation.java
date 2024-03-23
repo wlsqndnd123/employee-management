@@ -16,7 +16,6 @@ public class UpdateEmployeeInformation extends JFrame {
 	private JTextField InputJtPosition,InputJtJob,InputJtDept;
 	private JTextField tfEmpno, tfName,tfPosition, tfJob, tfTel,tfDep;
 	private JButton jbtnChange,jbtnDelete,jbtnCancel;
-	private EmpInfoVO eVO;
 	public  UpdateEmployeeInformation() {
 		
 	}

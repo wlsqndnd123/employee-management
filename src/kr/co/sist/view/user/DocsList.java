@@ -22,11 +22,11 @@ public class DocsList extends JFrame{
     private JCheckBox cbcheck;
     private JButton jbtnAddDoc;
     private JButton jbtnGoMain;
-    private JTable jtaDob;
+    private JTable jtDoc;
     private DefaultTableModel dtmjtabResult;
     private DocumentVO dVO;
     
-    public DocsList()throws Exception {
+    public DocsList(){
         setTitle("사원문서리스트");
         
         
@@ -35,24 +35,23 @@ public class DocsList extends JFrame{
         jbtnGoMain=new JButton("메인으로");
     
        
-        String[] columnName = {"문서번호", "문서제목", "신청부서", "신청날짜", "결제상태", "공유상태", "최종수정일"};
+        String[] columnName = {"문서번호", "문서제목", "신청부서", "신청날짜", "결제상태", "최종수정일"};
         dtmjtabResult = new DefaultTableModel(columnName, 0);
-        jtaDob = new JTable(dtmjtabResult);
-        Object[] content = new Object[8];
+        jtDoc = new JTable(dtmjtabResult);
+        Object[] content = new Object[6];
         
         
 
        
-        jtaDob.setEnabled(false);
+        jtDoc.setEnabled(false);
         
         
-        jtaDob.getColumnModel().getColumn(0).setPreferredWidth(60);
-        jtaDob.getColumnModel().getColumn(1).setPreferredWidth(60);
-        jtaDob.getColumnModel().getColumn(2).setPreferredWidth(60);
-        jtaDob.getColumnModel().getColumn(3).setPreferredWidth(60);
-        jtaDob.getColumnModel().getColumn(4).setPreferredWidth(60);
-        jtaDob.getColumnModel().getColumn(5).setPreferredWidth(60);
-        jtaDob.getColumnModel().getColumn(6).setPreferredWidth(60);
+        jtDoc.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jtDoc.getColumnModel().getColumn(1).setPreferredWidth(60);
+        jtDoc.getColumnModel().getColumn(2).setPreferredWidth(60);
+        jtDoc.getColumnModel().getColumn(3).setPreferredWidth(60);
+        jtDoc.getColumnModel().getColumn(4).setPreferredWidth(60);
+        jtDoc.getColumnModel().getColumn(5).setPreferredWidth(60);
     
         cbcheck.setBounds(30, 20, 20, 20);
         jbtnAddDoc.setBounds(550, 60, 100, 30);
@@ -63,16 +62,16 @@ public class DocsList extends JFrame{
         jbtnAddDoc.addActionListener(dle);
         jbtnGoMain.addActionListener(dle);
         cbcheck.addItemListener(dle);
-        
+        jtDoc.addMouseListener(dle);
         try {
-			dle.searchDocInfo();
+			dle.showAllDocs();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
         
         setLayout(null);
         
-        JScrollPane scrollPane = new JScrollPane(jtaDob);
+        JScrollPane scrollPane = new JScrollPane(jtDoc);
         scrollPane.setBounds(30, 110, 600, 400);
         add(scrollPane);
         
@@ -106,13 +105,14 @@ public class DocsList extends JFrame{
 
 
 	public JTable getJtaDob() {
-		return jtaDob;
+		return jtDoc;
 	}
 
 
 	public DefaultTableModel getDtmjtabResult() {
 		return dtmjtabResult;
 	}
+	
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {

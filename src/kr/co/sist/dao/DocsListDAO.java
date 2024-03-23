@@ -37,28 +37,24 @@ public class DocsListDAO {
 		Connection con= null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String selectAllDocument = null;
 		try {
 			con = DbConnection.getCon();
-			
-			selectAllDocument = "	select   doc_no,bl.title, d.dept_name, bl.doc_date,bl.grp_code, bl.code2, bl.edit_date"
+			String selectAllDocument = "	select   doc_no,bl.title, d.dept_name, bl.doc_date, bl.code2, bl.edit_date"
 							+	"	from   dept d,emp_info ei, bussiness_log bl	"
-							+	"	where (d.dept_code = ei.dept_code)and (ei.emp_no = bl.emp_no) and (ei.emp_no = ?)	";
+							+	"	where (d.dept_code = ei.dept_code)and (ei.emp_no = bl.emp_no)	";
 			
 			
 			pstmt=con.prepareStatement(selectAllDocument);
-			pstmt.setInt(1, 240004);
 			rs =pstmt.executeQuery();
 			
-			
-			while(rs.next()) {//String docNo, String title, String workDesc, String workLog, String apprDesc, String fileName,String dept, int empNo, Date docDate, Date modifiedDate
+			//String docNo, String title, int code2, String dept, Date docDate, Date modifiedDate
+			while(rs.next()) {
 				DocumentVO dVO = new DocumentVO();
 				dVO.setDocNo(rs.getString("doc_no"));
 	            dVO.setTitle(rs.getString("title"));
-	            dVO.setWorkDesc(rs.getString("dept_name"));
+	            dVO.setDept(rs.getString("dept_name"));
 	            dVO.setDocDate(rs.getDate("doc_date"));
-	            dVO.setApprDesc(rs.getString("grp_code"));
-	            dVO.setEmpNo(rs.getInt("code2"));
+	            dVO.setCode2(rs.getInt("code2"));
 	            dVO.setDocDate(rs.getDate("edit_date"));
 				
 			list.add(dVO);
@@ -71,42 +67,73 @@ public class DocsListDAO {
 		return list;
 	}//selectAllDocument
 	
-	public List<DocumentVO> selectDocinfo() throws SQLException {
-	    List<DocumentVO> slList = new ArrayList<DocumentVO>();
-	    Connection con = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    String selectAllDocument = null;
-	    try {
-	        con = DbConnection.getCon();
-	        
-	        selectAllDocument = "	SELECT bl.doc_no, bl.title, d.dept_name, bl.doc_date,bl.grp_code,bl.code2, bl.edit_date"
-	        		+ "	FROM 	dept d, emp_info ei, bussiness_log bl	"
-	        		+ "	LEFT JOIN share_docs sd ON bl.doc_no = sd.doc_no	"
-	        		+ "	WHERE (d.dept_code = ei.dept_code) AND (ei.emp_no = bl.emp_no) AND (ei.emp_no = ?)	";
-	        
-	        
-	        pstmt = con.prepareStatement(selectAllDocument);
-	        pstmt.setInt(1, 240004);
-	        rs = pstmt.executeQuery();
-	        
-	        
-	        while(rs.next()) {
-	            DocumentVO dVO = new DocumentVO();
-	            dVO.setDocNo(rs.getString("doc_no"));
-	            dVO.setTitle(rs.getString("title"));
-	            dVO.setWorkDesc(rs.getString("dept_name"));
-	            dVO.setDocDate(rs.getDate("doc_date"));
-	            dVO.setApprDesc(rs.getString("grp_code"));
-	            dVO.setCode2(rs.getInt("code2"));
-	            dVO.setDocDate(rs.getDate("edit_date"));
-	            
-	            slList.add(dVO);
-	        }
-	    } finally {
-	        DbConnection.dbClose(rs, pstmt, con);
-	    }
-	    return slList;
+	
+	
+	public List<DocumentVO> selectMyDocinfo(String empno) throws SQLException {
+		List<DocumentVO> list = new ArrayList<DocumentVO>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DbConnection.getCon();
+			String selectAllDocument = "	SELECT bl.doc_no, bl.title, d.dept_name, bl.doc_date,bl.grp_code,bl.code2, bl.edit_date"
+					+ "	FROM 	dept d, emp_info ei, bussiness_log bl	"
+					+ "	LEFT JOIN share_docs sd ON bl.doc_no = sd.doc_no	"
+					+ "	WHERE (d.dept_code = ei.dept_code) AND (ei.emp_no = bl.emp_no) AND (ei.emp_no = ?)	";
+			
+			
+			pstmt = con.prepareStatement(selectAllDocument);
+			pstmt.setString(1, empno);
+			rs = pstmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				DocumentVO dVO = new DocumentVO();
+				dVO.setDocNo(rs.getString("doc_no"));
+				dVO.setTitle(rs.getString("title"));
+				dVO.setWorkDesc(rs.getString("dept_name"));
+				dVO.setDocDate(rs.getDate("doc_date"));
+				dVO.setApprDesc(rs.getString("grp_code"));
+				dVO.setCode2(rs.getInt("code2"));
+				dVO.setDocDate(rs.getDate("edit_date"));
+				list.add(dVO);
+				
+			}
+		} finally {
+			DbConnection.dbClose(rs, pstmt, con);
+		}
+		return list;
+	}
+	public DocumentVO selectDocinfo(String doc_no) throws SQLException {
+		dVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DbConnection.getCon();
+			
+			String selectAllDocument = "select	bl.doc_no, bl.title, d.dept_name, bl.doc_date,bl.WORK_LOG,bl.edit_date , ei. name, ei.emp_no "
+					+ "	FROM 	dept d, emp_info ei, bussiness_log bl	"
+					+ "	WHERE (d.dept_code = ei.dept_code) AND (ei.emp_no = bl.emp_no) AND (bl.doc_no =? )	";
+			
+			
+			pstmt = con.prepareStatement(selectAllDocument);
+			pstmt.setString(1, doc_no);
+			rs = pstmt.executeQuery();
+			
+			
+			while(rs.next()) {
+//String docNo, String title, String workLog, String dept, Date docDate, Date modifiedDate
+				DocumentVO dVO = new DocumentVO(rs.getString("doc_no"), rs.getString("name"),rs.getString("title"),
+						rs.getString("WORK_LOG"), rs.getString("dept_name"), rs.getDate("doc_date"),
+						rs.getDate("edit_date"),rs.getInt("emp_no"));
+			
+				System.out.println(dVO.toString());
+			}
+		} finally {
+			DbConnection.dbClose(rs, pstmt, con);
+		}
+		return dVO;
 	}
 	
 	
