@@ -48,6 +48,13 @@ public class DocumentVO {
 	}
 
 
+	public DocumentVO(String apprDesc, String dept, int code2) {
+		super();
+		this.apprDesc = apprDesc;
+		this.dept = dept;
+		this.code2 = code2;
+	}
+
 	public DocumentVO(String docNo, String title, int code2, String dept, Date docDate, Date modifiedDate) {
 		super();
 		this.docNo = docNo;
