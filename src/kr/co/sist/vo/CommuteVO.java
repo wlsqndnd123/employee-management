@@ -9,7 +9,7 @@ import java.sql.Date;
  */
 public class CommuteVO {
     int empNo, use_count, assign_count;
-    String empName, attendTime, quitTime ;
+    String empName, attendTime, quitTime;
     Date commuteDate;
     String workStatus;
 
@@ -24,18 +24,18 @@ public class CommuteVO {
 
     public CommuteVO(int empNo, int use_count, int assign_count, String empName, String attendTime, String quitTime,
                      Date commuteDate, String workStatus) {
-		super();
-		this.empNo = empNo;
-		this.use_count = use_count;
-		this.assign_count = assign_count;
-		this.empName = empName;
-		this.attendTime = attendTime;
-		this.quitTime = quitTime;
-		this.commuteDate = commuteDate;
-		this.workStatus = workStatus;
-	}
+        super();
+        this.empNo = empNo;
+        this.use_count = use_count;
+        this.assign_count = assign_count;
+        this.empName = empName;
+        this.attendTime = attendTime;
+        this.quitTime = quitTime;
+        this.commuteDate = commuteDate;
+        this.workStatus = workStatus;
+    }
 
-	public int getEmpNo() {
+    public int getEmpNo() {
         return empNo;
     }
 
@@ -80,29 +80,29 @@ public class CommuteVO {
     }
 
     public int getUse_count() {
-		return use_count;
-	}
+        return use_count;
+    }
 
-	public void setUse_count(int use_count) {
-		this.use_count = use_count;
-	}
+    public void setUse_count(int use_count) {
+        this.use_count = use_count;
+    }
 
-	public int getAssign_count() {
-		return assign_count;
-	}
+    public int getAssign_count() {
+        return assign_count;
+    }
 
-	public void setAssign_count(int assign_count) {
-		this.assign_count = assign_count;
-	}
+    public void setAssign_count(int assign_count) {
+        this.assign_count = assign_count;
+    }
 
-	public void setEmpName(String empName) {
+    public void setEmpName(String empName) {
         this.empName = empName;
     }
 
-	@Override
-	public String toString() {
-		return "CommuteVO [empNo=" + empNo + ", empName=" + empName + ", attendTime=" + attendTime + ", quitTime=" + quitTime 
-				+ ", use_count=" + use_count + ", assign_count=" + assign_count
-				+ ", commuteDate=" + commuteDate + "]";
-	}
+    @Override
+    public String toString() {
+        return "CommuteVO [empNo=" + empNo + ", empName=" + empName + ", attendTime=" + attendTime + ", quitTime=" + quitTime
+                + ", use_count=" + use_count + ", assign_count=" + assign_count
+                + ", commuteDate=" + commuteDate + "]";
+    }
 }

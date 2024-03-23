@@ -29,7 +29,7 @@ public class ConfirmDocs extends JFrame {
         createButton();
         createLabel();
         createTextField();
-        JFrameComponent.createPane(getContentPane(),jtaContents,20, 80, 600, 350);
+        JFrameComponent.createPane(getContentPane(), jtaContents, 20, 80, 600, 350);
         createEvent();
 
         setBounds(300, 100, 650, 550);
@@ -61,11 +61,11 @@ public class ConfirmDocs extends JFrame {
      * Desc : 텍스트필드 생성<br>
      * **************DB에서 값 받아와야지***********************
      */
-    private void createTextField(){
-        jtfdocnum = JFrameComponent.createTextField(getContentPane(),"DB문서번호",90, 30, 80, 20);
-        jtfempno = JFrameComponent.createTextField(getContentPane(),"DB사번",215, 30, 80, 20);
-        jtfempname = JFrameComponent.createTextField(getContentPane(),"DB이름",355, 30, 80, 20);
-        jtfdate = JFrameComponent.createTextField(getContentPane(),"DB날짜",500, 30, 80, 20);
+    private void createTextField() {
+        jtfdocnum = JFrameComponent.createTextField(getContentPane(), "DB문서번호", 90, 30, 80, 20);
+        jtfempno = JFrameComponent.createTextField(getContentPane(), "DB사번", 215, 30, 80, 20);
+        jtfempname = JFrameComponent.createTextField(getContentPane(), "DB이름", 355, 30, 80, 20);
+        jtfdate = JFrameComponent.createTextField(getContentPane(), "DB날짜", 500, 30, 80, 20);
 
         jtfdocnum.setEditable(false);
         jtfempno.setEditable(false);

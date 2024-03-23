@@ -17,7 +17,7 @@ public class ReadDocs extends JFrame {
 
     }
 
-    public ReadDocs( DocumentVO dVO) {
+    public ReadDocs(DocumentVO dVO) {
 
         super("문서 확인");
 

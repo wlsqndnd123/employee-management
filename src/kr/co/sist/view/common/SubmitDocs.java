@@ -27,8 +27,8 @@ public class SubmitDocs extends JFrame {
         super("문서등록");
         setLayout(null);
 
-        btn_regist = JFrameComponent.createButton(getContentPane(),"등록", 120, 430, 80, 30);
-        btn_cancel = JFrameComponent.createButton(getContentPane(),"취소", 430, 430, 80, 30);
+        btn_regist = JFrameComponent.createButton(getContentPane(), "등록", 120, 430, 80, 30);
+        btn_cancel = JFrameComponent.createButton(getContentPane(), "취소", 430, 430, 80, 30);
 
         jta = new JTextArea();
         jta.setBounds(50, 100, 540, 300);
@@ -61,11 +61,11 @@ public class SubmitDocs extends JFrame {
      * Desc : frame 상단에 표시할 내용 생성
      */
     private void createUpperComponents() {
-        jtfTitle = JFrameComponent.createTextField(getContentPane(),"제목을 입력하세요", 140, 35, 200, 30);
-        jtfFileNm = JFrameComponent.createTextField(getContentPane(),"첨부파일명", 350, 35, 100, 30);
+        jtfTitle = JFrameComponent.createTextField(getContentPane(), "제목을 입력하세요", 140, 35, 200, 30);
+        jtfFileNm = JFrameComponent.createTextField(getContentPane(), "첨부파일명", 350, 35, 100, 30);
 
-        attAdd = JFrameComponent.createButton(getContentPane(),"추가", 470, 35, 60, 30);
-        attRemove = JFrameComponent.createButton(getContentPane(),"취소", 540, 35, 60, 30);
+        attAdd = JFrameComponent.createButton(getContentPane(), "추가", 470, 35, 60, 30);
+        attRemove = JFrameComponent.createButton(getContentPane(), "취소", 540, 35, 60, 30);
     }
 
     /**

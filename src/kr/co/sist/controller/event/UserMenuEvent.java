@@ -1,7 +1,6 @@
 package kr.co.sist.controller.event;
 
 import kr.co.sist.view.user.DocsList;
-//import kr.co.sist.view.user.DocsList;
 import kr.co.sist.view.user.RequestVacation;
 import kr.co.sist.view.user.UpdateTelNumber;
 import kr.co.sist.view.user.UserMenu;
@@ -25,23 +24,24 @@ public class UserMenuEvent extends WindowAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == userMenu.getDocsListJbtn()){
+        if (e.getSource() == userMenu.getDocsListJbtn()) {
             new DocsList();
         }
-        if (e.getSource() == userMenu.getVacationJbtn()){
+        if (e.getSource() == userMenu.getVacationJbtn()) {
             new RequestVacation();
         }
-        if (e.getSource() == userMenu.getInformationJbtn()){
-        	
+        if (e.getSource() == userMenu.getInformationJbtn()) {
+
             new UpdateTelNumber(new UpdateTelNumberEvent().setPersonalInfo());
         }
-        if (e.getSource() == userMenu.getCloseJbtn()){
+        if (e.getSource() == userMenu.getCloseJbtn()) {
             closeFrame();
         }
     }
 
     /**
      * Desc : 타이틀 바의 x 누를 경우 창 닫기 기능
+     *
      * @param e the event to be processed
      */
     @Override
@@ -52,7 +52,7 @@ public class UserMenuEvent extends WindowAdapter implements ActionListener {
     /**
      * Desc : 창 닫기 *******구현필요
      */
-    public void closeFrame(){
+    public void closeFrame() {
         userMenu.dispose();
     }
 }
