@@ -4,8 +4,10 @@ import kr.co.sist.dao.DocsListDAO;
 import kr.co.sist.dao.VacationStatusDAO;
 import kr.co.sist.view.admin.VacationStatus;
 import kr.co.sist.view.admin.reject;
+import kr.co.sist.view.common.SubmitDocs;
 import kr.co.sist.view.user.DocsList;
 import kr.co.sist.view.user.ReadDocs;
+import kr.co.sist.view.user.UserMenu;
 import kr.co.sist.vo.DocumentVO;
 
 import javax.swing.*;
@@ -30,10 +32,10 @@ public class DocsListEvent implements ActionListener, ItemListener, MouseListene
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == dclist.getJbtnAddDoc()) {
-            System.out.println("문서등록");
+        	new SubmitDocs();
         }
         if (ae.getSource() == dclist.getJbtnGoMain()) {
-            System.out.println("메인으로");
+        	new UserMenu();
         }
     }
 
@@ -181,7 +183,8 @@ public class DocsListEvent implements ActionListener, ItemListener, MouseListene
         String DocNum = (String) dclist.getJtaDob().getValueAt(row, 0);
         if (column == 0) { // 2nd column
             try {
-                new ReadDocs(DocNum, DocsListDAO.getInstance().selectDocinfo(DocNum));
+                new ReadDocs( DocsListDAO.getInstance().selectDocinfo(DocNum));
+                dclist.dispose();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

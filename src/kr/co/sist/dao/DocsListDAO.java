@@ -13,8 +13,6 @@ import java.util.List;
 
 public class DocsListDAO {
     private static DocsListDAO docslistDAO;
-    private DocsList docslist;
-    private DocumentVO dVO;
 
 
     public DocsListDAO() {
@@ -31,7 +29,6 @@ public class DocsListDAO {
 
     public List<DocumentVO> selectAllDocument() throws SQLException {
         List<DocumentVO> list = new ArrayList<DocumentVO>();
-        dVO = null;
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -39,7 +36,7 @@ public class DocsListDAO {
             con = DbConnection.getCon();
             String selectAllDocument = "	select   doc_no,bl.title, d.dept_name, bl.doc_date, bl.code2, bl.edit_date"
                     + "	from   dept d,emp_info ei, bussiness_log bl	"
-                    + "	where (d.dept_code = ei.dept_code)and (ei.emp_no = bl.emp_no)	";
+                    + "	where (d.dept_code = ei.dept_code)and (ei.emp_no = bl.emp_no) and bl.logic ='N'	";
 
 
             pstmt = con.prepareStatement(selectAllDocument);
@@ -103,7 +100,7 @@ public class DocsListDAO {
     }
 
     public DocumentVO selectDocinfo(String doc_no) throws SQLException {
-        dVO = null;
+    	DocumentVO dVO =null;
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -122,7 +119,7 @@ public class DocsListDAO {
 
             while (rs.next()) {
 //String docNo, String title, String workLog, String dept, Date docDate, Date modifiedDate
-                DocumentVO dVO = new DocumentVO(rs.getString("doc_no"), rs.getString("name"), rs.getString("title"),
+             dVO = new DocumentVO(rs.getString("doc_no"), rs.getString("name"), rs.getString("title"),
                         rs.getString("WORK_LOG"), rs.getString("dept_name"), rs.getDate("doc_date"),
                         rs.getDate("edit_date"), rs.getInt("emp_no"));
 
@@ -137,7 +134,6 @@ public class DocsListDAO {
 
     public String selectRejectDetail(String doc_no) throws SQLException {
         String rejectDetail = null;
-        dVO = null;
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;

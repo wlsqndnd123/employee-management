@@ -28,11 +28,20 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
     	}
     	if(e.getSource() == rd.getjbtnDel()) {
     		//dao에서 논리삭제 코드 작성 후 처리
+    		try {
+				disableDocs();
+				rd.dispose();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+    		
     	}
     	if(e.getSource() == rd.getjbtnChg()) {
     		//수정된 내용이 db에 update
     		try {
 				modifyDocs();
+				rd.dispose();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -43,14 +52,20 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
     
     public void modifyDocs() throws SQLException {
     	String content=rd.getJta().getText();
-		//String docNo=rd.getjtfDocNo().getText();
-		
-    	String docNo="0000000009";
+		String docNo=rd.getjtfDocNo().getText();
 		DocumentVO dVO= new DocumentVO(docNo, content);
 		
 		ReadDocsDAO rdDAO= ReadDocsDAO.getInstance();
 		rdDAO.updateDoc(dVO);
 		
+    }
+    public void disableDocs() throws SQLException {
+    	String docNo=rd.getjtfDocNo().getText();
+    	DocumentVO dVO= new DocumentVO(docNo, null);
+    	
+    	ReadDocsDAO rdDAO= ReadDocsDAO.getInstance();
+    	rdDAO.deleteDoc(dVO);
+    	
     }
 
     @Override
