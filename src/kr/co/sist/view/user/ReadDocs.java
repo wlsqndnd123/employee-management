@@ -1,14 +1,18 @@
 package kr.co.sist.view.user;
 
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
 
+import kr.co.sist.controller.event.LoginEvent;
 import kr.co.sist.controller.event.ReadDocsEvent;
+import kr.co.sist.dao.CheckEmployeeInformationDAO;
+import kr.co.sist.vo.DocumentVO;
 
 public class ReadDocs extends JFrame{
 
@@ -17,8 +21,11 @@ public class ReadDocs extends JFrame{
     private JLabel jldocNo, jlempNo, jlempNm, jldate;
     private JTextField jtfDocNo, jtfEmpNo, jtfEmpNm, jtfDate;
     private JTextArea jta;
-    
     public ReadDocs() {
+    	
+    }
+    
+    public ReadDocs(String docnum,DocumentVO dVO) {
 
         super("문서 확인");
 
@@ -26,10 +33,17 @@ public class ReadDocs extends JFrame{
 
         JPanel jpNorth= new JPanel();
 
-        jtfDocNo=new JTextField();
-        jtfEmpNo=new JTextField();
-        jtfEmpNm=new JTextField();
-        jtfDate=new JTextField();
+        jtfDocNo=new JTextField(15);
+//        jtfDocNo.setText(dVO.getDocNo());
+        jtfDocNo.setText(docnum);
+        jtfEmpNo=new JTextField(10);
+        jtfDocNo.setText(String.valueOf(dVO.getEmpNo()));
+        
+        jtfEmpNm=new JTextField(10);
+        jtfDocNo.setText(dVO.getName());
+        
+        jtfDate=new JTextField(10);
+        jtfDocNo.setText(String.valueOf(dVO.getDocDate()));
 
         jldocNo= new JLabel("문서번호:");
         jlempNo= new JLabel("사번:");
@@ -51,6 +65,7 @@ public class ReadDocs extends JFrame{
 
 
         jta= new JTextArea();
+        jta.setText(dVO.getWorkLog());
 
         setSize(500,600);
 
@@ -155,8 +170,5 @@ public class ReadDocs extends JFrame{
 		return jta;
 	}
 
-	public static void main(String[] args) {
-        new ReadDocs();
-    }
 
 }

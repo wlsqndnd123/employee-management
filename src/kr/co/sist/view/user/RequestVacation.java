@@ -168,7 +168,15 @@ public class RequestVacation extends JFrame {
         return eDate;
     }
 
-    public static void main(String[] args) {
+    public JDateChooser getVacStartDate() {
+		return vacStartDate;
+	}
+
+	public JDateChooser getVacEndDate() {
+		return vacEndDate;
+	}
+
+	public static void main(String[] args) {
         new RequestVacation();
     }
 }
