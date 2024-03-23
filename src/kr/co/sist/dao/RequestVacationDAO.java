@@ -38,32 +38,31 @@ public class RequestVacationDAO {
      * @return : 관련 데이터 list
      * @throws SQLException
      */
-    public void vacationData() throws SQLException {
+    public void vacationData(VacationVO vVO) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
-        RequestVacation requestVacation = new RequestVacation();
 
-        Date startDate = (Date) requestVacation.getsDate();
-        Date endDate = (Date) requestVacation.geteDate();
 
         try {
             connection = DbConnection.getCon();
             String insertVacationLog = "insert into BUSSINESS_LOG(doc_no, title, emp_no, grp_code, code, work_log, grp_code2, code2, start_date, end_date) " +
-                    " values ('00000200','연차신청서',240004,'WORK',5,'ㅅㅂ','APPR',1,?,?) ";
+                    " values ('000002110','연차신청서',240004,'WORK',5,'ㅅㅂ','APPR',1,?,?) ";
 
             preparedStatement = connection.prepareStatement(insertVacationLog);
 //            resultSet = preparedStatement.executeQuery();
 
 //            preparedStatement.setString(1,vacationVO.getDocNo());
 //            preparedStatement.setString(2, vacationVO.getWorkLog());
-            preparedStatement.setDate(1, startDate);
-            preparedStatement.setDate(2, endDate);
+            preparedStatement.setDate(1, vVO.getStartDate());
+            preparedStatement.setDate(2, vVO.getEndDate());
 
             preparedStatement.executeUpdate();
         } finally {
-            DbConnection.dbClose(resultSet, preparedStatement, connection);
+            DbConnection.dbClose(null, preparedStatement, connection);
         }
+    }
+    public static void main(String[] args) {
+    	
     }
 }

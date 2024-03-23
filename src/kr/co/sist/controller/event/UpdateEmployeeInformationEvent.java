@@ -66,7 +66,7 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
 	
 	/**
 	 * 입력한(사원번호) 사원의 논리삭제
-	 * @param empno
+	 * @param name
 	 */
 	public void disableEmpInfo() {
 		try {

@@ -13,6 +13,7 @@ import kr.co.sist.dao.CheckEmployeeInformationDAO;
 import kr.co.sist.dao.UpdateTelNumberDAO;
 import kr.co.sist.view.admin.UpdateEmployeeInformation;
 import kr.co.sist.view.common.Login;
+import kr.co.sist.view.common.UpdatePassword;
 import kr.co.sist.view.user.UpdateTelNumber;
 import kr.co.sist.view.user.UserMenu;
 import kr.co.sist.vo.EmpInfoVO;
@@ -32,6 +33,14 @@ public class UpdateTelNumberEvent extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		if(e.getSource()==utn.getJbtnexcPw()) {
+				new UpdatePassword();
+		}
+		if(e.getSource()==utn.getGoHome()) {
+			new UserMenu();
+			utn.dispose();
+			
+		}
 		if(e.getSource()==utn.getJbtnsave()) {
 			updateTelInfo();
 			JOptionPane.showMessageDialog(null,"내선번호가 변경되었습니다." );

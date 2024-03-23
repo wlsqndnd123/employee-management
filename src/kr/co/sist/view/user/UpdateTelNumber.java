@@ -160,6 +160,14 @@ public class UpdateTelNumber extends JFrame  {
 
 
 
+	public JButton getJbtnexcPw() {
+		return jbtnexcPw;
+	}
+
+
+
+
+
 	public JButton getJbtnsave() {
 		return jbtnsave;
 	}

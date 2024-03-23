@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class DocumentVO {
 
-    String docNo, title, workDesc, workLog, apprDesc, fileName,dept;
+    String docNo, title, workDesc, workLog, apprDesc, fileName,dept,name;
     int empNo, code2;
     Date docDate,modifiedDate;
 
@@ -17,6 +17,26 @@ public class DocumentVO {
 	}
 
     
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
 	public DocumentVO(String docNo, String title, String workLog, String dept, String fileNm ,int empNo) {
 		super();
 		this.docNo = docNo;
@@ -27,6 +47,16 @@ public class DocumentVO {
 		this.empNo = empNo;
 	}
 
+
+	public DocumentVO(String docNo, String title, int code2, String dept, Date docDate, Date modifiedDate) {
+		super();
+		this.docNo = docNo;
+		this.title = title;
+		this.code2 = code2;
+		this.dept = dept;
+		this.docDate = docDate;
+		this.modifiedDate = modifiedDate;
+	}
 
 	public DocumentVO(String docNo, String workLog) {
 		super();
@@ -137,12 +167,29 @@ public class DocumentVO {
         this.docDate = docDate;
         this.modifiedDate = modifiedDate;
     }
+    
+
+
+	public DocumentVO(String docNo,String name ,String title, String workLog, String dept, Date docDate, Date modifiedDate,int empno) {
+		super();
+		this.docNo = docNo;
+		this.name = name;
+		
+		this.title = title;
+		this.workLog = workLog;
+		this.dept = dept;
+		this.docDate = docDate;
+		this.modifiedDate = modifiedDate;
+		this.empNo =empno;
+	}
 
 	@Override
 	public String toString() {
 		return "DocumentVO [docNo=" + docNo + ", title=" + title + ", workDesc=" + workDesc + ", workLog=" + workLog
-				+ ", apprDesc=" + apprDesc + ", fileName=" + fileName + ", dept=" + dept + ", empNo=" + empNo
-				+ ", code2=" + code2 + ", docDate=" + docDate + ", modifiedDate=" + modifiedDate + "]";
+				+ ", apprDesc=" + apprDesc + ", fileName=" + fileName + ", dept=" + dept + ", name=" + name + ", empNo="
+				+ empNo + ", code2=" + code2 + ", docDate=" + docDate + ", modifiedDate=" + modifiedDate + "]";
 	}
-    
+
+	
+	
 }
