@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -24,27 +25,29 @@ public class DocsManagementEvent implements ActionListener{
 	}
 	
 	
-//
-//	@Override
-//	public void actionPerformed(ActionEvent ae) {
-//		if(ae.getSource()==dmm.getJbtnBackhome()) {
-//			System.out.println("메인으로");
-//		}
-//		if(ae.getSource()==dmm.getJbtnSearch()) {
-//			System.out.println("찾기");
-//		
-//			
-//		}
-//		
-//		
-//		
-//	}
-//	
-	public void addCombobox(String col) {
-		List<DocumentVO> colList;
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+		if(ae.getSource()==dmm.getJbtnBackhome()) {
+			System.out.println("메인으로");
+		}
+		if(ae.getSource()==dmm.getJbtnSearch()) {
+			try {
+				selectDocument();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
-		colList = DocsManagementDAO.getInstance().selectInfo(col);
+			
+		}
+		
+		
+		
 	}
+	
+		
+		
 	
 	
 	public void searchDocument()throws SQLException{
@@ -73,12 +76,6 @@ public class DocsManagementEvent implements ActionListener{
 
 
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	public void selectDocument()throws SQLException{
 		String dept = dmm.getJcbSelectDep().getSelectedItem().toString();
 		String fileType = dmm.getJcbSelectFileType().getSelectedItem().toString();
