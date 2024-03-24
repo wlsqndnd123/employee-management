@@ -30,6 +30,17 @@ public class JFrameComponent extends JFrame {
         return textField;
     }
 
+    public static JTextField createTextField(Container container, String text, int x, int y, int width, int height, boolean edit) {
+        JTextField textField = new JTextField();
+
+        textField.setText(text);
+        textField.setBounds(x, y, width, height);
+        textField.setEditable(edit);
+        container.add(textField);
+
+        return textField;
+    }
+
     /**
      * Desc : 버튼을 생성하는 기능
      *
@@ -83,10 +94,26 @@ public class JFrameComponent extends JFrame {
      */
     public static JScrollPane createPane(Container container, JTextArea jTextArea, int x, int y, int width, int height) {
         jTextArea = new JTextArea();
+
         JScrollPane jScrollPane = new JScrollPane(jTextArea);
 
         jScrollPane.setBounds(x, y, width, height);
         container.add(jScrollPane);
+
+        return jScrollPane;
+    }
+
+    public static JScrollPane createPane(Container container, JTextArea jTextArea, int x, int y, int width, int height, boolean edit, boolean line, boolean style) {
+        jTextArea = new JTextArea();
+
+        JScrollPane jScrollPane = new JScrollPane(jTextArea);
+
+        jScrollPane.setBounds(x, y, width, height);
+        container.add(jScrollPane);
+
+        jTextArea.setEditable(edit);
+        jTextArea.setLineWrap(line);
+        jTextArea.setWrapStyleWord(style);
 
         return jScrollPane;
     }
