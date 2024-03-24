@@ -1,17 +1,22 @@
 package kr.co.sist.controller.event;
 
+import kr.co.sist.dao.DocsListDAO;
 import kr.co.sist.dao.DocsManagementDAO;
 import kr.co.sist.view.admin.AdminMenu;
+import kr.co.sist.view.admin.ConfirmDocs;
 import kr.co.sist.view.admin.DocsManagement;
+import kr.co.sist.view.user.ReadDocs;
 import kr.co.sist.vo.DocumentVO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DocsManagementEvent implements ActionListener {
+public class DocsManagementEvent implements ActionListener,MouseListener {
 	private DocsManagement dmm;
 	private List<DocumentVO> dVOList;
 
@@ -183,5 +188,45 @@ public class DocsManagementEvent implements ActionListener {
 		}
 		
 		return type;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent me) {
+		int column = dmm.getJtaDob().columnAtPoint(me.getPoint());
+        int row = dmm.getJtaDob().rowAtPoint(me.getPoint());
+        String DocNum = (String) dmm.getJtaDob().getValueAt(row, 0);
+        if (column == 1){ // 2nd column
+        	try {
+				new ConfirmDocs(DocsListDAO.getInstance().selectDocinfo(DocNum));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+	}
+	
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

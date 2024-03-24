@@ -181,7 +181,7 @@ public class DocsListEvent implements ActionListener, ItemListener, MouseListene
         int column = dclist.getJtaDob().columnAtPoint(me.getPoint());
         int row = dclist.getJtaDob().rowAtPoint(me.getPoint());
         String DocNum = (String) dclist.getJtaDob().getValueAt(row, 0);
-        if (column == 0) { // 2nd column
+        if (column == 1) { // 2nd column
             try {
                 new ReadDocs(DocsListDAO.getInstance().selectDocinfo(DocNum));
                 dclist.dispose();

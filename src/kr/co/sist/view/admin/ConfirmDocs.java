@@ -1,9 +1,14 @@
 package kr.co.sist.view.admin;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 import kr.co.sist.controller.event.ConfirmDocsEvent;
 import kr.co.sist.view.util.JFrameComponent;
-
-import javax.swing.*;
+import kr.co.sist.vo.DocumentVO;
 
 /**
  * Desc : 관리자가 결재 문서를 확인하는 view<br>
@@ -13,7 +18,7 @@ import javax.swing.*;
  * 수정일 : 2024.03.24<br>
  */
 public class ConfirmDocs extends JFrame {
-
+	private static String docNum;
     private JButton jbtnShare, jbtnApproval, jbtncompanion, jbtncheck;
     private JTextField jtfdocnum, jtfempno, jtfempname, jtfdate;
     private JLabel jldocnum, jlempno, jlempname, jldate;
@@ -22,19 +27,20 @@ public class ConfirmDocs extends JFrame {
     /**
      * Desc : 관리자 문서 확인 view
      */
-    public ConfirmDocs() {
+    public ConfirmDocs(DocumentVO dVO) {
         super("관리자문서확인");
         setLayout(null);
 
         createButton();
         createLabel();
-        createTextField();
+        createTextField(dVO);
         JFrameComponent.createPane(getContentPane(), jtaContents, 20, 80, 600, 350);
         createEvent();
 
         setBounds(300, 100, 650, 550);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        docNum= dVO.getDocNo();
     }
 
     /**
@@ -61,11 +67,11 @@ public class ConfirmDocs extends JFrame {
      * Desc : 텍스트필드 생성<br>
      * **************DB에서 값 받아와야지***********************
      */
-    private void createTextField() {
-        jtfdocnum = JFrameComponent.createTextField(getContentPane(), "DB문서번호", 90, 30, 80, 20);
-        jtfempno = JFrameComponent.createTextField(getContentPane(), "DB사번", 215, 30, 80, 20);
-        jtfempname = JFrameComponent.createTextField(getContentPane(), "DB이름", 355, 30, 80, 20);
-        jtfdate = JFrameComponent.createTextField(getContentPane(), "DB날짜", 500, 30, 80, 20);
+    private void createTextField(DocumentVO dVO) {
+        jtfdocnum = JFrameComponent.createTextField(getContentPane(), dVO.getDocNo(), 90, 30, 80, 20);
+        jtfempno = JFrameComponent.createTextField(getContentPane(), String.valueOf(dVO.getEmpNo()), 215, 30, 80, 20);
+        jtfempname = JFrameComponent.createTextField(getContentPane(), dVO.getName(), 355, 30, 80, 20);
+        jtfdate = JFrameComponent.createTextField(getContentPane(), String.valueOf(dVO.getDocDate()), 500, 30, 80, 20);
 
         jtfdocnum.setEditable(false);
         jtfempno.setEditable(false);
@@ -117,7 +123,28 @@ public class ConfirmDocs extends JFrame {
         return jtfdate;
     }
 
-    public static void main(String[] args) {
-        new ConfirmDocs();
-    }
+	public static String getDocNum() {
+		return docNum;
+	}
+
+	public JLabel getJldocnum() {
+		return jldocnum;
+	}
+
+	public JLabel getJlempno() {
+		return jlempno;
+	}
+
+	public JLabel getJlempname() {
+		return jlempname;
+	}
+
+	public JLabel getJldate() {
+		return jldate;
+	}
+
+	public JTextArea getJtaContents() {
+		return jtaContents;
+	}
+    
 }

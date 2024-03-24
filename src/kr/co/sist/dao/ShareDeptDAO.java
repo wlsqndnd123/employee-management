@@ -27,7 +27,7 @@ public class ShareDeptDAO {
 
     }// getInstance
 
-    public int shareDoc(DocumentVO dVO) throws SQLException {
+    public void shareDoc(DocumentVO dVO) throws SQLException {
         int cnt = 0;
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -47,7 +47,6 @@ public class ShareDeptDAO {
             DbConnection.dbClose(null, pstmt, con);
         }
 
-        return cnt;
     }
 
 }
