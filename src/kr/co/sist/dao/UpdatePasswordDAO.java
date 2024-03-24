@@ -6,11 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import kr.co.sist.util.DbConnection;
+import kr.co.sist.vo.LoginVO;
 import kr.co.sist.vo.UpdatePasswordVO;
 
 public class UpdatePasswordDAO {
 
 	private static UpdatePasswordDAO updatePasswordDAO;
+	private LoginVO lVO;
 	
 	private UpdatePasswordDAO() {
 	}
@@ -54,6 +56,56 @@ public class UpdatePasswordDAO {
 		return password; 
 		
 	}
+	
+	public int updatePassword(UpdatePasswordVO upVO) throws SQLException {
+		int cnt=0;
+		Connection con = DbConnection.getCon();
+		PreparedStatement psmt = null;
+		
+		
+		try {
+			
+			String str =
+					"	update    account	"
+					+ "		set     pass = 	?	"
+					+ "		where emp_no = 	? 	";
+			
+			psmt=con.prepareStatement(str);
+			psmt.setString(1, upVO.getPassword());
+			psmt.setInt(2, upVO.getEmp_no());
+			
+			cnt=psmt.executeUpdate();
+		}finally {
+			DbConnection.dbClose(null, psmt, con);
+		}
+		return cnt;
+		
+	}
+	
+	public LoginVO selectLoginInfo(int empno) throws SQLException {
+		lVO =null;
+		Connection con = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DbConnection.getCon();
+			String selectEmp = "	select a.emp_no, a.pass, ua.auth_code "
+            		+ "	from  account a, USER_AUTH ua "
+            		+ "	where    (a.emp_no= ua.emp_no) AND (a.emp_no = ?) ";
+			psmt = con.prepareStatement(selectEmp);
+			psmt.setInt(1, empno);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				lVO = new LoginVO(rs.getString("emp_no"), rs.getString("pass"), rs.getString("auth_code"));
+			}
+	
+		} finally {
+			DbConnection.dbClose(rs, psmt, con);
+		}
+		return lVO;
+	}
+	
 	
 	public static void main(String ...args) {
 		UpdatePasswordDAO updao = new UpdatePasswordDAO();
