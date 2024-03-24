@@ -1,15 +1,21 @@
 package kr.co.sist.controller.event;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.sql.SQLException;
+
 import kr.co.sist.dao.ShareDeptDAO;
 import kr.co.sist.view.admin.ConfirmDocs;
+import kr.co.sist.view.admin.DocsManagement;
 import kr.co.sist.view.admin.ShareDept;
 import kr.co.sist.vo.DocumentVO;
 
-import java.awt.event.*;
-import java.sql.SQLException;
-
 public class ShareDeptEvent extends WindowAdapter implements ActionListener, MouseListener {
-    ShareDept dept;
+   
+	ShareDept dept;
     ConfirmDocs cd;
 
     public ShareDeptEvent(ShareDept dept) {
@@ -19,6 +25,7 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
 
     @Override
     public void mouseClicked(MouseEvent me) {
+    	
         if (me.getSource() == dept.getJlDept()) {
 
             int index = dept.getJlDept().getSelectedIndex();
@@ -64,7 +71,7 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == dept.getJbtncancel()) {
             dept.dispose();
-            new ConfirmDocs();
+            new DocsManagement();
         }
         if (ae.getSource() == dept.getJbtncheck()) {
             try {
@@ -78,17 +85,16 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
     }
 
     public void addSharedDoc() throws NumberFormatException, SQLException {
-        String docNum = cd.getJtfdocnum().getText();
-        int index = dept.getJlSelectedDept().getSelectedIndex();
-        String depts = (String) dept.getDlmDept().getElementAt(index);
-
+        String docNum = cd.getDocNum();
+        int index = dept.getJlDept().getSelectedIndex();
+        String strdept = (String) dept.getDlmSelectedDept().get(0);
+        System.out.println(strdept);
+        	System.out.println("-----1-----");
         try {
             ShareDeptDAO sdDAO = ShareDeptDAO.getInstance();
-            //
-            //(String docNo, String title, String workDesc, String workLog, String apprDesc, String fileName, String dept, int empNo, Date docDate)
-            DocumentVO dVO = new DocumentVO(docNum, null, null, null, null, null, depts, 0, null, null);
+            DocumentVO dVO = new DocumentVO(docNum, null, null, null, null, null, strdept, 0, null, null);
             sdDAO.shareDoc(dVO);
-            System.out.println(dVO.toString());
+            System.out.println("222222");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -74,10 +74,10 @@ public class DocsManagement extends JFrame {
         jbtnBackhome = new JButton("메인으로");
         jbtnSearch = new JButton("찾기");
 
-        String[] columnName = {"문서번호", "문서제목", "종류", "신청부서", "신청날짜", "공유상태", "결제상태", "최종수정일"};
+        String[] columnName = {"문서번호", "문서제목", "종류", "신청부서", "신청날짜",  "결제상태", "최종수정일"};
         dtmjtabResult = new DefaultTableModel(columnName, 0);
         jtaDob = new JTable(dtmjtabResult);
-        Object[] content = new Object[8];
+        Object[] content = new Object[7];
 
 
         jtaDob.getColumnModel().getColumn(0).setPreferredWidth(60);
@@ -87,7 +87,6 @@ public class DocsManagement extends JFrame {
         jtaDob.getColumnModel().getColumn(4).setPreferredWidth(60);
         jtaDob.getColumnModel().getColumn(5).setPreferredWidth(60);
         jtaDob.getColumnModel().getColumn(6).setPreferredWidth(60);
-        jtaDob.getColumnModel().getColumn(7).setPreferredWidth(60);
 
 
         jcbSelectDep.setBounds(60, 60, 150, 30);
@@ -112,7 +111,10 @@ public class DocsManagement extends JFrame {
 
         jbtnBackhome.addActionListener(dme);
         jbtnSearch.addActionListener(dme);
-
+        jcbSelectDep.addActionListener(dme);
+        jcbSelectApprovalState.addActionListener(dme);
+        jcbSelectFileType.addActionListener(dme);
+        jtaDob.addMouseListener(dme);
         try {
             dme.searchDocument();
         } catch (SQLException e) {

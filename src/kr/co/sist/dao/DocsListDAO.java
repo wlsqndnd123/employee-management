@@ -106,7 +106,7 @@ public class DocsListDAO {
         try {
             con = DbConnection.getCon();
 
-            String selectAllDocument = "select	bl.doc_no, bl.title, d.dept_name, bl.doc_date,bl.WORK_LOG,bl.edit_date , ei. name, ei.emp_no "
+            String selectAllDocument = "select	bl.doc_no, bl.title, d.dept_name, bl.doc_date,bl.WORK_LOG,bl.edit_date , ei. name, ei.emp_no, bl.code2  "
                     + "	FROM 	dept d, emp_info ei, bussiness_log bl	"
                     + "	WHERE (d.dept_code = ei.dept_code) AND (ei.emp_no = bl.emp_no) AND (bl.doc_no =? )	";
 
@@ -118,11 +118,20 @@ public class DocsListDAO {
 
             while (rs.next()) {
 //String docNo, String title, String workLog, String dept, Date docDate, Date modifiedDate
-                dVO = new DocumentVO(rs.getString("doc_no"), rs.getString("name"), rs.getString("title"),
-                        rs.getString("WORK_LOG"), rs.getString("dept_name"), rs.getDate("doc_date"),
-                        rs.getDate("edit_date"), rs.getInt("emp_no"));
+                dVO = new DocumentVO();
+                dVO.setDocNo(rs.getString("Doc_no")); 
+                dVO.setName(rs.getString("name"));
+                dVO.setTitle(rs.getString("title"));
+                dVO.setWorkLog(rs.getString("WORK_LOG"));
+                dVO.setDept(rs.getString("dept_name"));
+                dVO.setDocDate(rs.getDate("doc_date"));
+                dVO.setModifiedDate(rs.getDate("edit_date"));
+                dVO.setEmpNo(rs.getInt("emp_no"));
+                dVO.setCode2(rs.getInt("code2"));
+                
 
-                System.out.println(dVO.toString());
+//                        rs.getDate("edit_date"), rs.getInt("emp_no"));
+
             }
         } finally {
             DbConnection.dbClose(rs, pstmt, con);

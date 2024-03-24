@@ -30,12 +30,10 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
             upEmpInfo.dispose();
         }//end if
         if (ae.getSource() == upEmpInfo.getJbtnChange()) {
-            System.out.println("변경");
             modifyEmpInfo();
 
         }//end if
         if (ae.getSource() == upEmpInfo.getJbtnDelete()) {
-            System.out.println("삭제");
             disableEmpInfo();
         }//end if
     }//actionPerformed
