@@ -17,6 +17,7 @@ public class UpdateEmployeeInformation extends JFrame {
 
     public UpdateEmployeeInformation(EmpInfoVO eVO) {
         super("사원 변경 및 삭제");
+
         //입력받는 사원정보
         JLabel InputJlPosition = new JLabel("직급");
         JLabel InputJlJob = new JLabel("직무");
@@ -32,6 +33,7 @@ public class UpdateEmployeeInformation extends JFrame {
         JLabel jlJob = new JLabel("직무");
         JLabel jlTel = new JLabel("내선번호");
         JLabel jlDept = new JLabel("부서");
+
         tfEmpno = new JTextField(10);
         tfEmpno.setText(String.valueOf(eVO.getEmpno()));
         tfName = new JTextField(10);
@@ -50,7 +52,6 @@ public class UpdateEmployeeInformation extends JFrame {
         tfJob.setEditable(false);
         tfTel.setEditable(false);
         tfDep.setEditable(false);
-
 
         jbtnChange = new JButton("변경");
         jbtnDelete = new JButton("삭제");
@@ -108,12 +109,12 @@ public class UpdateEmployeeInformation extends JFrame {
         add(jbtnChange);
         add(jbtnDelete);
         add(jbtnCancel);
+
         UpdateEmployeeInformationEvent uei = new UpdateEmployeeInformationEvent(this);
 
         jbtnChange.addActionListener(uei);
         jbtnDelete.addActionListener(uei);
         jbtnCancel.addActionListener(uei);
-
 
         setLayout(null); // 수동 레이아웃 설정
 
@@ -121,7 +122,6 @@ public class UpdateEmployeeInformation extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 종료 버튼 동작 설정
         setVisible(true); // 프레임을 화면에 보이게 함
     }
-
 
     public JButton getJbtnChange() {
         return jbtnChange;
@@ -134,7 +134,6 @@ public class UpdateEmployeeInformation extends JFrame {
     public JButton getJbtnCancel() {
         return jbtnCancel;
     }
-
 
     public JTextField getTfEmpno() {
         return tfEmpno;

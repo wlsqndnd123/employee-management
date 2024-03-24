@@ -28,7 +28,6 @@ public class UpdatePassword extends JFrame{
 		try {
 			password="현재 비밀번호 : " + UpdatePasswordDAO.getInstance().getPassword();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -36,7 +35,6 @@ public class UpdatePassword extends JFrame{
 		jlCurrentPw = new JLabel("현재 비밀번호; "+jlCurrentPw);
 		jlCurrentPw.setBounds(150, 80, 200, 40);
 		add(jlCurrentPw);
-		
 		
 		//바꿀 비밀번호 라벨 및 입력필드 생성
 		jlUpdatePw = new JLabel("변경할 비밀번호");
