@@ -1,5 +1,6 @@
 package kr.co.sist.controller.event;
 
+import kr.co.sist.dao.ConfirmDocsDAO;
 import kr.co.sist.view.admin.ConfirmDocs;
 import kr.co.sist.view.admin.DocsManagement;
 import kr.co.sist.view.admin.ReturnReason;
@@ -11,9 +12,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 public class ConfirmDocsEvent extends WindowAdapter implements ActionListener,MouseListener {
     private ConfirmDocs cfdocs;
+    private DocsManagement dm;
+    private String docNum;
 
     public ConfirmDocsEvent(ConfirmDocs cfdocs) {
         super();
@@ -26,12 +30,18 @@ public class ConfirmDocsEvent extends WindowAdapter implements ActionListener,Mo
             new ShareDept();
         }
         if (ae.getSource() == cfdocs.getJbtnApproval()) {
-            System.out.println("승인하는 매서드 연결해야함");
+        	try {
+        		docNum = cfdocs.getJtfdocnum().getText();
+				acceptDoc(docNum);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             new DocsManagement();
             cfdocs.dispose();
         }
         if (ae.getSource() == cfdocs.getJbtncompanion()) {
-            String docNum = cfdocs.getJtfdocnum().getText();
+        	docNum = cfdocs.getJtfdocnum().getText();
             new ReturnReason(cfdocs, docNum);
         }
         if (ae.getSource() == cfdocs.getJbtncheck()) {
@@ -75,6 +85,11 @@ public class ConfirmDocsEvent extends WindowAdapter implements ActionListener,Mo
 		// TODO Auto-generated method stub
 		
 	}
-
+	public void acceptDoc(String docNum) throws SQLException {
+		
+		ConfirmDocsDAO cfDAO =ConfirmDocsDAO.getInstance();
+		cfDAO.updateConfirmDoc(docNum);
+		
+	}
 
 }

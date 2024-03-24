@@ -11,8 +11,6 @@ import java.sql.SQLException;
 
 public class ShareDeptDAO {
     private static ShareDeptDAO sdDAO;
-    private ShareDept sd;
-    private DocumentVO dVO;
 
     private ShareDeptDAO() {
 

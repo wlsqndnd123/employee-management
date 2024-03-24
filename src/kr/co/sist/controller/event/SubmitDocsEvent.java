@@ -26,10 +26,8 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener, It
         String workLog = smd.getJta().getText();
         CheckEmployeeInformationDAO ceiDAO = CheckEmployeeInformationDAO.getInstance();
 
-//		EmpInfoVO eVO= ceiDAO.selectEmpInfo(Integer.parseInt(LoginEvent.getEmpno()));
-//		int empNo=Integer.parseInt(LoginEvent.getEmpno());
-        int empNo = 240004;
-        EmpInfoVO eVO = ceiDAO.selectEmpInfo(240004);
+        int empNo = Integer.parseInt(LoginEvent.getEmpno());
+        EmpInfoVO eVO = ceiDAO.selectEmpInfo(empNo);
         String dept = eVO.getDept();
         String fileNm = smd.getJtfFileNm().getText();
 
