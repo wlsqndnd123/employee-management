@@ -30,7 +30,7 @@ public class AdminMenu extends JFrame {
 
         createGoToButton();
         JFrameComponent.createPane(getContentPane(), workNotifications, 250, 80, 320, 350);
-        loadWorkAlerts();
+//        loadWorkAlerts();
         createEvent();
 
         setBounds(300, 100, 650, 550);
