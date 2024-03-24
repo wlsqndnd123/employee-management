@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class RunAdminMenuDAO {
     public String loadWorkAlert(boolean isVacation) {
-        String msg="";
+        String msg = "";
         try {
             AdminMenuDAO adminMenuDAO = AdminMenuDAO.getInstance();
             int cnt = adminMenuDAO.alertWork(isVacation);

@@ -1,9 +1,8 @@
 package kr.co.sist.view.common;
 
-import javax.swing.*;
-
 import kr.co.sist.controller.event.FindPasswordEvent;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,7 +12,7 @@ public class FindPassword extends JDialog implements ActionListener {
     private JButton jbCheckPw, jbExit;
 
     public FindPassword(Login pf) {
-        super(pf, "비밀번호 찾기", true); 
+        super(pf, "비밀번호 찾기", true);
 
         setLayout(null);
 
@@ -56,19 +55,18 @@ public class FindPassword extends JDialog implements ActionListener {
 //                new FindPasswordEvent(null);
 //            }
 //        });
-        
+
 //      jbCheckPw  (new ActionListener() {
 //            public void actionPerformed(ActionEvent e) {
 //                // 비밀번호 확인 기능 구현
 //                // getId(), getPassword() 등의 메서드 활용
 //            }
 //        });
-        
 
 
         // 종료 버튼
         jbExit = new JButton("종료");
-        jbExit.setBounds(180,190,60,30);
+        jbExit.setBounds(180, 190, 60, 30);
         jbExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // 다이얼로그 닫기
@@ -77,8 +75,7 @@ public class FindPassword extends JDialog implements ActionListener {
         add(jbExit);
 
 
-
-        setBounds(300,120,450,300);
+        setBounds(300, 120, 450, 300);
         setVisible(true);
 
 
@@ -91,7 +88,7 @@ public class FindPassword extends JDialog implements ActionListener {
     }
 
     public JTextField getEmpNoField() {
-        return jtfemp_no; 
+        return jtfemp_no;
     }
 
     public String getPassword() {
@@ -103,31 +100,31 @@ public class FindPassword extends JDialog implements ActionListener {
     }
 
     public JButton getJbCheckPw() {
-    	return jbCheckPw;
+        return jbCheckPw;
     }
-    
+
     public JButton getJbExit() {
-    	return jbExit;
+        return jbExit;
     }
-    
+
     public void showErrorMessage() {
         JOptionPane.showMessageDialog(this, "비밀번호를 찾을 수 없습니다."); // 에러 메시지 표시
     }
 
     private void applyEvent() {
-    	FindPasswordEvent fpe = new FindPasswordEvent(this);
-    	jbCheckPw.addActionListener(fpe);
-    	jbExit.addActionListener(fpe);
+        FindPasswordEvent fpe = new FindPasswordEvent(this);
+        jbCheckPw.addActionListener(fpe);
+        jbExit.addActionListener(fpe);
     }
-    
-    
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
 
     }
-    
+
     public static void main(String[] args) {
-    	new FindPassword();
+        new FindPassword();
     }
 }

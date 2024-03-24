@@ -9,6 +9,10 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.TableColumnModelEvent;
+import javax.swing.event.TableColumnModelListener;
 import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.dao.CheckEmployeeInformationDAO;
@@ -194,5 +198,5 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 		// TODO Auto-generated method stub
 
 	}
-	
+
 }

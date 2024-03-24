@@ -1,177 +1,137 @@
 package kr.co.sist.view.common;
-import java.awt.FileDialog;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import kr.co.sist.controller.event.SubmitDocsEvent;
+import kr.co.sist.view.util.JFrameComponent;
 
-public class SubmitDocs extends JFrame implements ActionListener {
+import javax.swing.*;
+
+/**
+ * Desc : 업무 관련 문서를 작성하기 위해 사용되는 view<br>
+ * 작성자 : 양수민<br>
+ * 작성일 : ?<br>
+ * 수정자 : 고한별<br>
+ * 수정일 : 2024.03.23<br>
+ */
+public class SubmitDocs extends JFrame {
 
     private JButton btn_regist, btn_cancel, attAdd, attRemove;
     private JTextField jtfTitle, jtfFileNm;
     private JComboBox<String> jcb;
-    private  JTextArea jta;
-    
+    private JTextArea jta;
+    private SubmitDocsEvent smde;
+
+    /**
+     * Desc : 문서등록 창의 view
+     */
     public SubmitDocs() {
         super("문서등록");
         setLayout(null);
 
-        JPanel jpNorth= new JPanel();
+        btn_regist = JFrameComponent.createButton(getContentPane(), "등록", 120, 430, 80, 30);
+        btn_cancel = JFrameComponent.createButton(getContentPane(), "취소", 430, 430, 80, 30);
 
-        btn_regist=new JButton("등록");
-        btn_cancel=new JButton("취소");
-        attAdd= new JButton("추가");
-        attRemove= new JButton("취소");
+        jta = new JTextArea();
+        jta.setBounds(50, 100, 540, 300);
+        add(jta);
 
+        createComboBox();
+        createUpperComponents();
+        createEvent();
 
-        jtfTitle= new JTextField();
-        jtfFileNm= new JTextField();
+        setBounds(300, 100, 650, 550);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
+    /**
+     * Desc : 이벤트 등록
+     */
+    public void createEvent() {
+        smde = new SubmitDocsEvent(this);
 
-        jta= new JTextArea();
-
-        DefaultComboBoxModel<String> dcbm= new DefaultComboBoxModel<String>();
-        jcb= new JComboBox<String>(dcbm);
-
-        jpNorth.add(jcb);
-        jpNorth.add(jtfTitle);
-        jpNorth.add(jtfFileNm);
-        jpNorth.add(attAdd);
-        jpNorth.add(attRemove);
-
-        dcbm.addElement("업무일지");
-        dcbm.addElement("휴가신청");
-        dcbm.addElement("보고서");
-
-        jpNorth.setBounds(10, 30, 150, 35);
-        jtfTitle.setBounds(140, 30, 60, 30);
-        jtfFileNm.setBounds(225,30,80,30);
-        jta.setBounds(50, 100, 400, 300);
-
-        btn_regist.setBounds(120, 450, 80, 30);	//등록버튼
-        btn_cancel.setBounds(280, 450, 80, 30);	//취소버튼
-
-        attAdd.setBounds(315, 30, 60, 30);		//추가버튼
-        attRemove.setBounds(380, 30, 60, 30);	//취소버튼
-
-        SubmitDocsEvent smde= new SubmitDocsEvent(this);
-        
         attAdd.addActionListener(smde);
         attRemove.addActionListener(smde);
-        
         jcb.addItemListener(smde);
         btn_regist.addActionListener(smde);
         btn_cancel.addActionListener(smde);
-        
         jtfTitle.addActionListener(smde);
-        
-        //파일다이얼로그 창 띄우기
-        FileDialog fd= new FileDialog(this,"첨부파일 선택" , FileDialog.LOAD);
-        fd.setVisible(false);
-        String path= fd.getDirectory();
-        String name=fd.getFile();
-        
-        setSize(500,600);
-        setBounds(300,100,650,550);
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        add(btn_regist);
-        add(btn_cancel);
-        add(attAdd);
-        add(attRemove);
-        add("North", jpNorth);
-        add("Center", jta);
-        add(jtfTitle);
-        add(jtfFileNm);
-
     }
 
-    
-    
     /**
-	 * @return the btn_regist
-	 */
-	public JButton getBtn_regist() {
-		return btn_regist;
-	}
+     * Desc : frame 상단에 표시할 내용 생성
+     */
+    private void createUpperComponents() {
+        jtfTitle = JFrameComponent.createTextField(getContentPane(), "제목을 입력하세요", 140, 35, 200, 30);
+        jtfFileNm = JFrameComponent.createTextField(getContentPane(), "첨부파일명", 350, 35, 100, 30);
 
+        attAdd = JFrameComponent.createButton(getContentPane(), "추가", 470, 35, 60, 30);
+        attRemove = JFrameComponent.createButton(getContentPane(), "취소", 540, 35, 60, 30);
+    }
 
+    /**
+     * Desc : 업무의 종류를 선택하는 comboBox 생성<br>
+     * ******** 내용은 DB에서 받는 것이 맞지..?********
+     */
+    public void createComboBox() {
+        jcb = new JComboBox<>(new String[]{"업무일지", "휴가신청", "보고서"});
+        jcb.setBounds(20, 35, 110, 30);
+        add(jcb);
+    }
 
-	/**
-	 * @return the btn_cancel
-	 */
-	public JButton getBtn_cancel() {
-		return btn_cancel;
-	}
+    /**
+     * @return the btn_regist
+     */
+    public JButton getBtn_regist() {
+        return btn_regist;
+    }
 
+    /**
+     * @return the btn_cancel
+     */
+    public JButton getBtn_cancel() {
+        return btn_cancel;
+    }
 
+    /**
+     * @return the attAdd
+     */
+    public JButton getAttAdd() {
+        return attAdd;
+    }
 
-	/**
-	 * @return the attAdd
-	 */
-	public JButton getAttAdd() {
-		return attAdd;
-	}
+    /**
+     * @return the attRemove
+     */
+    public JButton getAttRemove() {
+        return attRemove;
+    }
 
+    /**
+     * @return the jtfTitle
+     */
+    public JTextField getJtfTitle() {
+        return jtfTitle;
+    }
 
+    /**
+     * @return the jtfFileNm
+     */
+    public JTextField getJtfFileNm() {
+        return jtfFileNm;
+    }
 
-	/**
-	 * @return the attRemove
-	 */
-	public JButton getAttRemove() {
-		return attRemove;
-	}
+    /**
+     * @return the jta
+     */
+    public JTextArea getJta() {
+        return jta;
+    }
 
-
-
-	/**
-	 * @return the jtfTitle
-	 */
-	public JTextField getJtfTitle() {
-		return jtfTitle;
-	}
-
-
-
-	/**
-	 * @return the jtfFileNm
-	 */
-	public JTextField getJtfFileNm() {
-		return jtfFileNm;
-	}
-
-
-
-	/**
-	 * @return the jta
-	 */
-	public JTextArea getJta() {
-		return jta;
-	}
-
-
-
-	/**
-	 * @return the jcb
-	 */
-	public JComboBox<String> getJcb() {
-		return jcb;
-	}
-
-
-
-	@Override
-    public void actionPerformed(ActionEvent e) {
-
+    /**
+     * @return the jcb
+     */
+    public JComboBox<String> getJcb() {
+        return jcb;
     }
 
     public static void main(String[] args) {
