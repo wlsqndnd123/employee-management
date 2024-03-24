@@ -11,8 +11,6 @@ import java.sql.SQLException;
 
 public class ShareDeptDAO {
     private static ShareDeptDAO sdDAO;
-    private ShareDept sd;
-    private DocumentVO dVO;
 
     private ShareDeptDAO() {
 
@@ -27,7 +25,7 @@ public class ShareDeptDAO {
 
     }// getInstance
 
-    public int shareDoc(DocumentVO dVO) throws SQLException {
+    public void shareDoc(DocumentVO dVO) throws SQLException {
         int cnt = 0;
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -35,11 +33,15 @@ public class ShareDeptDAO {
 
             con = DbConnection.getCon();
             String insertDoc =
-                    "insert into SHARE_DOCS (DOC_NO,DEPT_CODE) values (?,?)";
+                    "insert into SHARE_DOCS (DOC_NO,DEPT_CODE,EDIT_DATE,CREATE_EMP) values (?,?,sysdate,?)";
             pstmt = con.prepareStatement(insertDoc);
             pstmt.setString(1, dVO.getDocNo());
             CreateEmployeeInformationEvent ce = new CreateEmployeeInformationEvent();
+            DocsListDAO dDAO =DocsListDAO.getInstance();
+            
             pstmt.setInt(2, ce.convertDept(dVO.getDept()));
+            pstmt.setInt(3, dDAO.selectDocinfo(dVO.getDocNo()).getEmpNo());
+//            pstmt.setDate(4, dDAO.selectDocinfo(dVO.getDocNo()).getDocDate());
 
             pstmt.executeQuery();
 
@@ -47,7 +49,6 @@ public class ShareDeptDAO {
             DbConnection.dbClose(null, pstmt, con);
         }
 
-        return cnt;
     }
 
 }
