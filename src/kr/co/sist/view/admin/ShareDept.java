@@ -24,10 +24,10 @@ public class ShareDept extends JFrame {
         jbtncancel.setBounds(250, 250, 100, 30);
         CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
         Object[] depts;
-        dlmDept = new DefaultListModel<Object>();
-        dlmSelectedDept = new DefaultListModel<Object>();
-        jlDept = new JList<Object>(dlmDept);
-        jlSelectedDept = new JList<Object>(dlmSelectedDept);
+        dlmDept = new DefaultListModel<>();
+        dlmSelectedDept = new DefaultListModel<>();
+        jlDept = new JList<>(dlmDept);
+        jlSelectedDept = new JList<>(dlmSelectedDept);
         JScrollPane jsp = new JScrollPane(jlDept);
         JScrollPane jsp1 = new JScrollPane(jlSelectedDept);
         jsp.setBorder(new TitledBorder("부서리스트"));
@@ -46,7 +46,6 @@ public class ShareDept extends JFrame {
                 dlmDept.addElement(depts[i]);
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         ShareDeptEvent sde = new ShareDeptEvent(this);
@@ -63,40 +62,31 @@ public class ShareDept extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-
     public JButton getJbtncheck() {
         return jbtncheck;
     }
-
 
     public JButton getJbtncancel() {
         return jbtncancel;
     }
 
-
     public JList<Object> getJlDept() {
         return jlDept;
     }
-
 
     public DefaultListModel<Object> getDlmDept() {
         return dlmDept;
     }
 
-
     public JList<Object> getJlSelectedDept() {
         return jlSelectedDept;
     }
-
 
     public DefaultListModel<Object> getDlmSelectedDept() {
         return dlmSelectedDept;
     }
 
-
     public static void main(String[] args) {
-
         new ShareDept();
-
     }
 }

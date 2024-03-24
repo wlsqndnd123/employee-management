@@ -53,8 +53,6 @@ public class ReturnReason extends JDialog {
         setBounds(cv.getX(), cv.getY() + 50, 480, 400);
         setVisible(true);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
-
     }
 
 
@@ -87,33 +85,24 @@ public class ReturnReason extends JDialog {
 
         add(jp, BorderLayout.CENTER);
 
-
         ReturnReasonEvent rre = new ReturnReasonEvent(cd, this, dNum);
         jbInput.addActionListener(rre);
         jbCancel.addActionListener(rre);
 
-
         setBounds(cd.getX(), cd.getY() + 50, 480, 400);
         setVisible(true);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
-
     }
-
 
     public JTextArea getJtaContent() {
         return jtaContent;
     }
 
-
     public JButton getJbInput() {
         return jbInput;
     }
 
-
     public JButton getJbCancel() {
         return jbCancel;
     }
-
-
 }
