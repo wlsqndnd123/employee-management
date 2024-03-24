@@ -5,7 +5,7 @@ import java.sql.Date;
 public class DocumentVO {
 
     String docNo, title, workDesc, workLog, apprDesc, fileName, dept, name, paperType;
-    int empNo, code2;
+    int empNo,code ,code2;
     Date docDate, modifiedDate;
 
     public int getCode2() {
@@ -167,7 +167,15 @@ public class DocumentVO {
         this.modifiedDate = modifiedDate;
     }
 
-    public DocumentVO(String docNo, String title, String workDesc, String workLog, String apprDesc, String fileName,
+    public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
+	public DocumentVO(String docNo, String title, String workDesc, String workLog, String apprDesc, String fileName,
                       String dept, int empNo, Date docDate, Date modifiedDate) {
         super();
         this.docNo = docNo;
@@ -195,8 +203,21 @@ public class DocumentVO {
         this.modifiedDate = modifiedDate;
         this.empNo = empno;
     }
+    
+	
 
-    @Override
+	public DocumentVO(String docNo, String title, String dept, int code, int code2, Date docDate, Date modifiedDate) {
+		super();
+		this.docNo = docNo;
+		this.title = title;
+		this.dept = dept;
+		this.code = code;
+		this.code2 = code2;
+		this.docDate = docDate;
+		this.modifiedDate = modifiedDate;
+	}
+
+	@Override
     public String toString() {
         return "DocumentVO [docNo=" + docNo + ", title=" + title + ", workDesc=" + workDesc + ", workLog=" + workLog
                 + ", apprDesc=" + apprDesc + ", fileName=" + fileName + ", dept=" + dept + ", name=" + name + ", empNo="

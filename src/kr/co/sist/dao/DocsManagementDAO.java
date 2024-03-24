@@ -33,9 +33,9 @@ public class DocsManagementDAO {
         try {
             con = DbConnection.getCon();
 
-            searchDocument = "		select bl.doc_no ,bl.title, c.description, d.dept_name, bl.doc_date, bl.grp_code, bl.code2, bl.edit_date	"
-                    + "			from dept d, emp_info ei, bussiness_log bl, common c	"
-                    + "			where (d.dept_code = ei.dept_code)and (ei.emp_no = bl.emp_no)and (bl.grp_code = c.grp_code) and (c.code = bl.code)	";
+            searchDocument = "	select   doc_no,bl.title, d.dept_name, bl.doc_date, bl.code2, bl.edit_date , bl.code	"
+            		+"	from DEPT d, EMP_INFO ei, BUSSINESS_LOG bl	"
+            		+"	where (d.dept_code = ei.dept_code)and (ei.emp_no = bl.emp_no) and bl.logic ='N' ";
 
 
             pstmt = con.prepareStatement(searchDocument);
@@ -47,14 +47,14 @@ public class DocsManagementDAO {
                 DocumentVO dVO = new DocumentVO();
                 dVO.setDocNo(rs.getString("doc_no"));
                 dVO.setTitle(rs.getString("title"));
-                dVO.setFileName(rs.getString("description"));
-                dVO.setWorkDesc(rs.getString("dept_name"));
+                dVO.setCode(rs.getInt("code"));
                 dVO.setDocDate(rs.getDate("doc_date"));
-                dVO.setApprDesc(rs.getString("grp_code"));
-                dVO.setEmpNo(rs.getInt("code2"));
-                dVO.setDocDate(rs.getDate("edit_date"));
+                dVO.setDept(rs.getString("dept_name"));
+                dVO.setCode2(rs.getInt("code2"));
+                dVO.setModifiedDate(rs.getDate("edit_date"));
 
                 list.add(dVO);
+                
             }
 
 
@@ -65,20 +65,21 @@ public class DocsManagementDAO {
 
     }
 
-    public List<DocumentVO> selectDocInfo(String dept, String fileType, String appr) {
+    public List<DocumentVO> selectDocInfo(String dept, int fileType, int appr) {
         List<DocumentVO> dlist = new ArrayList<>();
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
             con = DbConnection.getCon();
-            String selectDoc = "	select   doc_no,bl.title, d.dept_name, bl.doc_date, bl.code2, bl.edit_date"
-                    + "	from   dept d,emp_info ei, bussiness_log bl	"
-                    + "	where (d.dept_code = ei.dept_code)and (ei.emp_no = bl.emp_no) and bl.logic ='N'	";
+            String selectDoc ="	select   bl.doc_no,bl.title, d.dept_name, bl.doc_date, bl.code2, bl.edit_date , bl.code	"
+            		+"	from DEPT d, EMP_INFO ei, BUSSINESS_LOG bl	"
+            		+"	where (d.dept_code = ei.dept_code)and (ei.emp_no = bl.emp_no) and bl.logic ='N' "
+            		+ "	and d.dept_name = ? and  bl.code = ? and bl.code2 = ? ";
             pstmt = con.prepareStatement(selectDoc);
             pstmt.setString(1, dept);
-            pstmt.setString(2, fileType);
-            pstmt.setString(3, appr);
+            pstmt.setInt(2, fileType);
+            pstmt.setInt(3, appr);
 
             rs = pstmt.executeQuery();
 
@@ -87,10 +88,11 @@ public class DocsManagementDAO {
                     DocumentVO dVO = new DocumentVO();
                     dVO.setDocNo(rs.getString("doc_no"));
                     dVO.setTitle(rs.getString("title"));
-                    dVO.setDept(rs.getString("dept_name"));
+                    dVO.setCode(rs.getInt("code"));
                     dVO.setDocDate(rs.getDate("doc_date"));
+                    dVO.setDept(rs.getString("dept_name"));
                     dVO.setCode2(rs.getInt("code2"));
-                    dVO.setDocDate(rs.getDate("edit_date"));
+                    dVO.setModifiedDate(rs.getDate("edit_date"));
 
                     dlist.add(dVO);
                 }
