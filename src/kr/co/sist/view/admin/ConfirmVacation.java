@@ -1,156 +1,69 @@
 package kr.co.sist.view.admin;
 
 import kr.co.sist.controller.event.ConfirmVacationEvent;
+import kr.co.sist.view.util.JFrameComponent;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import java.awt.*;
 import java.sql.SQLException;
-
 
 public class ConfirmVacation extends JFrame {
     private JLabel jlDocNum, jlEmpNum, jlEmpName, jlLeftVaction, jlApplyDate;
     private JTextField jtfDocNum, jtfEmpNum, jtfEmpName, jtfLeftVaction, jtfApplyDate;
     private JTextArea jtaContent;
     private JButton jbApprove, jbReturn, jbCancel;
+    private JScrollPane jspJtaResult;
     private int check_code;
 
-
-    public ConfirmVacation(String item) throws SQLException {
+    public ConfirmVacation(String item) {
         setTitle("휴가 결재창");
-        setLayout(new BorderLayout());
-        jtaContent = new JTextArea();
-        JScrollPane jspJtaResult = new JScrollPane(jtaContent);
+        setLayout(null);
+
+        jspJtaResult = JFrameComponent.createPane(getContentPane(), jtaContent, 10, 50, 610, 350, false, true, true);
         jspJtaResult.setBorder(new TitledBorder("휴가신청사유"));
 
+        createLabel();
 
-        jlDocNum = new JLabel("문서번호");
-        jlEmpName = new JLabel("사원명");
-        jlEmpNum = new JLabel("사원번호");
-        jlLeftVaction = new JLabel("남은 연차 횟수");
-        jlApplyDate = new JLabel("신청날짜");
+        jtfDocNum = JFrameComponent.createTextField(getContentPane(), item, 60, 20, 80, 20, false);
+        jtfEmpName = JFrameComponent.createTextField(getContentPane(), "이름", 185, 20, 60, 20, false);
+        jtfEmpNum = JFrameComponent.createTextField(getContentPane(), "사번", 300, 20, 60, 20, false);
+        jtfLeftVaction = JFrameComponent.createTextField(getContentPane(), "연차", 447, 20, 20, 20, false);
+        jtfApplyDate = JFrameComponent.createTextField(getContentPane(), "날짜", 520, 20, 100, 20, false);
 
-        jtfDocNum = new JTextField(item);
-        jtfEmpName = new JTextField();
-        jtfEmpNum = new JTextField();
-        jtfLeftVaction = new JTextField();
-        jtfApplyDate = new JTextField();
-
-
-        jtfDocNum.setEditable(false);
-        jtfEmpName.setEditable(false);
-        jtfEmpNum.setEditable(false);
-        jtfLeftVaction.setEditable(false);
-        jtfApplyDate.setEditable(false);
-
-        jtaContent.setEditable(false);
-        jtaContent.setLineWrap(true);
-        jtaContent.setWrapStyleWord(true);
-
-
-        jbApprove = new JButton("승인");
-        jbReturn = new JButton("반려");
-        jbCancel = new JButton("뒤로");
-
-
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-        jspJtaResult.setBounds(10, 50, 610, 350);
-
-        jlDocNum.setBounds(10, 20, 60, 20);
-        jtfDocNum.setBounds(60, 20, 80, 20);
-
-        jlEmpName.setBounds(145, 20, 40, 20);
-        jtfEmpName.setBounds(185, 20, 60, 20);
-
-        jlEmpNum.setBounds(250, 20, 50, 20);
-        jtfEmpNum.setBounds(300, 20, 60, 20);
-
-        jlLeftVaction.setBounds(367, 20, 80, 20);
-        jtfLeftVaction.setBounds(447, 20, 20, 20);
-
-        jlApplyDate.setBounds(470, 20, 50, 20);
-        jtfApplyDate.setBounds(520, 20, 100, 20);
-
-
-        jbApprove.setBounds(50, 420, 100, 30);
-        jbReturn.setBounds(250, 420, 100, 30);
-        jbCancel.setBounds(450, 420, 100, 30);
-
-
-        panel.add(jspJtaResult);
-
-        panel.add(jlDocNum);
-        panel.add(jtfDocNum);
-
-        panel.add(jlEmpNum);
-        panel.add(jtfEmpNum);
-
-
-        panel.add(jlEmpName);
-        panel.add(jtfEmpName);
-
-        panel.add(jlLeftVaction);
-        panel.add(jtfLeftVaction);
-
-
-        panel.add(jlApplyDate);
-        panel.add(jtfApplyDate);
+        jbCancel = JFrameComponent.createButton(getContentPane(), "뒤로", 450, 420, 100, 30);
 
         ConfirmVacationEvent cve = new ConfirmVacationEvent(this);
+        try {
+            check_code = cve.VDocStatus(item);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (check_code == 1) {
+            jbApprove = JFrameComponent.createButton(getContentPane(), "승인", 50, 420, 100, 30);
+            jbReturn = JFrameComponent.createButton(getContentPane(), "반려", 250, 420, 100, 30);
+        }
+
         jbReturn.addActionListener(cve);
         jbApprove.addActionListener(cve);
         jbCancel.addActionListener(cve);
 
-        check_code = cve.VDocStatus(item);
-        if (check_code == 1) {
-            panel.add(jbApprove);
-            panel.add(jbReturn);
-        }
-
-        panel.add(jbCancel);
-
-
-        add(panel, BorderLayout.CENTER);
-
-
         setBounds(300, 100, 650, 550);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
     }
 
+    private void createLabel() {
+        jlDocNum = JFrameComponent.createLabel(getContentPane(), "문서번호", 10, 20, 60, 20);
+        jlEmpName = JFrameComponent.createLabel(getContentPane(), "사원명", 145, 20, 40, 20);
+        jlEmpNum = JFrameComponent.createLabel(getContentPane(), "사원번호", 250, 20, 50, 20);
+        jlLeftVaction = JFrameComponent.createLabel(getContentPane(), "남은 연차", 367, 20, 80, 20);
+        jlApplyDate = JFrameComponent.createLabel(getContentPane(), "신청날짜", 470, 20, 50, 20);
+    }
 
     public JButton getJbCancel() {
         return jbCancel;
     }
-
-
-    public JLabel getJlDocNum() {
-        return jlDocNum;
-    }
-
-
-    public JLabel getJlEmpNum() {
-        return jlEmpNum;
-    }
-
-
-    public JLabel getJlEmpName() {
-        return jlEmpName;
-    }
-
-
-    public JLabel getJlLeftVaction() {
-        return jlLeftVaction;
-    }
-
-
-    public JLabel getJlApplyDate() {
-        return jlApplyDate;
-    }
-
 
     public JTextField getJtfDocNum() {
         return jtfDocNum;
@@ -166,29 +79,23 @@ public class ConfirmVacation extends JFrame {
         return jtfEmpName;
     }
 
-
     public JTextField getJtfLeftVaction() {
         return jtfLeftVaction;
     }
-
 
     public JTextField getJtfApplyDate() {
         return jtfApplyDate;
     }
 
-
     public JTextArea getJtaContent() {
         return jtaContent;
     }
-
 
     public JButton getJbApprove() {
         return jbApprove;
     }
 
-
     public JButton getJbReturn() {
         return jbReturn;
     }
-
 }
