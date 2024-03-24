@@ -31,11 +31,11 @@ public class ConfirmDocs extends JFrame {
         super("관리자문서확인");
         setLayout(null);
 
-        createButton();
+        createButton(dVO);
         createLabel();
         createTextField(dVO);
         JFrameComponent.createPane(getContentPane(), jtaContents, 20, 80, 600, 350);
-        createEvent();
+        createEvent(dVO);
 
         setBounds(300, 100, 650, 550);
         setVisible(true);
@@ -46,10 +46,12 @@ public class ConfirmDocs extends JFrame {
     /**
      * Desc : 버튼 생성
      */
-    private void createButton() {
+    private void createButton(DocumentVO dVO) {
         jbtnShare = JFrameComponent.createButton(getContentPane(), "공유", 30, 450, 100, 30);
-        jbtnApproval = JFrameComponent.createButton(getContentPane(), "승인", 180, 450, 100, 30);
-        jbtncompanion = JFrameComponent.createButton(getContentPane(), "반려", 340, 450, 100, 30);
+        if(dVO.getCode2()==1) {
+        	jbtnApproval = JFrameComponent.createButton(getContentPane(), "승인", 180, 450, 100, 30);
+        	jbtncompanion = JFrameComponent.createButton(getContentPane(), "반려", 340, 450, 100, 30);
+        }
         jbtncheck = JFrameComponent.createButton(getContentPane(), "확인", 500, 450, 100, 30);
     }
 
@@ -82,12 +84,15 @@ public class ConfirmDocs extends JFrame {
     /**
      * Desc : 이벤트 등록
      */
-    private void createEvent() {
+    private void createEvent(DocumentVO dVO) {
         ConfirmDocsEvent cfdevt = new ConfirmDocsEvent(this);
 
         jbtnShare.addActionListener(cfdevt);
-        jbtnApproval.addActionListener(cfdevt);
-        jbtncompanion.addActionListener(cfdevt);
+        if(dVO.getCode2()==1) {
+        	
+        	jbtnApproval.addActionListener(cfdevt);
+        	jbtncompanion.addActionListener(cfdevt);
+        }
         jbtncheck.addActionListener(cfdevt);
     }
 
