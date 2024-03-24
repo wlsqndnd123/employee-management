@@ -18,8 +18,6 @@ public class WorkStatus extends JFrame {
     private JButton jbVacationStatus;
     private JButton jbGoMain;
 
-
-    @SuppressWarnings("serial")
     public WorkStatus() throws SQLException {
         setTitle("근태 관리");
         setLayout(new BorderLayout());
@@ -31,6 +29,7 @@ public class WorkStatus extends JFrame {
                 return false;
             }
         };
+
         jtDailyStatus = new JTable(dtmDailyStatus);
         JScrollPane jspJtaResult = new JScrollPane(jtDailyStatus);
         jspJtaResult.setBorder(new TitledBorder("근태정보"));
@@ -48,14 +47,12 @@ public class WorkStatus extends JFrame {
         jtDailyStatus.getColumnModel().getColumn(4).setPreferredWidth(50);
         jtDailyStatus.getColumnModel().getColumn(5).setPreferredWidth(50);
 
-
         dcbmDateRange = new DefaultComboBoxModel<String>();
         jcbDateRange = new JComboBox<String>(dcbmDateRange);
         dcbmDateRange.addElement("오늘");
         dcbmDateRange.addElement("1주일");
         dcbmDateRange.addElement("1달");
         dcbmDateRange.addElement("1년");
-
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -67,7 +64,6 @@ public class WorkStatus extends JFrame {
         jbVacationStatus.setBounds(510, 270, 100, 30);
         jspJtaResult.setBounds(10, 10, 490, 480);
 
-
         panel.add(jbGoMain);
         panel.add(jtfEmpNum);
         panel.add(jcbDateRange);
@@ -77,19 +73,16 @@ public class WorkStatus extends JFrame {
 
         add(panel, BorderLayout.CENTER);
 
-
         WorkStatusEvent wse = new WorkStatusEvent(this);
         jbCheck.addActionListener(wse);
         jbGoMain.addActionListener(wse);
         jbVacationStatus.addActionListener(wse);
-
 
         setBounds(300, 100, 650, 550);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         wse.CheckWS(0, "오늘");
-
     }
 
     public JTable getJtDailyStatus() {
@@ -127,6 +120,5 @@ public class WorkStatus extends JFrame {
     public static void main(String[] args) throws SQLException {
         new WorkStatus();
     }
-
 
 }

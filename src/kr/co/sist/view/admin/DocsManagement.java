@@ -1,6 +1,5 @@
 package kr.co.sist.view.admin;
 
-
 import kr.co.sist.controller.event.DocsManagementEvent;
 import kr.co.sist.dao.DocsManagementDAO;
 import kr.co.sist.vo.DocumentVO;
@@ -10,7 +9,6 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.util.List;
 
-@SuppressWarnings("serial")
 public class DocsManagement extends JFrame {
 
     private JComboBox<Object> jcbSelectDep;
@@ -36,10 +34,11 @@ public class DocsManagement extends JFrame {
             for (int i = 0; i < dept.size(); i++) {
                 dVO = dept.get(i);
                 deptarr[i] = dVO.getDept();
-                jcbSelectDep = new JComboBox<Object>(deptarr);
+                jcbSelectDep = new JComboBox<>(deptarr);
                 jcbSelectDep.addItem(deptarr[i]);
             }
             jcbSelectDep.removeItemAt(dept.size());
+
             ////승인상태
             List<DocumentVO> code;
             code = DocsManagementDAO.getInstance().selectInfo("apprv");
@@ -48,7 +47,7 @@ public class DocsManagement extends JFrame {
             for (int i = 0; i < code.size(); i++) {
                 dVO = code.get(i);
                 codearr[i] = dVO.getApprDesc();
-                jcbSelectApprovalState = new JComboBox<Object>(codearr);
+                jcbSelectApprovalState = new JComboBox<>(codearr);
                 jcbSelectApprovalState.addItem(codearr[i]);
             }
             jcbSelectApprovalState.removeItemAt(code.size());
@@ -60,16 +59,14 @@ public class DocsManagement extends JFrame {
             for (int i = 0; i < paperType.size(); i++) {
                 dVO = paperType.get(i);
                 paperarr[i] = dVO.getPaperType();
-                jcbSelectFileType = new JComboBox<Object>(paperarr);
+                jcbSelectFileType = new JComboBox<>(paperarr);
                 jcbSelectFileType.addItem(paperarr[i]);
             }
             jcbSelectFileType.removeItemAt(paperType.size());
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
 
         jbtnBackhome = new JButton("메인으로");
         jbtnSearch = new JButton("찾기");
@@ -79,7 +76,6 @@ public class DocsManagement extends JFrame {
         jtaDob = new JTable(dtmjtabResult);
         Object[] content = new Object[7];
 
-
         jtaDob.getColumnModel().getColumn(0).setPreferredWidth(60);
         jtaDob.getColumnModel().getColumn(1).setPreferredWidth(60);
         jtaDob.getColumnModel().getColumn(2).setPreferredWidth(60);
@@ -87,7 +83,6 @@ public class DocsManagement extends JFrame {
         jtaDob.getColumnModel().getColumn(4).setPreferredWidth(60);
         jtaDob.getColumnModel().getColumn(5).setPreferredWidth(60);
         jtaDob.getColumnModel().getColumn(6).setPreferredWidth(60);
-
 
         jcbSelectDep.setBounds(60, 60, 150, 30);
         jcbSelectFileType.setBounds(220, 60, 150, 30);
@@ -107,8 +102,6 @@ public class DocsManagement extends JFrame {
         add(jbtnBackhome);
         add(jbtnSearch);
 
-        dme = new DocsManagementEvent(this);
-
         jbtnBackhome.addActionListener(dme);
         jbtnSearch.addActionListener(dme);
         jcbSelectDep.addActionListener(dme);
@@ -118,10 +111,8 @@ public class DocsManagement extends JFrame {
         try {
             dme.searchDocument();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
 
         setLayout(null);
 
@@ -131,48 +122,39 @@ public class DocsManagement extends JFrame {
 
     }
 
-
     public JComboBox<Object> getJcbSelectDep() {
         return jcbSelectDep;
     }
-
 
     public JComboBox<Object> getJcbSelectFileType() {
         return jcbSelectFileType;
     }
 
-
     public JComboBox<Object> getJcbSelectApprovalState() {
         return jcbSelectApprovalState;
     }
-
 
     public JButton getJbtnBackhome() {
         return jbtnBackhome;
     }
 
-
     public JButton getJbtnSearch() {
         return jbtnSearch;
     }
-
 
     public JTable getJtaDob() {
         return jtaDob;
     }
 
-
     public DefaultTableModel getDtmjtabResult() {
         return dtmjtabResult;
     }
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
                 new DocsManagement();
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         });
