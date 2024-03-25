@@ -68,6 +68,7 @@ public class WorkStatusEvent extends WindowAdapter implements ActionListener {
 
 
         if (cVOList.isEmpty()) {
+        	return;
         } else {
             for (CommuteVO cVO : cVOList) {
                 content[0] = cVO.getEmpNo();

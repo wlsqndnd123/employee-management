@@ -24,6 +24,9 @@ public class VacationStatus extends JFrame {
                 return false;
             }
         };
+        
+        
+        
         jtVacationStatus = new JTable(dtmVacationStatus);
         JScrollPane jspJtaResult = new JScrollPane(jtVacationStatus);
         jspJtaResult.setBorder(new TitledBorder("휴가신청표"));
@@ -31,6 +34,10 @@ public class VacationStatus extends JFrame {
         jbBack = new JButton("뒤로");
 
         JPanel panel = new JPanel();
+        
+        jtVacationStatus.getTableHeader().setReorderingAllowed(false);
+        jtVacationStatus.getTableHeader().setResizingAllowed(false);
+        
         panel.setLayout(null);
         jbBack.setBounds(510, 20, 100, 30);
         jspJtaResult.setBounds(10, 50, 600, 440);
