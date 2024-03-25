@@ -1,126 +1,70 @@
 package kr.co.sist.view.admin;
 
 import kr.co.sist.controller.event.UpdateEmployeeInformationEvent;
+import kr.co.sist.view.util.JFrameComponent;
 import kr.co.sist.vo.EmpInfoVO;
 
 import javax.swing.*;
-
 
 public class UpdateEmployeeInformation extends JFrame {
     private JTextField InputJtPosition, InputJtJob, InputJtDept;
     private JTextField tfEmpno, tfName, tfPosition, tfJob, tfTel, tfDep;
     private JButton jbtnChange, jbtnDelete, jbtnCancel;
-
-    public UpdateEmployeeInformation() {
-
-    }
-
+    private JLabel InputJlPosition, InputJlJob, InputJlDept, jlEmpno, jlName, jlPosition, jlJob, jlTel, jlDept;
+    private EmpInfoVO eVO;
     public UpdateEmployeeInformation(EmpInfoVO eVO) {
         super("사원 변경 및 삭제");
+        setLayout(null);
 
-        //입력받는 사원정보
-        JLabel InputJlPosition = new JLabel("직급");
-        JLabel InputJlJob = new JLabel("직무");
-        JLabel InputJlDept = new JLabel("부서");
-        InputJtPosition = new JTextField(10);
-        InputJtJob = new JTextField(10);
-        InputJtDept = new JTextField(10);
+        this.eVO = eVO;
 
-        //창에 출력하는 사원 정보
-        JLabel jlEmpno = new JLabel("사원번호");
-        JLabel jlName = new JLabel("사원이름");
-        JLabel jlPosition = new JLabel("직급");
-        JLabel jlJob = new JLabel("직무");
-        JLabel jlTel = new JLabel("내선번호");
-        JLabel jlDept = new JLabel("부서");
+        createButton();
+        createLabel();
+        createText();
+        createEvent();
 
-        tfEmpno = new JTextField(10);
-        tfEmpno.setText(String.valueOf(eVO.getEmpno()));
-        tfName = new JTextField(10);
-        tfName.setText(eVO.getName());
-        tfPosition = new JTextField(10);
-        tfPosition.setText(eVO.getPosition());
-        tfJob = new JTextField(10);
-        tfJob.setText(eVO.getJob());
-        tfTel = new JTextField(10);
-        tfTel.setText(eVO.getTel());
-        tfDep = new JTextField(10);
-        tfDep.setText(eVO.getDept());
-        tfEmpno.setEditable(false);
-        tfName.setEditable(false);
-        tfPosition.setEditable(false);
-        tfJob.setEditable(false);
-        tfTel.setEditable(false);
-        tfDep.setEditable(false);
+        setSize(430, 440); // 프레임 크기 설정
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 종료 버튼 동작 설정
+        setVisible(true); // 프레임을 화면에 보이게 함
+    }
 
-        jbtnChange = new JButton("변경");
-        jbtnDelete = new JButton("삭제");
-        jbtnCancel = new JButton("취소");
+    private void createText(){
+        InputJtPosition = JFrameComponent.createTextField(getContentPane(),150, 170, 150, 30);
+        InputJtJob = JFrameComponent.createTextField(getContentPane(),150, 210, 150, 30);
+        InputJtDept = JFrameComponent.createTextField(getContentPane(),150, 250, 150, 30);
 
-        // 수동으로 위치와 크기 설정하여 배치
-        jlEmpno.setBounds(25, 20, 60, 30);
-        tfEmpno.setBounds(100, 20, 100, 30);
-        jlName.setBounds(25, 60, 60, 30);
-        tfName.setBounds(100, 60, 100, 30);
-        jlPosition.setBounds(25, 100, 60, 30);
-        tfPosition.setBounds(100, 100, 100, 30);
+        tfEmpno = JFrameComponent.createTextField(getContentPane(),String.valueOf(eVO.getEmpno()),100, 20, 100, 30,false);
+        tfName = JFrameComponent.createTextField(getContentPane(),eVO.getName(),100, 60, 100, 30,false);
+        tfPosition = JFrameComponent.createTextField(getContentPane(),eVO.getPosition(),100, 100, 100, 30,false);
+        tfJob = JFrameComponent.createTextField(getContentPane(),eVO.getJob(),280, 20, 100, 30,false);
+        tfTel = JFrameComponent.createTextField(getContentPane(),eVO.getTel(),280, 60, 100, 30,false);
+        tfDep = JFrameComponent.createTextField(getContentPane(),eVO.getDept(),280, 100, 100, 30,false);
+    }
 
-        jlJob.setBounds(210, 20, 60, 30);
-        tfJob.setBounds(280, 20, 100, 30);
-        jlTel.setBounds(210, 60, 60, 30);
-        tfTel.setBounds(280, 60, 100, 30);
-        jlJob.setBounds(210, 20, 60, 30);
-        tfJob.setBounds(280, 20, 100, 30);
-        jlDept.setBounds(210, 100, 60, 30);
-        tfDep.setBounds(280, 100, 100, 30);
+    private void createLabel(){
+        InputJlPosition = JFrameComponent.createLabel(getContentPane(),"직급",90, 170, 60, 30);
+        InputJlJob = JFrameComponent.createLabel(getContentPane(),"직무",90, 210, 60, 30);
+        InputJlDept = JFrameComponent.createLabel(getContentPane(),"부서",90, 250, 60, 30);
+        jlEmpno = JFrameComponent.createLabel(getContentPane(),"사원번호",25, 20, 60, 30);
+        jlName = JFrameComponent.createLabel(getContentPane(),"사원이름",25, 60, 60, 30);
+        jlPosition = JFrameComponent.createLabel(getContentPane(),"직급",25, 100, 60, 30);
+        jlJob = JFrameComponent.createLabel(getContentPane(),"직무",210, 20, 60, 30);
+        jlTel = JFrameComponent.createLabel(getContentPane(),"내선번호",210, 60, 60, 30);
+        jlDept = JFrameComponent.createLabel(getContentPane(),"부서",210, 100, 60, 30);
+    }
 
-        InputJlPosition.setBounds(90, 150, 60, 30); // 레이블: 직급
-        InputJtPosition.setBounds(150, 150, 150, 30); // 텍스트 필드: 직급
-        InputJlJob.setBounds(90, 190, 60, 30); // 레이블: 직무
-        InputJtJob.setBounds(150, 190, 150, 30); // 텍스트 필드: 직무
-        InputJlDept.setBounds(90, 230, 60, 30); // 레이블: 부서
-        InputJtDept.setBounds(150, 230, 150, 30); // 텍스트 필드: 부서
-        jbtnChange.setBounds(50, 280, 90, 30); // 버튼: 변경
-        jbtnDelete.setBounds(150, 280, 90, 30); // 버튼: 삭제
-        jbtnCancel.setBounds(250, 280, 90, 30); // 버튼: 취소
+    private void createButton(){
+        jbtnChange = JFrameComponent.createButton(getContentPane(),"변경",50, 320, 90, 30);
+        jbtnDelete = JFrameComponent.createButton(getContentPane(),"삭제",160, 320, 90, 30);
+        jbtnCancel = JFrameComponent.createButton(getContentPane(),"취소",270, 320, 90, 30);
+    }
 
-        // 프레임에 컴포넌트 추가
-        add(jlEmpno);
-        add(tfEmpno);
-        add(jlName);
-        add(tfName);
-        add(jlPosition);
-        add(tfPosition);
-        add(jlJob);
-        add(tfJob);
-
-        add(jlTel);
-        add(tfTel);
-
-        add(jlDept);
-        add(tfDep);
-
-        add(InputJlPosition);
-        add(InputJtPosition);
-        add(InputJlJob);
-        add(InputJtJob);
-        add(InputJlDept);
-        add(InputJtDept);
-        add(jbtnChange);
-        add(jbtnDelete);
-        add(jbtnCancel);
-
+    private void createEvent(){
         UpdateEmployeeInformationEvent uei = new UpdateEmployeeInformationEvent(this);
 
         jbtnChange.addActionListener(uei);
         jbtnDelete.addActionListener(uei);
         jbtnCancel.addActionListener(uei);
-
-        setLayout(null); // 수동 레이아웃 설정
-
-        setSize(430, 440); // 프레임 크기 설정
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 종료 버튼 동작 설정
-        setVisible(true); // 프레임을 화면에 보이게 함
     }
 
     public JButton getJbtnChange() {
@@ -149,5 +93,9 @@ public class UpdateEmployeeInformation extends JFrame {
 
     public JTextField getInputJtDept() {
         return InputJtDept;
+    }
+
+    public static void main(String[] args) {
+        new UpdateEmployeeInformation(new EmpInfoVO());
     }
 }

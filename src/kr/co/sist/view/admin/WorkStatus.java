@@ -56,6 +56,12 @@ public class WorkStatus extends JFrame {
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
+        
+        jtDailyStatus.getTableHeader().setReorderingAllowed(false);
+        jtDailyStatus.getTableHeader().setResizingAllowed(false);
+      
+
+
 
         jbGoMain.setBounds(510, 20, 100, 30);
         jtfEmpNum.setBounds(510, 60, 100, 30);

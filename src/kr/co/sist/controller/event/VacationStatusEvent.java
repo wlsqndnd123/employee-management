@@ -68,7 +68,7 @@ public class VacationStatusEvent extends WindowAdapter implements ActionListener
         vVOList = vsDAO.selectVOinfo();
 
         if (vVOList.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "내용이 업습니다.");
+            return;
         } else {
             for (VacationVO vVO : vVOList) {
                 content[0] = vVO.getDocNo();
