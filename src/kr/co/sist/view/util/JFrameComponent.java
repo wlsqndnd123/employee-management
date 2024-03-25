@@ -53,6 +53,15 @@ public class JFrameComponent extends JFrame {
         return textField;
     }
 
+    public static JPasswordField createPasswordField(Container container, int x, int y, int width, int height) {
+        JPasswordField passwordField = new JPasswordField();
+
+        passwordField.setBounds(x, y, width, height);
+        container.add(passwordField);
+
+        return passwordField;
+    }
+
     /**
      * Desc : 버튼을 생성하는 기능
      *

@@ -2,6 +2,7 @@ package kr.co.sist.controller.event;
 
 import kr.co.sist.dao.LoginDAO;
 import kr.co.sist.view.admin.AdminMenu;
+import kr.co.sist.view.common.FindPassword;
 import kr.co.sist.view.common.Login;
 import kr.co.sist.view.user.UserMenu;
 
@@ -18,7 +19,7 @@ public class LoginEvent extends WindowAdapter implements ActionListener {
     private static String empno, password;
 
 
-    public LoginEvent(Login login) throws SQLException {
+    public LoginEvent(Login login) {
         this.login = login;
     }
 
@@ -26,13 +27,19 @@ public class LoginEvent extends WindowAdapter implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         //로그인 버튼 클릭시 id와 pw를 변수에 저장
         if (ae.getSource() == login.getJbLogin()) {
-
             login();
-
         }//end if
         //종료버튼 클릭 시 창 닫기
         if (ae.getSource() == login.getJbExit()) {
             login.dispose();
+        }
+
+        if (ae.getSource() == login.getJbFindPassword()) {
+            try {
+                new FindPassword(new Login());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }//actionPerformed
