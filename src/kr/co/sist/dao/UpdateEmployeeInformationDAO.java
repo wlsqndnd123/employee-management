@@ -62,25 +62,24 @@ public class UpdateEmployeeInformationDAO {
     }// updateEmpInfo
 
     /**
-     * 선택된 사원의 사원번호로 해당 사원의 논리삭제 상태를 변경하는 매서드
+     * 선택된 사원의 사원번호로 emp_info 테이블 내
+     * 해당 사원의 논리삭제 상태를 변경하는 매서드
      *
      * @param empno
      * @return 작성자: 김일신
      * @throws SQLException
      */
     public int deleteEmpInfo(int empno) throws SQLException {
-//		update EMP_INFO
-//		set    logic ='Y'
-//		where emp_no = ? 
         int cnt = 0;
         Connection con = DbConnection.getCon();
         PreparedStatement pstmt = null;
+        StringBuilder deleteEmp = new StringBuilder();
         try {
-            String deleteEmp =
-                    "update EMP_INFO"
-                            + "		set    logic =	'Y'	, EDIT_DATE =sysdate"
-                            + "	where emp_no = ? ";
-            pstmt = con.prepareStatement(deleteEmp);
+            deleteEmp.append("	update EMP_INFO	")
+            .append("	set    logic =	'Y'	, EDIT_DATE =sysdate	")
+            .append("	where emp_no = ? ");
+              
+            pstmt = con.prepareStatement(deleteEmp.toString());
             pstmt.setInt(1, empno);
             cnt = pstmt.executeUpdate();
 
@@ -91,4 +90,61 @@ public class UpdateEmployeeInformationDAO {
         }
         return cnt;
     }
+    /**
+     * 선택된 사원의 사원번호로 Account 테이블 내
+     * 해당 사원의 논리삭제 상태를 변경하는 매서드
+     * @param empno
+     * @return
+     * @throws SQLException
+     */
+    public int deleteAccountEMP(int empno) throws SQLException {
+    	int cnt = 0;
+    	Connection con = DbConnection.getCon();
+    	PreparedStatement pstmt = null;
+    	StringBuilder deleteEmp = new StringBuilder();
+    	try {
+    		deleteEmp.append("	update account	")
+    		.append("	set    logic =	'Y'	, EDIT_DATE =sysdate	")
+    		.append("	where emp_no = ? ");
+    		
+    		pstmt = con.prepareStatement(deleteEmp.toString());
+    		pstmt.setInt(1, empno);
+    		cnt = pstmt.executeUpdate();
+    		
+    		
+    	} finally {
+    		DbConnection.dbClose(null, pstmt, con);
+    		;
+    	}
+    	return cnt;
+    }
+    	/**
+    	 * 선택된 사원의 사원번호로 User_auth 테이블 내
+    	 * 해당 사원의 논리삭제 상태를 변경하는 매서드
+    	 * @param empno
+    	 * @return
+    	 * @throws SQLException
+    	 */
+    	public int deleteUserAuthEmp(int empno) throws SQLException {
+    		int cnt = 0;
+    		Connection con = DbConnection.getCon();
+    		PreparedStatement pstmt = null;
+    		StringBuilder deleteEmp = new StringBuilder();
+    		try {
+    			deleteEmp.append("	update User_auth	")
+    			.append("	set    logic =	'Y'	, EDIT_DATE =sysdate	")
+    			.append("	where emp_no = ? ");
+    			
+    			pstmt = con.prepareStatement(deleteEmp.toString());
+    			pstmt.setInt(1, empno);
+    			cnt = pstmt.executeUpdate();
+    			
+    			
+    		} finally {
+    			DbConnection.dbClose(null, pstmt, con);
+    			;
+    		}
+    		return cnt;
+    }
+    	
 }
