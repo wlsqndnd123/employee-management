@@ -3,12 +3,14 @@ package kr.co.sist.view.user;
 import com.toedter.calendar.JCalendar;
 import kr.co.sist.controller.event.UserMenuEvent;
 import kr.co.sist.service.RunUserMenuDAO;
+import kr.co.sist.view.util.JFrameComponent;
 import kr.co.sist.vo.CommuteVO;
 import kr.co.sist.vo.VacationVO;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.sql.Date;
 import java.util.Calendar;
@@ -40,7 +42,6 @@ public class UserMenu extends JFrame {
         createGoToButton();
         createWorkStatusTable();
         loadWorkStatusTable();
-
         createEvent();
 
         setBounds(300, 100, 650, 550);
@@ -102,20 +103,10 @@ public class UserMenu extends JFrame {
      * Desc : 다른 view로 연결되는 버튼들 생성
      */
     public void createGoToButton() {
-        closeJbtn = new JButton("종료");
-        docsListJbtn = new JButton("문서 리스트");
-        vacationJbtn = new JButton("휴가 신청");
-        informationJbtn = new JButton("정보 변경");
-
-        closeJbtn.setBounds(500, 10, 100, 40);
-        docsListJbtn.setBounds(100, 70, 100, 40);
-        vacationJbtn.setBounds(270, 70, 100, 40);
-        informationJbtn.setBounds(440, 70, 100, 40);
-
-        add(closeJbtn);
-        add(docsListJbtn);
-        add(vacationJbtn);
-        add(informationJbtn);
+        closeJbtn = JFrameComponent.createButton(getContentPane(),"종료",500, 10, 100, 40);
+        docsListJbtn = JFrameComponent.createButton(getContentPane(),"문서 리스트",100, 70, 100, 40);
+        vacationJbtn = JFrameComponent.createButton(getContentPane(),"휴가 신청",270, 70, 100, 40);
+        informationJbtn = JFrameComponent.createButton(getContentPane(),"정보 변경",440, 70, 100, 40);
     }
 
     /**

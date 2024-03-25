@@ -1,5 +1,8 @@
 package kr.co.sist.view.util;
 
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JYearChooser;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -82,7 +85,7 @@ public class JFrameComponent extends JFrame {
     }
 
     /**
-     * Desc : 라벨을 생성하는 기능
+     * Desc : 텍스트에리어를 생성하는 기능
      *
      * @param container 컨테이너
      * @param jTextArea jsp에 붙일 jta
@@ -112,6 +115,24 @@ public class JFrameComponent extends JFrame {
         jTextArea.setWrapStyleWord(style);
 
         return jScrollPane;
+    }
+
+    public static JComboBox<String> createStringCombobox(Container container, int x, int y, int width, int height) {
+        JComboBox<String> comboBox = new JComboBox<>();
+
+        comboBox.setBounds(x, y, width, height);
+        container.add(comboBox);
+
+        return comboBox;
+    }
+
+    public static JYearChooser createYearChooser(Container container, int x, int y, int width, int height) {
+        JYearChooser yearChooser = new JYearChooser();
+
+        yearChooser.setBounds(x, y, width, height);
+        container.add(yearChooser);
+
+        return yearChooser;
     }
 
 }
