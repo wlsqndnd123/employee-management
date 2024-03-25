@@ -10,6 +10,7 @@ import kr.co.sist.vo.VacationVO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.sql.Date;
 import java.util.Calendar;
