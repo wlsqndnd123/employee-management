@@ -57,11 +57,10 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
 		
     }
     public void disableDocs() throws SQLException {
-    	String docNo=rd.getjtfDocNo().getText();
-    	DocumentVO dVO= new DocumentVO(docNo, null);
+    	int docNo=Integer.parseInt(rd.getjtfDocNo().getText());
     	
     	ReadDocsDAO rdDAO= ReadDocsDAO.getInstance();
-    	rdDAO.deleteDoc(dVO);
+    	rdDAO.deleteDoc(docNo);
     	
     }
 
