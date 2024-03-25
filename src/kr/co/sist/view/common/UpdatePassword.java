@@ -95,4 +95,8 @@ public class UpdatePassword extends JFrame{
 		return upVO;
 	}
 	
+	public static void main(String[] args) {
+		new UpdatePassword(null);
+	}
+	
 }//class
