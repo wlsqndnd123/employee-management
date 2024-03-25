@@ -21,8 +21,9 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener, It
 
     public void insertDoc() throws NumberFormatException, SQLException {
 //		String docNo, String title, String workLog, String dept, int empNo
+    	SubmitDocsDAO sbDAO = SubmitDocsDAO.getInstance();
         String title = smd.getJtfTitle().getText();
-        String docNo = "0000000123";
+        int docNo = sbDAO.searchMaxDocNum();
         String workLog = smd.getJta().getText();
         CheckEmployeeInformationDAO ceiDAO = CheckEmployeeInformationDAO.getInstance();
 
@@ -32,9 +33,9 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener, It
         String fileNm = smd.getJtfFileNm().getText();
 
         //String docNo, String title, String workLog, String dept, int empNo)
-        DocumentVO dVO = new DocumentVO(docNo, title, workLog, dept, fileNm, empNo);
-        SubmitDocsDAO sbDAO = SubmitDocsDAO.getInstance();
-        sbDAO.insertDoc(dVO);
+        DocumentVO dVO = new DocumentVO(null, title, workLog, dept, fileNm, empNo);
+        sbDAO.insertBussinessLog(docNo,dVO);
+        
     }
 
     public void deleteFile() {
