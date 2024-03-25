@@ -43,14 +43,8 @@ public class VacationStatusEvent extends WindowAdapter implements ActionListener
 
         if (me.getSource() == vs.getJtVacationStatus()) {
             if (column == 0) {
-
-                try {
-                    new ConfirmVacation(item);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                new ConfirmVacation(item);
                 vs.dispose();
-
             }
 
             if (column == 5) {

@@ -19,6 +19,7 @@ public class ConfirmVacation extends JFrame {
         setTitle("휴가 결재창");
         setLayout(null);
 
+        jtaContent = new JTextArea();
         jspJtaResult = JFrameComponent.createPane(getContentPane(), jtaContent, 10, 50, 610, 350, false, true, true);
         jspJtaResult.setBorder(new TitledBorder("휴가신청사유"));
 

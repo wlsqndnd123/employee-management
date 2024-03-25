@@ -93,8 +93,6 @@ public class JFrameComponent extends JFrame {
      * @return 생성된 JScrollPane
      */
     public static JScrollPane createPane(Container container, JTextArea jTextArea, int x, int y, int width, int height) {
-        jTextArea = new JTextArea();
-
         JScrollPane jScrollPane = new JScrollPane(jTextArea);
 
         jScrollPane.setBounds(x, y, width, height);
@@ -104,8 +102,6 @@ public class JFrameComponent extends JFrame {
     }
 
     public static JScrollPane createPane(Container container, JTextArea jTextArea, int x, int y, int width, int height, boolean edit, boolean line, boolean style) {
-        jTextArea = new JTextArea();
-
         JScrollPane jScrollPane = new JScrollPane(jTextArea);
 
         jScrollPane.setBounds(x, y, width, height);
