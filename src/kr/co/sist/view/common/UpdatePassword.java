@@ -26,18 +26,16 @@ public class UpdatePassword extends JFrame{
 	}
 
 	private static UpdatePasswordVO upVO;
+	private static LoginVO lVO = new LoginVO("240001","tlqkf");
 
 
 	public UpdatePassword(LoginVO lVO) {
 		super("비밀번호 변경");
 		
+//		lVO.setEmp_no("240001");
+//		lVO.setPassword("tlqkf");
+//		
 		
-		
-//		try {
-//			password="현재 비밀번호 : " + UpdatePasswordDAO.getInstance().getPassword();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
 		
 		//입력받는 변경할 비밀번호
 		JLabel jlUpdatePw = new JLabel("변경할 비밀번호");
@@ -99,6 +97,15 @@ public class UpdatePassword extends JFrame{
 	}
 	public static UpdatePasswordVO getUpVO() {
 		return upVO;
+	}
+	
+	public LoginVO getLoginVO() {
+		return lVO;
+	}
+	
+	public static void main(String[] args) {
+		
+		new UpdatePassword(lVO);
 	}
 	
 }//class
