@@ -44,6 +44,15 @@ public class JFrameComponent extends JFrame {
         return textField;
     }
 
+    public static JTextField createTextField(Container container, int x, int y, int width, int height) {
+        JTextField textField = new JTextField();
+
+        textField.setBounds(x, y, width, height);
+        container.add(textField);
+
+        return textField;
+    }
+
     /**
      * Desc : 버튼을 생성하는 기능
      *
