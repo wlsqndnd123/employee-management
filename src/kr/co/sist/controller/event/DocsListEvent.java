@@ -3,7 +3,7 @@ package kr.co.sist.controller.event;
 import kr.co.sist.dao.DocsListDAO;
 import kr.co.sist.dao.VacationStatusDAO;
 import kr.co.sist.view.admin.VacationStatus;
-import kr.co.sist.view.admin.reject;
+import kr.co.sist.view.user.Reject;
 import kr.co.sist.view.common.SubmitDocs;
 import kr.co.sist.view.user.DocsList;
 import kr.co.sist.view.user.ReadDocs;
@@ -197,7 +197,7 @@ public class DocsListEvent implements ActionListener, ItemListener, MouseListene
         VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
         String regetDetail = vsDAO.selectRejetDetail(doc_no);
 
-        new reject(vs, regetDetail);
+        new Reject(vs, regetDetail);
     }
 
 

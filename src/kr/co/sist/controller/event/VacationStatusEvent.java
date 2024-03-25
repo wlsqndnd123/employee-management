@@ -4,7 +4,7 @@ import kr.co.sist.dao.VacationStatusDAO;
 import kr.co.sist.view.admin.ConfirmVacation;
 import kr.co.sist.view.admin.VacationStatus;
 import kr.co.sist.view.admin.WorkStatus;
-import kr.co.sist.view.admin.reject;
+import kr.co.sist.view.user.Reject;
 import kr.co.sist.vo.VacationVO;
 
 import javax.swing.*;
@@ -91,7 +91,7 @@ public class VacationStatusEvent extends WindowAdapter implements ActionListener
     public void Rejet(String doc_no) throws SQLException {
         VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
         String regetDetail = vsDAO.selectRejetDetail(doc_no).toString();
-        new reject(vs, regetDetail);
+        new Reject(vs, regetDetail);
     }
 
     @Override
