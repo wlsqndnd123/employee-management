@@ -85,8 +85,4 @@ public class ShareDept extends JFrame {
     public DefaultListModel<Object> getDlmSelectedDept() {
         return dlmSelectedDept;
     }
-
-    public static void main(String[] args) {
-        new ShareDept();
-    }
 }

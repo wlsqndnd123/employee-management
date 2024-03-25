@@ -99,17 +99,4 @@ public class DocsList extends JFrame {
         return dtmjtabResult;
     }
 
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            try {
-                new DocsList();
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        });
-    }
-
-
 } 

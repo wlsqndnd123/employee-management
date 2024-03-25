@@ -133,9 +133,4 @@ public class SubmitDocs extends JFrame {
     public JComboBox<String> getJcb() {
         return jcb;
     }
-
-    public static void main(String[] args) {
-        new SubmitDocs();
-    }
-
 }
