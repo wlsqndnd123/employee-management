@@ -1,6 +1,7 @@
 package kr.co.sist.view.admin;
 
 import kr.co.sist.controller.event.CreateEmployeeInformationEvent;
+import kr.co.sist.view.util.JFrameComponent;
 
 import javax.swing.*;
 
@@ -18,63 +19,38 @@ public class CreateEmployeeInformation extends JFrame {
         createButton();
         createEvent();
 
-        jlEmpno = new JLabel("사원번호");
-        jlName = new JLabel("사원이름");
-        jlPosition = new JLabel("직급");
-        jlJob = new JLabel("직무");
-        jlTel = new JLabel("내선번호");
-        jlDep = new JLabel("부서");
-
-        add(jlEmpno);
-        add(jlName);
-        add(jlPosition);
-        add(jlJob);
-        add(jlTel);
-        add(jlDep);
-
-        tfEmpno = new JTextField();
-        tfName = new JTextField();
-        tfPosition = new JTextField();
-        tfJob = new JTextField();
-        tfTel = new JTextField();
-        tfDep = new JTextField();
-
-        add(tfEmpno);
-        add(tfName);
-        add(tfPosition);
-        add(tfJob);
-        add(tfTel);
-        add(tfDep);
-
-        jbtnAdd = new JButton("등록");
-        jbtnCancel = new JButton("취소");
-
-        add(jbtnAdd);
-        add(jbtnCancel);
-
-        CreateEmployeeInformationEvent cei = new CreateEmployeeInformationEvent(this);
-        jbtnAdd.addActionListener(cei);
-        jbtnCancel.addActionListener(cei);
-
         setBounds(300, 100, 400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
     private void createLabel() {
-
+        jlEmpno = JFrameComponent.createLabel(getContentPane(),"사원번호",40,10,100,25);
+        jlName = JFrameComponent.createLabel(getContentPane(),"사원이름",40,40,100,25);
+        jlPosition = JFrameComponent.createLabel(getContentPane(),"직급",40,70,100,25);
+        jlJob = JFrameComponent.createLabel(getContentPane(),"직무",40,100,100,25);
+        jlTel = JFrameComponent.createLabel(getContentPane(),"내선번호",40,130,100,25);
+        jlDep = JFrameComponent.createLabel(getContentPane(),"부서",40,160,100,25);
     }
 
     private void createTextField() {
-
+        tfEmpno = JFrameComponent.createTextField(getContentPane(),170,10,170,25);
+        tfName = JFrameComponent.createTextField(getContentPane(),170,40,170,25);
+        tfPosition = JFrameComponent.createTextField(getContentPane(),170,70,170,25);
+        tfJob = JFrameComponent.createTextField(getContentPane(),170,100,170,25);
+        tfTel = JFrameComponent.createTextField(getContentPane(),170,130,170,25);
+        tfDep = JFrameComponent.createTextField(getContentPane(),170,160,170,25);
     }
 
     private void createButton() {
-
+        jbtnAdd = JFrameComponent.createButton(getContentPane(),"등록",50,210,100,30);
+        jbtnCancel = JFrameComponent.createButton(getContentPane(),"취소",220,210,100,30);
     }
 
     private void createEvent() {
-
+        CreateEmployeeInformationEvent cei = new CreateEmployeeInformationEvent(this);
+        jbtnAdd.addActionListener(cei);
+        jbtnCancel.addActionListener(cei);
     }
 
     public JTextField getTfEmpno() {
@@ -109,7 +85,4 @@ public class CreateEmployeeInformation extends JFrame {
         return jbtnCancel;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(CreateEmployeeInformation::new);
-    }
 }
