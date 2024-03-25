@@ -1,12 +1,11 @@
 package kr.co.sist.view.common;
 
 import kr.co.sist.controller.event.FindPasswordEvent;
+import kr.co.sist.view.util.JFrameComponent;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class FindPassword extends JDialog implements ActionListener {
+public class FindPassword extends JDialog {
     private JLabel findPassword, idLabel, phoneNumberLabel;
     private JTextField jtfemp_no, jtfPhoneNumber;
     private JButton jbCheckPw, jbExit;
@@ -16,75 +15,30 @@ public class FindPassword extends JDialog implements ActionListener {
 
         setLayout(null);
 
-
-        // 비밀번호 찾기 라벨
-        findPassword = new JLabel("비밀번호 찾기");
-        findPassword.setBounds(90, 50, 100, 30);
-        add(findPassword);
-//        add(new JLabel()); // 빈 라벨
-
-
-        // 사원번호 입력 라벨 및 필드
-        idLabel = new JLabel("아이디");
-        idLabel.setBounds(30, 80, 60, 40);
-        add(idLabel);
-        jtfemp_no = new JTextField();
-        jtfemp_no.setBounds(90, 80, 200, 40);
-        add(jtfemp_no);
-
-
-        // 전화번호 입력 라벨 및 필드
-        phoneNumberLabel = new JLabel("전화번호");
-        phoneNumberLabel.setBounds(30, 130, 60, 40);
-        add(phoneNumberLabel);
-        jtfPhoneNumber = new JTextField();
-        jtfPhoneNumber.setBounds(90, 130, 200, 40);
-
-
-        add(jtfPhoneNumber);
-
-
-        // 비밀번호 확인 버튼
-        jbCheckPw = new JButton("확인");
-        jbCheckPw.setBounds(320, 105, 80, 40);
-        FindPasswordEvent fpe = new FindPasswordEvent(this);
-        jbCheckPw.addActionListener(fpe);
-        add(jbCheckPw);
-//        jbCheckPw.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                new FindPasswordEvent(null);
-//            }
-//        });
-
-//      jbCheckPw  (new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                // 비밀번호 확인 기능 구현
-//                // getId(), getPassword() 등의 메서드 활용
-//            }
-//        });
-
-
-        // 종료 버튼
-        jbExit = new JButton("종료");
-        jbExit.setBounds(180, 190, 60, 30);
-        jbExit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // 다이얼로그 닫기
-            }
-        });
-        add(jbExit);
-
+        createLabel();
+        createTextField();
+        createButton();
+        createEvent();
 
         setBounds(300, 120, 450, 300);
+        setLocationRelativeTo(pf);
         setVisible(true);
-
-
-        setLocationRelativeTo(pf); // 부모 프레임의 가운데에 다이얼로그 위치
-        setVisible(true); // 다이얼로그 표시
     }
 
-    public FindPassword() {
-        // TODO Auto-generated constructor stub
+    private void createLabel() {
+        findPassword = JFrameComponent.createLabel(getContentPane(), "비밀번호 찾기", 90, 50, 100, 30);
+        idLabel = JFrameComponent.createLabel(getContentPane(), "아이디", 30, 80, 60, 40);
+        phoneNumberLabel = JFrameComponent.createLabel(getContentPane(), "전화번호", 30, 130, 60, 40);
+    }
+
+    private void createTextField() {
+        jtfemp_no = JFrameComponent.createTextField(getContentPane(), 90, 80, 200, 40);
+        jtfPhoneNumber = JFrameComponent.createTextField(getContentPane(), 90, 130, 200, 40);
+    }
+
+    private void createButton() {
+        jbCheckPw = JFrameComponent.createButton(getContentPane(), "확인", 320, 105, 80, 40);
+        jbExit = JFrameComponent.createButton(getContentPane(), "종료", 180, 190, 60, 30);
     }
 
     public JTextField getEmpNoField() {
@@ -111,16 +65,9 @@ public class FindPassword extends JDialog implements ActionListener {
         JOptionPane.showMessageDialog(this, "비밀번호를 찾을 수 없습니다."); // 에러 메시지 표시
     }
 
-    private void applyEvent() {
+    private void createEvent() {
         FindPasswordEvent fpe = new FindPasswordEvent(this);
         jbCheckPw.addActionListener(fpe);
         jbExit.addActionListener(fpe);
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-
     }
 }
