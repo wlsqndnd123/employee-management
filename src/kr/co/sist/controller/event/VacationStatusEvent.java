@@ -46,7 +46,6 @@ public class VacationStatusEvent extends WindowAdapter implements ActionListener
 
                 new ConfirmVacation(item);
                 vs.dispose();
-
             }
 
             if (column == 5) {
