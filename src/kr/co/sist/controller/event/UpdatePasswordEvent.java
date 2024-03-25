@@ -16,12 +16,14 @@ import kr.co.sist.vo.UpdatePasswordVO;
 
 public class UpdatePasswordEvent extends JFrame implements ActionListener{
 	private UpdatePassword up;
+//	private LoginVO lVO;
 	
 	private UpdatePasswordEvent() {
 	}
 	
 	public UpdatePasswordEvent(UpdatePassword up) {
 		this.up = up;
+		
 	}
 	
 	@Override
@@ -53,12 +55,16 @@ public class UpdatePasswordEvent extends JFrame implements ActionListener{
 		String pass = up.getJtfUpdatePw().getText().trim();
 		
 		try {
-			LoginVO lVO = new LoginVO
-					(up.getJtfCurrentPw().getText(), pass);
+//			LoginVO lVO = new LoginVO
+//					(id,up.getJtfCurrentPw().getText());// id, curp,
+			System.out.println(up.getLoginVO() + "변경: "+pass);
 			UpdatePasswordDAO upDAO = UpdatePasswordDAO.getInstance();
-			int cnt = upDAO.updatePassword(lVO);
+			int cnt = upDAO.updatePassword(up.getLoginVO(),pass);
 			if(cnt == 1) {
 				JOptionPane.showMessageDialog(up, "해당 사원의 정보가 변경되었습니다.");
+			} else {
+				JOptionPane.showMessageDialog(up, "비밀번호를 다시 확인하세요");
+				
 			}
 		} catch(SQLException e){
 			e.printStackTrace();
