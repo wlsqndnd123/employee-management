@@ -15,6 +15,7 @@ import kr.co.sist.vo.UpdatePasswordVO;
 
 public class UpdatePasswordEvent extends JFrame implements ActionListener{
 	private UpdatePassword up;
+	
 	private UpdatePasswordEvent() {
 	}
 	
@@ -25,37 +26,46 @@ public class UpdatePasswordEvent extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		
-		if(ae.getSource()==up.getJbtnsave()) {
-			updatePasswordInfo();
-			JOptionPane.showMessageDialog(null, "비밀번호가 변경되었습니다.");
-			up.dispose();
+		if(ae.getSource() == up.getExitButton()) {
 			new UserMenu();
+			up.dispose();
+		}//end if
+		if(ae.getSource() == up.getUpdateButton()) {
+			modifyPassword();
 		}
-	}
+	}//actionPerformed
 	
-	public void updatePasswordInfo() {
-		int empno = Integer.parseInt(LoginEvent.getEmpno());
-		String pass = up.getUpdatePw().getText();
+	
+	/**
+	 * 로그인한 사원의 비밀번호를 변경하는 method
+	 */
+	public void modifyPassword() {
+		String pass = up.getJtfUpdatePw().getText().trim();
 		
 		try {
-		UpdatePasswordVO upVO = new UpdatePasswordVO(empno, pass);
-		UpdatePasswordDAO.getInstance().updatePassword(upVO);
+			LoginVO lVO = new LoginVO
+					(up.getJtfCurrentPw().getText(), pass);
+			UpdatePasswordDAO upDAO = UpdatePasswordDAO.getInstance();
+			int cnt = upDAO.updatePassword(lVO);
+			if(cnt == 1) {
+				JOptionPane.showMessageDialog(up, "해당 사원의 정보가 변경되었습니다.");
+			}
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
 	}
 	
-	public LoginVO setPasswordInfo() {
-		String empno = LoginEvent.getEmpno();
-		LoginVO lVO = null;
-		try {
-			lVO=UpdatePasswordDAO.getInstance().selectLoginInfo(Integer.parseInt(empno));
-		}catch(NumberFormatException | SQLException e) {
-			e.printStackTrace();
-		}
-		return lVO;
-	}
-	
+//	public LoginVO setPasswordInfo() {
+//		String empno = LoginEvent.getEmpno();
+//		LoginVO lVO = null;
+//		try {
+//			lVO=UpdatePasswordDAO.getInstance().selectLoginInfo(Integer.parseInt(empno));
+//		}catch(NumberFormatException | SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return lVO;
+//	}
+//	
 
 
 }

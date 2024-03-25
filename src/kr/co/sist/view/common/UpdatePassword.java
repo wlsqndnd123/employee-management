@@ -11,84 +11,88 @@ import javax.swing.JTextField;
 
 import kr.co.sist.controller.event.UpdatePasswordEvent;
 import kr.co.sist.dao.UpdatePasswordDAO;
+import kr.co.sist.vo.LoginVO;
 import kr.co.sist.vo.UpdatePasswordVO;
 
 public class UpdatePassword extends JFrame{
-	private JLabel jlCurrentPw, jlUpdatePw;
+//	private JLabel jlCurrentPw, jlUpdatePw;
 	private JTextField jtfUpdatePw;
+	private JTextField jtfCurrentPw;
 	private JButton UpdateButton, ExitButton;
 	private String password;
 	
 	private static UpdatePasswordVO upVO;
-	public UpdatePassword(UpdatePasswordVO upVO) {
+	public UpdatePassword(LoginVO lVO) {
 		super("비밀번호 변경");
 		
-		setLayout(null);
 		
-		try {
-			password="현재 비밀번호 : " + UpdatePasswordDAO.getInstance().getPassword();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		//현재 비밀번호 라벨
-		jlCurrentPw = new JLabel("현재 비밀번호; "+jlCurrentPw);
-		jlCurrentPw.setBounds(150, 80, 200, 40);
-		add(jlCurrentPw);
 		
-		//바꿀 비밀번호 라벨 및 입력필드 생성
-		jlUpdatePw = new JLabel("변경할 비밀번호");
-		jlUpdatePw.setBounds(50, 130, 90, 40);
-		add(jlUpdatePw);
+//		try {
+//			password="현재 비밀번호 : " + UpdatePasswordDAO.getInstance().getPassword();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+		
+		//입력받는 변경할 비밀번호
+		JLabel jlUpdatePw = new JLabel("변경할 비밀번호");
 		jtfUpdatePw = new JTextField();
-		jtfUpdatePw.setBounds(150, 130, 200, 40);
-		add(jtfUpdatePw);
+
+		//창에 출력하는 현재 비밀번호
+		JLabel jlCurrentPw = new JLabel("현재 비밀번호");
+		jtfCurrentPw = new JTextField();
+		jtfCurrentPw.setText(lVO.getPassword());
+		jtfCurrentPw.setEditable(false);
 		
-		//변경하기 버튼
+		//버튼
 		UpdateButton = new JButton("변경");
-		UpdateButton.setBounds(170, 200, 60, 30);
-		add(UpdateButton);
-		
-		//취소 버튼
 		ExitButton = new JButton("취소");
+		
+		//수동 배치
+		jlCurrentPw.setBounds(50, 80, 90, 40);
+		jtfCurrentPw.setBounds(150, 80, 200, 40);
+		jlUpdatePw.setBounds(50, 130, 90, 40);
+		jtfUpdatePw.setBounds(150, 130, 200, 40);
+		
+		UpdateButton.setBounds(170, 200, 60, 30);
 		ExitButton.setBounds(260, 200, 60, 30);
-		ExitButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
+		
+		
+		//컴포넌트 추가
+		add(jlCurrentPw);
+		add(jlUpdatePw);
+		add(jtfUpdatePw);
+		add(UpdateButton);
 		add(ExitButton);
+
 		
 		//액션리스너
 		UpdatePasswordEvent evt = new UpdatePasswordEvent(this);
 		UpdateButton.addActionListener(evt);
+		ExitButton.addActionListener(evt);
 		
+		setLayout(null);
 		setBounds(300,120,500,400);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true); 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}//UpdatePassword
-	
-	public UpdatePassword() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public JButton getJbtnsave() {
-		return UpdateButton;
-	}
-	
-	public JTextField getUpdatePw() {
+	public JTextField getJtfUpdatePw() {
 		return jtfUpdatePw;
 	}
+	public JTextField getJtfCurrentPw() {
+		return jtfCurrentPw;
+	}
+	public JButton getUpdateButton() {
+		return UpdateButton;
+	}
+	public JButton getExitButton() {
+		return ExitButton;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public static UpdatePasswordVO getUpVO() {
+		return upVO;
+	}
 	
-//	public static void main(String[] args) {
-//        try {
-//			new UpdatePassword(upVO);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//    }
-	
-	
-}
+}//class
