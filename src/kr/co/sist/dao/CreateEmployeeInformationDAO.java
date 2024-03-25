@@ -94,8 +94,8 @@ public class CreateEmployeeInformationDAO {
 		try {
 			con =DbConnection.getCon();
 			String insertAuthEmp =
-			"insert into account (emp_no , pass ,create_date,create_emp,logic)	"
-			+ "values ( ?,?, sysdate, ?, 'N')";
+			"insert into account (emp_no , pass ,create_emp)	"
+			+ "values ( ?,?, ?)";
 			pstmt = con.prepareStatement(insertAuthEmp);
 			
 			pstmt.setInt(1, empno);
@@ -115,8 +115,8 @@ public class CreateEmployeeInformationDAO {
 		try {
 			con =DbConnection.getCon();
 			String insertAuthEmp =
-					"insert into User_auth (emp_no , auth_code ,create_date,create_emp,logic)	"
-							+ "values ( ?,'USER', sysdate, ?, 'N')";
+					"insert into User_auth (emp_no , auth_code ,create_emp)	"
+							+ "values ( ?,'USER', ?)";
 			pstmt = con.prepareStatement(insertAuthEmp);
 			
 			pstmt.setInt(1, empno);
