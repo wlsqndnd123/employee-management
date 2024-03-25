@@ -43,10 +43,10 @@ public class ConfirmVacation extends JFrame {
         if (check_code == 1) {
             jbApprove = JFrameComponent.createButton(getContentPane(), "승인", 50, 420, 100, 30);
             jbReturn = JFrameComponent.createButton(getContentPane(), "반려", 250, 420, 100, 30);
+            jbReturn.addActionListener(cve);
+            jbApprove.addActionListener(cve);
         }
 
-        jbReturn.addActionListener(cve);
-        jbApprove.addActionListener(cve);
         jbCancel.addActionListener(cve);
 
         setBounds(300, 100, 650, 550);
