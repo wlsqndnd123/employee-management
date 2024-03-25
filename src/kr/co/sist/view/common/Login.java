@@ -119,10 +119,4 @@ public class Login extends JFrame implements ActionListener {
         return jpwfPass;
     }
 
-
-    public static void main(String[] args) throws SQLException {
-        new Login();
-    }//main
-
-
 }//class

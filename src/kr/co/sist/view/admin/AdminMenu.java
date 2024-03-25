@@ -10,8 +10,8 @@ import javax.swing.*;
  * Desc : 관리자로 로그인 하면 보이는 메뉴 view<br>
  * 작성자 : 고한별<br>
  * 작성일 : 2024.03.15<br>
- * 수정일 : 2024.03.24<br>
  * 수정자 : 고한별<br>
+ * 수정일 : 2024.03.24<br>
  */
 public class AdminMenu extends JFrame {
     private JButton employeeInformationJbtn;
@@ -101,9 +101,5 @@ public class AdminMenu extends JFrame {
 
     public JButton getPasswordJbtn() {
         return passwordJbtn;
-    }
-
-    public static void main(String[] args) {
-        new AdminMenu();
     }
 }
