@@ -180,15 +180,24 @@ public class DocsListEvent implements ActionListener, ItemListener, MouseListene
 ////        	new ReadDocs(DocumentVO dVO);
         int column = dclist.getJtaDob().columnAtPoint(me.getPoint());
         int row = dclist.getJtaDob().rowAtPoint(me.getPoint());
+        String item = dclist.getJtaDob().getValueAt(row, column).toString();
         String DocNum = (String) dclist.getJtaDob().getValueAt(row, 0);
-        if (column == 1) { // 2nd column
+        if (column == 0) { // 1st column
             try {
                 new ReadDocs(DocsListDAO.getInstance().selectDocinfo(DocNum));
                 dclist.dispose();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        } else if (column == 3) { // 4th column
+        } else if (item .equals("반려")) {
+        	try {
+				Rejet(DocNum);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	
+        	
         }
     }
 
