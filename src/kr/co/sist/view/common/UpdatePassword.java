@@ -1,5 +1,6 @@
 package kr.co.sist.view.common;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -20,8 +21,13 @@ public class UpdatePassword extends JFrame{
 	private JTextField jtfCurrentPw;
 	private JButton UpdateButton, ExitButton;
 	private String password;
-	
+
+	public UpdatePassword() {
+	}
+
 	private static UpdatePasswordVO upVO;
+
+
 	public UpdatePassword(LoginVO lVO) {
 		super("비밀번호 변경");
 		
