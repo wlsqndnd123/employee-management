@@ -150,8 +150,4 @@ public class UpdateEmployeeInformation extends JFrame {
     public JTextField getInputJtDept() {
         return InputJtDept;
     }
-
-    public static void main(String[] args) {
-        new UpdateEmployeeInformation();
-    }
 }

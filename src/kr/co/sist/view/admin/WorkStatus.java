@@ -116,9 +116,4 @@ public class WorkStatus extends JFrame {
     public JButton getJbGoMain() {
         return jbGoMain;
     }
-
-    public static void main(String[] args) throws SQLException {
-        new WorkStatus();
-    }
-
 }
