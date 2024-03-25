@@ -29,6 +29,7 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
             new CheckEmployeeInformation();
             upEmpInfo.dispose();
         }//end if
+
         if (ae.getSource() == upEmpInfo.getJbtnChange()) {
             modifyEmpInfo();
 
