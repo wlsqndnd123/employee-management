@@ -2,6 +2,7 @@ package kr.co.sist.view.admin;
 
 import kr.co.sist.controller.event.DocsManagementEvent;
 import kr.co.sist.dao.DocsManagementDAO;
+import kr.co.sist.view.util.JFrameComponent;
 import kr.co.sist.vo.DocumentVO;
 
 import javax.swing.*;
@@ -9,98 +10,66 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * 문서의 정보를 관리하는 view
+ * 작성자 : 김일신
+ * 작성일 :2024.03.23
+ */
 public class DocsManagement extends JFrame {
 
-    private JComboBox<Object> jcbSelectDep;
-    private JComboBox<Object> jcbSelectFileType;
-    private JComboBox<Object> jcbSelectApprovalState;
+    private JComboBox<String> jcbSelectDep;
+    private JComboBox<String> jcbSelectFileType;
+    private JComboBox<String> jcbSelectApprovalState;
     private JButton jbtnBackhome;
     private JButton jbtnSearch;
     private JTable jtaDob;
     private DefaultTableModel dtmjtabResult;
-    private DocumentVO dVO;
 
     public DocsManagement() {
-
         super("관리자문서관리메뉴");
         setLayout(null);
-        DocsManagementEvent dme = new DocsManagementEvent(this);
+        createTable();
 
-        try {
-            ////부서
-            List<DocumentVO> dept = DocsManagementDAO.getInstance().selectInfo("dept");
-            Object[] deptarr = new Object[dept.size()];
-            dVO = new DocumentVO();
-            for (int i = 0; i < dept.size(); i++) {
-                dVO = dept.get(i);
-                deptarr[i] = dVO.getDept();
-                jcbSelectDep = new JComboBox<>(deptarr);
-                jcbSelectDep.addItem(deptarr[i]);
+        jcbSelectDep = JFrameComponent.createStringCombobox(getContentPane(), 60, 60, 150, 30);
+        jcbSelectFileType = JFrameComponent.createStringCombobox(getContentPane(), 220, 60, 150, 30);
+        jcbSelectApprovalState = JFrameComponent.createStringCombobox(getContentPane(), 380, 60, 150, 30);
+
+        addComboBox();
+        addButton();
+        addEvents();
+
+        setBounds(300, 80, 800, 470);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private void createTable() {
+        String[] columnName = {"문서번호", "문서제목", "종류", "신청부서", "신청날짜", "결제상태", "최종수정일"};
+        dtmjtabResult = new DefaultTableModel(columnName, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
-            jcbSelectDep.removeItemAt(dept.size());
+        };
 
-            ////승인상태
-            List<DocumentVO> code;
-            code = DocsManagementDAO.getInstance().selectInfo("apprv");
-            Object[] codearr = new Object[code.size()];
-            dVO = new DocumentVO();
-            for (int i = 0; i < code.size(); i++) {
-                dVO = code.get(i);
-                codearr[i] = dVO.getApprDesc();
-                jcbSelectApprovalState = new JComboBox<>(codearr);
-                jcbSelectApprovalState.addItem(codearr[i]);
-            }
-            jcbSelectApprovalState.removeItemAt(code.size());
-
-            ////타입
-            List<DocumentVO> paperType = DocsManagementDAO.getInstance().selectInfo("paperType");
-            Object[] paperarr = new Object[paperType.size()];
-            dVO = new DocumentVO();
-            for (int i = 0; i < paperType.size(); i++) {
-                dVO = paperType.get(i);
-                paperarr[i] = dVO.getPaperType();
-                jcbSelectFileType = new JComboBox<>(paperarr);
-                jcbSelectFileType.addItem(paperarr[i]);
-            }
-            jcbSelectFileType.removeItemAt(paperType.size());
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        jbtnBackhome = new JButton("메인으로");
-        jbtnSearch = new JButton("찾기");
-
-        String[] columnName = {"문서번호", "문서제목", "종류", "신청부서", "신청날짜",  "결제상태", "최종수정일"};
-        dtmjtabResult = new DefaultTableModel(columnName, 0);
         jtaDob = new JTable(dtmjtabResult);
-        Object[] content = new Object[7];
 
-        jtaDob.getColumnModel().getColumn(0).setPreferredWidth(60);
-        jtaDob.getColumnModel().getColumn(1).setPreferredWidth(60);
-        jtaDob.getColumnModel().getColumn(2).setPreferredWidth(60);
-        jtaDob.getColumnModel().getColumn(3).setPreferredWidth(60);
-        jtaDob.getColumnModel().getColumn(4).setPreferredWidth(60);
-        jtaDob.getColumnModel().getColumn(5).setPreferredWidth(60);
-        jtaDob.getColumnModel().getColumn(6).setPreferredWidth(60);
-
-        jcbSelectDep.setBounds(60, 60, 150, 30);
-        jcbSelectFileType.setBounds(220, 60, 150, 30);
-        jcbSelectApprovalState.setBounds(380, 60, 150, 30);
-
-        jbtnBackhome.setBounds(610, 20, 100, 30);
-        jbtnSearch.setBounds(610, 60, 100, 30);
+        for (int i = 0; i < 7; i++) {
+            jtaDob.getColumnModel().getColumn(i).setPreferredWidth(60);
+        }
 
         JScrollPane scrollPane = new JScrollPane(jtaDob);
         scrollPane.setBounds(30, 120, 700, 300);
         add(scrollPane);
+    }
 
-        add(jcbSelectDep);
-        add(jcbSelectFileType);
-        add(jcbSelectApprovalState);
+    private void addButton() {
+        jbtnBackhome = JFrameComponent.createButton(getContentPane(), "메인으로", 610, 20, 100, 30);
+        jbtnSearch = JFrameComponent.createButton(getContentPane(), "찾기", 610, 60, 100, 30);
+    }
 
-        add(jbtnBackhome);
-        add(jbtnSearch);
+    private void addEvents() {
+        DocsManagementEvent dme = new DocsManagementEvent(this);
 
         jbtnBackhome.addActionListener(dme);
         jbtnSearch.addActionListener(dme);
@@ -108,29 +77,51 @@ public class DocsManagement extends JFrame {
         jcbSelectApprovalState.addActionListener(dme);
         jcbSelectFileType.addActionListener(dme);
         jtaDob.addMouseListener(dme);
+
         try {
             dme.searchDocument();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        setLayout(null);
-
-        setBounds(300, 80, 800, 470);
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 
-    public JComboBox<Object> getJcbSelectDep() {
+    private void addComboBox() {
+        try {
+            // 부서
+            List<DocumentVO> dept = DocsManagementDAO.getInstance().selectInfo("dept");
+            for (DocumentVO docs : dept) {
+                jcbSelectDep.addItem(docs.getDept());
+            }
+            jcbSelectDep.setSelectedIndex(0);
+
+            //// 승인상태
+            List<DocumentVO> code = DocsManagementDAO.getInstance().selectInfo("apprv");
+            for (DocumentVO dVO : code) {
+                jcbSelectApprovalState.addItem(dVO.getApprDesc());
+            }
+            jcbSelectApprovalState.setSelectedIndex(0);
+
+            //// 타입
+            List<DocumentVO> paperType = DocsManagementDAO.getInstance().selectInfo("paperType");
+            for (DocumentVO dVO : paperType) {
+                jcbSelectFileType.addItem(dVO.getPaperType());
+            }
+            jcbSelectFileType.setSelectedIndex(0);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public JComboBox<String> getJcbSelectDep() {
         return jcbSelectDep;
     }
 
-    public JComboBox<Object> getJcbSelectFileType() {
+    public JComboBox<String> getJcbSelectFileType() {
         return jcbSelectFileType;
     }
 
-    public JComboBox<Object> getJcbSelectApprovalState() {
+    public JComboBox<String> getJcbSelectApprovalState() {
         return jcbSelectApprovalState;
     }
 
@@ -149,5 +140,4 @@ public class DocsManagement extends JFrame {
     public DefaultTableModel getDtmjtabResult() {
         return dtmjtabResult;
     }
-
 }
