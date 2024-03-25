@@ -50,7 +50,6 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
      */
     public void addEmp() {
 
-        int empno = Integer.parseInt(ceiv.getTfEmpno().getText());
         String name = ceiv.getTfName().getText().trim();
         String job = ceiv.getTfJob().getText().trim();
         String position = ceiv.getTfPosition().getText().trim();
@@ -59,8 +58,11 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
 
         try {
             CreateEmployeeInformationDAO ceDAO = CreateEmployeeInformationDAO.getInstance();
-            EmpInfoVO eVO = new EmpInfoVO(empno, name, job, position, dept, null, tel, null);
-            ceDAO.insertEmpInfo(eVO);
+            int empno = ceDAO.selectMaxEmpnum();
+            EmpInfoVO eVO = new EmpInfoVO(0, name, job, position, dept, null, tel, null);
+            ceDAO.insertEmpInfo(empno,eVO);
+            ceDAO.insertAccountEmp(empno);
+            ceDAO.insertUserAuthEmp(empno);
             JOptionPane.showMessageDialog(ceiv, "사원 번호 " + empno + " 번, " + name + "님이 등록되었습니다.");
         } catch (SQLException e) {
 
