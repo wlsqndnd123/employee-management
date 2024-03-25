@@ -2,7 +2,9 @@ package kr.co.sist.view.admin;
 
 import kr.co.sist.controller.event.ShareDeptEvent;
 import kr.co.sist.dao.CheckEmployeeInformationDAO;
+import kr.co.sist.dao.ShareDeptDAO;
 import kr.co.sist.view.util.JFrameComponent;
+import kr.co.sist.vo.DocumentVO;
 import kr.co.sist.vo.EmpInfoVO;
 
 import javax.swing.*;
@@ -60,6 +62,13 @@ public class ShareDept extends JFrame {
             for (EmpInfoVO empInfoVO : dept) {
                 dlmDept.addElement(empInfoVO.getDept());
             }
+            List<DocumentVO> selectedDept =
+            		ShareDeptDAO.getInstance().getSharedDepts(Integer.parseInt(ConfirmDocs.getDocNum()));
+           if(selectedDept!=null) {
+        	   
+            for(DocumentVO dVO :selectedDept)
+            	dlmDept.removeElement(dVO.getDept());
+           }
         } catch (SQLException e) {
             e.printStackTrace();
         }

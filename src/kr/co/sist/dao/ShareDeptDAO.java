@@ -7,7 +7,10 @@ import kr.co.sist.vo.DocumentVO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShareDeptDAO {
     private static ShareDeptDAO sdDAO;
@@ -38,10 +41,8 @@ public class ShareDeptDAO {
             pstmt.setString(1, dVO.getDocNo());
             CreateEmployeeInformationEvent ce = new CreateEmployeeInformationEvent();
             DocsListDAO dDAO =DocsListDAO.getInstance();
-            
             pstmt.setInt(2, ce.convertDept(dVO.getDept()));
             pstmt.setInt(3, dDAO.selectDocinfo(dVO.getDocNo()).getEmpNo());
-//            pstmt.setDate(4, dDAO.selectDocinfo(dVO.getDocNo()).getDocDate());
 
             pstmt.executeQuery();
 
@@ -49,6 +50,39 @@ public class ShareDeptDAO {
             DbConnection.dbClose(null, pstmt, con);
         }
 
+    }
+    public List<DocumentVO> getSharedDepts(int deptno) throws SQLException {
+    	List<DocumentVO> deptArr = new ArrayList<DocumentVO>();
+    	DocumentVO dVO =null;
+    	 Connection con = null;
+         PreparedStatement pstmt = null;
+         ResultSet rs =null;
+         StringBuilder searchDept = new StringBuilder();
+         String[] dept = null;
+         try {
+        	 con = DbConnection.getCon(); 
+        	 searchDept
+        	 .append("	SELECT	CASE DEPT_CODE	")
+        	 .append("	WHEN 1 THEN '정비본부'	WHEN 2 THEN '정비기획부문'	")
+        	 .append("  WHEN 3 THEN '안전정비부문'	WHEN 4 THEN '정비지원팀'	")
+        	 .append("  WHEN 5 THEN '정비통제팀'  WHEN 6 THEN '예방정비팀'	")
+        	 .append("  WHEN 7 THEN '중정비팀'	WHEN 8 THEN '인천운항정비팀'	")
+        	 .append("  WHEN 9 THEN '김포운항정비팀'	WHEN 10 THEN '부품정비팀'	")
+        	 .append("    END AS dept_name	FROM SHARE_DOCS	where DOC_NO = ?");
+       
+        	 pstmt = con.prepareStatement(searchDept.toString());
+        	 pstmt.setInt(1, deptno);
+        	 rs=pstmt.executeQuery();
+        	 while(rs.next()) {
+        		 dVO= new DocumentVO();
+        		 dVO.setDept(rs.getString("dept_name"));
+        		 deptArr.add(dVO);
+        	 }
+        	 
+         }finally {
+        	 
+         }
+		return deptArr;
     }
 
 }

@@ -43,6 +43,7 @@ public class CheckEmployeeInformationDAO {
         ResultSet rs = null;
         try {
             con = DbConnection.getCon();
+            
             String SelectEmp = "	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE\r\n"
                     + "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
                     + "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS') and ( ei.LOGIC ='N')	"
@@ -114,15 +115,15 @@ public class CheckEmployeeInformationDAO {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+        StringBuilder selectAllEnpInfo = new StringBuilder();
         try {
             con = DbConnection.getCon();
-            String selectAllEnpInfo = " 	select	 ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE	 "
-                    + "	from EMP_INFO ei, DEPT d  ,	COMMON c	"
-                    + "	where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and c.GRP_CODE = 'POS' and  ( ei.LOGIC ='N') and (ei.emp_no not like 240000)	";
-            pstmt = con.prepareStatement(selectAllEnpInfo);
+            selectAllEnpInfo.append(" 	select	 ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE	 ")
+            .append("	from EMP_INFO ei, DEPT d  ,	COMMON c	")
+            .append("	where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and c.GRP_CODE = 'POS' and  ( ei.LOGIC ='N') and (ei.emp_no not like 240000)	");
+            pstmt = con.prepareStatement(selectAllEnpInfo.toString());
             rs = pstmt.executeQuery();
-            while (rs.next()) {// int empno, String name, String job,String position ,String dept,Date
-                // hiredate, String tel ,Date modifiedDate
+            while (rs.next()) {
                 eVO = new EmpInfoVO(rs.getInt("EMP_NO"), rs.getString("name"), rs.getString("JOB"),
                         rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),
                         rs.getString("TEL"), rs.getDate("EDIT_DATE"));

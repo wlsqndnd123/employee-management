@@ -14,7 +14,6 @@ import java.sql.SQLException;
 
 public class CreateEmployeeInformationEvent extends WindowAdapter implements ActionListener {
     private CreateEmployeeInformation ceiv;
-    private EmpInfoVO eVO;
 
     public CreateEmployeeInformationEvent() {
 
