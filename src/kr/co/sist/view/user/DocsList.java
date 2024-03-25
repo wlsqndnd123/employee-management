@@ -44,7 +44,7 @@ public class DocsList extends JFrame {
 		cbcheck.addItemListener(dle);
 		jtDoc.addMouseListener(dle);
 		try {
-			dle.showAllDocs();
+			dle.printDocs(true);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
