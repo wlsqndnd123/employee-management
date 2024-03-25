@@ -18,7 +18,6 @@ import java.util.List;
 
 public class DocsManagementEvent implements ActionListener,MouseListener {
 	private DocsManagement dmm;
-	private List<DocumentVO> dVOList;
 
 	public DocsManagementEvent(DocsManagement dmm) {
 		this.dmm = dmm;
@@ -41,7 +40,7 @@ public class DocsManagementEvent implements ActionListener,MouseListener {
 	public void searchDocument() throws SQLException {
 		Object[] content = new Object[7];
 		DocsManagementDAO dmmDAO = DocsManagementDAO.getInstance();
-		dVOList = dmmDAO.searchDocument();
+		List<DocumentVO> dVOList  = dmmDAO.searchDocument();
 
 		if (dVOList.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "해당 문서가 없습니다");
@@ -71,7 +70,7 @@ public class DocsManagementEvent implements ActionListener,MouseListener {
 			return;
 		}
 		DocsManagementDAO dmDAO = DocsManagementDAO.getInstance();
-		dVOList = dmDAO.selectDocInfo(dept, filetype(fileType), apprtype(appr));
+		List<DocumentVO> dVOList  = dmDAO.selectDocInfo(dept, filetype(fileType), apprtype(appr));
 		dmm.getDtmjtabResult().setRowCount(0);
 		if (dVOList == null) {
 			JOptionPane.showMessageDialog(null, "문서정보가 없음");
