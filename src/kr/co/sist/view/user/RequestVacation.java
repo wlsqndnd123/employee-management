@@ -174,8 +174,4 @@ public class RequestVacation extends JFrame {
     public JDateChooser getVacEndDate() {
         return vacEndDate;
     }
-
-    public static void main(String[] args) {
-        new RequestVacation();
-    }
 }

@@ -102,10 +102,4 @@ public class UpdatePassword extends JFrame{
 	public LoginVO getLoginVO() {
 		return lVO;
 	}
-	
-	public static void main(String[] args) {
-		
-		new UpdatePassword(lVO);
-	}
-	
 }//class

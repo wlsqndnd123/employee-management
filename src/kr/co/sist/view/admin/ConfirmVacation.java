@@ -7,6 +7,14 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.sql.SQLException;
 
+/**
+ * Desc : 관리자가 휴가 승인처리를 하는 view<br>
+ * *******************추가 수정 필요*********************<br>
+ * 작성자 : 진수현<br>
+ * 작성일 : 2024.03.15<br>
+ * 수정자 : 고한별<br>
+ * 수정일 : 2024.03.24<br>
+ */
 public class ConfirmVacation extends JFrame {
     private JLabel jlDocNum, jlEmpNum, jlEmpName, jlLeftVaction, jlApplyDate;
     private JTextField jtfDocNum, jtfEmpNum, jtfEmpName, jtfLeftVaction, jtfApplyDate;

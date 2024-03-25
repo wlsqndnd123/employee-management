@@ -174,8 +174,4 @@ public class UserMenu extends JFrame {
     public JButton getInformationJbtn() {
         return informationJbtn;
     }
-
-    public static void main(String[] args) {
-        new UserMenu();
-    }
 }

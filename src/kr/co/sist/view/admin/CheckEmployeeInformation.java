@@ -11,6 +11,13 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Desc : 사원의 정보를 관리하는 view<br>
+ * 작성자 : 김일신<br>
+ * 작성일 : 2024.03.15<br>
+ * 수정자 : 고한별<br>
+ * 수정일 : 2024.03.25<br>
+ */
 public class CheckEmployeeInformation extends JFrame {
     private JTextField jtInputEmpno;
     private JComboBox<String> cbDept, cbPosition;
@@ -172,9 +179,5 @@ public class CheckEmployeeInformation extends JFrame {
 
     public JButton getJbtnMain() {
         return jbtnMain;
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(CheckEmployeeInformation::new);
     }
 }

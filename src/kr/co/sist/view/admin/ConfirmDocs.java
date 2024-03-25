@@ -34,6 +34,7 @@ public class ConfirmDocs extends JFrame {
         createButton(dVO);
         createLabel();
         createTextField(dVO);
+        jtaContents = new JTextArea();
         JFrameComponent.createPane(getContentPane(), jtaContents, 20, 80, 600, 350);
         createEvent(dVO);
 

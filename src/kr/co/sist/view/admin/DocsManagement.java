@@ -150,13 +150,4 @@ public class DocsManagement extends JFrame {
         return dtmjtabResult;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            try {
-                new DocsManagement();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
 }
