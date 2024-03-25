@@ -31,7 +31,7 @@ public class UpdatePasswordDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public int updatePassword(LoginVO lVO) throws SQLException {
+	public int updatePassword(LoginVO lVO,String chgPass) throws SQLException {
 		int cnt=0;
 		
 		Connection con = DbConnection.getCon();
@@ -42,11 +42,12 @@ public class UpdatePasswordDAO {
 			String str =
 					"	update    account	"
 							+ "		set     pass = 	?	"
-							+ "		where emp_no = 	? 	";
+							+ "		where emp_no = 	? and pass=?	";
 			
 			psmt=con.prepareStatement(str);
-			psmt.setString(1, lVO.getPassword());
+			psmt.setString(1, chgPass);
 			psmt.setString(2, lVO.getEmp_no());
+			psmt.setString(3, lVO.getPassword());
 			
 			cnt=psmt.executeUpdate();
 		}finally {
