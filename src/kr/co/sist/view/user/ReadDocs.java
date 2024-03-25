@@ -1,6 +1,7 @@
 package kr.co.sist.view.user;
 
 import kr.co.sist.controller.event.ReadDocsEvent;
+import kr.co.sist.view.util.JFrameComponent;
 import kr.co.sist.vo.DocumentVO;
 
 import javax.swing.*;
@@ -22,91 +23,59 @@ public class ReadDocs extends JFrame {
         super("문서 확인");
 
         setLayout(null);
+        createTextFiled(dVO);
+        jtfDocNo = JFrameComponent.createTextField(getContentPane(),110, 30, 100, 30);
+        jtfEmpNo = JFrameComponent.createTextField(getContentPane(),250, 30, 70, 30);
+        jtfEmpNm = JFrameComponent.createTextField(getContentPane(),370, 30, 100, 30);
+        jtfDate = JFrameComponent.createTextField(getContentPane(),510, 30, 70, 30);
 
-        JPanel jpNorth = new JPanel();
+        jldocNo= JFrameComponent.createLabel(getContentPane(), "문서번호:", 50, 30, 200, 30);
+        jlempNo= JFrameComponent.createLabel(getContentPane(), "사번:",220, 30, 100, 30);
+        jlempNm= JFrameComponent.createLabel(getContentPane(), "사원명:",330, 30, 100, 30);
+        jldate= JFrameComponent.createLabel(getContentPane(), "날짜:",480, 30, 100, 30);
 
-        jtfDocNo = new JTextField(15);
-        jtfDocNo.setText(dVO.getDocNo());
-        jtfEmpNo = new JTextField(10);
-        jtfEmpNo.setText(String.valueOf(dVO.getEmpNo()));
-
-        jtfEmpNm = new JTextField(10);
-        jtfEmpNm.setText(dVO.getName());
-
-        jtfDate = new JTextField(10);
-        jtfDate.setText(String.valueOf(dVO.getDocDate()));
-
-        jldocNo = new JLabel("문서번호:");
-        jlempNo = new JLabel("사번:");
-        jlempNm = new JLabel("사원명:");
-        jldate = new JLabel("날짜");
-        jtfDocNo.setEditable(false);
-        jtfEmpNo.setEditable(false);
-        jtfEmpNm.setEditable(false);
-        jtfDate.setEditable(false);
-        jpNorth.add(jldocNo);
-        jpNorth.add(jtfDocNo);
-        jpNorth.add(jlempNo);
-        jpNorth.add(jtfEmpNo);
-        jpNorth.add(jlempNm);
-        jpNorth.add(jtfEmpNm);
-        jpNorth.add(jldate);
-        jpNorth.add(jtfDate);
-
-        jbtnChg = new JButton("수정");
-        jbtnDel = new JButton("삭제");
-        jbtnOk = new JButton("확인");
-
-
+        jbtnChg= JFrameComponent.createButton(getContentPane(),"수정" ,150, 460, 80, 30);
+        jbtnDel= JFrameComponent.createButton(getContentPane(),"삭제" ,250, 460, 80, 30);
+        jbtnOk= JFrameComponent.createButton(getContentPane(),"확인" ,350, 460, 80, 30);
         jta = new JTextArea();
         jta.setText(dVO.getWorkLog());
+        addActions();
+
 
         setSize(500, 600);
 
-        jpNorth.setBounds(10, 30, 30, 30);
 
-        jldocNo.setBounds(50, 30, 200, 30);
-        jlempNo.setBounds(220, 30, 100, 30);
-        jlempNm.setBounds(330, 30, 100, 30);
-        jldate.setBounds(480, 30, 100, 30);
 
-        jtfDocNo.setBounds(110, 30, 100, 30);
-        jtfEmpNo.setBounds(250, 30, 70, 30);
-        jtfEmpNm.setBounds(370, 30, 100, 30);
-        jtfDate.setBounds(510, 30, 70, 30);
+
 
 
         jta.setBounds(70, 130, 500, 300);
-
-
-        jbtnChg.setBounds(150, 460, 80, 30);
-        jbtnDel.setBounds(250, 460, 80, 30);
-        jbtnOk.setBounds(350, 460, 80, 30);
-
-        add("North", jpNorth);
-        add("Center", jta);
-        add(jbtnChg);
-        add(jbtnDel);
-        add(jbtnOk);
-        add(jldocNo);
-        add(jlempNo);
-        add(jlempNm);
-        add(jldate);
-        add(jtfDocNo);
-        add(jtfEmpNo);
-        add(jtfEmpNm);
-        add(jtfDate);
-
-        ReadDocsEvent rde = new ReadDocsEvent(this);
-        jbtnOk.addActionListener(rde);
-        jbtnChg.addActionListener(rde);
-        jbtnDel.addActionListener(rde);
-
         setVisible(true);
         setBounds(300, 100, 650, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
+    private void createTextFiled(DocumentVO dVO) {
+    	jtfDocNo = new JTextField(15);
+    	jtfDocNo.setText(dVO.getDocNo());
+    	jtfEmpNo = new JTextField(10);
+    	jtfEmpNo.setText(String.valueOf(dVO.getEmpNo()));
+    	jtfEmpNm = new JTextField(10);
+    	jtfEmpNm.setText(dVO.getName());
+    	jtfDate = new JTextField(10);
+    	jtfDate.setText(String.valueOf(dVO.getDocDate()));
+    	jtfDocNo.setEditable(false);
+    	jtfEmpNo.setEditable(false);
+    	jtfEmpNm.setEditable(false);
+    	jtfDate.setEditable(false);
+    	
+    }
+    private void addActions() {
+    	ReadDocsEvent rde = new ReadDocsEvent(this);
+    	jbtnOk.addActionListener(rde);
+    	jbtnChg.addActionListener(rde);
+    	jbtnDel.addActionListener(rde);
+    	
+    }
     /**
      * @return the jbtnChg
      */
