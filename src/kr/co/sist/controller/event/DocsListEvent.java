@@ -21,7 +21,7 @@ public class DocsListEvent implements ActionListener, ItemListener, MouseListene
     private final DefaultTableModel dtmjtabResult;
     private DocumentVO dVO;
     private List<DocumentVO> dVOList;
-    private VacationStatus vs;
+   
 
     public DocsListEvent(DocsList dclist) {
         this.dclist = dclist;
@@ -206,7 +206,7 @@ public class DocsListEvent implements ActionListener, ItemListener, MouseListene
         VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
         String regetDetail = vsDAO.selectRejetDetail(doc_no);
 
-        new Reject(vs, regetDetail);
+        new Reject(dclist, regetDetail);
     }
 
 
