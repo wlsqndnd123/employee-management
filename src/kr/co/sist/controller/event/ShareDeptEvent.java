@@ -40,8 +40,6 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
             if (index != 1) {
                 String strdept = (String) dept.getDlmSelectedDept().getElementAt(index);
                 dept.getDlmDept().addElement(strdept);
-                String[] selected =(String[]) dept.getDlmSelectedDept().toArray();
-                remvodSelectedDept(selected);
                 dept.getDlmSelectedDept().remove(index);
             }
 
@@ -85,26 +83,26 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
             }
         }
     }
-    public void remvodSelectedDept(String[] selected) {
-    
-    	//DB에서 해당 DOC_num에 저장된 모든 DEPT들을 가져옴(String 배열)
-    	ShareDeptDAO sdDAO = ShareDeptDAO.getInstance();
-    	try {
-			String[] deptArr = (String[]) sdDAO.getSharedDepts(Integer.parseInt(ConfirmDocs.getDocNum())).toArray();
-		if(deptArr !=null) {
-			
-		}
-    	} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	//값이 있을 때
-    	
-    	//창이 열리면 해당 DEPT들을 제거한 채로 보여준다.
-    }
+//    public void remvodSelectedDept(String[] selected) {
+//    
+//    	//DB에서 해당 DOC_num에 저장된 모든 DEPT들을 가져옴(String 배열)
+//    	ShareDeptDAO sdDAO = ShareDeptDAO.getInstance();
+//    	try {
+//			String[] deptArr = (String[]) sdDAO.getSharedDepts(Integer.parseInt(ConfirmDocs.getDocNum())).toArray();
+//		if(deptArr !=null) {
+//			
+//		}
+//    	} catch (NumberFormatException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    	//값이 있을 때
+//    	
+//    	//창이 열리면 해당 DEPT들을 제거한 채로 보여준다.
+//    }
     public void addSharedDoc() throws NumberFormatException, SQLException {
         String docNum = ConfirmDocs.getDocNum();
 //        int index = dept.getJlDept().getSelectedIndex();

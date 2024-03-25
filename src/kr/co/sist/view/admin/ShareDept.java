@@ -56,6 +56,8 @@ public class ShareDept extends JFrame {
     }
 
     private void createTableContents(){
+    	//전체 Dept의 내역을 조회한 문서에서
+    	//해당 문서번호가 공유된 부서 번호를 조회하여 리스트에서 아예 삭제한 상태로 창이 열리게 하기.
         CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
         try {
             List<EmpInfoVO> dept = ciDAO.selectInfo("dept");
