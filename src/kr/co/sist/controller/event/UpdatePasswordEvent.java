@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import kr.co.sist.dao.UpdatePasswordDAO;
+import kr.co.sist.view.admin.AdminMenu;
 import kr.co.sist.view.common.UpdatePassword;
 import kr.co.sist.view.user.UserMenu;
 import kr.co.sist.vo.LoginVO;
@@ -27,7 +28,16 @@ public class UpdatePasswordEvent extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent ae) {
 		
 		if(ae.getSource() == up.getExitButton()) {
-			new UserMenu();
+			LoginVO loginVO = up.getLoginVO();
+			String authCode = loginVO.getAuthCode(); // LoginVO 객체에서 인증 코드를 가져옵니다.
+	        if (authCode.equals("admin")||authCode.equals("super")) {
+            new AdminMenu();
+        } else if (authCode.equals("user")) {
+            new UserMenu();
+        } else {
+            // 다른 경우를 처리하거나 오류 메시지를 표시
+            JOptionPane.showMessageDialog(up, "유효하지 않은 인증 코드입니다.");
+        }
 			up.dispose();
 		}//end if
 		if(ae.getSource() == up.getUpdateButton()) {
@@ -55,17 +65,6 @@ public class UpdatePasswordEvent extends JFrame implements ActionListener{
 		}
 	}
 	
-//	public LoginVO setPasswordInfo() {
-//		String empno = LoginEvent.getEmpno();
-//		LoginVO lVO = null;
-//		try {
-//			lVO=UpdatePasswordDAO.getInstance().selectLoginInfo(Integer.parseInt(empno));
-//		}catch(NumberFormatException | SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return lVO;
-//	}
-//	
 
 
 }
