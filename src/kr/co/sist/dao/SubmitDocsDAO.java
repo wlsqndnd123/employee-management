@@ -40,7 +40,7 @@ public class SubmitDocsDAO {
         	 con = DbConnection.getCon();
         	 
         	 String searchMaxNum =
-        	"	select nvl(max(DOC_NO),240000)+1 DOC_NO from BUSSINESS_LOG	";
+        	"	select nvl(max(DOC_NO),240000)+1 DOC_NO from BUSINESS_LOG	";
         	 pstmt =con.prepareStatement(searchMaxNum);
         	 rs = pstmt.executeQuery();
         	 if(rs.next()) {
@@ -59,7 +59,7 @@ public class SubmitDocsDAO {
      * @param dVO : 입력받은 값들
      * @throws SQLException
      */
-    public void insertBussinessLog(int docno,DocumentVO dVO) throws SQLException /*, ClassNotFoundException*/ {
+    public void insertBusinessLog(int docno,DocumentVO dVO) throws SQLException /*, ClassNotFoundException*/ {
 
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -70,7 +70,7 @@ public class SubmitDocsDAO {
             StringBuilder insertDoc = new StringBuilder();
 
             insertDoc
-                    .append(" insert into BUSSINESS_LOG ")
+                    .append(" insert into BUSINESS_LOG ")
                     .append(" (DOC_NO, TITLE, EMP_NO, GRP_CODE, CODE, WORK_LOG, GRP_CODE2, CODE2, DOC_DATE, file_name)  ")
                     .append(" values(?,?,?,'WORK',1,?,'APPR',1, sysdate, ? ) ");
 

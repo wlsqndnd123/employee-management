@@ -34,7 +34,7 @@ public class ReadDocsDAO {
             StringBuilder updateDoc = new StringBuilder();
 
             updateDoc
-                    .append(" update  BUSSINESS_LOG ")
+                    .append(" update  BUSINESS_LOG ")
                     .append(" set  WORK_LOG = ? ")
                     .append(" where doc_no=? ");
 
@@ -60,7 +60,7 @@ public class ReadDocsDAO {
             StringBuilder updateDoc = new StringBuilder();
 
             updateDoc
-                    .append(" update  BUSSINESS_LOG ")
+                    .append(" update  BUSINESS_LOG ")
                     .append(" set  logic = 'y' ")
                     .append(" where doc_no=? ");
 
