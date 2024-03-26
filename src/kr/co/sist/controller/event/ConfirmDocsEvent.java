@@ -41,7 +41,6 @@ public class ConfirmDocsEvent extends WindowAdapter implements ActionListener, M
         }
 
         if (ae.getSource() == cfdocs.getJbtncheck()) {
-            new DocsManagement();
             cfdocs.dispose();
         }
     }
