@@ -25,7 +25,15 @@ public class DocsListDAO {
         return docslistDAO;
     }
 
-
+  
+    public int searchDept(String dept) {
+    	int dept_code =0;
+    	
+    	
+    	
+    	return dept_code;
+    	
+    }
     public List<DocumentVO> selectAllDocument() throws SQLException {
         List<DocumentVO> list = new ArrayList<DocumentVO>();
         Connection con = null;
