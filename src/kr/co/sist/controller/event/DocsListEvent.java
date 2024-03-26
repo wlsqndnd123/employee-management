@@ -77,11 +77,11 @@ public class DocsListEvent implements ActionListener, ItemListener, MouseListene
         }
     }
 
-    public void printDocs(boolean selectAll) throws SQLException {
+    public void printDocs(boolean selectMine) throws SQLException {
         DocsListDAO dlDAO = DocsListDAO.getInstance();
         List<DocumentVO> dVOList = null;
 
-        if (selectAll) {
+        if (selectMine) {
             dVOList = dlDAO.selectAllDocument();
         } else {
             dVOList = dlDAO.selectMyDocinfo(LoginEvent.getEmpno());
