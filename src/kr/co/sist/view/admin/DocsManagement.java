@@ -53,6 +53,8 @@ public class DocsManagement extends JFrame {
         };
 
         jtaDob = new JTable(dtmjtabResult);
+        jtaDob.getTableHeader().setReorderingAllowed(false);
+        jtaDob.getTableHeader().setResizingAllowed(false);
 
         for (int i = 0; i < 7; i++) {
             jtaDob.getColumnModel().getColumn(i).setPreferredWidth(60);

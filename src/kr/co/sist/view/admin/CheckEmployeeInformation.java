@@ -91,6 +91,8 @@ public class CheckEmployeeInformation extends JFrame {
         };
 
         jtEmpInfo = new JTable(dtmEmpTable);
+        jtEmpInfo.getTableHeader().setReorderingAllowed(false);
+        jtEmpInfo.getTableHeader().setResizingAllowed(false);
         JScrollPane scrollPane = new JScrollPane(jtEmpInfo);
         scrollPane.setBounds(30, 175, 600, 250);
         add(scrollPane);
