@@ -61,7 +61,7 @@ public class WorkStatus extends JFrame {
         jspJtaResult.setBounds(10, 10, 490, 480);
         add(jspJtaResult);
 
-        jtfEmpNum = JFrameComponent.createTextField(getContentPane(),510, 60, 100, 30);
+        jtfEmpNum = JFrameComponent.createTextField(getContentPane(),"사원번호",510, 60, 100, 30);
 
         createEvent();
 
