@@ -1,9 +1,11 @@
 package kr.co.sist.controller.event;
 
 import kr.co.sist.dao.ReadDocsDAO;
+import kr.co.sist.view.user.DocsList;
 import kr.co.sist.view.user.ReadDocs;
 import kr.co.sist.vo.DocumentVO;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -22,16 +24,24 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == rd.getjbtnOk()) {
             rd.dispose();
+            new DocsList();
         }
 
         if (e.getSource() == rd.getjbtnDel()) {
             disableDocs();
             rd.dispose();
+            new DocsList();
         }
 
         if (e.getSource() == rd.getjbtnChg()) {
+            int result = JOptionPane.showConfirmDialog(null,"수정하시겠습니까?");
+
+            if(result == JOptionPane.OK_OPTION){
             modifyDocs();
+            }
+
             rd.dispose();
+            new DocsList();
         }
     }
 
@@ -48,6 +58,7 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
             throw new RuntimeException(e);
         }
 
+        JOptionPane.showMessageDialog(null, "수정되었습니다.");
     }
 
     public void disableDocs() {
