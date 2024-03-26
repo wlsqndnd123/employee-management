@@ -40,6 +40,7 @@ public class CreateEmployeeInformation extends JFrame {
         tfJob = JFrameComponent.createTextField(getContentPane(),170,100,170,25);
         tfTel = JFrameComponent.createTextField(getContentPane(),170,130,170,25);
         tfDep = JFrameComponent.createTextField(getContentPane(),170,160,170,25);
+        tfEmpno.setEditable(false);
     }
 
     private void createButton() {
