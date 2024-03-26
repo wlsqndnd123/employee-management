@@ -43,11 +43,7 @@ public class WorkStatusEvent extends WindowAdapter implements ActionListener {
 
 
         if (ae.getSource() == ws.getJbVacationStatus()) {
-            try {
-                new VacationStatus();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            new VacationStatus();
             ws.dispose();
         }
 
