@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.SQLException;
 
 
 public class LoginEvent extends WindowAdapter implements ActionListener {
@@ -33,11 +32,7 @@ public class LoginEvent extends WindowAdapter implements ActionListener {
         }
 
         if (ae.getSource() == login.getJbFindPassword()) {
-            try {
-                new FindPassword(new Login());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            new FindPassword(login);
         }
     }//actionPerformed
 
