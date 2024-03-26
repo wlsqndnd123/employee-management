@@ -1,11 +1,13 @@
 package kr.co.sist.controller.event;
 
 import kr.co.sist.dao.CheckEmployeeInformationDAO;
+import kr.co.sist.dao.LoginDAO;
 import kr.co.sist.dao.UpdateTelNumberDAO;
 import kr.co.sist.view.common.UpdatePassword;
 import kr.co.sist.view.user.UpdateTelNumber;
 import kr.co.sist.view.user.UserMenu;
 import kr.co.sist.vo.EmpInfoVO;
+import kr.co.sist.vo.LoginVO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,7 +30,12 @@ public class UpdateTelNumberEvent extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == utn.getJbtnexcPw()) {
-            new UpdatePassword();
+            new UpdatePassword
+                    (new LoginVO(
+                            LoginEvent.getEmpno(),
+                            LoginDAO.getInstance().confirmUser
+                                    (LoginEvent.getEmpno()).getPassword()
+                    ));
         }
         if (e.getSource() == utn.getGoHome()) {
             new UserMenu();
