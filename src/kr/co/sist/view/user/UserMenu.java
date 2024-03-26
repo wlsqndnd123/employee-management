@@ -123,6 +123,8 @@ public class UserMenu extends JFrame {
         };
 
         workStatusTable = new JTable(workStatusModel);
+        workStatusTable.getTableHeader().setReorderingAllowed(false);
+        workStatusTable.getTableHeader().setResizingAllowed(false);
         workStatusPad = new JScrollPane(workStatusTable);
 
         workStatusPad.setBorder(new TitledBorder("이달의 근무"));

@@ -61,6 +61,8 @@ public class DocsList extends JFrame {
 		};
 
 		jtDoc = new JTable(dtmjtabResult);
+		jtDoc.getTableHeader().setReorderingAllowed(false);
+		jtDoc.getTableHeader().setResizingAllowed(false);
 
 		for (int i = 0; i < columnName.length; i++) {
 			jtDoc.getColumnModel().getColumn(i).setPreferredWidth(60);
