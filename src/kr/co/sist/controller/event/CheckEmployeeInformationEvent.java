@@ -1,20 +1,5 @@
 package kr.co.sist.controller.event;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.sql.SQLException;
-
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.TableColumnModelEvent;
-import javax.swing.event.TableColumnModelListener;
-import javax.swing.table.DefaultTableModel;
-
 import kr.co.sist.dao.CheckEmployeeInformationDAO;
 import kr.co.sist.view.admin.AdminMenu;
 import kr.co.sist.view.admin.CheckEmployeeInformation;
@@ -22,181 +7,173 @@ import kr.co.sist.view.admin.CreateEmployeeInformation;
 import kr.co.sist.view.admin.UpdateEmployeeInformation;
 import kr.co.sist.vo.EmpInfoVO;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.*;
+import java.sql.SQLException;
+
 public class CheckEmployeeInformationEvent extends WindowAdapter implements ActionListener, MouseListener {
-	private CheckEmployeeInformation checkEmp;
-	private EmpInfoVO eVO;
-	DefaultTableModel model;
+    private CheckEmployeeInformation checkEmp;
+    private EmpInfoVO eVO;
+    DefaultTableModel model;
 
-	public CheckEmployeeInformationEvent() {
+    public CheckEmployeeInformationEvent() {
 
-	}
+    }
 
-	public CheckEmployeeInformationEvent(CheckEmployeeInformation checkEmpview) {
-		this.checkEmp = checkEmpview;
-	}
+    public CheckEmployeeInformationEvent(CheckEmployeeInformation checkEmpview) {
+        this.checkEmp = checkEmpview;
+    }
 
-	@Override
-	public void windowClosing(WindowEvent e) {
+    @Override
+    public void windowClosing(WindowEvent e) {
 
-	}
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent ae) {
-		if (ae.getSource() == checkEmp.getJbtnAddEmp()) {
-			new CreateEmployeeInformation();
-			checkEmp.dispose();
-			
-		} // end if
-		if (ae.getSource() == checkEmp.getJbtnMain()) {
-			new AdminMenu();
-			checkEmp.dispose();
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == checkEmp.getJbtnAddEmp()) {
+            new CreateEmployeeInformation();
+            checkEmp.dispose();
 
-		} // end if
-		
-		
-		//empno가 비어있을 때
-			//콤보박스/yearchooser가 선택 되었니?
-			// 모두 선택이 되어있지 않니?
-		//empno가 채워져있을 때
-		if (ae.getSource() == checkEmp.getJbtnSearch()) {
-			// empno 텍스트필드가 비어있을 때
-			if (checkEmp.getJtInputEmpno().getText().isEmpty()) {
-				try {
-					// 검색 전 테이블 초기화
-					model = (DefaultTableModel) checkEmp.getJtEmpInfo().getModel();
-					model.setNumRows(0);
-					searchEmpInfo(eVO);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else {
-				int empno = Integer.parseInt(checkEmp.getJtInputEmpno().getText());
-				try {
-					// 검색 전 테이블 초기화
-					model = (DefaultTableModel) checkEmp.getJtEmpInfo().getModel();
-					model.setNumRows(0);
-					searchEmpInfo(empno);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+        } // end if
 
-		} // end if
+        if (ae.getSource() == checkEmp.getJbtnMain()) {
+            new AdminMenu();
+            checkEmp.dispose();
 
-	}// actionPerformed
+        } // end if
 
-	/**
-	 * 텍스트필드로 입력된 값(empno)로 검색된 사원정보를 출력하는 method
-	 * 
-	 * @throws SQLException
-	 */
-	public void searchEmpInfo(int empno) throws SQLException {
-		Object[] content = new Object[8];
-		CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
-		eVO = ciDAO.selectEmpInfo(empno);
-		if (eVO == null) {  
-			JOptionPane.showMessageDialog(null, "해당 사번을 가진 사원의 정보가 존재하지 않습니다.");
-		} else {
-			content[0] = eVO.getEmpno();
-			content[1] = eVO.getName();
-			content[2] = eVO.getJob();
-			content[3] = eVO.getPosition();
-			content[4] = eVO.getDept();
-			content[5] = eVO.getHiredate();
-			content[6] = eVO.getTel();
-			content[7] = eVO.getModifiedDate();
-			checkEmp.getDtmEmpTable().addRow(content);
-		}
+        if (ae.getSource() == checkEmp.getJbtnSearch()) {
+            searchEmp();
+        } // end if
 
-	}
+    }// actionPerformed
 
-	/**
-	 * 부서/직급/입사년도 모두를 선택하여 검색된 사원정보를 출력하는 method (부서,직급,입사년도)모두를 선택해야 결과가 나옴
-	 * 
-	 * @param eVO
-	 * @throws SQLException
-	 */
-	public void searchEmpInfo(EmpInfoVO eVO) throws SQLException {
-		String dept = checkEmp.getCbDept().getSelectedItem().toString();
-		String position = checkEmp.getCbPosition().getSelectedItem().toString();
-		int year = checkEmp.getJycHiredateYear().getYear();
-		Object[] content = new Object[8];
-		// 3가지를 모두 선택하게 함
-		if (dept == null && position == null && year == 0) {
-			JOptionPane.showMessageDialog(null, "부서,직급,입사년도를 모두 선택해주세요.");
-			return;
-		} // end if
-		CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
-		eVO = ciDAO.selectEmpInfo(dept, position, year);
-		if (eVO == null) {
-			JOptionPane.showMessageDialog(null, "선택한 사원의 정보가 존재하지 않습니다.");
-		} else {
-			content[0] = eVO.getEmpno();
-			content[1] = eVO.getName();
-			content[2] = eVO.getJob();
-			content[3] = eVO.getPosition();
-			content[4] = eVO.getDept();
-			content[5] = eVO.getHiredate();
-			content[6] = eVO.getTel();
-			content[7] = eVO.getModifiedDate();
+    private void searchEmp() {
+        if (checkEmp.getJtInputEmpno().getText().isEmpty()) {
+            try {
+                resetTable();
+                searchEmpInfo(eVO);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            int empno = Integer.parseInt(checkEmp.getJtInputEmpno().getText());
+            try {
+                resetTable();
+                searchEmpInfo(empno);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-			checkEmp.getDtmEmpTable().addRow(content);
-		}
-	}
+    private void resetTable() {
+        model = (DefaultTableModel) checkEmp.getJtEmpInfo().getModel();
+        model.setNumRows(0);
+    }
 
-	@Override
-	public void mouseClicked(MouseEvent me) {
-		int row = checkEmp.getJtEmpInfo().getSelectedRow();
-		int col = checkEmp.getJtEmpInfo().getSelectedColumn();
-//		if(me.getSource()==checkEmp.getJtEmpInfo()) {
-//			
-//		if (col == 1) {
-//			System.out.println("이름");
-//		}
-//			
-//		}
-		if(me.getButton()==1) {
-			switch(JOptionPane.showConfirmDialog(checkEmp,"해당 사원의 정보를 수정하시겠습니까?",null, JOptionPane.OK_CANCEL_OPTION)) {
-			case 0: 
-				int empno =(int) checkEmp.getJtEmpInfo().getValueAt(row, 0);
-				try {
-					CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
-					new UpdateEmployeeInformation(ciDAO.selectEmpInfo(empno));
-					checkEmp.dispose();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			break;
-			case 2:
-			break;
-			}
-		}
-	}
+    /**
+     * 텍스트필드로 입력된 값(empno)로 검색된 사원정보를 출력하는 method
+     *
+     * @throws SQLException
+     */
+    public void searchEmpInfo(int empno) throws SQLException {
+        CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
+        EmpInfoVO eVO = ciDAO.selectEmpInfo(empno);
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+        if (eVO == null) {
+            JOptionPane.showMessageDialog(null, "해당 사번을 가진 사원의 정보가 존재하지 않습니다.");
+            return;
+        }
 
-	}
+        printEmpInfo(eVO);
+    }
 
-	@Override
-	public void mouseReleased(MouseEvent me) {
+    /**
+     * 부서/직급/입사년도 모두를 선택하여 검색된 사원정보를 출력하는 method (부서,직급,입사년도)모두를 선택해야 결과가 나옴
+     *
+     * @param eVO
+     * @throws SQLException
+     */
+    public void searchEmpInfo(EmpInfoVO eVO) throws SQLException {
+        this.eVO = eVO;
+        String dept = checkEmp.getCbDept().getSelectedItem().toString();
+        String position = checkEmp.getCbPosition().getSelectedItem().toString();
+        int year = checkEmp.getJycHiredateYear().getYear();
 
-	}
+        if (dept == null && position == null && year == 0) {
+            JOptionPane.showMessageDialog(null, "부서,직급,입사년도를 모두 선택해주세요.");
+            return;
+        }
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+        CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
+        eVO = ciDAO.selectEmpInfo(dept, position, year);
 
-	}
+        if (eVO == null) {
+            JOptionPane.showMessageDialog(null, "선택한 사원의 정보가 존재하지 않습니다.");
+            return;
+        }
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+        printEmpInfo(eVO);
+    }
 
-	}
+    private void printEmpInfo(EmpInfoVO eVO) {
+        Object[] content = new Object[8];
+        content[0] = eVO.getEmpno();
+        content[1] = eVO.getName();
+        content[2] = eVO.getJob();
+        content[3] = eVO.getPosition();
+        content[4] = eVO.getDept();
+        content[5] = eVO.getHiredate();
+        content[6] = eVO.getTel();
+        content[7] = eVO.getModifiedDate();
+
+        checkEmp.getDtmEmpTable().addRow(content);
+    }
+
+    // 이거 아주 수정하고 싶게 생겼구만... 근데 잘 모르겠당ㅎㅎ
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        int row = checkEmp.getJtEmpInfo().getSelectedRow();
+
+        if (me.getButton() == 1) {
+            switch (JOptionPane.showConfirmDialog(checkEmp, "해당 사원의 정보를 수정하시겠습니까?", null, JOptionPane.OK_CANCEL_OPTION)) {
+                case 0:
+                    int empno = (int) checkEmp.getJtEmpInfo().getValueAt(row, 0);
+                    try {
+                        CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
+                        new UpdateEmployeeInformation(ciDAO.selectEmpInfo(empno));
+                        checkEmp.dispose();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 2:
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 
 }

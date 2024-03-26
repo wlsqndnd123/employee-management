@@ -27,7 +27,6 @@ public class ReadDocsDAO {
 
         Connection con = null;
         PreparedStatement pstmt = null;
-        ResultSet rs = null;
 
         try {
             con = DbConnection.getCon();
@@ -35,7 +34,7 @@ public class ReadDocsDAO {
             StringBuilder updateDoc = new StringBuilder();
 
             updateDoc
-                    .append(" update  BUSSINESS_LOG ")
+                    .append(" update  BUSINESS_LOG ")
                     .append(" set  WORK_LOG = ? ")
                     .append(" where doc_no=? ");
 
@@ -46,15 +45,14 @@ public class ReadDocsDAO {
 
             pstmt.executeUpdate();
         } finally {
-            DbConnection.dbClose(rs, pstmt, con);
+            DbConnection.dbClose(null, pstmt, con);
         }
     }
 
-    public void deleteDoc(DocumentVO dVO) throws SQLException {
+    public void deleteDoc(int docnum) throws SQLException {
 
         Connection con = null;
         PreparedStatement pstmt = null;
-        ResultSet rs = null;
 
         try {
             con = DbConnection.getCon();
@@ -62,17 +60,17 @@ public class ReadDocsDAO {
             StringBuilder updateDoc = new StringBuilder();
 
             updateDoc
-                    .append(" update  BUSSINESS_LOG ")
+                    .append(" update  BUSINESS_LOG ")
                     .append(" set  logic = 'y' ")
                     .append(" where doc_no=? ");
 
             pstmt = con.prepareStatement(updateDoc.toString());
 
-            pstmt.setString(1, dVO.getDocNo());
+            pstmt.setInt(1, docnum);
 
             pstmt.executeUpdate();
         } finally {
-            DbConnection.dbClose(rs, pstmt, con);
+            DbConnection.dbClose(null, pstmt, con);
         }
     }
 

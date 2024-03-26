@@ -27,10 +27,12 @@ public class WorkStatusEvent extends WindowAdapter implements ActionListener {
 
             try {
                 int empno = 0;
-                if (!ws.getJtfEmpNum().getText().isEmpty()) {
-                    empno = Integer.parseInt(ws.getJtfEmpNum().getText());
+                if (ws.getJtfEmpNum().getText().isBlank() || ws.getJtfEmpNum().getText().equals("사원번호")) {
+                	empno = 0;
+                }else {
+                
+                empno = Integer.parseInt(ws.getJtfEmpNum().getText());
                 }
-
                 CheckWS(empno, ws.getJcbDateRange().getSelectedItem().toString());
             } catch (NumberFormatException e) {
 
@@ -43,11 +45,7 @@ public class WorkStatusEvent extends WindowAdapter implements ActionListener {
 
 
         if (ae.getSource() == ws.getJbVacationStatus()) {
-            try {
-                new VacationStatus();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            new VacationStatus();
             ws.dispose();
         }
 
@@ -68,6 +66,7 @@ public class WorkStatusEvent extends WindowAdapter implements ActionListener {
 
 
         if (cVOList.isEmpty()) {
+            return;
         } else {
             for (CommuteVO cVO : cVOList) {
                 content[0] = cVO.getEmpNo();
