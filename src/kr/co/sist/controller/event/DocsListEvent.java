@@ -82,7 +82,7 @@ public class DocsListEvent implements ActionListener, ItemListener, MouseListene
         List<DocumentVO> dVOList = null;
 
         if (selectAll) {
-            dlDAO.selectAllDocument();
+            dVOList = dlDAO.selectAllDocument();
         } else {
             dVOList = dlDAO.selectMyDocinfo(LoginEvent.getEmpno());
         }
