@@ -1,5 +1,6 @@
 package kr.co.sist.service;
 
+import kr.co.sist.controller.event.LoginEvent;
 import kr.co.sist.dao.UserMenuDAO;
 import kr.co.sist.vo.CommuteVO;
 import kr.co.sist.vo.VacationVO;
@@ -16,7 +17,7 @@ public class RunUserMenuDAO {
     public static List<VacationVO> loadMonthlyWorkSchedule() {
         List<VacationVO> list;
         try {
-            list = UserMenuDAO.getInstance().selectVacationDate(240004);
+            list = UserMenuDAO.getInstance().selectVacationDate(Integer.parseInt(LoginEvent.getEmpno()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -31,7 +32,7 @@ public class RunUserMenuDAO {
     public static List<CommuteVO> loadStampTime() {
         List<CommuteVO> list;
         try {
-            list = UserMenuDAO.getInstance().selectCommuteLog(240004);
+            list = UserMenuDAO.getInstance().selectCommuteLog(Integer.parseInt(LoginEvent.getEmpno()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -1,11 +1,8 @@
 package kr.co.sist.controller.event;
 
-import kr.co.sist.dao.CheckEmployeeInformationDAO;
 import kr.co.sist.dao.RequestVacationDAO;
-import kr.co.sist.service.RunRequestVacationDAO;
 import kr.co.sist.view.user.RequestVacation;
 import kr.co.sist.view.user.UserMenu;
-import kr.co.sist.vo.EmpInfoVO;
 import kr.co.sist.vo.VacationVO;
 
 import java.awt.event.ActionEvent;
