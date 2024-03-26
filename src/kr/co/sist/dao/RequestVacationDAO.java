@@ -43,7 +43,7 @@ public class RequestVacationDAO {
 
         try {
             connection = DbConnection.getCon();
-            String insertVacationLog = "insert into BUSSINESS_LOG(doc_no, title, emp_no, grp_code, code, work_log, grp_code2, code2, start_date, end_date) " +
+            String insertVacationLog = "insert into BUSINESS_LOG(doc_no, title, emp_no, grp_code, code, work_log, grp_code2, code2, start_date, end_date) " +
                     " values ('000002110','연차신청서',240004,'WORK',5,'ㅅㅂ','APPR',1,?,?) ";
 
             preparedStatement = connection.prepareStatement(insertVacationLog);

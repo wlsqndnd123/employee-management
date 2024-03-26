@@ -34,7 +34,7 @@ public class DocsManagementDAO {
             con = DbConnection.getCon();
 
             searchDocument = "	select   doc_no,bl.title, d.dept_name, bl.doc_date, bl.code2, bl.edit_date , bl.code	"
-            		+"	from DEPT d, EMP_INFO ei, BUSSINESS_LOG bl	"
+            		+"	from DEPT d, EMP_INFO ei, BUSINESS_LOG bl	"
             		+"	where (d.dept_code = ei.dept_code)and (ei.emp_no = bl.emp_no) and bl.logic ='N' ";
 
 
@@ -73,7 +73,7 @@ public class DocsManagementDAO {
         try {
             con = DbConnection.getCon();
             String selectDoc ="	select   bl.doc_no,bl.title, d.dept_name, bl.doc_date, bl.code2, bl.edit_date , bl.code	"
-            		+"	from DEPT d, EMP_INFO ei, BUSSINESS_LOG bl	"
+            		+"	from DEPT d, EMP_INFO ei, BUSINESS_LOG bl	"
             		+"	where (d.dept_code = ei.dept_code)and (ei.emp_no = bl.emp_no) and bl.logic ='N' "
             		+ "	and d.dept_name = ? and  bl.code = ? and bl.code2 = ? ";
             pstmt = con.prepareStatement(selectDoc);
