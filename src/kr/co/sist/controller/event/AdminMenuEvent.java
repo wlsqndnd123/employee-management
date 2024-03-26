@@ -1,10 +1,12 @@
 package kr.co.sist.controller.event;
 
+import kr.co.sist.dao.LoginDAO;
 import kr.co.sist.view.admin.AdminMenu;
 import kr.co.sist.view.admin.CheckEmployeeInformation;
 import kr.co.sist.view.admin.DocsManagement;
 import kr.co.sist.view.admin.WorkStatus;
 import kr.co.sist.view.common.UpdatePassword;
+import kr.co.sist.vo.LoginVO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,8 +54,12 @@ public class AdminMenuEvent extends WindowAdapter implements ActionListener {
             closeFrame();
         }
         if (e.getSource() == adminMenu.getPasswordJbtn()){
-        	
-            new UpdatePassword();
+            new UpdatePassword
+                    (new LoginVO(
+                            LoginEvent.getEmpno(),
+                            LoginDAO.getInstance().confirmUser
+                                    (LoginEvent.getEmpno()).getPassword()
+                    ));
         }
     }
 

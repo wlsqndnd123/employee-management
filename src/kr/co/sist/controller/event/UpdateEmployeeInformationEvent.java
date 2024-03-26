@@ -41,8 +41,6 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
 
     /**
      * 선택한 사원의 직무,직급,부서를 변경하는 method
-     *
-     * @param eVO
      */
     public void modifyEmpInfo() {
         String job = upEmpInfo.getInputJtJob().getText().trim();
@@ -59,13 +57,10 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     /**
      * 입력한(사원번호) 사원의 논리삭제
-     *
-     * @param name
      */
     public void disableEmpInfo() {
         try {
@@ -74,8 +69,8 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
             int cnt = upDAO.deleteEmpInfo(empno);
             int cnt2 = upDAO.deleteAccountEMP(empno);
             int cnt3 = upDAO.deleteUserAuthEmp(empno);
-            
-            if (cnt == 1&&cnt2 ==1&&cnt3==1) {
+
+            if (cnt == 1 && cnt2 == 1 && cnt3 == 1) {
                 JOptionPane.showMessageDialog(upEmpInfo, "해당 사원이 삭제되었습니다.");
             }
         } catch (SQLException e) {
