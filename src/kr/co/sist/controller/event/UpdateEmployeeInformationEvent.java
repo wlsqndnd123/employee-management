@@ -72,7 +72,10 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
             int empno = Integer.parseInt(upEmpInfo.getTfEmpno().getText());
             UpdateEmployeeInformationDAO upDAO = UpdateEmployeeInformationDAO.getInstance();
             int cnt = upDAO.deleteEmpInfo(empno);
-            if (cnt == 1) {
+            int cnt2 = upDAO.deleteAccountEMP(empno);
+            int cnt3 = upDAO.deleteUserAuthEmp(empno);
+            
+            if (cnt == 1&&cnt2 ==1&&cnt3==1) {
                 JOptionPane.showMessageDialog(upEmpInfo, "해당 사원이 삭제되었습니다.");
             }
         } catch (SQLException e) {

@@ -14,7 +14,7 @@ public class VacationStatus extends JFrame {
     private DefaultTableModel dtmVacationStatus;
     private JButton jbBack;
 
-    public VacationStatus() throws SQLException {
+    public VacationStatus(){
         setTitle("사원 휴가신청 관리");
         setLayout(null);
 

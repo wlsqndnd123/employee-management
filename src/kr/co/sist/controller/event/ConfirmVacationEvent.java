@@ -23,77 +23,47 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
         this.cv = cv;
     }
 
-
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == cv.getJbReturn()) {
             String docNum = cv.getJtfDocNum().getText();
             new ReturnReason(cv, docNum);
-
-
         }
 
         if (ae.getSource() == cv.getJbApprove()) {
-
-
             int result = JOptionPane.showConfirmDialog(null, "승인하시겠습니까?.", "확인", JOptionPane.YES_NO_OPTION);
             if (result == JOptionPane.YES_OPTION) {
                 ApproveVacation(Integer.parseInt(cv.getJtfDocNum().getText()));
-            } else {
-                return;
             }
             cv.dispose();
-            try {
-                new VacationStatus();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-
+            new VacationStatus();
         }
 
         if (ae.getSource() == cv.getJbCancel()) {
-
             cv.dispose();
-            try {
-                new VacationStatus();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-
+            new VacationStatus();
         }
-
-
     }
 
 
     public void ApproveVacation(int docNum) {
-
         VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
         try {
             vsDAO.approveVS(docNum);
         } catch (SQLException e) {
-
             e.printStackTrace();
         }
     }
-
 
     public int VDocStatus(String item) throws SQLException {
         VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
         vVOList = vsDAO.selectedDoc_numInfo(item);
         int check_code = 0;
 
-
         if (vVOList.isEmpty()) {
             JOptionPane.showMessageDialog(null, "내용이 없습니다.");
         } else {
             for (VacationVO vVO : vVOList) {
                 cv.getJtaContent().setText(vVO.getWorkLog());
-
-
                 cv.getJtfEmpName().setText(vVO.getEmpName());
                 cv.getJtfEmpNum().setText("" + vVO.getEmpNo());
                 cv.getJtfLeftVaction().setText("" + (vVO.getAssignCount() - vVO.getUseCount()));
@@ -101,14 +71,7 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
 
                 check_code = vVO.getCode2();
             }
-
-
         }
-
         return check_code;
-
-
     }
-
-
 }
