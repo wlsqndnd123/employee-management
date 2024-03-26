@@ -59,11 +59,8 @@ public class ReturnReasonEvent extends WindowAdapter implements ActionListener {
         vsDAO.returnVS(docNum);
         vsDAO.InsertReturnReason(docNum, rr.getJtaContent().getText());
 
-        if (toVacStat) {
-            cv.dispose();
-            new VacationStatus();
-        }
-
         rr.dispose();
+        cv.dispose();
+        new VacationStatus();
     }
 }
