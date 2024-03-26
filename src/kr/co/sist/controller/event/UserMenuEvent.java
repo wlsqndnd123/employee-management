@@ -25,15 +25,15 @@ public class UserMenuEvent extends WindowAdapter implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == userMenu.getDocsListJbtn()) {
-        	userMenu.dispose();
+            closeFrame();
             new DocsList();
         }
         if (e.getSource() == userMenu.getVacationJbtn()) {
-        	userMenu.dispose();
+            closeFrame();
             new RequestVacation();
         }
         if (e.getSource() == userMenu.getInformationJbtn()) {
-        	userMenu.dispose();
+            closeFrame();
             new UpdateTelNumber(new UpdateTelNumberEvent().setPersonalInfo());
         }
         if (e.getSource() == userMenu.getCloseJbtn()) {

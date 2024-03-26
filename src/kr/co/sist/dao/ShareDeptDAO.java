@@ -54,35 +54,98 @@ public class ShareDeptDAO {
     public List<DocumentVO> getSharedDepts(int deptno) throws SQLException {
     	List<DocumentVO> deptArr = new ArrayList<DocumentVO>();
     	DocumentVO dVO =null;
-    	 Connection con = null;
-         PreparedStatement pstmt = null;
-         ResultSet rs =null;
-         StringBuilder searchDept = new StringBuilder();
-         String[] dept = null;
-         try {
-        	 con = DbConnection.getCon(); 
-        	 searchDept
-        	 .append("	SELECT	CASE DEPT_CODE	")
-        	 .append("	WHEN 1 THEN '정비본부'	WHEN 2 THEN '정비기획부문'	")
-        	 .append("  WHEN 3 THEN '안전정비부문'	WHEN 4 THEN '정비지원팀'	")
-        	 .append("  WHEN 5 THEN '정비통제팀'  WHEN 6 THEN '예방정비팀'	")
-        	 .append("  WHEN 7 THEN '중정비팀'	WHEN 8 THEN '인천운항정비팀'	")
-        	 .append("  WHEN 9 THEN '김포운항정비팀'	WHEN 10 THEN '부품정비팀'	")
-        	 .append("    END AS dept_name	FROM SHARE_DOCS	where DOC_NO = ?");
-       
-        	 pstmt = con.prepareStatement(searchDept.toString());
-        	 pstmt.setInt(1, deptno);
-        	 rs=pstmt.executeQuery();
+    	Connection con = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs =null;
+    	StringBuilder searchDept = new StringBuilder();
+    	DocsManagementDAO dDAO = DocsManagementDAO.getInstance();
+    	try {
+    		con = DbConnection.getCon(); 
+    		searchDept
+    		.append("	select DEPT_CODE dc from DEPT 	")
+    		.append("	where DEPT_CODE not like 99	 	")
+    		.append("	MINUS	")
+    		.append("	select DEPT_CODE from SHARE_DOCS where DOC_NO = ? ");	
+    		pstmt = con.prepareStatement(searchDept.toString());
+    		pstmt.setInt(1, deptno);
+    		 rs=pstmt.executeQuery();
         	 while(rs.next()) {
         		 dVO= new DocumentVO();
-        		 dVO.setDept(rs.getString("dept_name"));
+        		 dVO.setDept(dDAO.searchDept(rs.getInt("dc")));
         		 deptArr.add(dVO);
         	 }
-        	 
-         }finally {
-        	 
-         }
+    	}finally {
+    		
+    	}
 		return deptArr;
+    }
+//    public List<DocumentVO> getSharedDepts(int deptno) throws SQLException {
+//    	List<DocumentVO> deptArr = new ArrayList<DocumentVO>();
+//    	DocumentVO dVO =null;
+//    	Connection con = null;
+//    	PreparedStatement pstmt = null;
+//    	ResultSet rs =null;
+//    	StringBuilder searchDept = new StringBuilder();
+//    	String[] dept = null;
+//    	try {
+//    		con = DbConnection.getCon(); 
+//        	 searchDept
+//        	 .append("	SELECT	CASE DEPT_CODE	")
+//        	 .append("	WHEN 1 THEN '정비본부'	WHEN 2 THEN '정비기획부문'	")
+//        	 .append("  WHEN 3 THEN '안전정비부문'	WHEN 4 THEN '정비지원팀'	")
+//        	 .append("  WHEN 5 THEN '정비통제팀'  WHEN 6 THEN '예방정비팀'	")
+//        	 .append("  WHEN 7 THEN '중정비팀'	WHEN 8 THEN '인천운항정비팀'	")
+//        	 .append("  WHEN 9 THEN '김포운항정비팀'	WHEN 10 THEN '부품정비팀'	")
+//        	 .append("    END AS dept_name	FROM SHARE_DOCS	where DOC_NO = ?");
+//       
+//        	 pstmt = con.prepareStatement(searchDept.toString());
+//        	 pstmt.setInt(1, deptno);
+//        	 rs=pstmt.executeQuery();
+//        	 while(rs.next()) {
+//        		 dVO= new DocumentVO();
+//        		 dVO.setDept(rs.getString("dept_name"));
+//        		 deptArr.add(dVO);
+//        		 dVO.toString();
+//        	 }
+//        	 
+//         }finally {
+//        	 
+//         }
+//		return deptArr;
+//    }
+    
+    public List<DocumentVO> varifiyDepts(int docno) throws SQLException{
+    	List<DocumentVO> list = new ArrayList<DocumentVO>();
+    	DocumentVO dVO= null;
+    	Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        StringBuilder selectDept = new StringBuilder();
+        try {
+            con = DbConnection.getCon();
+            selectDept
+            .append("select DEPT_NAME from  DEPT")
+            .append(" where  DEPT_CODE not like( select DEPT_CODE from SHARE_DOCS ")
+            .append(" where DOC_NO = ? )");
+            pstmt = con.prepareStatement(selectDept.toString());
+            pstmt.setInt(1, docno);
+            
+           rs= pstmt.executeQuery();
+           while(rs.next()) {
+        	   dVO = new DocumentVO();
+        	   dVO.setDept(rs.getString("DEPT_NAME"));
+        	   list.add(dVO);
+           }
+        	   
+        
+            
+        }finally {
+        	
+        }
+        
+    	
+		return list;
+    	
     }
 
 }
