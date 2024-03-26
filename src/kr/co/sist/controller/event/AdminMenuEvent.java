@@ -33,22 +33,26 @@ public class AdminMenuEvent extends WindowAdapter implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == adminMenu.getEmployeeInformationJbtn()){
+        	adminMenu.dispose();
             new CheckEmployeeInformation();
         }
         if (e.getSource() == adminMenu.getWorkAttendanceJbtn()){
             try {
+            	adminMenu.dispose();
                 new WorkStatus();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
         }
         if (e.getSource() == adminMenu.getDocumentsJbtn()){
+        	adminMenu.dispose();
             new DocsManagement();
         }
         if (e.getSource() == adminMenu.getCloseJbtn()){
             closeFrame();
         }
         if (e.getSource() == adminMenu.getPasswordJbtn()){
+        	
             new UpdatePassword();
         }
     }

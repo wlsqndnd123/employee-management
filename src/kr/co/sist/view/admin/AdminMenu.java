@@ -2,7 +2,10 @@ package kr.co.sist.view.admin;
 
 import kr.co.sist.controller.event.AdminMenuEvent;
 import kr.co.sist.service.RunAdminMenuDAO;
+import kr.co.sist.view.common.Login;
 import kr.co.sist.view.util.JFrameComponent;
+
+import java.sql.SQLException;
 
 import javax.swing.*;
 
@@ -102,4 +105,8 @@ public class AdminMenu extends JFrame {
     public JButton getPasswordJbtn() {
         return passwordJbtn;
     }
+    
+   
+    
+    
 }
