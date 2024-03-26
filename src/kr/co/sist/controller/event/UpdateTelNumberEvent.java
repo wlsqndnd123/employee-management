@@ -36,6 +36,7 @@ public class UpdateTelNumberEvent extends JFrame implements ActionListener {
                             LoginDAO.getInstance().confirmUser
                                     (LoginEvent.getEmpno()).getPassword()
                     ));
+            utn.dispose();
         }
         if (e.getSource() == utn.getGoHome()) {
             new UserMenu();
