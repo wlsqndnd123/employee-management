@@ -14,10 +14,10 @@ import java.sql.SQLException;
 
 public class ReturnReasonEvent extends WindowAdapter implements ActionListener {
 
-    private ReturnReason rr;
+    private final ReturnReason rr;
     private ConfirmVacation cv;
     private ConfirmDocs cd;
-    private String docNum;
+    private final String docNum;
 
     public ReturnReasonEvent(ConfirmVacation cv, ReturnReason rr, String dNum) {
         this.cv = cv;
@@ -47,11 +47,7 @@ public class ReturnReasonEvent extends WindowAdapter implements ActionListener {
         int result = JOptionPane.showConfirmDialog(null, "반려하시겠습니까?.", "확인", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
             try {
-                if (cv == null) {
-                    inputReason(true);
-                } else {
-                    inputReason(false);
-                }
+                inputReason(cv == null);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
