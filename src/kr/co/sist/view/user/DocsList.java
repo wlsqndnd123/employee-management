@@ -15,12 +15,13 @@ public class DocsList extends JFrame {
 	private JTable jtDoc;
 	private DefaultTableModel dtmjtabResult;
 
+
 	public DocsList() {
 		setTitle("사원문서리스트");
 		setLayout(null);
-		cbcheck = new JCheckBox();
+		cbcheck = new JCheckBox("공유문서");
 		add(cbcheck);
-		cbcheck.setBounds(30, 20, 20, 20);
+		cbcheck.setBounds(30, 20, 100, 20);
 		createTable();
 		addButtons();
 		createEvents();

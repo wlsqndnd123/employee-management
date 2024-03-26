@@ -31,6 +31,7 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == ceiv.getJbtnAdd()) {
             addEmp();
+            ceiv.dispose();
             new CheckEmployeeInformation();
         } // end if
         if (ae.getSource() == ceiv.getJbtnCancel()) {
@@ -57,6 +58,8 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
             ceDAO.insertAccountEmp(empno);
             ceDAO.insertUserAuthEmp(empno);
             JOptionPane.showMessageDialog(ceiv, "사원 번호 " + empno + " 번, " + name + "님이 등록되었습니다.");
+         
+            
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

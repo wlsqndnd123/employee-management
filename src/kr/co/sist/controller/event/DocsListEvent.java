@@ -27,9 +27,11 @@ public class DocsListEvent implements ActionListener, ItemListener, MouseListene
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == dclist.getJbtnAddDoc()) {
+        	dclist.dispose();
             new SubmitDocs();
         }
         if (ae.getSource() == dclist.getJbtnGoMain()) {
+        	dclist.dispose();
             new UserMenu();
         }
     }
