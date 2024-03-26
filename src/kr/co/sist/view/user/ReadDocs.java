@@ -15,67 +15,56 @@ public class ReadDocs extends JFrame {
     private JTextArea jta;
 
     public ReadDocs() {
-
     }
 
     public ReadDocs(DocumentVO dVO) {
-
         super("문서 확인");
-
         setLayout(null);
+
         createTextFiled(dVO);
-        jtfDocNo = JFrameComponent.createTextField(getContentPane(),110, 30, 100, 30);
-        jtfEmpNo = JFrameComponent.createTextField(getContentPane(),250, 30, 70, 30);
-        jtfEmpNm = JFrameComponent.createTextField(getContentPane(),370, 30, 100, 30);
-        jtfDate = JFrameComponent.createTextField(getContentPane(),510, 30, 70, 30);
+        createLabel();
+        createButton();
 
-        jldocNo= JFrameComponent.createLabel(getContentPane(), "문서번호:", 50, 30, 200, 30);
-        jlempNo= JFrameComponent.createLabel(getContentPane(), "사번:",220, 30, 100, 30);
-        jlempNm= JFrameComponent.createLabel(getContentPane(), "사원명:",330, 30, 100, 30);
-        jldate= JFrameComponent.createLabel(getContentPane(), "날짜:",480, 30, 100, 30);
-
-        jbtnChg= JFrameComponent.createButton(getContentPane(),"수정" ,150, 460, 80, 30);
-        jbtnDel= JFrameComponent.createButton(getContentPane(),"삭제" ,250, 460, 80, 30);
-        jbtnOk= JFrameComponent.createButton(getContentPane(),"확인" ,350, 460, 80, 30);
         jta = new JTextArea();
         jta.setText(dVO.getWorkLog());
-        addActions();
+        JScrollPane jspContents = new JScrollPane(jta);
+        jspContents.setBounds(70, 130, 500, 300);
+        add(jspContents);
 
+        createEvent();
 
-        setSize(500, 600);
-
-
-
-
-
-
-        jta.setBounds(70, 130, 500, 300);
         setVisible(true);
         setBounds(300, 100, 650, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     private void createTextFiled(DocumentVO dVO) {
-    	jtfDocNo = new JTextField(15);
-    	jtfDocNo.setText(dVO.getDocNo());
-    	jtfEmpNo = new JTextField(10);
-    	jtfEmpNo.setText(String.valueOf(dVO.getEmpNo()));
-    	jtfEmpNm = new JTextField(10);
-    	jtfEmpNm.setText(dVO.getName());
-    	jtfDate = new JTextField(10);
-    	jtfDate.setText(String.valueOf(dVO.getDocDate()));
-    	jtfDocNo.setEditable(false);
-    	jtfEmpNo.setEditable(false);
-    	jtfEmpNm.setEditable(false);
-    	jtfDate.setEditable(false);
-    	
+        jtfDocNo = JFrameComponent.createTextField(getContentPane(),dVO.getDocNo(),110, 30, 100, 30,false);
+        jtfEmpNo = JFrameComponent.createTextField(getContentPane(),String.valueOf(dVO.getEmpNo()),250, 30, 70, 30,false);
+        jtfEmpNm = JFrameComponent.createTextField(getContentPane(),dVO.getName(),370, 30, 100, 30,false);
+        jtfDate = JFrameComponent.createTextField(getContentPane(),String.valueOf(dVO.getDocDate()),510, 30, 70, 30,false);
     }
-    private void addActions() {
-    	ReadDocsEvent rde = new ReadDocsEvent(this);
-    	jbtnOk.addActionListener(rde);
-    	jbtnChg.addActionListener(rde);
-    	jbtnDel.addActionListener(rde);
-    	
+
+    private void createEvent() {
+    	ReadDocsEvent readDocsEvent = new ReadDocsEvent(this);
+
+    	jbtnOk.addActionListener(readDocsEvent);
+    	jbtnChg.addActionListener(readDocsEvent);
+    	jbtnDel.addActionListener(readDocsEvent);
     }
+
+    private void createLabel(){
+        jldocNo= JFrameComponent.createLabel(getContentPane(), "문서번호:", 50, 30, 200, 30);
+        jlempNo= JFrameComponent.createLabel(getContentPane(), "사번:",220, 30, 100, 30);
+        jlempNm= JFrameComponent.createLabel(getContentPane(), "사원명:",330, 30, 100, 30);
+        jldate= JFrameComponent.createLabel(getContentPane(), "날짜:",480, 30, 100, 30);
+    }
+
+    private void createButton(){
+        jbtnChg= JFrameComponent.createButton(getContentPane(),"수정" ,150, 460, 80, 30);
+        jbtnDel= JFrameComponent.createButton(getContentPane(),"삭제" ,250, 460, 80, 30);
+        jbtnOk= JFrameComponent.createButton(getContentPane(),"확인" ,350, 460, 80, 30);
+    }
+
     /**
      * @return the jbtnChg
      */
@@ -125,13 +114,10 @@ public class ReadDocs extends JFrame {
         return jtfDate;
     }
 
-
     /**
      * @return the jta
      */
     public JTextArea getJta() {
         return jta;
     }
-
-
 }
