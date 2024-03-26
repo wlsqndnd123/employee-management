@@ -34,7 +34,7 @@ public class DocsListDAO {
         try {
             con = DbConnection.getCon();
             String selectAllDocument = "	select   doc_no,bl.title, d.dept_name, bl.doc_date, bl.code2, bl.edit_date"
-                    + "	from   dept d,emp_info ei, bussiness_log bl	"
+                    + "	from   dept d,emp_info ei, business_log bl	"
                     + "	where (d.dept_code = ei.dept_code)and (ei.emp_no = bl.emp_no) and bl.logic ='N'	";
 
 
@@ -70,7 +70,7 @@ public class DocsListDAO {
         try {
             con = DbConnection.getCon();
             String selectAllDocument = "	SELECT bl.doc_no, bl.title, d.dept_name, bl.doc_date,bl.grp_code,bl.code2, bl.edit_date"
-                    + "	FROM 	dept d, emp_info ei, bussiness_log bl	"
+                    + "	FROM 	dept d, emp_info ei, business_log bl	"
                     + "	LEFT JOIN share_docs sd ON bl.doc_no = sd.doc_no	"
                     + "	WHERE (d.dept_code = ei.dept_code) AND (ei.emp_no = bl.emp_no) AND (ei.emp_no = ?)	";
 
@@ -107,7 +107,7 @@ public class DocsListDAO {
             con = DbConnection.getCon();
 
             String selectAllDocument = "select	bl.doc_no, bl.title, d.dept_name, bl.doc_date,bl.WORK_LOG,bl.edit_date , ei. name, ei.emp_no, bl.code2  "
-                    + "	FROM 	dept d, emp_info ei, bussiness_log bl	"
+                    + "	FROM 	dept d, emp_info ei, business_log bl	"
                     + "	WHERE (d.dept_code = ei.dept_code) AND (ei.emp_no = bl.emp_no) AND (bl.doc_no =? )	";
 
 

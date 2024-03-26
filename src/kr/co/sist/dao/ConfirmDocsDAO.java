@@ -26,7 +26,7 @@ public class ConfirmDocsDAO {
 		PreparedStatement pstmt = null;
 		try {
 			con = DbConnection.getCon();
-			String approve = "update bussiness_log set code2 = 2 	where doc_no = ?";
+			String approve = "update business_log set code2 = 2 	where doc_no = ?";
 
 			pstmt = con.prepareStatement(approve);
 			pstmt.setString(1, docNum);
