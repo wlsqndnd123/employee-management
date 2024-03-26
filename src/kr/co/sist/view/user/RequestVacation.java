@@ -25,9 +25,6 @@ public class RequestVacation extends JFrame {
     private JButton cancelJbtn;
     private String startDate;
     private String endDate;
-    private Date sDate;
-    private Date eDate;
-
 
     /**
      * Desc : 휴가 신청 main frame 구현
@@ -156,15 +153,6 @@ public class RequestVacation extends JFrame {
 
     public JTextArea getVacContents() {
         return vacContents;
-    }
-
-
-    public Date getsDate() {
-        return sDate;
-    }
-
-    public Date geteDate() {
-        return eDate;
     }
 
     public JDateChooser getVacStartDate() {
