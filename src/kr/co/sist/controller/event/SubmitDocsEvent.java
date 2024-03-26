@@ -34,7 +34,7 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener, It
 
         //String docNo, String title, String workLog, String dept, int empNo)
         DocumentVO dVO = new DocumentVO(null, title, workLog, dept, fileNm, empNo);
-        sbDAO.insertBussinessLog(docNo,dVO);
+        sbDAO.insertBusinessLog(docNo,dVO);
         
     }
 

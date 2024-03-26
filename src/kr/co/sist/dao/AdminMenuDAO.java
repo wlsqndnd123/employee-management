@@ -44,7 +44,7 @@ public class AdminMenuDAO {
 
         try {
             connection = DbConnection.getCon();
-            String countDocs = "select count(*) from bussiness_log where CODE2 = 1";
+            String countDocs = "select count(*) from business_log where CODE2 = 1";
             if (isCodeFive) {
                 countDocs += " and CODE = 5";
             } else {

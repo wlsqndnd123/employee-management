@@ -100,7 +100,7 @@ public class UserMenuDAO {
             connection = DbConnection.getCon();
 
             String selectInfo = "select START_DATE, END_DATE " +
-                    "from BUSSINESS_LOG " +
+                    "from BUSINESS_LOG " +
                     "where EMP_NO = ? " +
                     "and code = 5 " +
                     "and CODE2 = 2 " +
