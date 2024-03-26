@@ -2,7 +2,9 @@ package kr.co.sist.view.admin;
 
 import kr.co.sist.controller.event.ShareDeptEvent;
 import kr.co.sist.dao.CheckEmployeeInformationDAO;
+import kr.co.sist.dao.ShareDeptDAO;
 import kr.co.sist.view.util.JFrameComponent;
+import kr.co.sist.vo.DocumentVO;
 import kr.co.sist.vo.EmpInfoVO;
 
 import javax.swing.*;
@@ -54,12 +56,21 @@ public class ShareDept extends JFrame {
     }
 
     private void createTableContents(){
+    	//전체 Dept의 내역을 조회한 문서에서
+    	//해당 문서번호가 공유된 부서 번호를 조회하여 리스트에서 아예 삭제한 상태로 창이 열리게 하기.
         CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
         try {
             List<EmpInfoVO> dept = ciDAO.selectInfo("dept");
             for (EmpInfoVO empInfoVO : dept) {
                 dlmDept.addElement(empInfoVO.getDept());
             }
+            List<DocumentVO> selectedDept =
+            		ShareDeptDAO.getInstance().getSharedDepts(Integer.parseInt(ConfirmDocs.getDocNum()));
+           if(selectedDept!=null) {
+        	   
+            for(DocumentVO dVO :selectedDept)
+            	dlmDept.removeElement(dVO.getDept());
+           }
         } catch (SQLException e) {
             e.printStackTrace();
         }

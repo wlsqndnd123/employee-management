@@ -56,7 +56,7 @@ public class UpdateTelNumberDAO {
 
             String str =
                     "	update    EMP_INFO	"
-                            + "		set     tel = 	? , EDIT_DATE =sysdate	"
+                            + "		set     tel = 	? , EDIT_DATE = sysdate	"
                             + "		where emp_no = 	? 	";
 
             pstmt = con.prepareStatement(str);
@@ -64,7 +64,6 @@ public class UpdateTelNumberDAO {
             pstmt.setInt(2, eVO.getEmpno());
 
             cnt = pstmt.executeUpdate();
-            System.out.println("12131");
         } finally {
             DbConnection.dbClose(null, pstmt, con);
         }
