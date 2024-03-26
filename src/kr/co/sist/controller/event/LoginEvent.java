@@ -57,8 +57,10 @@ public class LoginEvent extends WindowAdapter implements ActionListener {
         if (Password.equals(savedPw)) {
             if (authcode.equals("SUPER") || authcode.equals("ADMIN")) {
                 new AdminMenu();
+                login.dispose();
             } else {
                 new UserMenu();
+                login.dispose();
             }
         } else {
             JOptionPane.showMessageDialog(null, "비번확인하쇼");
