@@ -22,6 +22,7 @@ public class ConfirmDocsEvent extends WindowAdapter implements ActionListener, M
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == cfdocs.getJbtnShare()) {
             new ShareDept();
+            cfdocs.dispose();
         }
 
         if (ae.getSource() == cfdocs.getJbtnApproval()) {
@@ -31,6 +32,7 @@ public class ConfirmDocsEvent extends WindowAdapter implements ActionListener, M
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            
             new DocsManagement();
             cfdocs.dispose();
         }

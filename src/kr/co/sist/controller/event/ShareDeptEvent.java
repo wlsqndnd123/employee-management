@@ -7,6 +7,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import kr.co.sist.dao.ShareDeptDAO;
 import kr.co.sist.view.admin.ConfirmDocs;
 import kr.co.sist.view.admin.DocsManagement;
@@ -72,13 +74,15 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == dept.getJbtncancel()) {
             dept.dispose();
-            new DocsManagement();
+            
         }
         if (ae.getSource() == dept.getJbtncheck()) {
             try {
             	Object[] selectedDept =
             	dept.getDlmSelectedDept().toArray();
                 addSharedDoc(selectedDept);
+                JOptionPane.showMessageDialog(null, "공유되었습니다.");
+                dept.dispose();
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             } catch (SQLException e) {

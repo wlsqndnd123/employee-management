@@ -62,16 +62,15 @@ public class ShareDeptDAO {
     	try {
     		con = DbConnection.getCon(); 
     		searchDept
-    		.append("	select DEPT_CODE dc from DEPT 	")
-    		.append("	where DEPT_CODE not like 99	 	")
-    		.append("	MINUS	")
-    		.append("	select DEPT_CODE from SHARE_DOCS where DOC_NO = ? ");	
+    		.append("select d.dept_name, d.DEPT_CODE from dept d ")
+    		.append(" where d.DEPT_CODE not in (select s.dept_code	from share_docs s, business_log b")
+    		.append("  where s.doc_no = b.doc_no and s.doc_no = ?) and d.DEPT_CODE <> 99");	
     		pstmt = con.prepareStatement(searchDept.toString());
     		pstmt.setInt(1, deptno);
     		 rs=pstmt.executeQuery();
         	 while(rs.next()) {
         		 dVO= new DocumentVO();
-        		 dVO.setDept(dDAO.searchDept(rs.getInt("dc")));
+        		 dVO.setDept(rs.getString("dept_name"));
         		 deptArr.add(dVO);
         	 }
     	}finally {
