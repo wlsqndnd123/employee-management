@@ -3,6 +3,7 @@ package kr.co.sist.controller.event;
 import kr.co.sist.dao.CheckEmployeeInformationDAO;
 import kr.co.sist.dao.SubmitDocsDAO;
 import kr.co.sist.view.common.SubmitDocs;
+import kr.co.sist.view.user.DocsList;
 import kr.co.sist.vo.DocumentVO;
 import kr.co.sist.vo.EmpInfoVO;
 
@@ -67,15 +68,24 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener, It
 
         if (e.getSource() == smd.getBtn_regist()) {
             try {
+            	if(!smd.getJta().getText().isBlank()) {
                 insertDoc();
-                JOptionPane.showMessageDialog(null, "글이 등록되었습니다.");
+                JOptionPane.showMessageDialog(smd, "글이 등록되었습니다.");
                 smd.dispose();
+                new DocsList();
+            	}else {
+            		JOptionPane.showMessageDialog(smd, "내용을 입력해주세요");
+            		return;
+            	}
             } catch (NumberFormatException | SQLException e1) {
                 e1.printStackTrace();
             }
+            
         }
+            
         if (e.getSource() == smd.getBtn_cancel()) {
             smd.dispose();
+            new DocsList();
         }
     }
 
@@ -87,7 +97,6 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener, It
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getSource() == smd.getJcb() && e.getStateChange() == ItemEvent.SELECTED) {
-            System.out.println(smd.getJcb().getSelectedItem());
         }
     }
 
