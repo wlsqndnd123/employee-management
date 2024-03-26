@@ -22,20 +22,18 @@ public class UpdatePassword extends JFrame{
 	private JButton UpdateButton, ExitButton;
 	private String password;
 
+	private LoginVO lVO;
+	
 	public UpdatePassword() {
 	}
 
 	private static UpdatePasswordVO upVO;
-	private static LoginVO lVO = new LoginVO("240001","tlqkf");
 
 
 	public UpdatePassword(LoginVO lVO) {
 		super("비밀번호 변경");
 		
-//		lVO.setEmp_no("240001");
-//		lVO.setPassword("tlqkf");
-//		
-		
+		this.lVO=lVO;
 		
 		//입력받는 변경할 비밀번호
 		JLabel jlUpdatePw = new JLabel("변경할 비밀번호");
@@ -102,4 +100,9 @@ public class UpdatePassword extends JFrame{
 	public LoginVO getLoginVO() {
 		return lVO;
 	}
+	
+//	public static void main(String[] args) {
+//		LoginVO lv=new LoginVO("240000", "1111");
+//		new UpdatePassword(lv );
+//	}
 }//class
