@@ -35,19 +35,19 @@ public class AdminMenuEvent extends WindowAdapter implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == adminMenu.getEmployeeInformationJbtn()){
-        	adminMenu.dispose();
+            closeFrame();
             new CheckEmployeeInformation();
         }
         if (e.getSource() == adminMenu.getWorkAttendanceJbtn()){
             try {
-            	adminMenu.dispose();
+                closeFrame();
                 new WorkStatus();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
         }
         if (e.getSource() == adminMenu.getDocumentsJbtn()){
-        	adminMenu.dispose();
+            closeFrame();
             new DocsManagement();
         }
         if (e.getSource() == adminMenu.getCloseJbtn()){
@@ -60,6 +60,7 @@ public class AdminMenuEvent extends WindowAdapter implements ActionListener {
                             LoginDAO.getInstance().confirmUser
                                     (LoginEvent.getEmpno()).getPassword()
                     ));
+            closeFrame();
         }
     }
 
