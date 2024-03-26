@@ -64,7 +64,7 @@ public class ShareDept extends JFrame {
         	for(DocumentVO dVO: dept) {
         		 dlmDept.addElement(dVO.getDept());
         	}
-        	//            List<EmpInfoVO> dept = ciDAO.selectInfo("dept");
+//        	            List<EmpInfoVO> dept = ciDAO.selectInfo("dept");
 //            for (EmpInfoVO empInfoVO : dept) {
 //                dlmDept.addElement(empInfoVO.getDept());
 //            }
