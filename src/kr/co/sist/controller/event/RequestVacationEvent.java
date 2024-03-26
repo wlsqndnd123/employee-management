@@ -3,6 +3,7 @@ package kr.co.sist.controller.event;
 import kr.co.sist.dao.RequestVacationDAO;
 import kr.co.sist.service.RunRequestVacationDAO;
 import kr.co.sist.view.user.RequestVacation;
+import kr.co.sist.view.user.UserMenu;
 import kr.co.sist.vo.VacationVO;
 
 import java.awt.event.ActionEvent;
@@ -54,7 +55,9 @@ public class RequestVacationEvent extends WindowAdapter implements ActionListene
         }
 
         if (e.getSource() == requestVacation.getCancelJbtn()) {
+        	
             closeFrame();
+            new UserMenu();
         }
     }
 
@@ -65,6 +68,8 @@ public class RequestVacationEvent extends WindowAdapter implements ActionListene
         java.sql.Date sqleDate = new Date(requestVacation.getVacEndDate().getDate().getTime());
         VacationVO vVO = new VacationVO(sqlsDate, sqleDate);
         RequestVacationDAO.getInstance().vacationData(vVO);
+        requestVacation.dispose();
+        new UserMenu();
     }
 
     @Override

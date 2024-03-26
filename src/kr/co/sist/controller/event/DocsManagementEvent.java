@@ -25,6 +25,7 @@ public class DocsManagementEvent implements ActionListener, MouseListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == dmm.getJbtnBackhome()) {
+        	dmm.dispose();
             new AdminMenu();
         }
         if (ae.getSource() == dmm.getJbtnSearch()) {
