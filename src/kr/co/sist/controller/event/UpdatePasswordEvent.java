@@ -27,9 +27,9 @@ public class UpdatePasswordEvent extends JFrame implements ActionListener{
 		if(ae.getSource() == up.getExitButton()) {
 			LoginVO loginVO = up.getLoginVO();
 			String authCode = loginVO.getAuthCode();
-	        if (authCode.equals("admin")||authCode.equals("super")) {
+	        if (authCode.equals("ADMIN")||authCode.equals("SUPER")) {
             new AdminMenu();
-        } else if (authCode.equals("user")) {
+        } else if (authCode.equals("USER")) {
             new UserMenu();
         } else {
             JOptionPane.showMessageDialog(up, "유효하지 않은 인증 코드입니다.");
@@ -38,6 +38,7 @@ public class UpdatePasswordEvent extends JFrame implements ActionListener{
 		}//end if
 		if(ae.getSource() == up.getUpdateButton()) {
 			modifyPassword();
+			up.dispose();
 		}
 	}//actionPerformed
 
