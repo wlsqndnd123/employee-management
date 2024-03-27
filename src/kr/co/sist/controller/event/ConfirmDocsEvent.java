@@ -26,13 +26,14 @@ public class ConfirmDocsEvent extends WindowAdapter implements ActionListener, M
         }
 
         if (ae.getSource() == cfdocs.getJbtnApproval()) {
+
             try {
                 docNum = cfdocs.getJtfdocnum().getText();
                 acceptDoc(docNum);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            
+
             new DocsManagement();
             cfdocs.dispose();
         }
