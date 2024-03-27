@@ -11,8 +11,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.sql.SQLException;
+import java.util.List;
 
-public class CheckEmployeeInformationEvent extends WindowAdapter implements ActionListener, MouseListener {
+public class CheckEmployeeInformationEvent extends WindowAdapter implements ActionListener, MouseListener, FocusListener {
     private CheckEmployeeInformation checkEmp;
     private EmpInfoVO eVO;
     DefaultTableModel model;
@@ -51,14 +52,10 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
     }// actionPerformed
 
     private void searchEmp() {
-        if (checkEmp.getJtInputEmpno().getText().isEmpty()) {
-            try {
+        if (checkEmp.getJtInputEmpno().getText().isBlank()) {
                 resetTable();
-                searchEmpInfo(eVO);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } else {
+                allEmployeePrint(model);
+        }else {
             int empno = Integer.parseInt(checkEmp.getJtInputEmpno().getText());
             try {
                 resetTable();
@@ -72,6 +69,30 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
     private void resetTable() {
         model = (DefaultTableModel) checkEmp.getJtEmpInfo().getModel();
         model.setNumRows(0);
+//        allEmployeePrint(model);
+    }
+
+    public static void allEmployeePrint(DefaultTableModel model) {
+        try {
+            CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
+            List<EmpInfoVO> list = ciDAO.selectAllEmpInfo();
+
+            Object[] content = new Object[8];
+
+            for (EmpInfoVO emp : list) {
+                content[0] = emp.getEmpno();
+                content[1] = emp.getName();
+                content[2] = emp.getJob();
+                content[3] = emp.getPosition();
+                content[4] = emp.getDept();
+                content[5] = emp.getHiredate();
+                content[6] = emp.getTel();
+                content[7] = emp.getModifiedDate();
+                model.addRow(content);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -176,4 +197,13 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 
     }
 
+    @Override
+    public void focusGained(FocusEvent e) {
+        checkEmp.getJtInputEmpno().setText("");
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+
+    }
 }
