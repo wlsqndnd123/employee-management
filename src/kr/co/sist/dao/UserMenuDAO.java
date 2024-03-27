@@ -14,7 +14,9 @@ import java.util.List;
 /**
  * Desc : 사원 메뉴 view에 표시될 Data<br>
  * 작성자 : 고한별<br>
- * 작성일 : 2024.03.15
+ * 작성일 : 2024.03.15<br>
+ * 수정자 : 고한별<br>
+ * 수정일 : 2024.03.28
  */
 public class UserMenuDAO {
     private static UserMenuDAO userMenuDAO;
@@ -35,95 +37,68 @@ public class UserMenuDAO {
     }
 
     /**
-     * Desc : view에 필요한 Data 호출
-     * **********************Login Data에서 empno 받으면 수정******************
+     * Desc : 사용자의 출퇴근 기록시간을 조회하여 List로 반환
      *
-     * @return : 관련 데이터 list
+     * @param empNo 로그인 한 사원번호
+     * @return 날짜와 출퇴근시간이 기록된 CommuteVO List
      * @throws SQLException
      */
     public List<CommuteVO> selectCommuteLog(int empNo) throws SQLException {
         List<CommuteVO> list = new ArrayList<>();
         CommuteVO commuteVO = null;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
-        try {
-            connection = DbConnection.getCon();
+        try (Connection connection = DbConnection.getCon();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "SELECT c.commute_date, TO_CHAR(c.attend_time,'HH24:MI:SS') AS attend_time, " +
+                             "TO_CHAR(c.quit_time,'HH24:MI:SS') AS quit_time " +
+                             "FROM EMP_INFO ei, COMMUTE c " +
+                             "WHERE (ei.emp_no = c.emp_no) " +
+                             "AND (ei.emp_no = ?) " +
+                             "AND ((TO_CHAR(c.commute_date,'mm')) = (TO_CHAR(sysdate,'mm')))")) {
 
-            StringBuilder tempSelectQuery = new StringBuilder();
-            tempSelectQuery.append("   select c.commute_date, to_char(c.attend_time,'HH24:MI:SS') as attend_time,  ")
-                    .append("   to_char(c.quit_time,'HH24:MI:SS') as quit_time  ")
-                    .append("   from EMP_INFO ei, COMMUTE c    ")
-                    .append("   where (ei.emp_no = c.emp_no)   ")
-                    .append("  and (ei.emp_no = ?)  ")
-                    .append("  and (( to_char(c.commute_date,'mm')) ")
-                    .append("  = ( to_char(sysdate,'mm'))) ");
-            String selectInfo = tempSelectQuery.toString();
-
-            preparedStatement = connection.prepareStatement(selectInfo);
-
-            if (empNo != 0) {
-                preparedStatement.setInt(1, empNo);
+            preparedStatement.setInt(1, empNo);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    commuteVO = new CommuteVO(resultSet.getDate("commute_date"),
+                            resultSet.getString("attend_time"),
+                            resultSet.getString("quit_time"));
+                    list.add(commuteVO);
+                }
             }
-
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                commuteVO = new CommuteVO(resultSet.getDate("commute_date"),
-                        resultSet.getString("attend_time"),
-                        resultSet.getString("quit_time"));
-                list.add(commuteVO);
-            }
-
-        } finally {
-            DbConnection.dbClose(null, preparedStatement, connection);
         }
         return list;
     }
 
     /**
-     * Desc : JCalendar에 연차정보를 표기하기 위한 쿼리<br>
-     * **********************Login Data에서 empno 받으면 수정******************
+     * Desc : 사용자의 휴가 정보를 조회하여 List로 반환
      *
-     * @return : 관련 데이터 list
+     * @param empNo 로그인한 사원번호
+     * @return 승인된 휴가의 시작일과 종료일이 기록된 VacationVO List
      * @throws SQLException
      */
     public List<VacationVO> selectVacationDate(int empNo) throws SQLException {
         List<VacationVO> list = new ArrayList<>();
         VacationVO vacationVO = null;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
-        try {
-            connection = DbConnection.getCon();
+        try (Connection connection = DbConnection.getCon();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "SELECT START_DATE, END_DATE " +
+                             "FROM BUSINESS_LOG " +
+                             "WHERE EMP_NO = ? " +
+                             "AND CODE = 5 " +
+                             "AND CODE2 = 2 " +
+                             "AND ((TO_CHAR(START_DATE, 'MM') = TO_CHAR(sysdate, 'mm')) " +
+                             "OR (TO_CHAR(END_DATE, 'MM') = TO_CHAR(sysdate, 'mm')))")) {
 
-            String selectInfo = "select START_DATE, END_DATE " +
-                    "from BUSINESS_LOG " +
-                    "where EMP_NO = ? " +
-                    "and code = 5 " +
-                    "and CODE2 = 2 " +
-                    "and ((to_char(START_DATE, 'MM') = to_char(sysdate, 'mm')) or (to_char(END_DATE, 'MM') = to_char(sysdate, 'mm')))";
-
-            preparedStatement = connection.prepareStatement(selectInfo);
-
-            if (empNo != 0) {
-                preparedStatement.setInt(1, empNo);
+            preparedStatement.setInt(1, empNo);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    vacationVO = new VacationVO(resultSet.getDate("start_date"),
+                            resultSet.getDate("end_date"));
+                    list.add(vacationVO);
+                }
             }
-
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                vacationVO = new VacationVO(resultSet.getDate("start_date"),
-                        resultSet.getDate("end_date"));
-                list.add(vacationVO);
-            }
-
-        } finally {
-            DbConnection.dbClose(null, preparedStatement, connection);
         }
-
         return list;
     }
 
