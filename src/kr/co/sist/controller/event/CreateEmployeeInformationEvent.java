@@ -57,6 +57,7 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
             ceDAO.insertEmpInfo(empno,eVO);
             ceDAO.insertAccountEmp(empno);
             ceDAO.insertUserAuthEmp(empno);
+            ceDAO.insertDefaultVacaion(empno);
             JOptionPane.showMessageDialog(ceiv, "사원 번호 " + empno + " 번, " + name + "님이 등록되었습니다.");
          
             
