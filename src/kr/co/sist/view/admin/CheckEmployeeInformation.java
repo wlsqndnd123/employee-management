@@ -25,6 +25,7 @@ public class CheckEmployeeInformation extends JFrame {
     private JButton jbtnAddEmp, jbtnSearch, jbtnMain;
     private DefaultTableModel dtmEmpTable;
     private JTable jtEmpInfo;
+    private JLabel jlEmpno;
 
     /**
      * Desc : 사원 정보 관리 창을 열었을 때 실행되는 생성자
@@ -39,7 +40,8 @@ public class CheckEmployeeInformation extends JFrame {
 
         jycHiredateYear = JFrameComponent.createYearChooser(getContentPane(), 370, 125, 150, 30);
 
-        jtInputEmpno = JFrameComponent.createTextField(getContentPane(), "사번", 30, 50, 150, 30);
+        jlEmpno = JFrameComponent.createLabel(getContentPane(), "사번 입력 : ",30,20,100,30);
+        jtInputEmpno = JFrameComponent.createTextField(getContentPane(), 30, 50, 150, 30);
 
         createComboBoxContent();
         createEmployeeTable();
@@ -91,7 +93,6 @@ public class CheckEmployeeInformation extends JFrame {
 
         jtEmpInfo = new JTable(dtmEmpTable);
         jtEmpInfo.getTableHeader().setReorderingAllowed(false);
-        jtEmpInfo.getTableHeader().setResizingAllowed(false);
         JScrollPane scrollPane = new JScrollPane(jtEmpInfo);
         scrollPane.setBounds(30, 175, 600, 250);
         add(scrollPane);
@@ -101,26 +102,7 @@ public class CheckEmployeeInformation extends JFrame {
      * Desc : 사원 정보 테이블에 들어갈 내용을 DAO를 통해 DB에서 받아오기
      */
     private void createEmployeeTable() {
-        try {
-            CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
-            List<EmpInfoVO> list = ciDAO.selectAllEmpInfo();
-
-            Object[] content = new Object[8];
-
-            for (EmpInfoVO emp : list) {
-                content[0] = emp.getEmpno();
-                content[1] = emp.getName();
-                content[2] = emp.getJob();
-                content[3] = emp.getPosition();
-                content[4] = emp.getDept();
-                content[5] = emp.getHiredate();
-                content[6] = emp.getTel();
-                content[7] = emp.getModifiedDate();
-                dtmEmpTable.addRow(content);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        CheckEmployeeInformationEvent.allEmployeePrint(dtmEmpTable);
     }
 
     /**
@@ -145,6 +127,7 @@ public class CheckEmployeeInformation extends JFrame {
         cbDept.addActionListener(checkEmpevt);
         cbPosition.addActionListener(checkEmpevt);
         jtEmpInfo.addMouseListener(checkEmpevt);
+        jtInputEmpno.addFocusListener(checkEmpevt);
     }
 
     public JTextField getJtInputEmpno() {
@@ -182,4 +165,5 @@ public class CheckEmployeeInformation extends JFrame {
     public JButton getJbtnMain() {
         return jbtnMain;
     }
+
 }
