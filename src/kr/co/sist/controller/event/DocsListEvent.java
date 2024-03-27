@@ -96,6 +96,11 @@ public class DocsListEvent extends WindowAdapter implements ActionListener, Item
     public void mouseClicked(MouseEvent me) {
         int column = dclist.getJtaDob().columnAtPoint(me.getPoint());
         int row = dclist.getJtaDob().rowAtPoint(me.getPoint());
+
+        if (dclist.getJtaDob().getValueAt(row, column) == null) {
+            return;
+        }
+
         String item = dclist.getJtaDob().getValueAt(row, column).toString();
         String DocNum = (String) dclist.getJtaDob().getValueAt(row, 0);
         if (column == 0) { // 1st column
