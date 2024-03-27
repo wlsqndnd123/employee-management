@@ -58,24 +58,17 @@ public class ShareDept extends JFrame {
     private void createTableContents(){
     	//전체 Dept의 내역을 조회한 문서에서
     	//해당 문서번호가 공유된 부서 번호를 조회하여 리스트에서 아예 삭제한 상태로 창이 열리게 하기.
-        CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
         try {
-        	List<DocumentVO> dept = ShareDeptDAO.getInstance().getSharedDepts(Integer.parseInt(ConfirmDocs.getDocNum()));
-        	for(DocumentVO dVO: dept) {
-        		 dlmDept.addElement(dVO.getDept());
-        	}
-//        	            List<EmpInfoVO> dept = ciDAO.selectInfo("dept");
-//            for (EmpInfoVO empInfoVO : dept) {
-//                dlmDept.addElement(empInfoVO.getDept());
-//            }
-//            List<DocumentVO> selectedDept =
-//            		ShareDeptDAO.getInstance().getSharedDepts(Integer.parseInt(ConfirmDocs.getDocNum()));
-//          
-//            for(DocumentVO dVO :selectedDept)
-//            	dlmDept.removeElement(dVO.getDept());
-           
-        } catch (SQLException e) {
-            e.printStackTrace();
+            List<DocumentVO> dept = ShareDeptDAO.getInstance().getSharedDepts(Integer.parseInt(ConfirmDocs.getDocNum()));
+            if(dept.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "이 문서는 현재 모든 부서에 공유되었습니다.");
+            } else {
+                for(DocumentVO dVO: dept) {
+                    dlmDept.addElement(dVO.getDept());
+                }
+            }
+        } catch (NumberFormatException e) {
+        } catch (Exception e) {
         }
     }
 
