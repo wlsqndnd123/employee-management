@@ -39,7 +39,18 @@ public class UpdatePasswordEvent extends WindowAdapter implements ActionListener
         }//end if
 
         if (ae.getSource() == up.getUpdateButton()) {
+        	LoginVO loginVO = LoginDAO.getInstance().confirmUser(LoginEvent.getEmpno());
+            String authCode = loginVO.getAuthCode();
+            
             modifyPassword();
+            
+            if (authCode.equals("ADMIN") || authCode.equals("SUPER")) {
+                new AdminMenu();
+            } else if (authCode.equals("USER")) {
+                new UserMenu();
+            } else {
+                JOptionPane.showMessageDialog(up, "유효하지 않은 인증 코드입니다.");
+            }
             up.dispose();
         }
     }//actionPerformed
@@ -55,6 +66,7 @@ public class UpdatePasswordEvent extends WindowAdapter implements ActionListener
             int cnt = upDAO.updatePassword(up.getLoginVO(), pass);
             if (cnt == 1) {
                 JOptionPane.showMessageDialog(up, "해당 사원의 정보가 변경되었습니다.");
+                
             } else {
                 JOptionPane.showMessageDialog(up, "비밀번호를 다시 확인하세요");
             }
