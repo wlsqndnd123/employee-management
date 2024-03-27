@@ -132,11 +132,10 @@ public class CreateEmployeeInformationDAO {
 		PreparedStatement pstmt = null;
 		try {
 			con = DbConnection.getCon();
-			String insertVacation =" insert into VACATION_COUNT(EMP_NO,ASSIGN_COUNT) values (?,6)";
+			String insertVacation =" insert into VACATION_COUNT(EMP_NO,ASSIGN_COUNT,USE_COUNT) values (?,6,0)";
 			pstmt = con.prepareStatement(insertVacation);
 			
 			pstmt.setInt(1, empno);
-			pstmt.setInt(2, empno);
 			pstmt.executeUpdate();
 			
 		}finally {
