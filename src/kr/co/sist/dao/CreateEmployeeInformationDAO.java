@@ -127,6 +127,22 @@ public class CreateEmployeeInformationDAO {
 		}
 
 	}
+	public void insertDefaultVacaion(int empno) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = DbConnection.getCon();
+			String insertVacation =" insert into VACATION_COUNT(EMP_NO,ASSIGN_COUNT) values (?,6)";
+			pstmt = con.prepareStatement(insertVacation);
+			
+			pstmt.setInt(1, empno);
+			pstmt.setInt(2, empno);
+			pstmt.executeUpdate();
+			
+		}finally {
+			DbConnection.dbClose(null, pstmt, con);
+		}
+	}
 	
 	public int convertDept(String deptName) throws SQLException {
 		int dept_code =0;
@@ -135,7 +151,7 @@ public class CreateEmployeeInformationDAO {
 		ResultSet rs =null;
 		try {
 			con= DbConnection.getCon();
-			String dept= "select DEPT_CODE from dep where DEPT_NAME =?";
+			String dept= "select DEPT_CODE from dept where DEPT_NAME =?";
 			pstmt = con.prepareStatement(dept);
 			pstmt.setString(1, deptName);
 			rs =pstmt.executeQuery();
@@ -155,7 +171,7 @@ public class CreateEmployeeInformationDAO {
 		ResultSet rs =null;
 		try {
 			con= DbConnection.getCon();
-			String dept= "select DEPT_NAME from dep where DEPT_CODE =?";
+			String dept= "select DEPT_NAME from dept where DEPT_CODE =?";
 			pstmt = con.prepareStatement(dept);
 			pstmt.setInt(1, dept_code);
 			rs =pstmt.executeQuery();
@@ -168,5 +184,6 @@ public class CreateEmployeeInformationDAO {
 		
 		return deptName;
 	}
+	
 
 }
