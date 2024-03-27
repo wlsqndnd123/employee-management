@@ -74,7 +74,7 @@ public class LoginDAO {
 
             String query = "	select a.emp_no, a.pass, ua.auth_code "
                     + "	from  account a, USER_AUTH ua "
-                    + "	where    (a.emp_no= ua.emp_no) AND (a.emp_no = ?) ";
+                    + "	where    (a.emp_no= ua.emp_no) AND (a.emp_no = ?) and a.logic ='N'";
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, emp_no);
             rs = pstmt.executeQuery();
