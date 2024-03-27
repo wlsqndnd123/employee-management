@@ -66,7 +66,7 @@ public class VacationStatusEvent extends WindowAdapter implements ActionListener
         Object[] content = new Object[6];
         VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
         vVOList = vsDAO.selectVOinfo();
-
+        
         if (vVOList.isEmpty()) {
             return;
         } else {
@@ -115,4 +115,8 @@ public class VacationStatusEvent extends WindowAdapter implements ActionListener
 
     }
 
+    @Override
+    public void windowClosing(WindowEvent e) {
+        vs.dispose();
+    }
 }

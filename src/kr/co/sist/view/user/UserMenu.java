@@ -46,7 +46,6 @@ public class UserMenu extends JFrame {
 
         setBounds(300, 100, 650, 550);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     /**
@@ -154,6 +153,7 @@ public class UserMenu extends JFrame {
     public void createEvent() {
         UserMenuEvent userMenuEvent = new UserMenuEvent(this);
 
+        addWindowListener(userMenuEvent);
         docsListJbtn.addActionListener(userMenuEvent);
         vacationJbtn.addActionListener(userMenuEvent);
         informationJbtn.addActionListener(userMenuEvent);

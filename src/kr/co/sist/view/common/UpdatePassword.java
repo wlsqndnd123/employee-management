@@ -30,7 +30,6 @@ public class UpdatePassword extends JFrame {
         createEvent();
 
         setBounds(300, 120, 500, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }//UpdatePassword
 
@@ -52,6 +51,7 @@ public class UpdatePassword extends JFrame {
     private void createEvent(){
         UpdatePasswordEvent evt = new UpdatePasswordEvent(this);
 
+        addWindowListener(evt);
         UpdateButton.addActionListener(evt);
         ExitButton.addActionListener(evt);
     }

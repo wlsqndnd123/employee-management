@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 
@@ -77,4 +78,9 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
             e.printStackTrace();
         }
     }//disableEmpInfo
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        upEmpInfo.dispose();
+    }
 }

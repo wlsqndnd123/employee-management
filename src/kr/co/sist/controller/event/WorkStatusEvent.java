@@ -9,6 +9,7 @@ import kr.co.sist.vo.CommuteVO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -26,12 +27,12 @@ public class WorkStatusEvent extends WindowAdapter implements ActionListener {
             ws.getDtmDailyStatus().setNumRows(0);
 
             try {
-                int empno = 0;
+                int empno;
                 if (ws.getJtfEmpNum().getText().isBlank() || ws.getJtfEmpNum().getText().equals("사원번호")) {
-                	empno = 0;
-                }else {
-                
-                empno = Integer.parseInt(ws.getJtfEmpNum().getText());
+                    empno = 0;
+                } else {
+
+                    empno = Integer.parseInt(ws.getJtfEmpNum().getText());
                 }
                 CheckWS(empno, ws.getJcbDateRange().getSelectedItem().toString());
             } catch (NumberFormatException | SQLException e) {
@@ -69,5 +70,10 @@ public class WorkStatusEvent extends WindowAdapter implements ActionListener {
             content[6] = cVO.getCommuteDate();
             ws.getDtmDailyStatus().addRow(content);
         }
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        ws.dispose();
     }
 }

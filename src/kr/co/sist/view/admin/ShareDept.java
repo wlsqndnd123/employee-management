@@ -43,12 +43,12 @@ public class ShareDept extends JFrame {
 
         setBounds(150, 150, 450, 400);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void createEvent(){
         ShareDeptEvent sde = new ShareDeptEvent(this);
 
+        addWindowListener(sde);
         jbtncheck.addActionListener(sde);
         jbtncancel.addActionListener(sde);
         jlDept.addMouseListener(sde);

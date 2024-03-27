@@ -6,7 +6,6 @@ import kr.co.sist.dao.VacationStatusDAO;
 import kr.co.sist.view.admin.AdminMenu;
 import kr.co.sist.view.admin.ConfirmDocs;
 import kr.co.sist.view.admin.DocsManagement;
-import kr.co.sist.view.user.DocsList;
 import kr.co.sist.view.user.Reject;
 import kr.co.sist.vo.DocumentVO;
 
@@ -38,13 +37,22 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
         }
 
         if (ae.getSource() == dmm.getJbtnSelect()) {
-            int selectedRow = dmm.getJtaDob().getSelectedRow();
-            String docNum = dmm.getDtmjtabResult().getValueAt(selectedRow, 0).toString();
-            try {
-                new ConfirmDocs(DocsListDAO.getInstance().selectDocinfo(docNum));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            displaySelectedDoc();
+        }
+    }
+
+    /**
+     * Desc : 조회 버튼 클릭 시 선택된 행의 문서 결재 창 출력
+     * 작성자 : 이주희
+     * 작성일 : 2024.03.27
+     */
+    private void displaySelectedDoc() {
+        int selectedRow = dmm.getJtaDob().getSelectedRow();
+        String docNum = dmm.getDtmjtabResult().getValueAt(selectedRow, 0).toString();
+        try {
+            new ConfirmDocs(DocsListDAO.getInstance().selectDocinfo(docNum));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -107,8 +115,14 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
     public void mouseClicked(MouseEvent me) {
         int column = dmm.getJtaDob().columnAtPoint(me.getPoint());
         int row = dmm.getJtaDob().rowAtPoint(me.getPoint());
+
+        if (dmm.getJtaDob().getValueAt(row, column) == null) {
+            return;
+        }
+
         String item = dmm.getJtaDob().getValueAt(row, column).toString();
         String DocNum = (String) dmm.getJtaDob().getValueAt(row, 0);
+
         if (item.equals("반려")) {
             try {
                 Reject(DocNum);
