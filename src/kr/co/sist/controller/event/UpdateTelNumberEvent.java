@@ -46,6 +46,10 @@ public class UpdateTelNumberEvent extends WindowAdapter implements ActionListene
 
         }
         if (e.getSource() == utn.getJbtnsave()) {
+            if(utn.getInputJtTel().getText().isBlank()){
+                JOptionPane.showMessageDialog(utn,"내선번호가 입력되지 않았습니다.");
+                return;
+            }
             updateTelInfo();
             JOptionPane.showMessageDialog(null, "내선번호가 변경되었습니다.");
             utn.dispose();
