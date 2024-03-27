@@ -46,9 +46,9 @@ public class UpdateEmployeeInformationDAO {
                             + "	where emp_no =    ? ";
 
             pstmt = con.prepareStatement(updateEmpInfo);
-            CreateEmployeeInformationEvent ce = new CreateEmployeeInformationEvent();
-            pstmt.setInt(1, ce.convertposition(eVO.getPosition()));
-            pstmt.setInt(2, ce.convertDept(eVO.getDept()));
+            CreateEmployeeInformationDAO cDAO= CreateEmployeeInformationDAO.getInstance(); 
+            pstmt.setInt(1, cDAO.convertPos(eVO.getPosition()));
+            pstmt.setInt(2, cDAO.convertDept(eVO.getDept()));
             pstmt.setString(3, eVO.getJob());
             pstmt.setInt(4, eVO.getEmpno());
 

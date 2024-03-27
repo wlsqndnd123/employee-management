@@ -26,7 +26,7 @@ public class UpdatePassword extends JFrame {
 
         createLabel();
         createTextField();
-		createButton();
+      createButton();
         createEvent();
 
         setBounds(300, 120, 500, 400);

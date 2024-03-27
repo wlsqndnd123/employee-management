@@ -39,9 +39,9 @@ public class ShareDeptDAO {
                     "insert into SHARE_DOCS (DOC_NO,DEPT_CODE,EDIT_DATE,CREATE_EMP) values (?,?,sysdate,?)";
             pstmt = con.prepareStatement(insertDoc);
             pstmt.setString(1, dVO.getDocNo());
-            CreateEmployeeInformationEvent ce = new CreateEmployeeInformationEvent();
+            CreateEmployeeInformationDAO cDAO = CreateEmployeeInformationDAO.getInstance();
             DocsListDAO dDAO =DocsListDAO.getInstance();
-            pstmt.setInt(2, ce.convertDept(dVO.getDept()));
+            pstmt.setInt(2, cDAO.convertDept(dVO.getDept()));
             pstmt.setInt(3, dDAO.selectDocinfo(dVO.getDocNo()).getEmpNo());
 
             pstmt.executeQuery();
