@@ -47,7 +47,6 @@ public class CheckEmployeeInformation extends JFrame {
         createEvent();
 
         setBounds(300, 100, 650, 550);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
@@ -139,6 +138,7 @@ public class CheckEmployeeInformation extends JFrame {
     private void createEvent() {
         CheckEmployeeInformationEvent checkEmpevt = new CheckEmployeeInformationEvent(this);
 
+        addWindowListener(checkEmpevt);
         jbtnMain.addActionListener(checkEmpevt);
         jbtnSearch.addActionListener(checkEmpevt);
         jbtnAddEmp.addActionListener(checkEmpevt);

@@ -25,7 +25,6 @@ public class UpdateTelNumber extends JFrame {
 
         setBounds(300, 100, 650, 550);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void createButton(){
@@ -57,6 +56,7 @@ public class UpdateTelNumber extends JFrame {
     private void createEvent(){
         UpdateTelNumberEvent evt = new UpdateTelNumberEvent(this);
 
+        addWindowListener(evt);
         jbtnsave.addActionListener(evt);
         goHome.addActionListener(evt);
         jbtnexcPw.addActionListener(evt);

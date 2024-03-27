@@ -10,7 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+/**
+ * Desc : Login 기능에 필요한 DB 쿼리
+ * 작성자 : 김도원
+ * 작성일 : 2024.03.20
+ */
 public class LoginDAO {
     private String emp_no, password;
     private static LoginEvent loginEvent;

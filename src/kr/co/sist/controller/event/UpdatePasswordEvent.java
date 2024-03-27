@@ -10,9 +10,11 @@ import kr.co.sist.vo.LoginVO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
-public class UpdatePasswordEvent extends JFrame implements ActionListener {
+public class UpdatePasswordEvent extends WindowAdapter implements ActionListener {
     private UpdatePassword up;
 
     public UpdatePasswordEvent(UpdatePassword up) {
@@ -59,5 +61,10 @@ public class UpdatePasswordEvent extends JFrame implements ActionListener {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        up.dispose();
     }
 }

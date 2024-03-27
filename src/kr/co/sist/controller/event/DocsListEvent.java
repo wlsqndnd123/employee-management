@@ -15,7 +15,7 @@ import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DocsListEvent implements ActionListener, ItemListener, MouseListener {
+public class DocsListEvent extends WindowAdapter implements ActionListener, ItemListener, MouseListener {
     private final DocsList dclist;
     private final DefaultTableModel dtmjtabResult;
 
@@ -142,5 +142,10 @@ public class DocsListEvent implements ActionListener, ItemListener, MouseListene
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        dclist.dispose();
     }
 }

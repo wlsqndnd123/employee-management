@@ -115,4 +115,8 @@ public class VacationStatusEvent extends WindowAdapter implements ActionListener
 
     }
 
+    @Override
+    public void windowClosing(WindowEvent e) {
+        vs.dispose();
+    }
 }
