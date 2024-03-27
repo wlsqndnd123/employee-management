@@ -55,7 +55,7 @@ public class SubmitDocs extends JFrame {
         addWindowListener(smde);
         attAdd.addActionListener(smde);
         attRemove.addActionListener(smde);
-        jcb.addItemListener(smde);
+        jcb.addActionListener(smde);
         btn_regist.addActionListener(smde);
         btn_cancel.addActionListener(smde);
         jtfTitle.addActionListener(smde);
