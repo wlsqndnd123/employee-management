@@ -40,7 +40,6 @@ public class ConfirmDocs extends JFrame {
 
         setBounds(300, 100, 650, 550);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         docNum= dVO.getDocNo();
     }
 
@@ -87,6 +86,8 @@ public class ConfirmDocs extends JFrame {
      */
     private void createEvent(DocumentVO dVO) {
         ConfirmDocsEvent cfdevt = new ConfirmDocsEvent(this);
+
+        addWindowListener(cfdevt);
 
         jbtnShare.addActionListener(cfdevt);
         if(dVO.getCode2()==1) {
