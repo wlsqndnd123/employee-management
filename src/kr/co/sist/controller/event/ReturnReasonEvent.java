@@ -42,10 +42,10 @@ public class ReturnReasonEvent extends WindowAdapter implements ActionListener {
 
     private void inputRejectText() {
         if (rr.getJtaContent().getText().isBlank()) {
-            JOptionPane.showMessageDialog(null, "내용을 적어야합니다.");
+            JOptionPane.showMessageDialog(rr, "내용을 적어야합니다.");
             return;
         }
-        int result = JOptionPane.showConfirmDialog(null, "반려하시겠습니까?.", "확인", JOptionPane.YES_NO_OPTION);
+        int result = JOptionPane.showConfirmDialog(rr, "반려하시겠습니까?.", "확인", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
             try {
                 inputReason(cv == null);
