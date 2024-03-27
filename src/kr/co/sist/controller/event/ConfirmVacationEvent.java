@@ -31,7 +31,7 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
         }
 
         if (ae.getSource() == cv.getJbApprove()) {
-            int result = JOptionPane.showConfirmDialog(null, "승인하시겠습니까?.", "확인", JOptionPane.YES_NO_OPTION);
+            int result = JOptionPane.showConfirmDialog(cv, "승인하시겠습니까?.", "확인", JOptionPane.YES_NO_OPTION);
             if (result == JOptionPane.YES_OPTION) {
                 ApproveVacation(Integer.parseInt(cv.getJtfDocNum().getText()));
             }
@@ -61,7 +61,7 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
         int check_code = 0;
 
         if (vVOList.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "내용이 없습니다.");
+            JOptionPane.showMessageDialog(cv, "내용이 없습니다.");
         } else {
             for (VacationVO vVO : vVOList) {
                 cv.getJtaContent().setText(vVO.getWorkLog());
