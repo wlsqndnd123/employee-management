@@ -65,10 +65,8 @@ public class CreateEmployeeInformation extends JFrame {
     private void createTextField() {
         tfEmpno = JFrameComponent.createTextField(getContentPane(),170,10,170,25);
         tfName = JFrameComponent.createTextField(getContentPane(),170,40,170,25);
-//        tfPosition = JFrameComponent.createTextField(getContentPane(),170,70,170,25);
         tfJob = JFrameComponent.createTextField(getContentPane(),170,100,170,25);
         tfTel = JFrameComponent.createTextField(getContentPane(),170,130,170,25);
-//        tfDep = JFrameComponent.createTextField(getContentPane(),170,160,170,25);
         tfEmpno.setEditable(false);
     }
 
