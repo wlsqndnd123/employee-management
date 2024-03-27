@@ -120,7 +120,8 @@ public class CheckEmployeeInformationDAO {
             con = DbConnection.getCon();
             selectAllEnpInfo.append(" 	select	 ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE	 ")
             .append("	from EMP_INFO ei, DEPT d  ,	COMMON c	")
-            .append("	where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and c.GRP_CODE = 'POS' and  ( ei.LOGIC ='N') and (ei.emp_no not like 240000) order by ei.emp_no	");
+            .append("	where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and c.GRP_CODE = 'POS' and  ( ei.LOGIC ='N') and (ei.emp_no not like 240000)	order by ei.emp_no");
+
             pstmt = con.prepareStatement(selectAllEnpInfo.toString());
             rs = pstmt.executeQuery();
             while (rs.next()) {
