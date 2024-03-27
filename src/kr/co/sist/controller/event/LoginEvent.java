@@ -29,7 +29,11 @@ public class LoginEvent extends WindowAdapter implements ActionListener,KeyListe
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == login.getJbLogin()) {
-            login();
+            try{
+            	login();
+            }catch(Exception e) {
+            	JOptionPane.showMessageDialog(null, "퇴사한 직원이거나, 해당 사원의 정보가 존재하지 않습니다.");
+            }
         }//end if
         
 

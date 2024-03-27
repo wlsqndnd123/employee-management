@@ -32,11 +32,20 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
         }//end if
 
         if (ae.getSource() == upEmpInfo.getJbtnChange()) {
+        			
             modifyEmpInfo();
+            new CheckEmployeeInformation();
+            upEmpInfo.dispose();
+            
+            
 
         }//end if
         if (ae.getSource() == upEmpInfo.getJbtnDelete()) {
+        	
+        		
             disableEmpInfo();
+            new CheckEmployeeInformation();
+            upEmpInfo.dispose();
         }//end if
     }//actionPerformed
 
@@ -44,9 +53,15 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
      * 선택한 사원의 직무,직급,부서를 변경하는 method
      */
     public void modifyEmpInfo() {
+    	
         String job = upEmpInfo.getInputJtJob().getText().trim();
         String dept = upEmpInfo.getInputJtDept().getText().trim();
         String position = upEmpInfo.getInputJtPosition().getText().trim();
+        if((job.isEmpty()||dept.isEmpty()||position.isEmpty())){
+        	JOptionPane.showMessageDialog(upEmpInfo, "모든 칸이 입력되어야 합니다.");
+        	
+        }
+        	
         try {
             EmpInfoVO eVO = new EmpInfoVO
                     (Integer.parseInt(upEmpInfo.getTfEmpno().getText()), null, job, position, dept, null, position, null);
@@ -56,8 +71,9 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
                 JOptionPane.showMessageDialog(upEmpInfo, "해당 사원의 정보가 변경되었습니다.");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+        	e.printStackTrace();
         }
+        
     }
 
     /**
@@ -83,4 +99,5 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
     public void windowClosing(WindowEvent e) {
         upEmpInfo.dispose();
     }
+    
 }

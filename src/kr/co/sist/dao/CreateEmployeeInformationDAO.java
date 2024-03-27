@@ -199,11 +199,14 @@ public class CreateEmployeeInformationDAO {
 			pstmt =con.prepareStatement(searchCode);
 			pstmt.setString(1, pos);
 			rs = pstmt.executeQuery();
+			while(rs.next()){
+				
 			code = rs.getInt("CODE");
+			}
 		}finally {
 			DbConnection.dbClose(rs, pstmt, con);
 		}
-
+		
 		return code;
 
 	}
