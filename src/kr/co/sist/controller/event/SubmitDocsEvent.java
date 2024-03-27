@@ -22,7 +22,7 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener,Foc
     }
 
     public void insertDoc() throws NumberFormatException, SQLException {
-    	SubmitDocsDAO sbDAO = SubmitDocsDAO.getInstance();
+        SubmitDocsDAO sbDAO = SubmitDocsDAO.getInstance();
         String title = smd.getJtfTitle().getText();
         int docNo = sbDAO.searchMaxDocNum();
         String workLog = smd.getJta().getText();
@@ -32,6 +32,7 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener,Foc
         String dept = eVO.getDept();
         String fileNm = smd.getJtfFileNm().getText();
         DocumentVO dVO = new DocumentVO(null, title, workLog, fileNm, dept, empNo, code);
+
         sbDAO.insertBusinessLog(docNo,dVO);
     }
 
@@ -69,11 +70,11 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener,Foc
                 smd.dispose();
                 new DocsList();
             	}else {
-            		JOptionPane.showMessageDialog(smd, "내용을 입력해주세요");
+            		JOptionPane.showMessageDialog(smd, "내용을 입력해주세요.");
             		return;
             	}
             } catch (NumberFormatException | SQLException e1) {
-                e1.printStackTrace();
+                JOptionPane.showMessageDialog(smd, "오늘의 일일업무보고가 이미 등록되었습니다.");
             }
             
         }

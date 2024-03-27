@@ -69,7 +69,6 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
     private void resetTable() {
         model = (DefaultTableModel) checkEmp.getJtEmpInfo().getModel();
         model.setNumRows(0);
-//        allEmployeePrint(model);
     }
 
     public static void allEmployeePrint(DefaultTableModel model) {
@@ -154,26 +153,27 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
         checkEmp.getDtmEmpTable().addRow(content);
     }
 
-    // 이거 아주 수정하고 싶게 생겼구만... 근데 잘 모르겠당ㅎㅎ
     @Override
     public void mouseClicked(MouseEvent me) {
-        int row = checkEmp.getJtEmpInfo().getSelectedRow();
+        int selectedRow = checkEmp.getJtEmpInfo().getSelectedRow();
 
-        if (me.getButton() == 1) {
-            switch (JOptionPane.showConfirmDialog(checkEmp, "해당 사원의 정보를 수정하시겠습니까?", null, JOptionPane.OK_CANCEL_OPTION)) {
-                case 0:
-                    int empno = (int) checkEmp.getJtEmpInfo().getValueAt(row, 0);
-                    try {
-                        CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
-                        new UpdateEmployeeInformation(ciDAO.selectEmpInfo(empno));
-                        checkEmp.dispose();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 2:
-                    break;
+        if (me.getButton() == MouseEvent.BUTTON1) {
+            int userChoice = JOptionPane.showConfirmDialog(checkEmp, "해당 사원의 정보를 수정하시겠습니까?", null, JOptionPane.OK_CANCEL_OPTION);
+
+            if (userChoice == JOptionPane.OK_OPTION) {
+                updateEmployeeInfo(selectedRow);
             }
+        }
+    }
+
+    private void updateEmployeeInfo(int selectedRow) {
+        int empno = (int) checkEmp.getJtEmpInfo().getValueAt(selectedRow, 0);
+        try {
+            CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
+            new UpdateEmployeeInformation(ciDAO.selectEmpInfo(empno));
+            checkEmp.dispose();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
