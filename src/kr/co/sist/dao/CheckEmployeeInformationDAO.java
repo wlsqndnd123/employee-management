@@ -26,14 +26,14 @@ public class CheckEmployeeInformationDAO {
         }
 
         return checkEmpDAO;
-
     }
 
     /**
      * 선택 창(TextFiled)에서 입력받은 사원번호로 DB 내의 사원정보를 찾아 list에 출력하는 method.
      *
      * @param empno : textFiled로 입력받은 값
-     * @return 작성자: 김일신 24.03.18
+     * @return
+     * 작성자: 김일신 24.03.18
      */
     public EmpInfoVO selectEmpInfo(int empno) throws SQLException {
         eVO = null;
