@@ -12,7 +12,7 @@ import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DocsManagementEvent extends WindowAdapter implements ActionListener, MouseListener {
+public class DocsManagementEvent extends WindowAdapter implements ActionListener {
     private DocsManagement dmm;
 
     public DocsManagementEvent(DocsManagement dmm) {
@@ -25,6 +25,7 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
         	dmm.dispose();
             new AdminMenu();
         }
+
         if (ae.getSource() == dmm.getJbtnSearch()) {
             try {
                 selectDocument();
@@ -60,10 +61,10 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
 		for (DocumentVO dVO : dVOList) {
 			content[0] = dVO.getDocNo();
 			content[1] = dVO.getTitle();
-			content[2] = filetype(dVO.getCode());
+			content[2] = dVO.getWorkDesc();
 			content[3] = dVO.getDept();
 			content[4] = dVO.getDocDate();
-			content[5] = apprtype(dVO.getCode2());
+			content[5] = dVO.getApprDesc();
 			content[6] = dVO.getDocDate();
 
 			dmm.getDtmjtabResult().addRow(content);
@@ -81,7 +82,7 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
         }
 
         DocsManagementDAO dmDAO = DocsManagementDAO.getInstance();
-        List<DocumentVO> dVOList = dmDAO.selectDocInfo(dept, filetype(fileType), apprtype(appr));
+        List<DocumentVO> dVOList = dmDAO.selectDocInfo(dept, fileType, appr);
         dmm.getDtmjtabResult().setRowCount(0);
 
         Object[] content = new Object[7];
@@ -91,107 +92,6 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
         } else {
 			createContents(content, dVOList);
 		}
-
-    }
-
-    /**
-     * 문서의 형식을 문자에서 숫자로 변환하여 DAO에서 select를 돕는 method
-     *
-     * @param fileType
-     * @return
-     */
-    public int filetype(String fileType) {
-        return switch (fileType) {
-            case "일일업무보고" -> 1;
-            case "출장보고" -> 2;
-            case "구매신청" -> 3;
-            case "출장비정산요청" -> 4;
-            case "휴가신청서" -> 5;
-            default -> 0;
-        };
-    }
-
-    /**
-     * 문서의 형식을 숫자에서 문자로 변환하여 view에서 출력을 도와
-     * 이용자의 가독성을 높이는 매서드
-     *
-     * @param filetype
-     * @return
-     */
-    public String filetype(int filetype) {
-        return switch (filetype) {
-            case 1 -> "일일업무보고";
-            case 2 -> "출장보고";
-            case 3 -> "구매신청";
-            case 4 -> "출장비정산요청";
-            case 5 -> "휴가신청서";
-            default -> "";
-        };
-    }
-
-    /**
-     * 승인 상태를 문자에서 숫자로 변환하여 DAO에서 select를 돕는 method
-     *
-     * @param appr
-     * @return
-     */
-    public int apprtype(String appr) {
-        return switch (appr) {
-            case "대기" -> 1;
-            case "승인" -> 2;
-            case "반려" -> 3;
-            default -> 0;
-        };
-    }
-
-    /**
-     * 승인상태를 숫자에서 문자로 변환하여 view에서 출력을 도와
-     * 이용자의 가독성을 높이는 매서드
-     *
-     * @param appr
-     * @return
-     */
-    public String apprtype(int appr) {
-        return switch (appr) {
-            case 1 -> "대기";
-            case 2 -> "승인";
-            case 3 -> "반려";
-            default -> "";
-        };
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent me) {
-//        int column = dmm.getJtaDob().columnAtPoint(me.getPoint());
-//        int row = dmm.getJtaDob().rowAtPoint(me.getPoint());
-//        String DocNum = (String) dmm.getJtaDob().getValueAt(row, 0);
-//        if (column == 1) { // 2nd column
-//            try {
-//                new ConfirmDocs(DocsListDAO.getInstance().selectDocinfo(DocNum));
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-    }
-
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
 
     }
 
