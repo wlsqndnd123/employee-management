@@ -12,9 +12,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
-public class SubmitDocsEvent extends WindowAdapter implements ActionListener, ItemListener {
+public class SubmitDocsEvent extends WindowAdapter implements ActionListener{
 
     private SubmitDocs smd;
+    private int code;
 
     public SubmitDocsEvent(SubmitDocs smd) {
         this.smd = smd;
@@ -26,26 +27,12 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener, It
         int docNo = sbDAO.searchMaxDocNum();
         String workLog = smd.getJta().getText();
         CheckEmployeeInformationDAO ceiDAO = CheckEmployeeInformationDAO.getInstance();
-
         int empNo = Integer.parseInt(LoginEvent.getEmpno());
         EmpInfoVO eVO = ceiDAO.selectEmpInfo(empNo);
         String dept = eVO.getDept();
         String fileNm = smd.getJtfFileNm().getText();
-
-        DocumentVO dVO = new DocumentVO(null, title, workLog, dept, fileNm, empNo);
+        DocumentVO dVO = new DocumentVO(null, title, workLog, fileNm, dept, empNo, code);
         sbDAO.insertBusinessLog(docNo,dVO);
-    }
-
-    public void deleteFile() {
-
-    }
-
-    public void upload() {
-
-    }
-
-    public void cancel() {
-
     }
 
     @Override
@@ -65,6 +52,15 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener, It
         if (e.getSource() == smd.getAttRemove()) {
             smd.getJtfFileNm().setText("");
         }
+        if(e.getSource() == smd.getJcb()){
+            String workDesc = smd.getJcb().getSelectedItem().toString();
+            try {
+                code = SubmitDocsDAO.getInstance().translateCode(workDesc);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
 
         if (e.getSource() == smd.getBtn_regist()) {
             try {
@@ -92,12 +88,6 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener, It
     @Override
     public void windowClosing(WindowEvent e) {
         smd.dispose();
-    }
-
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-        if (e.getSource() == smd.getJcb() && e.getStateChange() == ItemEvent.SELECTED) {
-        }
     }
 
 }

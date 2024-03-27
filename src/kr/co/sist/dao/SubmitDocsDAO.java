@@ -72,28 +72,53 @@ public class SubmitDocsDAO {
             insertDoc
                     .append(" insert into BUSINESS_LOG ")
                     .append(" (DOC_NO, TITLE, EMP_NO, GRP_CODE, CODE, WORK_LOG, GRP_CODE2, CODE2, DOC_DATE, file_name)  ")
-                    .append(" values(?,?,?,'WORK',1,?,'APPR',1, sysdate, ? ) ");
+                    .append(" values(?,?,?,'WORK',?,?,'APPR',1, sysdate, ? ) ");
 
             pstmt = con.prepareStatement(insertDoc.toString());
 
             pstmt.setInt(1,docno);
             pstmt.setString(2, dVO.getTitle());
             pstmt.setInt(3, dVO.getEmpNo());
-            pstmt.setString(4, dVO.getWorkLog());
-            pstmt.setString(5, dVO.getFileName());
+            pstmt.setInt(4,dVO.getCode());
+            pstmt.setString(5, dVO.getWorkLog());
+            pstmt.setString(6, dVO.getFileName());
 
             pstmt.executeUpdate();
-
 
         } finally {
             DbConnection.dbClose(null, pstmt, con);
         }
+    }
 
+    public int translateCode(String description) throws SQLException{
 
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs =null;
+        int code = 0;
+
+        try {
+            con = DbConnection.getCon();
+
+            String insertDoc = "select code from common where DESCRIPTION = ?";
+            pstmt =con.prepareStatement(insertDoc);
+
+            pstmt.setString(1,description);
+
+            rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+                code = rs.getInt("CODE");
+            }
+
+        }finally {
+            DbConnection.dbClose(rs, pstmt, con);
+        }
+
+        return code;
     }
 
 
-    //업무분류
 
 
 }
