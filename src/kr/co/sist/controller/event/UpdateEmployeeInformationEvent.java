@@ -32,7 +32,6 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
         }//end if
 
         if (ae.getSource() == upEmpInfo.getJbtnChange()) {
-        			
             modifyEmpInfo();
             new CheckEmployeeInformation();
             upEmpInfo.dispose();
@@ -41,8 +40,6 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
 
         }//end if
         if (ae.getSource() == upEmpInfo.getJbtnDelete()) {
-        	
-        		
             disableEmpInfo();
             new CheckEmployeeInformation();
             upEmpInfo.dispose();
@@ -98,6 +95,7 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
     @Override
     public void windowClosing(WindowEvent e) {
         upEmpInfo.dispose();
+        new CheckEmployeeInformation();
     }
     
 }

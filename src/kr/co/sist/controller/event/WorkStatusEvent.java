@@ -6,16 +6,13 @@ import kr.co.sist.view.admin.VacationStatus;
 import kr.co.sist.view.admin.WorkStatus;
 import kr.co.sist.vo.CommuteVO;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
-public class WorkStatusEvent extends WindowAdapter implements ActionListener {
+public class WorkStatusEvent extends WindowAdapter implements ActionListener, FocusListener {
     private List<CommuteVO> cVOList;
     private WorkStatus ws;
 
@@ -72,6 +69,16 @@ public class WorkStatusEvent extends WindowAdapter implements ActionListener {
             content[6] = cVO.getCommuteDate();
             ws.getDtmDailyStatus().addRow(content);
         }
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+        ws.getJtfEmpNum().setText("");
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+
     }
 
     @Override
