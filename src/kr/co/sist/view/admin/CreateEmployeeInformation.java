@@ -20,7 +20,6 @@ public class CreateEmployeeInformation extends JFrame {
         createEvent();
 
         setBounds(300, 100, 400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
@@ -50,6 +49,8 @@ public class CreateEmployeeInformation extends JFrame {
 
     private void createEvent() {
         CreateEmployeeInformationEvent cei = new CreateEmployeeInformationEvent(this);
+
+        addWindowListener(cei);
         jbtnAdd.addActionListener(cei);
         jbtnCancel.addActionListener(cei);
     }

@@ -39,7 +39,6 @@ public class AdminMenu extends JFrame {
 
         setBounds(300, 100, 650, 550);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     /**
@@ -79,6 +78,7 @@ public class AdminMenu extends JFrame {
     public void createEvent() {
         AdminMenuEvent adminMenuEvent = new AdminMenuEvent(this);
 
+        addWindowListener(adminMenuEvent);
         employeeInformationJbtn.addActionListener(adminMenuEvent);
         workAttendanceJbtn.addActionListener(adminMenuEvent);
         documentsJbtn.addActionListener(adminMenuEvent);

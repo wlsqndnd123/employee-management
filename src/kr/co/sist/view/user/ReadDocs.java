@@ -35,7 +35,6 @@ public class ReadDocs extends JFrame {
 
         setVisible(true);
         setBounds(300, 100, 650, 550);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     private void createTextFiled(DocumentVO dVO) {
         jtfDocNo = JFrameComponent.createTextField(getContentPane(),dVO.getDocNo(),110, 30, 100, 30,false);
@@ -47,6 +46,7 @@ public class ReadDocs extends JFrame {
     private void createEvent() {
     	ReadDocsEvent readDocsEvent = new ReadDocsEvent(this);
 
+        addWindowListener(readDocsEvent);
     	jbtnOk.addActionListener(readDocsEvent);
     	jbtnChg.addActionListener(readDocsEvent);
     	jbtnDel.addActionListener(readDocsEvent);

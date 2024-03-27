@@ -67,6 +67,7 @@ public class FindPassword extends JDialog {
 
     private void createEvent() {
         FindPasswordEvent fpe = new FindPasswordEvent(this);
+        addWindowListener(fpe);
         jbCheckPw.addActionListener(fpe);
         jbExit.addActionListener(fpe);
     }

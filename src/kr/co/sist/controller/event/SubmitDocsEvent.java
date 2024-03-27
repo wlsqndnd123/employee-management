@@ -91,7 +91,7 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener, It
 
     @Override
     public void windowClosing(WindowEvent e) {
-        super.windowClosing(e);
+        smd.dispose();
     }
 
     @Override

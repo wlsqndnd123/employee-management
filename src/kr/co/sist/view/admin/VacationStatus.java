@@ -26,7 +26,6 @@ public class VacationStatus extends JFrame {
 
         setBounds(300, 100, 650, 550);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void createTable(){
@@ -49,6 +48,8 @@ public class VacationStatus extends JFrame {
 
     private void createEvent(){
         VacationStatusEvent vse = new VacationStatusEvent(this);
+
+        addWindowListener(vse);
 
         jbBack.addActionListener(vse);
         jtVacationStatus.addMouseListener(vse);

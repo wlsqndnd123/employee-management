@@ -29,7 +29,6 @@ public class Login extends JFrame {
 
         setBounds(300, 120, 500, 400);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//Login
 
     private void createLabel(){
@@ -46,6 +45,8 @@ public class Login extends JFrame {
 
     private void createEvent(){
         LoginEvent le = new LoginEvent(this);
+
+        addWindowListener(le);
         jtfEmp_no.addKeyListener(le);
         jpwfPass.addKeyListener(le);
         jbLogin.addActionListener(le);
