@@ -66,21 +66,6 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
         }
     }
 
-    public int convertDept(String dept) {
-        return switch (dept) {
-            case "정비본부" -> 1;
-            case "정비기획부문" -> 2;
-            case "안전정비부문" -> 3;
-            case "정비지원팀" -> 4;
-            case "정비통제팀" -> 5;
-            case "예방정비팀" -> 6;
-            case "중정비팀" -> 7;
-            case "인천운항정비팀" -> 8;
-            case "김포운항정비팀" -> 9;
-            case "부품정비팀" -> 10;
-            default -> 0;
-        };
-    }
 
     public int convertposition(String position) {
         return switch (position) {
