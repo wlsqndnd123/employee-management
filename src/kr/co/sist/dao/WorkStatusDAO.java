@@ -44,27 +44,27 @@ public class WorkStatusDAO {
                 if (date.equals("오늘")) {
                     selectINFO = "   select ei.EMP_NO, ei.name, c.attend_time, c.quit_time, vc.use_count, vc.assign_count, c.commute_date"
                             + "	from EMP_INFO ei, COMMUTE c,  VACATION_COUNT vc 	"
-                            + "	where (ei.emp_no = c.emp_no) and (ei.emp_no = vc.emp_no) and (( to_char(c.commute_date,'yymmdd')) = ( to_char(sysdate,'yymmdd')))"
+                            + "	where (ei.emp_no = c.emp_no) and (ei.logic='N') and (ei.emp_no = vc.emp_no)  and (( to_char(c.commute_date,'yymmdd')) = ( to_char(sysdate,'yymmdd')))"
                             + " 	order by c.attend_time desc";
 
                 }
                 if (date.equals("1주일")) {
                     selectINFO = "   select ei.EMP_NO, ei.name, c.attend_time, c.quit_time, vc.use_count, vc.assign_count, c.commute_date"
                             + "	from EMP_INFO ei, COMMUTE c, VACATION_COUNT vc 	"
-                            + "	where (ei.emp_no = c.emp_no) and (ei.emp_no = vc.emp_no) and (( to_char(c.commute_date,'yymmdd')) between ( to_char(sysdate,'yymmdd'))-7 and ( to_char(sysdate,'yymmdd')) )"
+                            + "	where (ei.emp_no = c.emp_no) and (ei.logic='N') and (ei.emp_no = vc.emp_no) and (( to_char(c.commute_date,'yymmdd')) between ( to_char(sysdate,'yymmdd'))-7 and ( to_char(sysdate,'yymmdd')) )"
                             + " 	order by c.attend_time desc";
                 }
                 if (date.equals("1달")) {
                     selectINFO = "   select ei.EMP_NO, ei.name, c.attend_time, c.quit_time, vc.use_count, vc.assign_count, c.commute_date"
                             + "	from EMP_INFO ei, COMMUTE c, VACATION_COUNT vc 	"
-                            + "	where (ei.emp_no = c.emp_no) and (ei.emp_no = vc.emp_no) and (( to_char(c.commute_date,'yymmdd')) between ( to_char(sysdate,'yymmdd'))-30 and ( to_char(sysdate,'yymmdd')) )"
+                            + "	where (ei.emp_no = c.emp_no) and (ei.logic='N') and (ei.emp_no = vc.emp_no) and (( to_char(c.commute_date,'yymmdd')) between ( to_char(sysdate,'yymmdd'))-30 and ( to_char(sysdate,'yymmdd')) )"
                             + " 	order by c.attend_time desc";
                 }
 
                 if (date.equals("1년")) {
                     selectINFO = "   select ei.EMP_NO, ei.name, c.attend_time, c.quit_time, vc.use_count, vc.assign_count, c.commute_date"
                             + "	from EMP_INFO ei, COMMUTE c, VACATION_COUNT vc 	"
-                            + "	where (ei.emp_no = c.emp_no) and (ei.emp_no = vc.emp_no) and (( to_char(c.commute_date,'yymmdd')) between ( to_char(sysdate,'yymmdd'))-365 and ( to_char(sysdate,'yymmdd')) )"
+                            + "	where (ei.emp_no = c.emp_no) and (ei.logic='N') and (ei.emp_no = vc.emp_no) and (( to_char(c.commute_date,'yymmdd')) between ( to_char(sysdate,'yymmdd'))-365 and ( to_char(sysdate,'yymmdd')) )"
                             + " 	order by c.attend_time desc";
                 }
 
@@ -74,7 +74,7 @@ public class WorkStatusDAO {
                 if (date.equals("오늘")) {
                     selectINFO = "   select ei.EMP_NO, ei.name, c.attend_time, c.quit_time, vc.use_count, vc.assign_count, c.commute_date"
                             + "	from EMP_INFO ei, COMMUTE c, VACATION_COUNT vc 	"
-                            + "	where (ei.emp_no = c.emp_no) and (ei.emp_no = vc.emp_no) and (ei.emp_no = ?) and (( to_char(c.commute_date,'yymmdd')) = ( to_char(sysdate,'yymmdd')))"
+                            + "	where (ei.emp_no = c.emp_no) and (ei.logic='N') and (ei.emp_no = vc.emp_no) and (ei.emp_no = ?) and (( to_char(c.commute_date,'yymmdd')) = ( to_char(sysdate,'yymmdd')))"
                             + " 	order by c.attend_time desc";
 
                 }
@@ -83,7 +83,7 @@ public class WorkStatusDAO {
                 if (date.equals("1주일")) {
                     selectINFO = "   select ei.EMP_NO, ei.name, c.attend_time, c.quit_time, vc.use_count, vc.assign_count, c.commute_date "
                             + "	from EMP_INFO ei, COMMUTE c, VACATION_COUNT vc 	"
-                            + "	where (ei.emp_no = c.emp_no) and (ei.emp_no = vc.emp_no) " +
+                            + "	where (ei.emp_no = c.emp_no) and (ei.logic='N') and (ei.emp_no = vc.emp_no) " +
                             "and (ei.emp_no = ?) and (( to_char(c.commute_date,'yymmdd')) " +
                             "between ( to_char(sysdate,'yymmdd'))-7 and ( to_char(sysdate,'yymmdd')) ) "
                             + " 	order by c.attend_time desc";
@@ -93,14 +93,14 @@ public class WorkStatusDAO {
                 if (date.equals("1달")) {
                     selectINFO = "   select ei.EMP_NO, ei.name, c.attend_time, c.quit_time, vc.use_count, vc.assign_count, c.commute_date "
                             + "	from EMP_INFO ei, COMMUTE c, VACATION_COUNT vc 	"
-                            + "	where (ei.emp_no = c.emp_no) and (ei.emp_no = vc.emp_no) and (ei.emp_no = ?) and (( to_char(c.commute_date,'yymmdd')) between ( to_char(sysdate,'yymmdd'))-30 and ( to_char(sysdate,'yymmdd')) ) "
+                            + "	where (ei.emp_no = c.emp_no) and (ei.logic='N') and (ei.emp_no = vc.emp_no) and (ei.emp_no = ?) and (( to_char(c.commute_date,'yymmdd')) between ( to_char(sysdate,'yymmdd'))-30 and ( to_char(sysdate,'yymmdd')) ) "
                             + " 	order by c.attend_time desc";
                 }
 
                 if (date.equals("1년")) {
                     selectINFO = "   select ei.EMP_NO, ei.name, c.attend_time, c.quit_time, vc.use_count, vc.assign_count, commute_date "
                             + "	from EMP_INFO ei, COMMUTE c, VACATION_COUNT vc 	"
-                            + "	where (ei.emp_no = c.emp_no) and (ei.emp_no = vc.emp_no) and (ei.emp_no = ?) and (( to_char(c.commute_date,'yymmdd')) between ( to_char(sysdate,'yymmdd'))-365 and ( to_char(sysdate,'yymmdd')) ) "
+                            + "	where (ei.emp_no = c.emp_no) and (ei.logic='N') and (ei.emp_no = vc.emp_no) and (ei.emp_no = ?) and (( to_char(c.commute_date,'yymmdd')) between ( to_char(sysdate,'yymmdd'))-365 and ( to_char(sysdate,'yymmdd')) ) "
                             + " 	order by c.attend_time desc";
                 }
 

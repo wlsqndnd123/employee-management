@@ -40,7 +40,7 @@ public class VacationStatusDAO {
 
             selectVOInfo = "select bl.doc_no, bl.emp_no, bl.title, bl.create_date,  d.dept_name,  bl.code2 ,ei.name, vc.assign_count ,vc.use_count"
                     + "		from   BUSINESS_LOG bl , EMP_INFO ei , DEPT d, vacation_count vc"
-                    + "		where  (ei.emp_no = bl.emp_no) and (bl.code = 5) and (d.dept_code = ei.dept_code) and (ei.emp_no = vc.emp_no )"
+                    + "		where  (ei.emp_no = bl.emp_no) and (ei.logic='N') and (bl.code = 5) and (d.dept_code = ei.dept_code) and (ei.emp_no = vc.emp_no )"
                     + "		order by bl.create_date desc";
 
 
