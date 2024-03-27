@@ -69,7 +69,7 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == dept.getJbtncancel()) {
             dept.dispose();
-
+            new DocsManagement();
         }
         if (ae.getSource() == dept.getJbtncheck()) {
             try {
