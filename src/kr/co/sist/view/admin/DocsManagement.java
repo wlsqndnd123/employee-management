@@ -69,7 +69,6 @@ public class DocsManagement extends JFrame {
         jbtnBackhome = JFrameComponent.createButton(getContentPane(), "메인으로", 610, 20, 100, 30);
         jbtnSearch = JFrameComponent.createButton(getContentPane(), "찾기", 610, 60, 100, 30);
         jbtnSelect = JFrameComponent.createButton(getContentPane(), "조회", 340, 390, 100, 30);
-
     }
 
     private void addEvents() {
@@ -78,11 +77,11 @@ public class DocsManagement extends JFrame {
         addWindowListener(dme);
         jbtnBackhome.addActionListener(dme);
         jbtnSearch.addActionListener(dme);
+        jbtnSelect.addActionListener(dme);
         jcbSelectDep.addActionListener(dme);
         jcbSelectApprovalState.addActionListener(dme);
         jcbSelectFileType.addActionListener(dme);
-        jbtnSelect.addActionListener(dme);
-        jtaDob.addMouseListener(dme);
+//        jtaDob.addMouseListener(dme);
 
         try {
             dme.searchDocument();

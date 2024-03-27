@@ -74,6 +74,16 @@ public class DocumentVO {
     public DocumentVO() {
     }
 
+    public DocumentVO(String docNo, String title, String workDesc, String apprDesc, String dept, Date docDate, Date modifiedDate) {
+        this.docNo = docNo;
+        this.title = title;
+        this.workDesc = workDesc;
+        this.apprDesc = apprDesc;
+        this.dept = dept;
+        this.docDate = docDate;
+        this.modifiedDate = modifiedDate;
+    }
+
     public void setCode2(int code2) {
         this.code2 = code2;
     }
