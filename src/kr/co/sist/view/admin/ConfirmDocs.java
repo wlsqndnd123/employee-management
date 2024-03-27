@@ -35,6 +35,7 @@ public class ConfirmDocs extends JFrame {
         createLabel();
         createTextField(dVO);
         jtaContents = new JTextArea();
+        jtaContents.setText(dVO.getWorkLog());
         JFrameComponent.createPane(getContentPane(), jtaContents, 20, 80, 600, 350);
         createEvent(dVO);
 
@@ -90,11 +91,12 @@ public class ConfirmDocs extends JFrame {
         addWindowListener(cfdevt);
 
         jbtnShare.addActionListener(cfdevt);
+
         if(dVO.getCode2()==1) {
-        	
         	jbtnApproval.addActionListener(cfdevt);
         	jbtncompanion.addActionListener(cfdevt);
         }
+
         jbtncheck.addActionListener(cfdevt);
     }
 
