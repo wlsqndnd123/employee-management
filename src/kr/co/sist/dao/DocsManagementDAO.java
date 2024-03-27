@@ -51,8 +51,8 @@ public class DocsManagementDAO {
                              "  LEFT JOIN COMMON c1 ON bl.grp_code = c1.grp_code AND bl.code = c1.code   " +
                              "  LEFT JOIN COMMON c2 ON bl.grp_code2 = c2.grp_code AND bl.code2 = c2.code   " +
                              "  WHERE bl.logic = 'N' " +
-                     "  AND d.dept_name = ? AND bl.code = ? AND bl.code2 = ? AND c1.DESCRIPTION <> '휴가신청서' " +
-                     "order by bl.DOC_NO desc")) {
+                     "  AND d.dept_name = ? AND c1.DESCRIPTION = ? AND c2.DESCRIPTION = ? AND c1.DESCRIPTION <> '휴가신청서' " +
+                     " order by bl.DOC_NO desc ")) {
             pstmt.setString(1, dept);
             pstmt.setString(2, fileType);
             pstmt.setString(3, appr);
