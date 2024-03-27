@@ -50,10 +50,9 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
      * 선택한 사원의 직무,직급,부서를 변경하는 method
      */
     public void modifyEmpInfo() {
-    	
+    	String dept = upEmpInfo.getCbDept().getSelectedItem().toString();
+        String position = upEmpInfo.getCbPosition().getSelectedItem().toString();
         String job = upEmpInfo.getInputJtJob().getText().trim();
-        String dept = upEmpInfo.getInputJtDept().getText().trim();
-        String position = upEmpInfo.getInputJtPosition().getText().trim();
         if((job.isEmpty()||dept.isEmpty()||position.isEmpty())){
         	JOptionPane.showMessageDialog(upEmpInfo, "모든 칸이 입력되어야 합니다.");
         	
