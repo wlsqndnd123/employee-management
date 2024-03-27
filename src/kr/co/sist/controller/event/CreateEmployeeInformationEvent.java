@@ -24,19 +24,17 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
 
     @Override
     public void windowClosing(WindowEvent e) {
-        ceiv.dispose();
+        closeFrame();
     }// windowClosing
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == ceiv.getJbtnAdd()) {
             addEmp();
-            ceiv.dispose();
-            new CheckEmployeeInformation();
+            closeFrame();
         } // end if
         if (ae.getSource() == ceiv.getJbtnCancel()) {
-            ceiv.dispose();
-            new CheckEmployeeInformation();
+            closeFrame();
         } // end if
     }// actionPerformed
 
@@ -49,6 +47,7 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
         String dept = ceiv.getCbDept().getSelectedItem().toString();
         String position = ceiv.getCbPosition().getSelectedItem().toString();
         String tel = ceiv.getTfTel().getText().trim();
+
         if(tel.length()>4) {
         	JOptionPane.showMessageDialog(null, "내선번호는 4자리 입니다.");
         	return;
@@ -64,17 +63,19 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
             CreateEmployeeInformationDAO ceDAO = CreateEmployeeInformationDAO.getInstance();
             int empno = ceDAO.selectMaxEmpnum();
             EmpInfoVO eVO = new EmpInfoVO(0, name, job, position, dept, null, tel, null);
-            ceDAO.insertEmpInfo(empno,eVO);
+            ceDAO.insertEmpInfo(empno, eVO);
             ceDAO.insertAccountEmp(empno);
             ceDAO.insertUserAuthEmp(empno);
             ceDAO.insertDefaultVacaion(empno);
             JOptionPane.showMessageDialog(ceiv, "사원 번호 " + empno + " 번, " + name + "님이 등록되었습니다.");
-         
-            
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        }
-        
+    }
+
+    private void closeFrame() {
+        ceiv.dispose();
+        new CheckEmployeeInformation();
     }
 }// class

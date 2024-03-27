@@ -14,8 +14,12 @@ import java.util.List;
  * 작성일 : 2024.03.15
  */
 public class RunUserMenuDAO {
+    /**
+     * Desc : 휴가일 정보를 List로 반환
+     * @return 승인된 휴가의 시작일과 종료일이 기록된 VacationVO List
+     */
     public static List<VacationVO> loadMonthlyWorkSchedule() {
-        List<VacationVO> list;
+        List<VacationVO> list = null;
         try {
             list = UserMenuDAO.getInstance().selectVacationDate(Integer.parseInt(LoginEvent.getEmpno()));
         } catch (SQLException e) {
@@ -26,7 +30,6 @@ public class RunUserMenuDAO {
 
     /**
      * Desc : 출퇴근 기록시간 불러오기
-     *
      * @return 날짜와 출퇴근시간이 기록된 VO list
      */
     public static List<CommuteVO> loadStampTime() {

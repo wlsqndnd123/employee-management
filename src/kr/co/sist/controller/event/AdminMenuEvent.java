@@ -18,11 +18,11 @@ import java.sql.SQLException;
  * Desc : 관리자 로그인 메뉴 화면에 보이는 내용의 이벤트처리<br>
  * 작성일 : 2024.03.18<br>
  * 작성자 : 고한별<br>
- * 수정일 : 2024.03.24<br>
+ * 수정일 : 2024.03.28<br>
  * 수정자 : 고한별<br>
  */
 public class AdminMenuEvent extends WindowAdapter implements ActionListener {
-    private AdminMenu adminMenu;
+    private final AdminMenu adminMenu;
 
     public AdminMenuEvent(AdminMenu adminMenu) {
         this.adminMenu = adminMenu;
@@ -74,9 +74,9 @@ public class AdminMenuEvent extends WindowAdapter implements ActionListener {
     }
 
     /**
-     * Desc : 창 닫기 *******구현필요
+     * Desc : 창 닫기
      */
-    public void closeFrame(){
+    private void closeFrame(){
         adminMenu.dispose();
     }
 }

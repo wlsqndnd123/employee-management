@@ -33,30 +33,29 @@ public class AdminMenuDAO {
     /**
      * Desc : 업무 알람에 필요한 Data 호출
      *
+     * @param isCodeFive true 연차신청서, false 업무문서
      * @return : 관련 데이터 list
      * @throws SQLException
      */
     public int alertWork(boolean isCodeFive) throws SQLException {
         int count = 0;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
-        try {
-            connection = DbConnection.getCon();
-            String countDocs = "select count(*) from business_log where CODE2 = 1";
+        try (Connection connection = DbConnection.getCon()) {
+            String countDocsQuery = "SELECT COUNT(*) FROM business_log WHERE CODE2 = 1";
+
             if (isCodeFive) {
-                countDocs += " and CODE = 5";
+                countDocsQuery += " AND CODE = 5";
             } else {
-                countDocs += " and CODE <> 5";
+                countDocsQuery += " AND CODE <> 5";
             }
-            preparedStatement = connection.prepareStatement(countDocs);
-            resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                count = resultSet.getInt(1);
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(countDocsQuery);
+                 ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                if (resultSet.next()) {
+                    count = resultSet.getInt(1);
+                }
             }
-        } finally {
-            DbConnection.dbClose(resultSet, preparedStatement, connection);
         }
 
         return count;
