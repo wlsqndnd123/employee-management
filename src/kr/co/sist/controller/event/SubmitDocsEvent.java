@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
-public class SubmitDocsEvent extends WindowAdapter implements ActionListener{
+public class SubmitDocsEvent extends WindowAdapter implements ActionListener,FocusListener{
 
     private SubmitDocs smd;
     private int code;
@@ -37,7 +37,6 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (e.getSource() == smd.getAttAdd()) {
             FileDialog fileDialog = new FileDialog(smd, "파일 선택", FileDialog.LOAD);
             fileDialog.setVisible(true);
@@ -83,6 +82,18 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener{
             smd.dispose();
             new DocsList();
         }
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+        if(e.getSource() == smd.getJtfTitle() && smd.getJtfTitle().getText().equals("제목을 입력하세요")){
+            smd.getJtfTitle().setText("");
+        }
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+
     }
 
     @Override
