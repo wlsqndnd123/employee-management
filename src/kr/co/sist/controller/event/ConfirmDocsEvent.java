@@ -33,7 +33,6 @@ public class ConfirmDocsEvent extends WindowAdapter implements ActionListener, M
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
             new DocsManagement();
             cfdocs.dispose();
         }
@@ -45,6 +44,7 @@ public class ConfirmDocsEvent extends WindowAdapter implements ActionListener, M
 
         if (ae.getSource() == cfdocs.getJbtncheck()) {
             cfdocs.dispose();
+            new DocsManagement();
         }
     }
 

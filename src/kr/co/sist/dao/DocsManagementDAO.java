@@ -34,7 +34,7 @@ public class DocsManagementDAO {
                      "  JOIN BUSINESS_LOG bl ON ei.emp_no = bl.emp_no   " +
                      "  LEFT JOIN COMMON c1 ON bl.grp_code = c1.grp_code AND bl.code = c1.code   " +
                      "  LEFT JOIN COMMON c2 ON bl.grp_code2 = c2.grp_code AND bl.code2 = c2.code   " +
-                     "WHERE (d.dept_code = ei.dept_code) AND (ei.emp_no = bl.emp_no) AND bl.logic = 'N'" +
+                     "WHERE (d.dept_code = ei.dept_code) AND (ei.emp_no = bl.emp_no) AND bl.logic = 'N' AND c1.DESCRIPTION <> '휴가신청서' " +
                      "order by bl.DOC_NO desc")) {
             createResultSet(list, pstmt);
         }
@@ -51,7 +51,7 @@ public class DocsManagementDAO {
                              "  LEFT JOIN COMMON c1 ON bl.grp_code = c1.grp_code AND bl.code = c1.code   " +
                              "  LEFT JOIN COMMON c2 ON bl.grp_code2 = c2.grp_code AND bl.code2 = c2.code   " +
                              "  WHERE bl.logic = 'N' " +
-                     "  AND d.dept_name = ? AND bl.code = ? AND bl.code2 = ?" +
+                     "  AND d.dept_name = ? AND bl.code = ? AND bl.code2 = ? AND c1.DESCRIPTION <> '휴가신청서' " +
                      "order by bl.DOC_NO desc")) {
             pstmt.setString(1, dept);
             pstmt.setString(2, fileType);
