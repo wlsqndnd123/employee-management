@@ -8,14 +8,11 @@ import kr.co.sist.view.admin.DocsManagement;
 import kr.co.sist.vo.DocumentVO;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DocsManagementEvent implements ActionListener, MouseListener {
+public class DocsManagementEvent extends WindowAdapter implements ActionListener, MouseListener {
     private DocsManagement dmm;
 
     public DocsManagementEvent(DocsManagement dmm) {
@@ -31,6 +28,16 @@ public class DocsManagementEvent implements ActionListener, MouseListener {
         if (ae.getSource() == dmm.getJbtnSearch()) {
             try {
                 selectDocument();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(ae.getSource() == dmm.getJbtnSelect()){
+            int selectedRow = dmm.getJtaDob().getSelectedRow();
+            String docNum = dmm.getDtmjtabResult().getValueAt(selectedRow, 0).toString();
+            try {
+                new ConfirmDocs(DocsListDAO.getInstance().selectDocinfo(docNum));
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -155,16 +162,16 @@ public class DocsManagementEvent implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent me) {
-        int column = dmm.getJtaDob().columnAtPoint(me.getPoint());
-        int row = dmm.getJtaDob().rowAtPoint(me.getPoint());
-        String DocNum = (String) dmm.getJtaDob().getValueAt(row, 0);
-        if (column == 1) { // 2nd column
-            try {
-                new ConfirmDocs(DocsListDAO.getInstance().selectDocinfo(DocNum));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+//        int column = dmm.getJtaDob().columnAtPoint(me.getPoint());
+//        int row = dmm.getJtaDob().rowAtPoint(me.getPoint());
+//        String DocNum = (String) dmm.getJtaDob().getValueAt(row, 0);
+//        if (column == 1) { // 2nd column
+//            try {
+//                new ConfirmDocs(DocsListDAO.getInstance().selectDocinfo(DocNum));
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
 
@@ -186,5 +193,10 @@ public class DocsManagementEvent implements ActionListener, MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        dmm.dispose();
     }
 }

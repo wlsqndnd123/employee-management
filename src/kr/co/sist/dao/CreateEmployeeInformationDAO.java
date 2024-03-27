@@ -3,6 +3,7 @@ package kr.co.sist.dao;
 import kr.co.sist.controller.event.CreateEmployeeInformationEvent;
 import kr.co.sist.controller.event.LoginEvent;
 import kr.co.sist.util.DbConnection;
+import kr.co.sist.vo.DocumentVO;
 import kr.co.sist.vo.EmpInfoVO;
 
 import java.sql.Connection;
@@ -73,7 +74,7 @@ public class CreateEmployeeInformationDAO {
 			pstmt.setString(2, eVO.getName());
 			pstmt.setString(3, eVO.getJob());
 			CreateEmployeeInformationEvent ceie = new CreateEmployeeInformationEvent();
-			pstmt.setInt(4, ceie.convertDept((eVO.getDept())));
+			pstmt.setInt(4, convertDept((eVO.getDept())));
 			pstmt.setInt(5, ceie.convertposition(eVO.getPosition()));
 			pstmt.setString(6, eVO.getTel());
 
@@ -125,6 +126,47 @@ public class CreateEmployeeInformationDAO {
 			DbConnection.dbClose(null, pstmt, con);
 		}
 
+	}
+	
+	public int convertDept(String deptName) throws SQLException {
+		int dept_code =0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs =null;
+		try {
+			con= DbConnection.getCon();
+			String dept= "select DEPT_CODE from dep where DEPT_NAME =?";
+			pstmt = con.prepareStatement(dept);
+			pstmt.setString(1, deptName);
+			rs =pstmt.executeQuery();
+			while(rs.next()) {
+				dept_code= rs.getInt("DEPT_CODE");
+			}
+		} finally {
+			DbConnection.dbClose(rs, pstmt, con);
+		}
+		
+		return dept_code;
+	}
+	public String convertDept(int dept_code) throws SQLException {
+		String deptName ="";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs =null;
+		try {
+			con= DbConnection.getCon();
+			String dept= "select DEPT_NAME from dep where DEPT_CODE =?";
+			pstmt = con.prepareStatement(dept);
+			pstmt.setInt(1, dept_code);
+			rs =pstmt.executeQuery();
+			while(rs.next()) {
+				deptName= rs.getString("DEPT_NAME");
+			}
+		} finally {
+			DbConnection.dbClose(rs, pstmt, con);
+		}
+		
+		return deptName;
 	}
 
 }

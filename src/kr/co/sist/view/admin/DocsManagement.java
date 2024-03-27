@@ -22,6 +22,7 @@ public class DocsManagement extends JFrame {
     private JComboBox<String> jcbSelectApprovalState;
     private JButton jbtnBackhome;
     private JButton jbtnSearch;
+    private JButton jbtnSelect;
     private JTable jtaDob;
     private DefaultTableModel dtmjtabResult;
 
@@ -40,7 +41,6 @@ public class DocsManagement extends JFrame {
 
         setBounds(300, 80, 800, 470);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void createTable() {
@@ -61,23 +61,27 @@ public class DocsManagement extends JFrame {
         }
 
         JScrollPane scrollPane = new JScrollPane(jtaDob);
-        scrollPane.setBounds(30, 120, 700, 300);
+        scrollPane.setBounds(30, 120, 700, 250);
         add(scrollPane);
     }
 
     private void addButton() {
         jbtnBackhome = JFrameComponent.createButton(getContentPane(), "메인으로", 610, 20, 100, 30);
         jbtnSearch = JFrameComponent.createButton(getContentPane(), "찾기", 610, 60, 100, 30);
+        jbtnSelect = JFrameComponent.createButton(getContentPane(), "조회", 340, 390, 100, 30);
+
     }
 
     private void addEvents() {
         DocsManagementEvent dme = new DocsManagementEvent(this);
 
+        addWindowListener(dme);
         jbtnBackhome.addActionListener(dme);
         jbtnSearch.addActionListener(dme);
         jcbSelectDep.addActionListener(dme);
         jcbSelectApprovalState.addActionListener(dme);
         jcbSelectFileType.addActionListener(dme);
+        jbtnSelect.addActionListener(dme);
         jtaDob.addMouseListener(dme);
 
         try {
@@ -133,6 +137,10 @@ public class DocsManagement extends JFrame {
 
     public JButton getJbtnSearch() {
         return jbtnSearch;
+    }
+
+    public JButton getJbtnSelect() {
+        return jbtnSelect;
     }
 
     public JTable getJtaDob() {

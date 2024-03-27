@@ -24,6 +24,30 @@ public class DocsManagementDAO {
         return dmmDAO;
     }
 
+    public String searchDept(int dept) throws SQLException {
+    	String deptName ="";
+    	DocumentVO dVO = null;
+    	Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+    	try {
+    		con = DbConnection.getCon();
+    		deptName ="select DEPT_NAME from DEPT where DEPT_CODE= ?";
+    		pstmt =con.prepareStatement(deptName);
+    		pstmt.setInt(1,dept );
+    		rs = pstmt.executeQuery();
+    		while(rs.next()) {
+    			
+    		dVO = new DocumentVO();
+    		dVO.setDept(rs.getString("DEPT_NAME"));
+    		}
+    		
+    	}finally {
+    		
+    	}
+    	
+    	return deptName;
+    }
     public List<DocumentVO> searchDocument() throws SQLException {
         List<DocumentVO> list = new ArrayList<DocumentVO>();
         Connection con = null;
