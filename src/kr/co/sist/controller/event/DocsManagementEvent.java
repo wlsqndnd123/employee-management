@@ -51,6 +51,7 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
         String docNum = dmm.getDtmjtabResult().getValueAt(selectedRow, 0).toString();
         try {
             new ConfirmDocs(DocsListDAO.getInstance().selectDocinfo(docNum));
+            dmm.dispose();
         } catch (SQLException e) {
             e.printStackTrace();
         }
