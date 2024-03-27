@@ -39,11 +39,22 @@ public class UpdatePasswordEvent extends WindowAdapter implements ActionListener
         }//end if
 
         if (ae.getSource() == up.getUpdateButton()) {
-        	LoginVO loginVO = LoginDAO.getInstance().confirmUser(LoginEvent.getEmpno());
+            LoginVO loginVO = LoginDAO.getInstance().confirmUser(LoginEvent.getEmpno());
             String authCode = loginVO.getAuthCode();
-            
+            String pass = up.getJtfUpdatePw().getText().trim();
+
+            if(pass.isBlank()){
+                JOptionPane.showMessageDialog(up,"변경할 비밀번호를 입력하세요.");
+                return;
+            }
+
+            if(pass.equals(loginVO.getPassword())){
+                JOptionPane.showMessageDialog(up,"변경할 비밀번호는 현재 비밀번호와 달라야합니다.");
+                return;
+            }
+
             modifyPassword();
-            
+
             if (authCode.equals("ADMIN") || authCode.equals("SUPER")) {
                 new AdminMenu();
             } else if (authCode.equals("USER")) {
@@ -60,13 +71,12 @@ public class UpdatePasswordEvent extends WindowAdapter implements ActionListener
      */
     public void modifyPassword() {
         String pass = up.getJtfUpdatePw().getText().trim();
-
         try {
             UpdatePasswordDAO upDAO = UpdatePasswordDAO.getInstance();
             int cnt = upDAO.updatePassword(up.getLoginVO(), pass);
             if (cnt == 1) {
                 JOptionPane.showMessageDialog(up, "해당 사원의 정보가 변경되었습니다.");
-                
+                up.dispose();
             } else {
                 JOptionPane.showMessageDialog(up, "비밀번호를 다시 확인하세요");
             }
