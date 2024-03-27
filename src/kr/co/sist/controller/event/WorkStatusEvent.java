@@ -13,6 +13,8 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class WorkStatusEvent extends WindowAdapter implements ActionListener {
     private List<CommuteVO> cVOList;
     private WorkStatus ws;
@@ -36,7 +38,8 @@ public class WorkStatusEvent extends WindowAdapter implements ActionListener {
                 }
                 CheckWS(empno, ws.getJcbDateRange().getSelectedItem().toString());
             } catch (NumberFormatException | SQLException e) {
-                e.printStackTrace();
+            	JOptionPane.showMessageDialog(ws, "사원번호를 적어주세요");
+                
             }
         }
 

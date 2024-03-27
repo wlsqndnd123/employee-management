@@ -19,7 +19,7 @@ public class DocsList extends JFrame {
 	public DocsList() {
 		setTitle("사원문서리스트");
 		setLayout(null);
-		cbcheck = new JCheckBox("공유문서");
+		cbcheck = new JCheckBox("내 문서");
 		add(cbcheck);
 		cbcheck.setBounds(30, 20, 100, 20);
 		createTable();
