@@ -28,8 +28,6 @@ public class DocsList extends JFrame {
 
 		setBounds(300, 100, 700, 570);
 		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 	}
 
 	private void addButtons() {
@@ -40,6 +38,8 @@ public class DocsList extends JFrame {
 
 	private void createEvents() {
 		DocsListEvent dle = new DocsListEvent(this);
+
+		addWindowListener(dle);
 		jbtnAddDoc.addActionListener(dle);
 		jbtnGoMain.addActionListener(dle);
 		cbcheck.addItemListener(dle);

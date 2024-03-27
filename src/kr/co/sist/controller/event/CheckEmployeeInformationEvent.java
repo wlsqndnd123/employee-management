@@ -27,7 +27,7 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
 
     @Override
     public void windowClosing(WindowEvent e) {
-
+        checkEmp.dispose();
     }
 
     @Override

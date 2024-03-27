@@ -44,7 +44,6 @@ public class SubmitDocs extends JFrame {
 
         setBounds(300, 100, 650, 550);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     /**
@@ -53,6 +52,7 @@ public class SubmitDocs extends JFrame {
     public void createEvent() {
         smde = new SubmitDocsEvent(this);
 
+        addWindowListener(smde);
         attAdd.addActionListener(smde);
         attRemove.addActionListener(smde);
         jcb.addItemListener(smde);

@@ -40,7 +40,6 @@ public class RequestVacation extends JFrame {
 
         setBounds(300, 100, 650, 550);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     /**
@@ -130,6 +129,7 @@ public class RequestVacation extends JFrame {
      */
     public void createEvent() {
         RequestVacationEvent requestVacationEvent = new RequestVacationEvent(this);
+        addWindowListener(requestVacationEvent);
         requestJbtn.addActionListener(requestVacationEvent);
         cancelJbtn.addActionListener(requestVacationEvent);
         createDateEvent();

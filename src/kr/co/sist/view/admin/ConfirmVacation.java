@@ -55,11 +55,11 @@ public class ConfirmVacation extends JFrame {
             jbApprove.addActionListener(cve);
         }
 
+        addWindowListener(cve);
         jbCancel.addActionListener(cve);
 
         setBounds(300, 100, 650, 550);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void createLabel() {

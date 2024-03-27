@@ -25,7 +25,6 @@ public class UpdateEmployeeInformation extends JFrame {
         createEvent();
 
         setSize(430, 440);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
@@ -63,6 +62,7 @@ public class UpdateEmployeeInformation extends JFrame {
     private void createEvent() {
         UpdateEmployeeInformationEvent uei = new UpdateEmployeeInformationEvent(this);
 
+        addWindowListener(uei);
         jbtnChange.addActionListener(uei);
         jbtnDelete.addActionListener(uei);
         jbtnCancel.addActionListener(uei);
