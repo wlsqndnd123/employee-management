@@ -107,8 +107,14 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
     public void mouseClicked(MouseEvent me) {
         int column = dmm.getJtaDob().columnAtPoint(me.getPoint());
         int row = dmm.getJtaDob().rowAtPoint(me.getPoint());
+
+        if(dmm.getJtaDob().getValueAt(row,column) == null){
+            return;
+        }
+
         String item = dmm.getJtaDob().getValueAt(row, column).toString();
         String DocNum = (String) dmm.getJtaDob().getValueAt(row, 0);
+
         if (item.equals("반려")) {
             try {
                 Reject(DocNum);

@@ -26,12 +26,12 @@ public class WorkStatusEvent extends WindowAdapter implements ActionListener {
             ws.getDtmDailyStatus().setNumRows(0);
 
             try {
-                int empno = 0;
+                int empno;
                 if (ws.getJtfEmpNum().getText().isBlank() || ws.getJtfEmpNum().getText().equals("사원번호")) {
-                	empno = 0;
-                }else {
-                
-                empno = Integer.parseInt(ws.getJtfEmpNum().getText());
+                    empno = 0;
+                } else {
+
+                    empno = Integer.parseInt(ws.getJtfEmpNum().getText());
                 }
                 CheckWS(empno, ws.getJcbDateRange().getSelectedItem().toString());
             } catch (NumberFormatException | SQLException e) {
