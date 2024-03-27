@@ -39,7 +39,6 @@ public class WorkStatusEvent extends WindowAdapter implements ActionListener {
                 CheckWS(empno, ws.getJcbDateRange().getSelectedItem().toString());
             } catch (NumberFormatException | SQLException e) {
             	JOptionPane.showMessageDialog(ws, "사원번호를 적어주세요");
-                
             }
         }
 

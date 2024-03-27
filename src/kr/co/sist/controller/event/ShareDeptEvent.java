@@ -1,19 +1,18 @@
 package kr.co.sist.controller.event;
 
-import java.awt.event.*;
-import java.sql.SQLException;
-
-import javax.swing.JOptionPane;
-
 import kr.co.sist.dao.ShareDeptDAO;
 import kr.co.sist.view.admin.ConfirmDocs;
 import kr.co.sist.view.admin.DocsManagement;
 import kr.co.sist.view.admin.ShareDept;
 import kr.co.sist.vo.DocumentVO;
 
+import javax.swing.*;
+import java.awt.event.*;
+import java.sql.SQLException;
+
 public class ShareDeptEvent extends WindowAdapter implements ActionListener, MouseListener {
-   
-	ShareDept dept;
+
+    ShareDept dept;
     ConfirmDocs cd;
 
     public ShareDeptEvent(ShareDept dept) {
@@ -23,7 +22,7 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
 
     @Override
     public void mouseClicked(MouseEvent me) {
-    	
+
         if (me.getSource() == dept.getJlDept()) {
 
             int index = dept.getJlDept().getSelectedIndex();
@@ -39,7 +38,7 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
                 String strdept = (String) dept.getDlmSelectedDept().getElementAt(index);
                 dept.getDlmDept().addElement(strdept);
                 dept.getDlmSelectedDept().remove(index);
-                
+
             }
 
         }
@@ -70,38 +69,38 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == dept.getJbtncancel()) {
             dept.dispose();
-            
+
         }
         if (ae.getSource() == dept.getJbtncheck()) {
             try {
-            	Object[] selectedDept =
-            	dept.getDlmSelectedDept().toArray();
+                Object[] selectedDept =
+                        dept.getDlmSelectedDept().toArray();
                 addSharedDoc(selectedDept);
                 JOptionPane.showMessageDialog(null, "공유되었습니다.");
                 dept.dispose();
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
+                new DocsManagement();
+            } catch (NumberFormatException | SQLException e) {
                 e.printStackTrace();
             }
         }
     }
+
     public void addSharedDoc(Object[] selectedDept) throws NumberFormatException, SQLException {
         String docNum = ConfirmDocs.getDocNum();
 //        int index = dept.getJlDept().getSelectedIndex();
-        
+
         String strdept = (String) dept.getDlmSelectedDept().get(0);
         System.out.println(strdept);
         try {
-        	ShareDeptDAO sdDAO = ShareDeptDAO.getInstance();
-        	DocumentVO dVO = new DocumentVO();
-        	for(int i =0; i<selectedDept.length;i++) {
+            ShareDeptDAO sdDAO = ShareDeptDAO.getInstance();
+            DocumentVO dVO = new DocumentVO();
+            for (int i = 0; i < selectedDept.length; i++) {
 //        		DocumentVO dVO = new DocumentVO(docNum, null, null, null, null, null, strdept, 0, null, null);
-        		dVO.setDocNo(docNum);
-        		dVO.setDept(selectedDept[i].toString());
-        		sdDAO.shareDoc(dVO);
-        		
-        	}
+                dVO.setDocNo(docNum);
+                dVO.setDept(selectedDept[i].toString());
+                sdDAO.shareDoc(dVO);
+
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
