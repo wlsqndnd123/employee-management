@@ -82,6 +82,7 @@ public class WorkStatus extends JFrame {
         jbCheck.addActionListener(wse);
         jbGoMain.addActionListener(wse);
         jbVacationStatus.addActionListener(wse);
+        jtfEmpNum.addFocusListener(wse);
         try {
             wse.CheckWS(0, "오늘");
         } catch (SQLException e) {
