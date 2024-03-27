@@ -1,7 +1,12 @@
 package kr.co.sist.view.admin;
 
 import kr.co.sist.controller.event.CreateEmployeeInformationEvent;
+import kr.co.sist.dao.CheckEmployeeInformationDAO;
 import kr.co.sist.view.util.JFrameComponent;
+import kr.co.sist.vo.EmpInfoVO;
+
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -9,11 +14,13 @@ public class CreateEmployeeInformation extends JFrame {
     private JLabel jlEmpno, jlName, jlPosition, jlJob, jlTel, jlDep;
     private JTextField tfEmpno, tfName, tfPosition, tfJob, tfTel, tfDep;
     private JButton jbtnAdd, jbtnCancel;
-
+    private JComboBox<String> cbDept, cbPosition;
     public CreateEmployeeInformation() {
         super("사원등록");
         setLayout(null);
-
+        cbDept = JFrameComponent.createStringCombobox(getContentPane(),170,160,170,25);
+        cbPosition = JFrameComponent.createStringCombobox(getContentPane(), 170,70,170,25);
+        createComboBoxContent();
         createLabel();
         createTextField();
         createButton();
@@ -21,6 +28,29 @@ public class CreateEmployeeInformation extends JFrame {
 
         setBounds(300, 100, 400, 300);
         setVisible(true);
+    }
+    private void createComboBoxContent() {
+        try {
+            CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
+
+            List<EmpInfoVO> dept = ciDAO.selectInfo("dept");
+
+            for (EmpInfoVO emp : dept) {
+                cbDept.addItem(emp.getDept());
+            }
+
+            cbDept.setSelectedIndex(0);
+
+            List<EmpInfoVO> pos = ciDAO.selectInfo("pos");
+
+            for (EmpInfoVO emp : pos) {
+                cbPosition.addItem(emp.getPosition());
+            }
+
+            cbPosition.setSelectedIndex(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createLabel() {
@@ -35,10 +65,10 @@ public class CreateEmployeeInformation extends JFrame {
     private void createTextField() {
         tfEmpno = JFrameComponent.createTextField(getContentPane(),170,10,170,25);
         tfName = JFrameComponent.createTextField(getContentPane(),170,40,170,25);
-        tfPosition = JFrameComponent.createTextField(getContentPane(),170,70,170,25);
+//        tfPosition = JFrameComponent.createTextField(getContentPane(),170,70,170,25);
         tfJob = JFrameComponent.createTextField(getContentPane(),170,100,170,25);
         tfTel = JFrameComponent.createTextField(getContentPane(),170,130,170,25);
-        tfDep = JFrameComponent.createTextField(getContentPane(),170,160,170,25);
+//        tfDep = JFrameComponent.createTextField(getContentPane(),170,160,170,25);
         tfEmpno.setEditable(false);
     }
 
@@ -53,6 +83,8 @@ public class CreateEmployeeInformation extends JFrame {
         addWindowListener(cei);
         jbtnAdd.addActionListener(cei);
         jbtnCancel.addActionListener(cei);
+        cbDept.addActionListener(cei);
+        cbPosition.addActionListener(cei);
     }
 
     public JTextField getTfEmpno() {
@@ -86,5 +118,11 @@ public class CreateEmployeeInformation extends JFrame {
     public JButton getJbtnCancel() {
         return jbtnCancel;
     }
+	public JComboBox<String> getCbDept() {
+		return cbDept;
+	}
+	public JComboBox<String> getCbPosition() {
+		return cbPosition;
+	}
 
 }
