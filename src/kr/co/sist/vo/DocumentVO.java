@@ -47,6 +47,15 @@ public class DocumentVO {
         this.empNo = empNo;
     }
 
+    public DocumentVO(String docNo, String title, String workLog, String fileName, String dept, int empNo, int code) {
+        this.docNo = docNo;
+        this.title = title;
+        this.workLog = workLog;
+        this.fileName = fileName;
+        this.dept = dept;
+        this.empNo = empNo;
+        this.code = code;
+    }
 
     public DocumentVO(String apprDesc, String dept, String paperType) {
         super();
