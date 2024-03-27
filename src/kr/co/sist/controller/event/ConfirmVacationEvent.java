@@ -32,9 +32,10 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
 
         if (ae.getSource() == cv.getJbApprove()) {
             int result = JOptionPane.showConfirmDialog(cv, "승인하시겠습니까?.", "확인", JOptionPane.YES_NO_OPTION);
-            if (result == JOptionPane.YES_OPTION) {
-                ApproveVacation(Integer.parseInt(cv.getJtfDocNum().getText()));
+            if (result != JOptionPane.YES_OPTION) {
+                return;
             }
+            ApproveVacation(Integer.parseInt(cv.getJtfDocNum().getText()));
             cv.dispose();
             new VacationStatus();
         }
