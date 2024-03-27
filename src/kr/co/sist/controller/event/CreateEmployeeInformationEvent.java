@@ -49,7 +49,13 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
         String position = ceiv.getTfPosition().getText().trim();
         String tel = ceiv.getTfTel().getText().trim();
         String dept = ceiv.getTfDep().getText().trim();
-
+        if(name.isEmpty()||job.isEmpty()||position.isEmpty()||tel.isEmpty()||dept.isEmpty()) {
+        	JOptionPane.showMessageDialog(ceiv, "모든 정보가 입력되어야합니다.");
+        	return;
+        }
+       int askagain = JOptionPane.showConfirmDialog(null, "정말로 추가 하시겠습니까?" ,"확인",JOptionPane.YES_NO_OPTION);
+        if(askagain ==JOptionPane.YES_OPTION) {
+        	
         try {
             CreateEmployeeInformationDAO ceDAO = CreateEmployeeInformationDAO.getInstance();
             int empno = ceDAO.selectMaxEmpnum();
@@ -64,17 +70,7 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-
-    public int convertposition(String position) {
-        return switch (position) {
-            case "사원" -> 1;
-            case "대리" -> 2;
-            case "과장" -> 3;
-            case "부장" -> 4;
-            case "사장" -> 5;
-            default -> 0;
-        };
+        }
+        
     }
 }// class
