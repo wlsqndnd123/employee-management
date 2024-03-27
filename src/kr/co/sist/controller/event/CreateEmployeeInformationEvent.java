@@ -46,11 +46,12 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
     public void addEmp() {
         String name = ceiv.getTfName().getText().trim();
         String job = ceiv.getTfJob().getText().trim();
-//        String position = ceiv.getTfPosition().getText().trim();
-//        String dept = ceiv.getTfDep().getText().trim();
         String dept = ceiv.getCbDept().getSelectedItem().toString();
         String position = ceiv.getCbPosition().getSelectedItem().toString();
         String tel = ceiv.getTfTel().getText().trim();
+        if(tel.length()>5) {
+        	JOptionPane.showMessageDialog(null, "내선번호는 4자리 입니다.");
+        }
         if(name.isEmpty()||job.isEmpty()||position.isEmpty()||tel.isEmpty()||dept.isEmpty()) {
         	JOptionPane.showMessageDialog(ceiv, "모든 정보가 입력되어야합니다.");
         	return;
