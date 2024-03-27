@@ -40,12 +40,14 @@ public class Login extends JFrame {
 
     private void createButton(){
         jbFindPassword = JFrameComponent.createButton(getContentPane(),"비밀번호 찾기",100, 200, 120, 30);
-        jbLogin = JFrameComponent.createButton(getContentPane(),"로그인",320, 105, 80, 40);
+        jbLogin = JFrameComponent.createButton(getContentPane(),"로그인",320, 131, 80, 40);
         jbExit = JFrameComponent.createButton(getContentPane(),"종료",240, 200, 60, 30);
     }
 
     private void createEvent(){
         LoginEvent le = new LoginEvent(this);
+        jtfEmp_no.addKeyListener(le);
+        jpwfPass.addKeyListener(le);
         jbLogin.addActionListener(le);
         jbExit.addActionListener(le);
         jbFindPassword.addActionListener(le);

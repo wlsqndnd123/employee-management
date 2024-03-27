@@ -51,7 +51,7 @@ public class VacationStatusDAO {
                 vVO = new VacationVO(rs.getInt("emp_no"), rs.getInt("assign_count"), rs.getInt("use_count"), rs.getInt("code2"), rs.getString("doc_no"), null,
                         null, rs.getString("name"), null,
                         null, null, rs.getString("title"), rs.getString("dept_name"), null, null, rs.getDate("create_date"));
-
+                
 
                 list.add(vVO);
             }
