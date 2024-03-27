@@ -63,7 +63,6 @@ public class LoginEvent extends WindowAdapter implements ActionListener,KeyListe
         LoginDAO lDAO = LoginDAO.getInstance();
         String savedPw = lDAO.confirmUser(empno).getPassword();
         String authcode = lDAO.confirmUser(empno).getAuthCode();
-
         if (Password.equals(savedPw)) {
             if (authcode.equals("SUPER") || authcode.equals("ADMIN")) {
                 new AdminMenu();
@@ -87,7 +86,11 @@ public class LoginEvent extends WindowAdapter implements ActionListener,KeyListe
     @Override
     public void keyPressed(KeyEvent e) {
     	if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-    		login();
+    		try{
+    			login();
+    		}catch(Exception e1) {
+    			JOptionPane.showMessageDialog(null, "퇴사한 직원이거나, 해당 사원의 정보가 존재하지 않습니다.");
+    		}
     	}
     	
     }
