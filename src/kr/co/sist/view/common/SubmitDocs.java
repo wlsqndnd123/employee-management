@@ -1,9 +1,13 @@
 package kr.co.sist.view.common;
 
 import kr.co.sist.controller.event.SubmitDocsEvent;
+import kr.co.sist.dao.DocsManagementDAO;
 import kr.co.sist.view.util.JFrameComponent;
+import kr.co.sist.vo.DocumentVO;
 
 import javax.swing.*;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Desc : 업무 관련 문서를 작성하기 위해 사용되는 view<br>
@@ -73,7 +77,19 @@ public class SubmitDocs extends JFrame {
      * ******** 내용은 DB에서 받는 것이 맞지..?********
      */
     public void createComboBox() {
-        jcb = new JComboBox<>(new String[]{"업무일지", "휴가신청", "보고서"});
+        jcb = new JComboBox<>();
+
+        List<DocumentVO> paperType = null;
+        try {
+            paperType = DocsManagementDAO.getInstance().selectInfo("paperType");
+
+            for (DocumentVO dVO : paperType) {
+                jcb.addItem(dVO.getPaperType());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         jcb.setBounds(20, 35, 110, 30);
         add(jcb);
     }
