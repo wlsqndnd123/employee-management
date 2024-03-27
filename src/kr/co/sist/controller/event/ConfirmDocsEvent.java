@@ -6,12 +6,12 @@ import kr.co.sist.view.admin.DocsManagement;
 import kr.co.sist.view.admin.ReturnReason;
 import kr.co.sist.view.admin.ShareDept;
 
+import javax.swing.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
-public class ConfirmDocsEvent extends WindowAdapter implements ActionListener, MouseListener {
-    private ConfirmDocs cfdocs;
-    private String docNum;
+public class ConfirmDocsEvent extends WindowAdapter implements ActionListener {
+    private final ConfirmDocs cfdocs;
 
     public ConfirmDocsEvent(ConfirmDocs cfdocs) {
         super();
@@ -26,19 +26,26 @@ public class ConfirmDocsEvent extends WindowAdapter implements ActionListener, M
         }
 
         if (ae.getSource() == cfdocs.getJbtnApproval()) {
-
-            try {
-                docNum = cfdocs.getJtfdocnum().getText();
-                acceptDoc(docNum);
-            } catch (SQLException e) {
-                e.printStackTrace();
+            String docNum = cfdocs.getJtfdocnum().getText();
+            if (docNum.isBlank()) {
+                JOptionPane.showMessageDialog(cfdocs, "문서 번호를 입력하세요.");
+                return;
             }
-            new DocsManagement();
-            cfdocs.dispose();
+            try {
+                acceptDoc(docNum);
+                new DocsManagement();
+                cfdocs.dispose();;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         if (ae.getSource() == cfdocs.getJbtncompanion()) {
-            docNum = cfdocs.getJtfdocnum().getText();
+            String docNum = cfdocs.getJtfdocnum().getText();
+            if (docNum.isEmpty()) {
+                JOptionPane.showMessageDialog(cfdocs, "문서 번호를 입력하세요.");
+                return;
+            }
             new ReturnReason(cfdocs, docNum);
         }
 
@@ -53,34 +60,8 @@ public class ConfirmDocsEvent extends WindowAdapter implements ActionListener, M
         cfdocs.dispose();
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
     public void acceptDoc(String docNum) throws SQLException {
         ConfirmDocsDAO cfDAO = ConfirmDocsDAO.getInstance();
         cfDAO.updateConfirmDoc(docNum);
     }
-
 }
