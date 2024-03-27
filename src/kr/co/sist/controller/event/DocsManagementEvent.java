@@ -2,9 +2,12 @@ package kr.co.sist.controller.event;
 
 import kr.co.sist.dao.DocsListDAO;
 import kr.co.sist.dao.DocsManagementDAO;
+import kr.co.sist.dao.VacationStatusDAO;
 import kr.co.sist.view.admin.AdminMenu;
 import kr.co.sist.view.admin.ConfirmDocs;
 import kr.co.sist.view.admin.DocsManagement;
+import kr.co.sist.view.user.DocsList;
+import kr.co.sist.view.user.Reject;
 import kr.co.sist.vo.DocumentVO;
 
 import javax.swing.*;
@@ -22,9 +25,10 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == dmm.getJbtnBackhome()) {
-        	dmm.dispose();
+            dmm.dispose();
             new AdminMenu();
         }
+
         if (ae.getSource() == dmm.getJbtnSearch()) {
             try {
                 selectDocument();
@@ -33,7 +37,7 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
             }
         }
 
-        if(ae.getSource() == dmm.getJbtnSelect()){
+        if (ae.getSource() == dmm.getJbtnSelect()) {
             int selectedRow = dmm.getJtaDob().getSelectedRow();
             String docNum = dmm.getDtmjtabResult().getValueAt(selectedRow, 0).toString();
             try {
@@ -52,25 +56,25 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
         if (dVOList.isEmpty()) {
             JOptionPane.showMessageDialog(null, "해당 문서가 없습니다");
         } else {
-			createContents(content, dVOList);
-		}
+            createContents(content, dVOList);
+        }
     }// searchDocument
 
-	private void createContents(Object[] content, List<DocumentVO> dVOList) {
-		for (DocumentVO dVO : dVOList) {
-			content[0] = dVO.getDocNo();
-			content[1] = dVO.getTitle();
-			content[2] = filetype(dVO.getCode());
-			content[3] = dVO.getDept();
-			content[4] = dVO.getDocDate();
-			content[5] = apprtype(dVO.getCode2());
-			content[6] = dVO.getDocDate();
+    private void createContents(Object[] content, List<DocumentVO> dVOList) {
+        for (DocumentVO dVO : dVOList) {
+            content[0] = dVO.getDocNo();
+            content[1] = dVO.getTitle();
+            content[2] = dVO.getWorkDesc();
+            content[3] = dVO.getDept();
+            content[4] = dVO.getDocDate();
+            content[5] = dVO.getApprDesc();
+            content[6] = dVO.getDocDate();
 
-			dmm.getDtmjtabResult().addRow(content);
-		}
-	}
+            dmm.getDtmjtabResult().addRow(content);
+        }
+    }
 
-	public void selectDocument() throws SQLException {
+    public void selectDocument() throws SQLException {
         String dept = dmm.getJcbSelectDep().getSelectedItem().toString();
         String fileType = dmm.getJcbSelectFileType().getSelectedItem().toString();
         String appr = dmm.getJcbSelectApprovalState().getSelectedItem().toString();
@@ -81,7 +85,7 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
         }
 
         DocsManagementDAO dmDAO = DocsManagementDAO.getInstance();
-        List<DocumentVO> dVOList = dmDAO.selectDocInfo(dept, filetype(fileType), apprtype(appr));
+        List<DocumentVO> dVOList = dmDAO.selectDocInfo(dept, fileType, appr);
         dmm.getDtmjtabResult().setRowCount(0);
 
         Object[] content = new Object[7];
@@ -89,114 +93,58 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
         if (dVOList == null) {
             JOptionPane.showMessageDialog(null, "문서정보가 없음");
         } else {
-			createContents(content, dVOList);
-		}
-
-    }
-
-    /**
-     * 문서의 형식을 문자에서 숫자로 변환하여 DAO에서 select를 돕는 method
-     *
-     * @param fileType
-     * @return
-     */
-    public int filetype(String fileType) {
-        return switch (fileType) {
-            case "일일업무보고" -> 1;
-            case "출장보고" -> 2;
-            case "구매신청" -> 3;
-            case "출장비정산요청" -> 4;
-            case "휴가신청서" -> 5;
-            default -> 0;
-        };
-    }
-
-    /**
-     * 문서의 형식을 숫자에서 문자로 변환하여 view에서 출력을 도와
-     * 이용자의 가독성을 높이는 매서드
-     *
-     * @param filetype
-     * @return
-     */
-    public String filetype(int filetype) {
-        return switch (filetype) {
-            case 1 -> "일일업무보고";
-            case 2 -> "출장보고";
-            case 3 -> "구매신청";
-            case 4 -> "출장비정산요청";
-            case 5 -> "휴가신청서";
-            default -> "";
-        };
-    }
-
-    /**
-     * 승인 상태를 문자에서 숫자로 변환하여 DAO에서 select를 돕는 method
-     *
-     * @param appr
-     * @return
-     */
-    public int apprtype(String appr) {
-        return switch (appr) {
-            case "대기" -> 1;
-            case "승인" -> 2;
-            case "반려" -> 3;
-            default -> 0;
-        };
-    }
-
-    /**
-     * 승인상태를 숫자에서 문자로 변환하여 view에서 출력을 도와
-     * 이용자의 가독성을 높이는 매서드
-     *
-     * @param appr
-     * @return
-     */
-    public String apprtype(int appr) {
-        return switch (appr) {
-            case 1 -> "대기";
-            case 2 -> "승인";
-            case 3 -> "반려";
-            default -> "";
-        };
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent me) {
-//        int column = dmm.getJtaDob().columnAtPoint(me.getPoint());
-//        int row = dmm.getJtaDob().rowAtPoint(me.getPoint());
-//        String DocNum = (String) dmm.getJtaDob().getValueAt(row, 0);
-//        if (column == 1) { // 2nd column
-//            try {
-//                new ConfirmDocs(DocsListDAO.getInstance().selectDocinfo(DocNum));
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-    }
-
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
+            createContents(content, dVOList);
+        }
 
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
         dmm.dispose();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        int column = dmm.getJtaDob().columnAtPoint(me.getPoint());
+        int row = dmm.getJtaDob().rowAtPoint(me.getPoint());
+        String item = dmm.getJtaDob().getValueAt(row, column).toString();
+        String DocNum = (String) dmm.getJtaDob().getValueAt(row, 0);
+        if (item.equals("반려")) {
+            try {
+                Reject(DocNum);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void Reject(String doc_no) throws SQLException {
+        VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
+        String regetDetail = vsDAO.selectRejetDetail(doc_no);
+
+        new Reject(dmm, regetDetail);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
