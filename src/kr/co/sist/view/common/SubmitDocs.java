@@ -59,6 +59,7 @@ public class SubmitDocs extends JFrame {
         btn_regist.addActionListener(smde);
         btn_cancel.addActionListener(smde);
         jtfTitle.addActionListener(smde);
+        jtfTitle.addFocusListener(smde);
     }
 
     /**
@@ -66,7 +67,7 @@ public class SubmitDocs extends JFrame {
      */
     private void createUpperComponents() {
         jtfTitle = JFrameComponent.createTextField(getContentPane(), "제목을 입력하세요", 140, 35, 200, 30);
-        jtfFileNm = JFrameComponent.createTextField(getContentPane(), "첨부파일명", 350, 35, 100, 30);
+        jtfFileNm = JFrameComponent.createTextField(getContentPane(), "", 350, 35, 100, 30,false);
 
         attAdd = JFrameComponent.createButton(getContentPane(), "추가", 470, 35, 60, 30);
         attRemove = JFrameComponent.createButton(getContentPane(), "취소", 540, 35, 60, 30);
