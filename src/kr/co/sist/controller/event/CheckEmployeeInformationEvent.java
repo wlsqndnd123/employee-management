@@ -46,23 +46,27 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
         } // end if
 
         if (ae.getSource() == checkEmp.getJbtnSearch()) {
-            searchEmp();
+            	try {
+					searchEmp();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            	
+            
         } // end if
 
     }// actionPerformed
 
-    private void searchEmp() {
+    private void searchEmp() throws SQLException {
         if (checkEmp.getJtInputEmpno().getText().isBlank()) {
-                resetTable();
-                allEmployeePrint(model);
-        }else {
-            int empno = Integer.parseInt(checkEmp.getJtInputEmpno().getText());
-            try {
+        	resetTable();
+        	searchEmpInfo(eVO);
+        }else{
+        	int empno = Integer.parseInt(checkEmp.getJtInputEmpno().getText());
+          
                 resetTable();
                 searchEmpInfo(empno);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 

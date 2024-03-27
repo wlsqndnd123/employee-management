@@ -75,6 +75,10 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
             try {
                 Object[] selectedDept =
                         dept.getDlmSelectedDept().toArray();
+                if(selectedDept.length==0) {
+                	JOptionPane.showMessageDialog(null, "하나 이상의 부서를 선택하세요.");
+                	return;
+                }
                 addSharedDoc(selectedDept);
                 JOptionPane.showMessageDialog(null, "공유되었습니다.");
                 dept.dispose();
@@ -86,7 +90,7 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
     }
 
     public void addSharedDoc(Object[] selectedDept) throws NumberFormatException, SQLException {
-        String docNum = ConfirmDocs.getDocNum();
+    	String docNum = ConfirmDocs.getDocNum();
 //        int index = dept.getJlDept().getSelectedIndex();
 
         String strdept = (String) dept.getDlmSelectedDept().get(0);
@@ -95,7 +99,6 @@ public class ShareDeptEvent extends WindowAdapter implements ActionListener, Mou
             ShareDeptDAO sdDAO = ShareDeptDAO.getInstance();
             DocumentVO dVO = new DocumentVO();
             for (int i = 0; i < selectedDept.length; i++) {
-//        		DocumentVO dVO = new DocumentVO(docNum, null, null, null, null, null, strdept, 0, null, null);
                 dVO.setDocNo(docNum);
                 dVO.setDept(selectedDept[i].toString());
                 sdDAO.shareDoc(dVO);

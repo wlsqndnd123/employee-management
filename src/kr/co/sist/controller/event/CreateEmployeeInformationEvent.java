@@ -49,14 +49,15 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
         String dept = ceiv.getCbDept().getSelectedItem().toString();
         String position = ceiv.getCbPosition().getSelectedItem().toString();
         String tel = ceiv.getTfTel().getText().trim();
-        if(tel.length()>5) {
+        if(tel.length()>4) {
         	JOptionPane.showMessageDialog(null, "내선번호는 4자리 입니다.");
+        	return;
         }
         if(name.isEmpty()||job.isEmpty()||position.isEmpty()||tel.isEmpty()||dept.isEmpty()) {
         	JOptionPane.showMessageDialog(ceiv, "모든 정보가 입력되어야합니다.");
         	return;
         }
-       int askagain = JOptionPane.showConfirmDialog(null, "정말로 추가 하시겠습니까?" ,"확인",JOptionPane.YES_NO_OPTION);
+       int askagain = JOptionPane.showConfirmDialog(null, "해당 정보의 사원을 추가 하시겠습니까?" ,"확인",JOptionPane.YES_NO_OPTION);
         if(askagain ==JOptionPane.YES_OPTION) {
         	
         try {
