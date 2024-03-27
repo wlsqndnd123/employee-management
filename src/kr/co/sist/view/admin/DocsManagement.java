@@ -81,7 +81,7 @@ public class DocsManagement extends JFrame {
         jcbSelectDep.addActionListener(dme);
         jcbSelectApprovalState.addActionListener(dme);
         jcbSelectFileType.addActionListener(dme);
-//        jtaDob.addMouseListener(dme);
+        jtaDob.addMouseListener(dme);
 
         try {
             dme.searchDocument();
