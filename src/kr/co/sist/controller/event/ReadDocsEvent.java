@@ -28,9 +28,15 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
         }
 
         if (e.getSource() == rd.getjbtnDel()) {
-            disableDocs();
-            rd.dispose();
-            new DocsList();
+        	int result = JOptionPane.showConfirmDialog(null,"삭제하시겠습니까?");
+        	
+        	if(result == JOptionPane.OK_OPTION){
+        		 disableDocs();
+                 rd.dispose();
+                 new DocsList();	
+                }
+        	return;
+           	
         }
 
         if (e.getSource() == rd.getjbtnChg()) {
@@ -38,10 +44,11 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
 
             if(result == JOptionPane.OK_OPTION){
             modifyDocs();
-            }
-
             rd.dispose();
             new DocsList();
+            }
+            return;
+            
         }
     }
 
@@ -71,6 +78,8 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        
+        JOptionPane.showMessageDialog(null, "삭제되었습니다.");
     }
 
     @Override
