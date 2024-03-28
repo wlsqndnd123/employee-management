@@ -6,7 +6,6 @@ import kr.co.sist.view.user.DocsList;
 import kr.co.sist.view.user.ReadDocs;
 import kr.co.sist.vo.DocumentVO;
 import kr.co.sist.vo.LoginVO;
-import oracle.jdbc.logging.annotations.Log;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -31,34 +30,34 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
         }
 
         if (e.getSource() == rd.getjbtnDel()) {
-            if(youReturn()){
+            if (youReturn()) {
                 JOptionPane.showMessageDialog(null, "넌 안돼");
                 return;
             }
 
-            int result = JOptionPane.showConfirmDialog(null,"삭제하시겠습니까?");
-        	
-        	if(result == JOptionPane.OK_OPTION){
-        		 disableDocs();
-                 rd.dispose();
-                 new DocsList();	
-                }
-        	return;
-           	
+            int result = JOptionPane.showConfirmDialog(null, "삭제하시겠습니까?");
+
+            if (result == JOptionPane.OK_OPTION) {
+                disableDocs();
+                rd.dispose();
+                new DocsList();
+            }
+            return;
+
         }
 
         if (e.getSource() == rd.getjbtnChg()) {
-            if(youReturn()){
+            if (youReturn()) {
                 JOptionPane.showMessageDialog(null, "넌 안돼");
                 return;
             }
 
-            int result = JOptionPane.showConfirmDialog(null,"수정하시겠습니까?");
+            int result = JOptionPane.showConfirmDialog(null, "수정하시겠습니까?");
 
-            if(result == JOptionPane.OK_OPTION){
-            modifyDocs();
-            rd.dispose();
-            new DocsList();
+            if (result == JOptionPane.OK_OPTION) {
+                modifyDocs();
+                rd.dispose();
+                new DocsList();
             }
 
         }
@@ -102,7 +101,7 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        
+
         JOptionPane.showMessageDialog(null, "삭제되었습니다.");
     }
 
