@@ -158,8 +158,8 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
             content[5] = empInfoVO.getHiredate();
             content[6] = empInfoVO.getTel();
             content[7] = empInfoVO.getModifiedDate();
+            checkEmp.getDtmEmpTable().addRow(content);
         }
-        checkEmp.getDtmEmpTable().addRow(content);
     }
 
     private void printEmpInfo(EmpInfoVO eVO) {
