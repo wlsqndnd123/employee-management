@@ -141,13 +141,15 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
             empInfoVOList = ciDAO.selectDeptEmpInfo(dept);
         } else if (isPosition) {
             empInfoVOList = ciDAO.selectPositionEmpInfo(position);
-        }else {
-            empInfoVOList = ciDAO.selectEmpInfo(dept, position, year);}
+        } else {
+            empInfoVOList = ciDAO.selectEmpInfo(dept, position, year);
+        }
 
         if (empInfoVOList == null) {
             JOptionPane.showMessageDialog(null, "선택한 사원의 정보가 존재하지 않습니다.");
             return;
         }
+
         for (EmpInfoVO empInfoVO : empInfoVOList) {
             content[0] = empInfoVO.getEmpno();
             content[1] = empInfoVO.getName();

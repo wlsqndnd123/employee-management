@@ -87,7 +87,7 @@ public class CheckEmployeeInformationDAO {
             pstmt.setInt(3, year);
             rs = pstmt.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 eVO = new EmpInfoVO(rs.getInt("EMP_NO"), rs.getString("name"), rs.getString("JOB"),
                         rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),
                         rs.getString("TEL"), rs.getDate("EDIT_DATE"));
@@ -116,7 +116,7 @@ public class CheckEmployeeInformationDAO {
             pstmt.setInt(1, year);
             rs = pstmt.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 eVO = new EmpInfoVO(rs.getInt("EMP_NO"), rs.getString("name"), rs.getString("JOB"),
                         rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),
                         rs.getString("TEL"), rs.getDate("EDIT_DATE"));
@@ -145,7 +145,7 @@ public class CheckEmployeeInformationDAO {
             pstmt.setString(1, dept);
             rs = pstmt.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 eVO = new EmpInfoVO(rs.getInt("EMP_NO"), rs.getString("name"), rs.getString("JOB"),
                         rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),
                         rs.getString("TEL"), rs.getDate("EDIT_DATE"));
@@ -174,7 +174,7 @@ public class CheckEmployeeInformationDAO {
             pstmt.setString(1, position);
             rs = pstmt.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 eVO = new EmpInfoVO(rs.getInt("EMP_NO"), rs.getString("name"), rs.getString("JOB"),
                         rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),
                         rs.getString("TEL"), rs.getDate("EDIT_DATE"));
