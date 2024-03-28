@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CheckEmployeeInformationEvent extends WindowAdapter implements ActionListener, MouseListener, FocusListener {
@@ -46,27 +47,25 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
         } // end if
 
         if (ae.getSource() == checkEmp.getJbtnSearch()) {
-            	try {
-					searchEmp();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            	
-            
+            try {
+                searchEmp();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
         } // end if
 
     }// actionPerformed
 
     private void searchEmp() throws SQLException {
         if (checkEmp.getJtInputEmpno().getText().isBlank()) {
-        	resetTable();
-        	searchEmpInfo(eVO);
-        }else{
-        	int empno = Integer.parseInt(checkEmp.getJtInputEmpno().getText());
-          
-                resetTable();
-                searchEmpInfo(empno);
+            resetTable();
+            searchEmpInfo();
+        } else {
+            int empno = Integer.parseInt(checkEmp.getJtInputEmpno().getText());
+            resetTable();
+            searchEmpInfo(empno);
         }
     }
 
@@ -118,29 +117,50 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
     /**
      * 부서/직급/입사년도 모두를 선택하여 검색된 사원정보를 출력하는 method (부서,직급,입사년도)모두를 선택해야 결과가 나옴
      *
-     * @param eVO
      * @throws SQLException
      */
-    public void searchEmpInfo(EmpInfoVO eVO) throws SQLException {
-        this.eVO = eVO;
+    public void searchEmpInfo() throws SQLException {
         String dept = checkEmp.getCbDept().getSelectedItem().toString();
         String position = checkEmp.getCbPosition().getSelectedItem().toString();
         int year = checkEmp.getJycHiredateYear().getYear();
 
-        if (dept == null && position == null && year == 0) {
-            JOptionPane.showMessageDialog(null, "부서,직급,입사년도를 모두 선택해주세요.");
-            return;
-        }
+        boolean isYear = dept.equals("전체") && position.equals("전체");
+        boolean isDept = !dept.equals("전체") && position.equals("전체");
+        boolean isPosition = dept.equals("전체") && !position.equals("전체");
 
         CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
-        eVO = ciDAO.selectEmpInfo(dept, position, year);
 
-        if (eVO == null) {
+        List<EmpInfoVO> empInfoVOList;
+        checkEmp.getDtmEmpTable().setRowCount(0);
+
+        Object[] content = new Object[8];
+
+        if (isYear) {
+            empInfoVOList = ciDAO.selectYearEmpInfo(year);
+        } else if (isDept) {
+            empInfoVOList = ciDAO.selectDeptEmpInfo(dept);
+        } else if (isPosition) {
+            empInfoVOList = ciDAO.selectPositionEmpInfo(position);
+        } else {
+            empInfoVOList = ciDAO.selectEmpInfo(dept, position, year);
+        }
+
+        if (empInfoVOList.isEmpty()) {
             JOptionPane.showMessageDialog(null, "선택한 사원의 정보가 존재하지 않습니다.");
             return;
         }
 
-        printEmpInfo(eVO);
+        for (EmpInfoVO empInfoVO : empInfoVOList) {
+            content[0] = empInfoVO.getEmpno();
+            content[1] = empInfoVO.getName();
+            content[2] = empInfoVO.getJob();
+            content[3] = empInfoVO.getPosition();
+            content[4] = empInfoVO.getDept();
+            content[5] = empInfoVO.getHiredate();
+            content[6] = empInfoVO.getTel();
+            content[7] = empInfoVO.getModifiedDate();
+            checkEmp.getDtmEmpTable().addRow(content);
+        }
     }
 
     private void printEmpInfo(EmpInfoVO eVO) {
