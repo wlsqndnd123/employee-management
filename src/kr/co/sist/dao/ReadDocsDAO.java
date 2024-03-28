@@ -35,13 +35,14 @@ public class ReadDocsDAO {
 
             updateDoc
                     .append(" update  BUSINESS_LOG ")
-                    .append(" set  WORK_LOG = ? ")
+                    .append(" set edit_emp = ?, edit_date = sysdate, WORK_LOG = ? ")
                     .append(" where doc_no=? ");
 
             pstmt = con.prepareStatement(updateDoc.toString());
 
-            pstmt.setString(1, dVO.getWorkLog());
-            pstmt.setString(2, dVO.getDocNo());
+            pstmt.setInt(1, dVO.getEmpNo());
+            pstmt.setString(2, dVO.getWorkLog());
+            pstmt.setString(3, dVO.getDocNo());
 
             pstmt.executeUpdate();
         } finally {

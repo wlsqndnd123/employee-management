@@ -96,21 +96,21 @@ public class ReadDocs extends JFrame {
     /**
      * @return the jtfEmpNo
      */
-    public JTextField getjtfEmpNo() {
+    public JTextField getJtfEmpNo() {
         return jtfEmpNo;
     }
 
     /**
      * @return the jtfEmpNm
      */
-    public JTextField getjtfEmpNm() {
+    public JTextField getJtfEmpNm() {
         return jtfEmpNm;
     }
 
     /**
      * @return the jtfDate
      */
-    public JTextField getjtfDate() {
+    public JTextField getJtfDate() {
         return jtfDate;
     }
 

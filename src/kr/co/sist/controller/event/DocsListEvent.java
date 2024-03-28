@@ -88,7 +88,6 @@ public class DocsListEvent extends WindowAdapter implements ActionListener, Item
         } else {
             dVOList = dlDAO.selectMyDocinfo(LoginEvent.getEmpno());
         }
-
         showDocument(dVOList);
     }
 
@@ -152,5 +151,6 @@ public class DocsListEvent extends WindowAdapter implements ActionListener, Item
     @Override
     public void windowClosing(WindowEvent e) {
         dclist.dispose();
+        new UserMenu();
     }
 }

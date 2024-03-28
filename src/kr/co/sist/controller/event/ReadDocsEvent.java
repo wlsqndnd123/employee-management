@@ -1,9 +1,12 @@
 package kr.co.sist.controller.event;
 
+import kr.co.sist.dao.LoginDAO;
 import kr.co.sist.dao.ReadDocsDAO;
 import kr.co.sist.view.user.DocsList;
 import kr.co.sist.view.user.ReadDocs;
 import kr.co.sist.vo.DocumentVO;
+import kr.co.sist.vo.LoginVO;
+import oracle.jdbc.logging.annotations.Log;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,7 +31,12 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
         }
 
         if (e.getSource() == rd.getjbtnDel()) {
-        	int result = JOptionPane.showConfirmDialog(null,"삭제하시겠습니까?");
+            if(youReturn()){
+                JOptionPane.showMessageDialog(null, "넌 안돼");
+                return;
+            }
+
+            int result = JOptionPane.showConfirmDialog(null,"삭제하시겠습니까?");
         	
         	if(result == JOptionPane.OK_OPTION){
         		 disableDocs();
@@ -40,6 +48,11 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
         }
 
         if (e.getSource() == rd.getjbtnChg()) {
+            if(youReturn()){
+                JOptionPane.showMessageDialog(null, "넌 안돼");
+                return;
+            }
+
             int result = JOptionPane.showConfirmDialog(null,"수정하시겠습니까?");
 
             if(result == JOptionPane.OK_OPTION){
@@ -47,15 +60,26 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
             rd.dispose();
             new DocsList();
             }
-            return;
-            
+
         }
+    }
+
+    public boolean youReturn() {
+        LoginVO loginVO = LoginDAO.getInstance().confirmUser(LoginEvent.getEmpno());
+        String loginId = loginVO.getEmp_no();
+        String writeId = rd.getJtfEmpNo().getText();
+
+        return !loginId.equals(writeId);
     }
 
     public void modifyDocs() {
         String content = rd.getJta().getText();
         String docNo = rd.getjtfDocNo().getText();
-        DocumentVO dVO = new DocumentVO(docNo, content);
+
+        LoginVO loginVO = LoginDAO.getInstance().confirmUser(LoginEvent.getEmpno());
+        int empno = Integer.parseInt(loginVO.getEmp_no());
+
+        DocumentVO dVO = new DocumentVO(docNo, content, empno);
 
         ReadDocsDAO rdDAO = ReadDocsDAO.getInstance();
 
@@ -85,6 +109,7 @@ public class ReadDocsEvent extends WindowAdapter implements ActionListener {
     @Override
     public void windowClosing(WindowEvent e) {
         rd.dispose();
+        new DocsList();
     }
 }
 
