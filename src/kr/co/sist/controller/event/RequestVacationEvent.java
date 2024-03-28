@@ -71,7 +71,7 @@ public class RequestVacationEvent extends WindowAdapter implements ActionListene
     }
 
     /**
-     * Desc : 창 닫기 *******구현필요
+     * Desc : 창 닫기
      */
     public void closeFrame() {
         requestVacation.dispose();

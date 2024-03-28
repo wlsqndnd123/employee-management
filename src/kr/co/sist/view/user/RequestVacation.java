@@ -5,8 +5,6 @@ import kr.co.sist.controller.event.RequestVacationEvent;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -23,8 +21,8 @@ public class RequestVacation extends JFrame {
     private JScrollPane contentsPad;
     private JButton requestJbtn;
     private JButton cancelJbtn;
-    private String startDate;
-    private String endDate;
+    private Date startDate;
+    private Date endDate;
 
     /**
      * Desc : 휴가 신청 main frame 구현
@@ -95,24 +93,12 @@ public class RequestVacation extends JFrame {
      * Desc : JDateChooser의 이벤트 처리
      */
     public void createDateEvent() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
         PropertyChangeListener dateChangeListener = evt -> {
             if ("date".equals(evt.getPropertyName())) {
                 if (evt.getSource() == vacStartDate.getDateEditor()) {
-                    startDate = simpleDateFormat.format(vacStartDate.getDate());
-                    try {
-                        simpleDateFormat.parse(startDate);
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
-                    }
+                    startDate = vacStartDate.getDate();
                 } else if (evt.getSource() == vacEndDate.getDateEditor()) {
-                    endDate = simpleDateFormat.format(vacEndDate.getDate());
-                    try {
-                        simpleDateFormat.parse(endDate);
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
-                    }
+                    endDate = vacEndDate.getDate();
                 }
             }
         };
@@ -143,11 +129,11 @@ public class RequestVacation extends JFrame {
         return cancelJbtn;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
