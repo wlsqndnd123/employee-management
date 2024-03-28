@@ -114,6 +114,7 @@ public class DocsManagement extends JFrame {
             for (DocumentVO dVO : paperType) {
                 jcbSelectFileType.addItem(dVO.getPaperType());
             }
+            jcbSelectFileType.removeItem("휴가신청서");
             jcbSelectFileType.setSelectedIndex(0);
 
         } catch (SQLException e) {
