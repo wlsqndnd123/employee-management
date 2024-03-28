@@ -54,13 +54,13 @@ public class RequestVacationEvent extends WindowAdapter implements ActionListene
         java.sql.Date sqlsDate = new Date(requestVacation.getVacStartDate().getDate().getTime());
         java.sql.Date sqleDate = new Date(requestVacation.getVacEndDate().getDate().getTime());
         String vacationLog = requestVacation.getVacContents().getText();
-        if(sqlsDate==null||sqleDate==null||vacationLog.isEmpty()) {
-        	JOptionPane.showMessageDialog(null, "시작 날짜와 끝 날짜\n상세내역을 모두 입력하세요.");
+        if (sqlsDate == null || sqleDate == null || vacationLog.isBlank()) {
+            JOptionPane.showMessageDialog(null, "시작 날짜와 끝 날짜\n상세내역을 모두 입력하세요.");
         }
         VacationVO vVO =
-                new VacationVO(empNo,vacationLog,sqlsDate, sqleDate);
+                new VacationVO(empNo, vacationLog, sqlsDate, sqleDate);
         int docNo = RequestVacationDAO.getInstance().searchMaxDocNum();
-        RequestVacationDAO.getInstance().insertBusinessLog(docNo,vVO);
+        RequestVacationDAO.getInstance().insertBusinessLog(docNo, vVO);
         requestVacation.dispose();
         new UserMenu();
     }
