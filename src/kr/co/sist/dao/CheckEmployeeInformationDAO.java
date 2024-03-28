@@ -79,7 +79,7 @@ public class CheckEmployeeInformationDAO {
             String SelectEmp = "	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE "
                     + "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
                     + "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS') and  ( ei.LOGIC ='N')	"
-                    + "		and    (d.DEPT_NAME =	?	) and (c.DESCRIPTION =  ?	) and   (	to_char(ei.CREATE_DATE, 'yyyy') = ?	) 	";
+                    + "		and    (d.DEPT_NAME =	?	) and (c.DESCRIPTION =  ?	) and   (	to_char(ei.CREATE_DATE, 'yyyy') = ?	) order by ei.emp_no	";
 
             pstmt = con.prepareStatement(SelectEmp);
             pstmt.setString(1, dept);
@@ -110,7 +110,7 @@ public class CheckEmployeeInformationDAO {
             String SelectEmp = "	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE "
                     + "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
                     + "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS') and  ( ei.LOGIC ='N')	"
-                    + "		and   (	to_char(ei.CREATE_DATE, 'yyyy') = ?	) 	";
+                    + "		and   (	to_char(ei.CREATE_DATE, 'yyyy') = ?	) order by ei.emp_no	";
 
             pstmt = con.prepareStatement(SelectEmp);
             pstmt.setInt(1, year);
@@ -139,7 +139,7 @@ public class CheckEmployeeInformationDAO {
             String SelectEmp = "	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE "
                     + "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
                     + "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS') and  ( ei.LOGIC ='N')	"
-                    + "		and    (d.DEPT_NAME =	?	) 	";
+                    + "		and    (d.DEPT_NAME =	?	) order by ei.emp_no	";
 
             pstmt = con.prepareStatement(SelectEmp);
             pstmt.setString(1, dept);
@@ -168,7 +168,7 @@ public class CheckEmployeeInformationDAO {
             String SelectEmp = "	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE "
                     + "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
                     + "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS') and  ( ei.LOGIC ='N')	"
-                    + "		and (c.DESCRIPTION =  ?	) 	";
+                    + "		and (c.DESCRIPTION =  ?	) order by ei.emp_no	";
 
             pstmt = con.prepareStatement(SelectEmp);
             pstmt.setString(1, position);
