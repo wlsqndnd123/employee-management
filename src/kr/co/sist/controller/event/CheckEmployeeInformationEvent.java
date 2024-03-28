@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CheckEmployeeInformationEvent extends WindowAdapter implements ActionListener, MouseListener, FocusListener {
@@ -120,7 +121,6 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
      * @throws SQLException
      */
     public void searchEmpInfo(EmpInfoVO eVO) throws SQLException {
-        this.eVO = eVO;
         String dept = checkEmp.getCbDept().getSelectedItem().toString();
         String position = checkEmp.getCbPosition().getSelectedItem().toString();
         int year = checkEmp.getJycHiredateYear().getYear();
@@ -130,23 +130,36 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
         boolean isPosition = dept.equals("전체") && !position.equals("전체");
 
         CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
+
+        List<EmpInfoVO> empInfoVOList;
         checkEmp.getDtmEmpTable().setRowCount(0);
 
-        if (isYear) {
-            eVO = ciDAO.selectYearEmpInfo(year);
-        } else if (isDept) {
-            eVO = ciDAO.selectDeptEmpInfo(dept);
-        } else if (isPosition) {
-            eVO = ciDAO.selectPositionEmpInfo(position);
-        }else {
-        eVO = ciDAO.selectEmpInfo(dept, position, year);}
+        Object[] content = new Object[8];
 
-        if (eVO == null) {
+        if (isYear) {
+            empInfoVOList = ciDAO.selectYearEmpInfo(year);
+        } else if (isDept) {
+            empInfoVOList = ciDAO.selectDeptEmpInfo(dept);
+        } else if (isPosition) {
+            empInfoVOList = ciDAO.selectPositionEmpInfo(position);
+        }else {
+            empInfoVOList = ciDAO.selectEmpInfo(dept, position, year);}
+
+        if (empInfoVOList == null) {
             JOptionPane.showMessageDialog(null, "선택한 사원의 정보가 존재하지 않습니다.");
             return;
         }
-
-        printEmpInfo(eVO);
+        for (EmpInfoVO empInfoVO : empInfoVOList) {
+            content[0] = empInfoVO.getEmpno();
+            content[1] = empInfoVO.getName();
+            content[2] = empInfoVO.getJob();
+            content[3] = empInfoVO.getPosition();
+            content[4] = empInfoVO.getDept();
+            content[5] = empInfoVO.getHiredate();
+            content[6] = empInfoVO.getTel();
+            content[7] = empInfoVO.getModifiedDate();
+        }
+        checkEmp.getDtmEmpTable().addRow(content);
     }
 
     private void printEmpInfo(EmpInfoVO eVO) {
