@@ -1,6 +1,7 @@
 package kr.co.sist.view.admin;
 
 import kr.co.sist.controller.event.VacationStatusEvent;
+import kr.co.sist.view.common.Login;
 import kr.co.sist.view.util.JFrameComponent;
 
 import javax.swing.*;
@@ -72,4 +73,8 @@ public class VacationStatus extends JFrame {
     public JButton getJbBack() {
         return jbBack;
     }
+    
+    
+    
+    
 }

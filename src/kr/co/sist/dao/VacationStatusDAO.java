@@ -126,7 +126,7 @@ public class VacationStatusDAO {
         try {
             con = DbConnection.getCon();
 
-            selectedDoc_numInfo = "select bl.doc_no, bl.emp_no, bl.title, bl.create_date,  d.dept_name,  bl.code2 ,ei.name, vc.assign_count ,vc.use_count, bl.work_log"
+            selectedDoc_numInfo = "select bl.doc_no, bl.emp_no, bl.title, bl.create_date,  d.dept_name,  bl.code2 ,ei.name, bl.start_Date,bl.end_Date, vc.assign_count ,vc.use_count, bl.work_log"
                     + "		from   BUSINESS_LOG bl , EMP_INFO ei , DEPT d, vacation_count vc"
                     + "		where  (ei.emp_no = bl.emp_no) and (bl.code = 5) and (d.dept_code = ei.dept_code) and (ei.emp_no = vc.emp_no ) and (bl.doc_no = ?)";
 
@@ -135,7 +135,7 @@ public class VacationStatusDAO {
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 vVO = new VacationVO(rs.getInt("emp_no"), rs.getInt("assign_count"), rs.getInt("use_count"), rs.getInt("code2"), rs.getString("doc_no"), rs.getString("work_log"),
-                        null, rs.getString("name"), null, null, null, rs.getString("title"), rs.getString("dept_name"), null, null, rs.getDate("create_date"));
+                        null, rs.getString("name"), null, null, null, rs.getString("title"), rs.getString("dept_name"), rs.getDate("start_Date"), rs.getDate("end_Date"), rs.getDate("create_date"));
 
                 list.add(vVO);
             }
@@ -201,6 +201,40 @@ public class VacationStatusDAO {
         return cnt;
 
     }
+    
+    
+//    public void UpdateUsedcount(int empNum, int usedCount) throws SQLException {
+//    	 Connection con = null;
+//         PreparedStatement pstmt = null;
+//         try {
+//             con = DbConnection.getCon();
+//             String approve = "update vacation_count set use_count = ? 	where emp_no = ?";
+//
+//             pstmt = con.prepareStatement(approve);
+//             pstmt.setInt(1, usedCount);
+//             pstmt.setInt(2, empNum);
+//
+//             pstmt.executeUpdate();
+//
+//         } finally {
+//             DbConnection.dbClose(null, pstmt, con);
+//
+//         }
+//
+//       
+//
+//     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 }
