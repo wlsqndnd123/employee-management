@@ -61,7 +61,7 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
     private void searchEmp() throws SQLException {
         if (checkEmp.getJtInputEmpno().getText().isBlank()) {
             resetTable();
-            searchEmpInfo(eVO);
+            searchEmpInfo();
         } else {
             int empno = Integer.parseInt(checkEmp.getJtInputEmpno().getText());
             resetTable();
@@ -117,10 +117,9 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
     /**
      * 부서/직급/입사년도 모두를 선택하여 검색된 사원정보를 출력하는 method (부서,직급,입사년도)모두를 선택해야 결과가 나옴
      *
-     * @param eVO
      * @throws SQLException
      */
-    public void searchEmpInfo(EmpInfoVO eVO) throws SQLException {
+    public void searchEmpInfo() throws SQLException {
         String dept = checkEmp.getCbDept().getSelectedItem().toString();
         String position = checkEmp.getCbPosition().getSelectedItem().toString();
         int year = checkEmp.getJycHiredateYear().getYear();
