@@ -145,7 +145,7 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
             empInfoVOList = ciDAO.selectEmpInfo(dept, position, year);
         }
 
-        if (empInfoVOList == null) {
+        if (empInfoVOList.isEmpty()) {
             JOptionPane.showMessageDialog(null, "선택한 사원의 정보가 존재하지 않습니다.");
             return;
         }
