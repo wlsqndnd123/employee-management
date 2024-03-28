@@ -64,6 +64,9 @@ public class LoginEvent extends WindowAdapter implements ActionListener,KeyListe
         String savedPw = lDAO.confirmUser(empno).getPassword();
         String authcode = lDAO.confirmUser(empno).getAuthCode();
         if (Password.equals(savedPw)) {
+        	if(empno.equals(Password)) 
+        		JOptionPane.showMessageDialog(null, "보안을 위해 비밀번호를 변경해주시기바랍니다.");
+        		
             if (authcode.equals("SUPER") || authcode.equals("ADMIN")) {
                 new AdminMenu();
                 login.dispose();
@@ -71,8 +74,9 @@ public class LoginEvent extends WindowAdapter implements ActionListener,KeyListe
                 new UserMenu();
                 login.dispose();
             }
+        	
         } else {
-            JOptionPane.showMessageDialog(null, "비번확인하쇼");
+            JOptionPane.showMessageDialog(null, "비밀번호를 확인하세요.");
         }
     }
 

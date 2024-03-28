@@ -68,7 +68,39 @@ public class EmpInfoVO {
         return hiredate;
     }
 
-    public Date getModifiedDate() {
+    public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public void setHiredate(Date hiredate) {
+		this.hiredate = hiredate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public Date getModifiedDate() {
         return modifiedDate;
     }
 
