@@ -77,10 +77,11 @@ public class DocsListDAO {
         ResultSet rs = null;
         try {
             con = DbConnection.getCon();
-            String selectAllDocument = "	SELECT bl.doc_no, bl.title, d.dept_name, bl.doc_date,bl.grp_code,bl.code2, bl.edit_date"
+            String selectAllDocument = "	SELECT DISTINCT  bl.doc_no, bl.title, d.dept_name, bl.doc_date,bl.grp_code,bl.code2, bl.edit_date"
                     + "	FROM 	dept d, emp_info ei, business_log bl	"
                     + "	LEFT JOIN share_docs sd ON bl.doc_no = sd.doc_no	"
-                    + "	WHERE (d.dept_code = ei.dept_code) AND (ei.emp_no = bl.emp_no) AND (ei.emp_no = ?)	";
+                    + "	WHERE (d.dept_code = ei.dept_code) AND (ei.emp_no = bl.emp_no) AND (ei.emp_no = ?) and bl.logic ='N' "
+                    + "	order by  DOC_NO desc	";
 
 
             pstmt = con.prepareStatement(selectAllDocument);
