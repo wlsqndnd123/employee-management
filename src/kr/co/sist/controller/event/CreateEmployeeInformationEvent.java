@@ -48,29 +48,30 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
         String position = ceiv.getCbPosition().getSelectedItem().toString();
         String tel = ceiv.getTfTel().getText().trim();
 
-        if(tel.length()>4) {
-        	JOptionPane.showMessageDialog(null, "내선번호는 4자리 입니다.");
-        	return;
+        if (tel.length() > 4) {
+            JOptionPane.showMessageDialog(null, "내선번호는 4자리 입니다.");
+            return;
         }
-        if(name.isEmpty()||job.isEmpty()||position.isEmpty()||tel.isEmpty()||dept.isEmpty()) {
-        	JOptionPane.showMessageDialog(ceiv, "모든 정보가 입력되어야합니다.");
-        	return;
+        if (name.isEmpty() || job.isEmpty() || position.isEmpty() || tel.isEmpty() || dept.isEmpty()) {
+            JOptionPane.showMessageDialog(ceiv, "모든 정보가 입력되어야합니다.");
+            return;
         }
-       int askagain = JOptionPane.showConfirmDialog(null, "해당 정보의 사원을 추가 하시겠습니까?" ,"확인",JOptionPane.YES_NO_OPTION);
-        if(askagain ==JOptionPane.YES_OPTION) {
-        	
-        try {
-            CreateEmployeeInformationDAO ceDAO = CreateEmployeeInformationDAO.getInstance();
-            int empno = ceDAO.selectMaxEmpnum();
-            EmpInfoVO eVO = new EmpInfoVO(0, name, job, position, dept, null, tel, null);
-            ceDAO.insertEmpInfo(empno, eVO);
-            ceDAO.insertAccountEmp(empno);
-            ceDAO.insertUserAuthEmp(empno);
-            ceDAO.insertDefaultVacaion(empno);
-            JOptionPane.showMessageDialog(ceiv, "사원 번호 " + empno + " 번, " + name + "님이 등록되었습니다.");
+        int askagain = JOptionPane.showConfirmDialog(null, "해당 정보의 사원을 추가 하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+        if (askagain == JOptionPane.YES_OPTION) {
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            try {
+                CreateEmployeeInformationDAO ceDAO = CreateEmployeeInformationDAO.getInstance();
+                int empno = ceDAO.selectMaxEmpnum();
+                EmpInfoVO eVO = new EmpInfoVO(0, name, job, position, dept, null, tel, null);
+                ceDAO.insertEmpInfo(empno, eVO);
+                ceDAO.insertAccountEmp(empno);
+                ceDAO.insertUserAuthEmp(empno);
+                ceDAO.insertDefaultVacaion(empno);
+                JOptionPane.showMessageDialog(ceiv, "사원 번호 " + empno + " 번, " + name + "님이 등록되었습니다.");
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
