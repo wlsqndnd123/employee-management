@@ -97,9 +97,6 @@ public class LoginDAO {
         return lVO;
 
     }//confirmUser
-
-    public static void main(String[] args) {
-    }
 }
 
 

@@ -80,6 +80,13 @@ public class DocumentVO {
         this.workLog = workLog;
     }
 
+    public DocumentVO(String docNo, String workLog, int empNo) {
+        super();
+        this.docNo = docNo;
+        this.workLog = workLog;
+        this.empNo = empNo;
+    }
+
     public DocumentVO() {
     }
 

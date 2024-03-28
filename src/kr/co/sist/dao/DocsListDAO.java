@@ -57,7 +57,7 @@ public class DocsListDAO {
                 dVO.setDept(rs.getString("dept_name"));
                 dVO.setDocDate(rs.getDate("doc_date"));
                 dVO.setCode2(rs.getInt("code2"));
-                dVO.setDocDate(rs.getDate("edit_date"));
+                dVO.setModifiedDate(rs.getDate("edit_date"));
 
                 list.add(dVO);
             }
@@ -93,7 +93,7 @@ public class DocsListDAO {
                 DocumentVO dVO = new DocumentVO();
                 dVO.setDocNo(rs.getString("doc_no"));
                 dVO.setTitle(rs.getString("title"));
-                dVO.setWorkDesc(rs.getString("dept_name"));
+                dVO.setDept(rs.getString("dept_name"));
                 dVO.setDocDate(rs.getDate("doc_date"));
                 dVO.setApprDesc(rs.getString("grp_code"));
                 dVO.setCode2(rs.getInt("code2"));
