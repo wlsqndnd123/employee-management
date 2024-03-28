@@ -60,6 +60,144 @@ public class DocsManagementDAO {
         }
         return dlist;
     }
+    /**
+     * Desc : 전체 문서, 선택 문서 조회 기능
+     * 작성자 : 이주희
+     * 작성일 : 2024.03.28
+     */
+    public List<DocumentVO> selectDeptDocInfo(String dept) throws SQLException {
+        List<DocumentVO> dlist = new ArrayList<>();
+
+        try (Connection con = DbConnection.getCon();
+             PreparedStatement pstmt = con.prepareStatement("SELECT bl.doc_no, bl.title, d.dept_name, bl.doc_date, c1.DESCRIPTION AS description1, bl.edit_date, c2.DESCRIPTION AS description2   " +
+                     "  FROM DEPT d   " +
+                     "  JOIN EMP_INFO ei ON d.dept_code = ei.dept_code   " +
+                     "  JOIN BUSINESS_LOG bl ON ei.emp_no = bl.emp_no   " +
+                     "  LEFT JOIN COMMON c1 ON bl.grp_code = c1.grp_code AND bl.code = c1.code   " +
+                     "  LEFT JOIN COMMON c2 ON bl.grp_code2 = c2.grp_code AND bl.code2 = c2.code   " +
+                     "  WHERE bl.logic = 'N' " +
+                     "  AND d.dept_name = ? AND c1.DESCRIPTION <> '휴가신청서' " +
+                     " order by bl.DOC_NO desc ")) {
+            pstmt.setString(1, dept);
+            createResultSet(dlist, pstmt);
+        }
+        return dlist;
+    }
+    /**
+     * Desc : 전체 문서, 선택 문서 조회 기능
+     * 작성자 : 이주희
+     * 작성일 : 2024.03.28
+     */
+    public List<DocumentVO> selectApprDocInfo(String appr) throws SQLException {
+        List<DocumentVO> dlist = new ArrayList<>();
+
+        try (Connection con = DbConnection.getCon();
+             PreparedStatement pstmt = con.prepareStatement("SELECT bl.doc_no, bl.title, d.dept_name, bl.doc_date, c1.DESCRIPTION AS description1, bl.edit_date, c2.DESCRIPTION AS description2   " +
+                     "  FROM DEPT d   " +
+                     "  JOIN EMP_INFO ei ON d.dept_code = ei.dept_code   " +
+                     "  JOIN BUSINESS_LOG bl ON ei.emp_no = bl.emp_no   " +
+                     "  LEFT JOIN COMMON c1 ON bl.grp_code = c1.grp_code AND bl.code = c1.code   " +
+                     "  LEFT JOIN COMMON c2 ON bl.grp_code2 = c2.grp_code AND bl.code2 = c2.code   " +
+                     "  WHERE bl.logic = 'N' " +
+                     "  AND c2.DESCRIPTION = ? AND c1.DESCRIPTION <> '휴가신청서' " +
+                     " order by bl.DOC_NO desc ")) {
+            pstmt.setString(1, appr);
+            createResultSet(dlist, pstmt);
+        }
+        return dlist;
+    }
+    /**
+     * Desc : 전체 문서, 선택 문서 조회 기능
+     * 작성자 : 이주희
+     * 작성일 : 2024.03.28
+     */
+    public List<DocumentVO> selectFileTypeDocInfo(String fileType) throws SQLException {
+        List<DocumentVO> dlist = new ArrayList<>();
+
+        try (Connection con = DbConnection.getCon();
+             PreparedStatement pstmt = con.prepareStatement("SELECT bl.doc_no, bl.title, d.dept_name, bl.doc_date, c1.DESCRIPTION AS description1, bl.edit_date, c2.DESCRIPTION AS description2   " +
+                     "  FROM DEPT d   " +
+                     "  JOIN EMP_INFO ei ON d.dept_code = ei.dept_code   " +
+                     "  JOIN BUSINESS_LOG bl ON ei.emp_no = bl.emp_no   " +
+                     "  LEFT JOIN COMMON c1 ON bl.grp_code = c1.grp_code AND bl.code = c1.code   " +
+                     "  LEFT JOIN COMMON c2 ON bl.grp_code2 = c2.grp_code AND bl.code2 = c2.code   " +
+                     "  WHERE bl.logic = 'N' " +
+                     "  AND c1.DESCRIPTION = ? AND c1.DESCRIPTION <> '휴가신청서' " +
+                     " order by bl.DOC_NO desc ")) {
+            pstmt.setString(1, fileType);
+            createResultSet(dlist, pstmt);
+        }
+        return dlist;
+    }
+    /**
+     * Desc : 전체 문서, 선택 문서 조회 기능
+     * 작성자 : 이주희
+     * 작성일 : 2024.03.28
+     */
+    public List<DocumentVO> selectDeptFileTypeDocInfo(String dept, String fileType) throws SQLException {
+        List<DocumentVO> dlist = new ArrayList<>();
+        try (Connection con = DbConnection.getCon();
+             PreparedStatement pstmt = con.prepareStatement("SELECT bl.doc_no, bl.title, d.dept_name, bl.doc_date, c1.DESCRIPTION AS description1, bl.edit_date, c2.DESCRIPTION AS description2   " +
+                     "  FROM DEPT d   " +
+                     "  JOIN EMP_INFO ei ON d.dept_code = ei.dept_code   " +
+                     "  JOIN BUSINESS_LOG bl ON ei.emp_no = bl.emp_no   " +
+                     "  LEFT JOIN COMMON c1 ON bl.grp_code = c1.grp_code AND bl.code = c1.code   " +
+                     "  LEFT JOIN COMMON c2 ON bl.grp_code2 = c2.grp_code AND bl.code2 = c2.code   " +
+                     "  WHERE bl.logic = 'N' " +
+                     "  AND d.dept_name = ? AND c1.DESCRIPTION = ? AND c1.DESCRIPTION <> '휴가신청서' " +
+                     " order by bl.DOC_NO desc ")) {
+            pstmt.setString(1, dept);
+            pstmt.setString(2, fileType);
+            createResultSet(dlist, pstmt);
+        }
+        return dlist;
+    }
+    /**
+     * Desc : 전체 문서, 선택 문서 조회 기능
+     * 작성자 : 이주희
+     * 작성일 : 2024.03.28
+     */
+    public List<DocumentVO> selectDeptApprDocInfo(String dept, String appr) throws SQLException {
+        List<DocumentVO> dlist = new ArrayList<>();
+        try (Connection con = DbConnection.getCon();
+             PreparedStatement pstmt = con.prepareStatement("SELECT bl.doc_no, bl.title, d.dept_name, bl.doc_date, c1.DESCRIPTION AS description1, bl.edit_date, c2.DESCRIPTION AS description2   " +
+                     "  FROM DEPT d   " +
+                     "  JOIN EMP_INFO ei ON d.dept_code = ei.dept_code   " +
+                     "  JOIN BUSINESS_LOG bl ON ei.emp_no = bl.emp_no   " +
+                     "  LEFT JOIN COMMON c1 ON bl.grp_code = c1.grp_code AND bl.code = c1.code   " +
+                     "  LEFT JOIN COMMON c2 ON bl.grp_code2 = c2.grp_code AND bl.code2 = c2.code   " +
+                     "  WHERE bl.logic = 'N' " +
+                     "  AND d.dept_name = ? AND c2.DESCRIPTION = ? AND c1.DESCRIPTION <> '휴가신청서' " +
+                     " order by bl.DOC_NO desc ")) {
+            pstmt.setString(1, dept);
+            pstmt.setString(2, appr);
+            createResultSet(dlist, pstmt);
+        }
+        return dlist;
+    }
+    /**
+     * Desc : 전체 문서, 선택 문서 조회 기능
+     * 작성자 : 이주희
+     * 작성일 : 2024.03.28
+     */
+    public List<DocumentVO> selectFileTypeApprDocInfo(String fileType, String appr) throws SQLException {
+        List<DocumentVO> dlist = new ArrayList<>();
+        try (Connection con = DbConnection.getCon();
+             PreparedStatement pstmt = con.prepareStatement("SELECT bl.doc_no, bl.title, d.dept_name, bl.doc_date, c1.DESCRIPTION AS description1, bl.edit_date, c2.DESCRIPTION AS description2   " +
+                     "  FROM DEPT d   " +
+                     "  JOIN EMP_INFO ei ON d.dept_code = ei.dept_code   " +
+                     "  JOIN BUSINESS_LOG bl ON ei.emp_no = bl.emp_no   " +
+                     "  LEFT JOIN COMMON c1 ON bl.grp_code = c1.grp_code AND bl.code = c1.code   " +
+                     "  LEFT JOIN COMMON c2 ON bl.grp_code2 = c2.grp_code AND bl.code2 = c2.code   " +
+                     "  WHERE bl.logic = 'N' " +
+                     "  AND c1.DESCRIPTION = ? AND c2.DESCRIPTION = ? AND c1.DESCRIPTION <> '휴가신청서' " +
+                     " order by bl.DOC_NO desc ")) {
+            pstmt.setString(1, fileType);
+            pstmt.setString(2, appr);
+            createResultSet(dlist, pstmt);
+        }
+        return dlist;
+    }
 
     public List<DocumentVO> selectInfo(String column) throws SQLException {
         List<DocumentVO> list = new ArrayList<>();

@@ -84,7 +84,7 @@ public class DocsManagement extends JFrame {
         jtaDob.addMouseListener(dme);
 
         try {
-            dme.searchDocument();
+            dme.selectDocument();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,6 +94,7 @@ public class DocsManagement extends JFrame {
         try {
             // 부서
             List<DocumentVO> dept = DocsManagementDAO.getInstance().selectInfo("dept");
+            jcbSelectDep.addItem("전체");
             for (DocumentVO docs : dept) {
                 jcbSelectDep.addItem(docs.getDept());
             }
@@ -101,6 +102,7 @@ public class DocsManagement extends JFrame {
 
             //// 승인상태
             List<DocumentVO> code = DocsManagementDAO.getInstance().selectInfo("apprv");
+            jcbSelectApprovalState.addItem("전체");
             for (DocumentVO dVO : code) {
                 jcbSelectApprovalState.addItem(dVO.getApprDesc());
             }
@@ -108,6 +110,7 @@ public class DocsManagement extends JFrame {
 
             //// 타입
             List<DocumentVO> paperType = DocsManagementDAO.getInstance().selectInfo("paperType");
+            jcbSelectFileType.addItem("전체");
             for (DocumentVO dVO : paperType) {
                 jcbSelectFileType.addItem(dVO.getPaperType());
             }

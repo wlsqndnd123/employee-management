@@ -63,14 +63,4 @@ public class DbConnection {
             }
         }
     }
-
-    public static DbConnection getInstance() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public Connection getConnection(String id, String pass) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

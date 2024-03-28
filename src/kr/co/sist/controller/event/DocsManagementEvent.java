@@ -57,18 +57,18 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
         }
     }
 
-    public void searchDocument() throws SQLException {
-        Object[] content = new Object[7];
-        DocsManagementDAO dmmDAO = DocsManagementDAO.getInstance();
-        List<DocumentVO> dVOList = dmmDAO.searchDocument();
-
-        if (dVOList.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "해당 문서가 없습니다");
-        } else {
-            createContents(content, dVOList);
-        }
-    }// searchDocument
-
+    //    public void searchDocument() throws SQLException {
+//        Object[] content = new Object[7];
+//        DocsManagementDAO dmmDAO = DocsManagementDAO.getInstance();
+//        List<DocumentVO> dVOList = dmmDAO.searchDocument();
+//
+//        if (dVOList.isEmpty()) {
+//            JOptionPane.showMessageDialog(null, "해당 문서가 없습니다");
+//        } else {
+//            createContents(content, dVOList);
+//        }
+//    }// searchDocument
+//
     private void createContents(Object[] content, List<DocumentVO> dVOList) {
         for (DocumentVO dVO : dVOList) {
             content[0] = dVO.getDocNo();
@@ -83,28 +83,48 @@ public class DocsManagementEvent extends WindowAdapter implements ActionListener
         }
     }
 
+    /**
+     * Desc : 전체 문서, 선택 문서 조회 기능
+     * 작성자 : 이주희
+     * 작성일 : 2024.03.28
+     */
     public void selectDocument() throws SQLException {
         String dept = dmm.getJcbSelectDep().getSelectedItem().toString();
         String fileType = dmm.getJcbSelectFileType().getSelectedItem().toString();
         String appr = dmm.getJcbSelectApprovalState().getSelectedItem().toString();
 
-        if (dept == null && fileType == null && appr == null) {
-            JOptionPane.showMessageDialog(null, "모두 선택을 해주세요.");
-            return;
-        }
+        boolean isAll = dept.equals("전체") && fileType.equals("전체") && appr.equals("전체");
+        boolean isDept = !dept.equals("전체") && fileType.equals("전체") && appr.equals("전체");
+        boolean isFileType = dept.equals("전체") && !fileType.equals("전체") && appr.equals("전체");
+        boolean isAppr = dept.equals("전체") && fileType.equals("전체") && !appr.equals("전체");
+        boolean isDeptFileType = !dept.equals("전체") && !fileType.equals("전체") && appr.equals("전체");
+        boolean isDeptAppr = !dept.equals("전체") && fileType.equals("전체") && !appr.equals("전체");
+        boolean isFileTypeAppr = dept.equals("전체") && !fileType.equals("전체") && !appr.equals("전체");
 
         DocsManagementDAO dmDAO = DocsManagementDAO.getInstance();
-        List<DocumentVO> dVOList = dmDAO.selectDocInfo(dept, fileType, appr);
+        List<DocumentVO> dVOList;
         dmm.getDtmjtabResult().setRowCount(0);
 
         Object[] content = new Object[7];
 
-        if (dVOList == null) {
-            JOptionPane.showMessageDialog(null, "문서정보가 없음");
+        if (isAll) {
+            dVOList = dmDAO.searchDocument();
+        } else if (isDept){
+            dVOList = dmDAO.selectDeptDocInfo(dept);
+        } else if (isFileType){
+            dVOList = dmDAO.selectFileTypeDocInfo(fileType);
+        } else if (isAppr){
+            dVOList = dmDAO.selectApprDocInfo(appr);
+        } else if (isDeptFileType){
+            dVOList = dmDAO.selectDeptFileTypeDocInfo(dept, fileType);
+        } else if (isDeptAppr){
+            dVOList = dmDAO.selectDeptApprDocInfo(dept, appr);
+        } else if (isFileTypeAppr){
+            dVOList = dmDAO.selectFileTypeApprDocInfo(fileType, appr);
         } else {
-            createContents(content, dVOList);
+            dVOList = dmDAO.selectDocInfo(dept, fileType, appr);
         }
-
+        createContents(content, dVOList);
     }
 
     @Override
