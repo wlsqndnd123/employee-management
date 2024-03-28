@@ -61,9 +61,12 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener,Foc
             }
         }
 
-
         if (e.getSource() == smd.getBtn_regist()) {
             try {
+                if(smd.getJtfTitle().getText().isBlank() || smd.getJtfTitle().getText().equals("제목을 입력하세요")){
+                    JOptionPane.showMessageDialog(smd, "제목을 입력해야합니다.");
+                    return;
+                }
             	if(!smd.getJta().getText().isBlank()) {
                 insertDoc();
                 JOptionPane.showMessageDialog(smd, "글이 등록되었습니다.");
@@ -75,8 +78,8 @@ public class SubmitDocsEvent extends WindowAdapter implements ActionListener,Foc
             	}
             } catch (NumberFormatException | SQLException e1) {
                 JOptionPane.showMessageDialog(smd, "오늘의 일일업무보고가 이미 등록되었습니다.");
+                return;
             }
-            
         }
             
         if (e.getSource() == smd.getBtn_cancel()) {
