@@ -46,27 +46,25 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
         } // end if
 
         if (ae.getSource() == checkEmp.getJbtnSearch()) {
-            	try {
-					searchEmp();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            	
-            
+            try {
+                searchEmp();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
         } // end if
 
     }// actionPerformed
 
     private void searchEmp() throws SQLException {
         if (checkEmp.getJtInputEmpno().getText().isBlank()) {
-        	resetTable();
-        	searchEmpInfo(eVO);
-        }else{
-        	int empno = Integer.parseInt(checkEmp.getJtInputEmpno().getText());
-          
-                resetTable();
-                searchEmpInfo(empno);
+            resetTable();
+            searchEmpInfo(eVO);
+        } else {
+            int empno = Integer.parseInt(checkEmp.getJtInputEmpno().getText());
+            resetTable();
+            searchEmpInfo(empno);
         }
     }
 
@@ -127,13 +125,21 @@ public class CheckEmployeeInformationEvent extends WindowAdapter implements Acti
         String position = checkEmp.getCbPosition().getSelectedItem().toString();
         int year = checkEmp.getJycHiredateYear().getYear();
 
-        if (dept == null && position == null && year == 0) {
-            JOptionPane.showMessageDialog(null, "부서,직급,입사년도를 모두 선택해주세요.");
-            return;
-        }
+        boolean isYear = dept.equals("전체") && position.equals("전체");
+        boolean isDept = !dept.equals("전체") && position.equals("전체");
+        boolean isPosition = dept.equals("전체") && !position.equals("전체");
 
         CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
-        eVO = ciDAO.selectEmpInfo(dept, position, year);
+        checkEmp.getDtmEmpTable().setRowCount(0);
+
+        if (isYear) {
+            eVO = ciDAO.selectYearEmpInfo(year);
+        } else if (isDept) {
+            eVO = ciDAO.selectDeptEmpInfo(dept);
+        } else if (isPosition) {
+            eVO = ciDAO.selectPositionEmpInfo(position);
+        }else {
+        eVO = ciDAO.selectEmpInfo(dept, position, year);}
 
         if (eVO == null) {
             JOptionPane.showMessageDialog(null, "선택한 사원의 정보가 존재하지 않습니다.");

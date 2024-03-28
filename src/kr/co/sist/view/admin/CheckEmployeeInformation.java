@@ -58,9 +58,8 @@ public class CheckEmployeeInformation extends JFrame {
     private void createComboBoxContent() {
         try {
             CheckEmployeeInformationDAO ciDAO = CheckEmployeeInformationDAO.getInstance();
-
             List<EmpInfoVO> dept = ciDAO.selectInfo("dept");
-
+            cbDept.addItem("전체");
             for (EmpInfoVO emp : dept) {
                 cbDept.addItem(emp.getDept());
             }
@@ -68,7 +67,7 @@ public class CheckEmployeeInformation extends JFrame {
             cbDept.setSelectedIndex(0);
 
             List<EmpInfoVO> pos = ciDAO.selectInfo("pos");
-
+            cbPosition.addItem("전체");
             for (EmpInfoVO emp : pos) {
                 cbPosition.addItem(emp.getPosition());
             }

@@ -103,6 +103,94 @@ public class CheckEmployeeInformationDAO {
         return eVO;
     }// selectEmpInfo
 
+    public EmpInfoVO selectYearEmpInfo(int year) throws SQLException {
+        eVO = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            con = DbConnection.getCon();
+
+            String SelectEmp = "	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE "
+                    + "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
+                    + "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS') and  ( ei.LOGIC ='N')	"
+                    + "		and   (	to_char(ei.CREATE_DATE, 'yyyy') = ?	) 	";
+
+            pstmt = con.prepareStatement(SelectEmp);
+            pstmt.setInt(1, year);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                eVO = new EmpInfoVO(rs.getInt("EMP_NO"), rs.getString("name"), rs.getString("JOB"),
+                        rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),
+                        rs.getString("TEL"), rs.getDate("EDIT_DATE"));
+            }
+        } finally {
+            DbConnection.dbClose(rs, pstmt, con);
+        }
+        return eVO;
+    }// selectEmpInfo
+
+    public EmpInfoVO selectDeptEmpInfo(String dept) throws SQLException {
+        eVO = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            con = DbConnection.getCon();
+
+            String SelectEmp = "	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE "
+                    + "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
+                    + "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS') and  ( ei.LOGIC ='N')	"
+                    + "		and    (d.DEPT_NAME =	?	) 	";
+
+            pstmt = con.prepareStatement(SelectEmp);
+            pstmt.setString(1, dept);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                eVO = new EmpInfoVO(rs.getInt("EMP_NO"), rs.getString("name"), rs.getString("JOB"),
+                        rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),
+                        rs.getString("TEL"), rs.getDate("EDIT_DATE"));
+            }
+        } finally {
+            DbConnection.dbClose(rs, pstmt, con);
+        }
+        return eVO;
+    }// selectEmpInfo
+
+    public EmpInfoVO selectPositionEmpInfo(String position) throws SQLException {
+        eVO = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            con = DbConnection.getCon();
+
+//		dept = (String)checkEmp.getCbDept().getSelectedItem();
+//		position = (String)checkEmp.getCbPosition().getSelectedItem();
+//		year = checkEmp.getJycHiredateYear().getYear();
+
+            String SelectEmp = "	select	ei.EMP_NO, ei.name , ei.JOB , d.DEPT_NAME, c.DESCRIPTION, to_char(ei.CREATE_DATE,'yyyy-mm-dd') CREATE_DATE, ei.TEL, to_char(ei.EDIT_DATE,'yyyy-mm-dd')EDIT_DATE "
+                    + "		from EMP_INFO ei, DEPT d  ,	COMMON c	"
+                    + "		where (ei.DEPT_CODE = d.DEPT_CODE  ) and ( Ei.code = C.CODE ) and (c.GRP_CODE = 'POS') and  ( ei.LOGIC ='N')	"
+                    + "		and (c.DESCRIPTION =  ?	) 	";
+
+            pstmt = con.prepareStatement(SelectEmp);
+            pstmt.setString(1, position);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                eVO = new EmpInfoVO(rs.getInt("EMP_NO"), rs.getString("name"), rs.getString("JOB"),
+                        rs.getString("DESCRIPTION"), rs.getString("DEPT_NAME"), rs.getDate("CREATE_DATE"),
+                        rs.getString("TEL"), rs.getDate("EDIT_DATE"));
+            }
+        } finally {
+            DbConnection.dbClose(rs, pstmt, con);
+        }
+        return eVO;
+    }// selectEmpInfo
+
     /**
      * 모든 검색조건이 선택되지 않은 상태에서 모든 사원의 정보를 JTable에 출력하는 method.
      *
