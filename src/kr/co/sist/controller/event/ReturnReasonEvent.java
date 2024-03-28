@@ -1,10 +1,7 @@
 package kr.co.sist.controller.event;
 
 import kr.co.sist.dao.VacationStatusDAO;
-import kr.co.sist.view.admin.ConfirmDocs;
-import kr.co.sist.view.admin.ConfirmVacation;
-import kr.co.sist.view.admin.ReturnReason;
-import kr.co.sist.view.admin.VacationStatus;
+import kr.co.sist.view.admin.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -60,9 +57,16 @@ public class ReturnReasonEvent extends WindowAdapter implements ActionListener {
         vsDAO.returnVS(docNum);
         vsDAO.InsertReturnReason(docNum, rr.getJtaContent().getText());
 
-        rr.dispose();
-        cv.dispose();
-        new VacationStatus();
+        if (toVacStat) {
+            rr.dispose();
+            cd.dispose();
+            new DocsManagement();
+        } else {
+            rr.dispose();
+            cv.dispose();
+            new VacationStatus();
+        }
+
     }
 
     @Override
