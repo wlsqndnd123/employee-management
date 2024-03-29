@@ -70,10 +70,7 @@ public class UserMenu extends JFrame {
     }
 
     /**
-     * Desc : 휴가 날짜 색칠<br>
-     * ********************************<br>
-     * 휴가날이 아닌데도 색칠되는 이유는?<br>
-     * ********************************
+     * Desc : 휴가 날짜 색칠
      */
     public void paintVacation() {
 

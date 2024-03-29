@@ -52,11 +52,16 @@ public class RequestVacationEvent extends WindowAdapter implements ActionListene
     public void addVacation() throws SQLException,NullPointerException {
         int empNo = Integer.parseInt(LoginEvent.getEmpno());
 
+        if(requestVacation.getVacStartDate().getDate() == null || requestVacation.getVacEndDate().getDate() == null){
+            JOptionPane.showMessageDialog(null, "시작 날짜와 끝 날짜\n상세내역을 모두 입력하세요.");
+            return;
+        }
+
         Date startDate = Date.valueOf(requestVacation.getStartDate());
         Date endDate = Date.valueOf(requestVacation.getEndDate());
 
         String vacationLog = requestVacation.getVacContents().getText();
-        if (startDate == null || endDate == null || vacationLog.isBlank()) {
+        if (requestVacation.getVacStartDate().getDate() == null || requestVacation.getVacEndDate().getDate() == null || vacationLog.isBlank()) {
             JOptionPane.showMessageDialog(null, "시작 날짜와 끝 날짜\n상세내역을 모두 입력하세요.");
         }
         VacationVO vVO =
