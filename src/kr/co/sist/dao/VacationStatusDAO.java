@@ -203,27 +203,25 @@ public class VacationStatusDAO {
     }
     
     
-//    public void UpdateUsedcount(int empNum, int usedCount) throws SQLException {
-//    	 Connection con = null;
-//         PreparedStatement pstmt = null;
-//         try {
-//             con = DbConnection.getCon();
-//             String approve = "update vacation_count set use_count = ? 	where emp_no = ?";
-//
-//             pstmt = con.prepareStatement(approve);
-//             pstmt.setInt(1, usedCount);
-//             pstmt.setInt(2, empNum);
-//
-//             pstmt.executeUpdate();
-//
-//         } finally {
-//             DbConnection.dbClose(null, pstmt, con);
-//
-//         }
-//
-//       
-//
-//     }
+  public void UpdateUsedcount(int empNum, int usedCount) throws SQLException {
+    	 Connection con = null;
+        PreparedStatement pstmt = null;
+       try {
+            con = DbConnection.getCon();
+            String approve = "update vacation_count set use_count = ? 	where emp_no = ?";
+
+            pstmt = con.prepareStatement(approve);
+            pstmt.setInt(1, usedCount);
+            pstmt.setInt(2, empNum);
+
+             pstmt.executeUpdate();
+
+         } finally {
+             DbConnection.dbClose(null, pstmt, con);
+
+         }
+
+     }
     
     
     

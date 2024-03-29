@@ -1,7 +1,6 @@
 package kr.co.sist.dao;
 
 import kr.co.sist.util.DbConnection;
-import kr.co.sist.vo.DocumentVO;
 import kr.co.sist.vo.VacationVO;
 
 import java.sql.Connection;
