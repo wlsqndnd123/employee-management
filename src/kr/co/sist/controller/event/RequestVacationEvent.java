@@ -51,17 +51,19 @@ public class RequestVacationEvent extends WindowAdapter implements ActionListene
 
     public void addVacation() throws SQLException,NullPointerException {
         int empNo = Integer.parseInt(LoginEvent.getEmpno());
-        java.sql.Date sqlsDate = new Date(requestVacation.getVacStartDate().getDate().getTime());
-        java.sql.Date sqleDate = new Date(requestVacation.getVacEndDate().getDate().getTime());
+
+        Date startDate = Date.valueOf(requestVacation.getStartDate());
+        Date endDate = Date.valueOf(requestVacation.getEndDate());
+
         String vacationLog = requestVacation.getVacContents().getText();
-        if (sqlsDate == null || sqleDate == null || vacationLog.isBlank()) {
+        if (startDate == null || endDate == null || vacationLog.isBlank()) {
             JOptionPane.showMessageDialog(null, "시작 날짜와 끝 날짜\n상세내역을 모두 입력하세요.");
         }
         VacationVO vVO =
-                new VacationVO(empNo, vacationLog, sqlsDate, sqleDate);
+                new VacationVO(empNo, vacationLog, startDate, endDate);
         int docNo = RequestVacationDAO.getInstance().searchMaxDocNum();
         RequestVacationDAO.getInstance().insertBusinessLog(docNo, vVO);
-        requestVacation.dispose();
+        closeFrame();
         new UserMenu();
     }
 
