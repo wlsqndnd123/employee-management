@@ -57,6 +57,7 @@ public class UpdateEmployeeInformationEvent extends WindowAdapter implements Act
     	String dept = upEmpInfo.getCbDept().getSelectedItem().toString();
         String position = upEmpInfo.getCbPosition().getSelectedItem().toString();
         String job = upEmpInfo.getInputJtJob().getText().trim();
+        
         if((job.isEmpty()||dept.isEmpty()||position.isEmpty())){
         	JOptionPane.showMessageDialog(upEmpInfo, "모든 칸이 입력되어야 합니다.");
         	return;

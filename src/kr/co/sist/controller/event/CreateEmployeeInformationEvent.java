@@ -48,7 +48,7 @@ public class CreateEmployeeInformationEvent extends WindowAdapter implements Act
         String position = ceiv.getCbPosition().getSelectedItem().toString();
         String tel = ceiv.getTfTel().getText().trim();
 
-        if (tel.length() > 4) {
+        if (tel.length() != 4) {
             JOptionPane.showMessageDialog(null, "내선번호는 4자리 입니다.");
             return;
         }
