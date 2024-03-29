@@ -24,6 +24,8 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
     private ConfirmVacation cv;
     private int assign_count;
     private int use_count;
+    private Date startDate;
+    private Date endDate;
     
     
     
@@ -51,7 +53,10 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
             if (result != JOptionPane.YES_OPTION) {
                 return;
             }
-            ApproveVacation(Integer.parseInt(cv.getJtfDocNum().getText()));
+            int count = ApproveVacation(Integer.parseInt(cv.getJtfDocNum().getText()));
+            if(count == 1) {
+            	return;
+            }
             cv.dispose();
             new VacationStatus();
         }
@@ -63,31 +68,38 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
     }
 
 
-    public void ApproveVacation(int docNum) {
+    public int ApproveVacation(int docNum) {
         VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
+        long useDateMillis = endDate.getTime() - startDate.getTime();
+   	 	long useDate = useDateMillis / (1000 * 60 * 60 * 24);
+   	 	int usedCount = (int)(useDate + use_count);
+   	 	int count = 0;
+   	 	if(usedCount > assign_count) {
+   	 		JOptionPane.showMessageDialog(cv, "남은 휴가일수가 부족합니다.");
+   	 		count = 1;
+   	 	}else {
         try {
             vsDAO.approveVS(docNum);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        UpdateVacationCount(usedCount);
+        
+   	 	}
+        return count;
     }
     
     
-//    public void UpdateVacationCount() {
-//    	VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
-//    	 long useDateMillis = endDate.getTime() - startDate.getTime();
-//    	 long useDate = useDateMillis / (1000 * 60 * 60 * 24);
-//    	 int usedCount = (int)(useDate + use_count);
-//    	 int empNum = Integer.parseInt(cv.getJtfEmpNum().getText());
-//    	 try {
-//    	 vsDAO.UpdateUsedcount(empNum, usedCount);
-//    	 } catch (SQLException e) {
-//             e.printStackTrace();
-//         }
-//    	
-//    	
-//    }
+    public void UpdateVacationCount(int usedCount) {
+    	VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
+    	 int empNum = Integer.parseInt(cv.getJtfEmpNum().getText());
+    	 try {
+    	 vsDAO.UpdateUsedcount(empNum, usedCount);
+    	 } catch (SQLException e) {
+             e.printStackTrace();
+         }
+
+    }
     
    
     public int VDocStatus(String item) throws SQLException {
@@ -107,6 +119,9 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
                 
                 assign_count = vVO.getAssignCount();
                 use_count = vVO.getUseCount();
+                startDate = vVO.getStartDate();
+                endDate = vVO.getEndDate();
+                
               
                 
                 check_code = vVO.getCode2();
