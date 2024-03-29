@@ -143,4 +143,12 @@ public class RequestVacation extends JFrame {
     public JTextArea getVacContents() {
         return vacContents;
     }
+
+    public JDateChooser getVacStartDate() {
+        return vacStartDate;
+    }
+
+    public JDateChooser getVacEndDate() {
+        return vacEndDate;
+    }
 }
