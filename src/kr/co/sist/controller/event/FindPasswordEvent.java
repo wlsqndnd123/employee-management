@@ -36,6 +36,11 @@ public class FindPasswordEvent extends WindowAdapter implements ActionListener {
         empno = dialog.getEmpNoField().getText();
         String phoneNumber = dialog.getPhoneNumber().getText();
 
+        if (empno.isEmpty() || phoneNumber.isEmpty()) {
+            JOptionPane.showMessageDialog(dialog, "아이디와 전화번호를 모두 입력해주세요.");
+            return;
+        }
+
         FindPasswordDAO fpDAO = FindPasswordDAO.getInstance();
 
         String savedPn = fpDAO.getPassword(empno).getTel();
