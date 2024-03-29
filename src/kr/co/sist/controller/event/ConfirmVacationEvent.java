@@ -71,7 +71,7 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
     public int ApproveVacation(int docNum) {
         VacationStatusDAO vsDAO = VacationStatusDAO.getInstance();
         long useDateMillis = endDate.getTime() - startDate.getTime();
-   	 	long useDate = useDateMillis / (1000 * 60 * 60 * 24);
+   	 	long useDate = useDateMillis / (1000 * 60 * 60 * 24)+1;
    	 	int usedCount = (int)(useDate + use_count);
    	 	int count = 0;
    	 	if(usedCount > assign_count) {
