@@ -10,7 +10,6 @@ import kr.co.sist.vo.VacationVO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.sql.Date;
 import java.util.Calendar;
@@ -54,7 +53,14 @@ public class UserMenu extends JFrame {
     public void createWorkCalendar() {
         workCalendar = new JCalendar();
 
-        workCalendar.addPropertyChangeListener("calendar", e -> paintVacation());
+        workCalendar.addPropertyChangeListener("calendar", e -> {
+            Calendar selectedCalendar = (Calendar) e.getNewValue();
+            Calendar currentCalendar = Calendar.getInstance();
+
+            if (selectedCalendar.get(Calendar.MONTH) == currentCalendar.get(Calendar.MONTH)) {
+                paintVacation();
+            }
+        });
 
         workCalendar.setBorder(new TitledBorder("근무일정"));
         workCalendar.setBounds(20, 150, 290, 350);
@@ -70,7 +76,9 @@ public class UserMenu extends JFrame {
      * ********************************
      */
     public void paintVacation() {
+
         List<VacationVO> list = RunUserMenuDAO.loadMonthlyWorkSchedule();
+        Calendar currentCalendar = Calendar.getInstance();
 
         for (VacationVO vacation : list) {
             Date startDate = vacation.getStartDate();
@@ -78,7 +86,6 @@ public class UserMenu extends JFrame {
 
             Calendar startCalendar = Calendar.getInstance();
             startCalendar.setTime(startDate);
-
             Calendar endCalendar = Calendar.getInstance();
             endCalendar.setTime(endDate);
 
@@ -95,17 +102,19 @@ public class UserMenu extends JFrame {
                     break;
                 }
             }
+
         }
+
     }
 
     /**
      * Desc : 다른 view로 연결되는 버튼들 생성
      */
     public void createGoToButton() {
-        closeJbtn = JFrameComponent.createButton(getContentPane(),"종료",500, 10, 100, 40);
-        docsListJbtn = JFrameComponent.createButton(getContentPane(),"문서 리스트",100, 70, 100, 40);
-        vacationJbtn = JFrameComponent.createButton(getContentPane(),"휴가 신청",270, 70, 100, 40);
-        informationJbtn = JFrameComponent.createButton(getContentPane(),"정보 변경",440, 70, 100, 40);
+        closeJbtn = JFrameComponent.createButton(getContentPane(), "종료", 500, 10, 100, 40);
+        docsListJbtn = JFrameComponent.createButton(getContentPane(), "문서 리스트", 100, 70, 100, 40);
+        vacationJbtn = JFrameComponent.createButton(getContentPane(), "휴가 신청", 270, 70, 100, 40);
+        informationJbtn = JFrameComponent.createButton(getContentPane(), "정보 변경", 440, 70, 100, 40);
     }
 
     /**
