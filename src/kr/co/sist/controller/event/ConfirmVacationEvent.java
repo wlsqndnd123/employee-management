@@ -75,7 +75,7 @@ public class ConfirmVacationEvent extends WindowAdapter implements ActionListene
    	 	int usedCount = (int)(useDate + use_count);
    	 	int count = 0;
    	 	if(usedCount > assign_count) {
-   	 		JOptionPane.showMessageDialog(cv, "남은 휴가일수가 부족합니다.");
+   	 		JOptionPane.showMessageDialog(cv, "남은 휴가일수가 부족합니다. 반려 하십시오");
    	 		count = 1;
    	 	}else {
         try {

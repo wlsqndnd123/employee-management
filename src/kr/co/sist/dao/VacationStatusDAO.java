@@ -30,7 +30,7 @@ public class VacationStatusDAO {
 
     public List<VacationVO> selectVOinfo() throws SQLException {
         List<VacationVO> list = new ArrayList<VacationVO>();
-        vVO = null;
+        vVO = null ;
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
